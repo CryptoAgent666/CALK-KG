@@ -13,6 +13,7 @@ interface CalculatorGridProps {
 
 const calculatorRoutes: Record<string, string> = {
   'currency-exchange': '/calculator/currency-exchange',
+  'money-transfer': '/calculator/money-transfer',
   'salary-calculator': '/calculator/salary',
   'single-tax-calculator': '/calculator/single-tax',
   'property-tax-calculator': '/calculator/property-tax',

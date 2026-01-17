@@ -43,6 +43,20 @@ export const calculators: CalculatorType[] = [
     usage: '25,840'
   },
   {
+    id: 'money-transfer',
+    title: 'Калькулятор денежных переводов',
+    titleKy: 'Акча которуу калькулятору',
+    description: 'Сравнение систем переводов: Koronapay, Golden Crown, Contact, Unistream. Выберите выгодный вариант',
+    descriptionKy: 'Которуу системаларын салыштыруу: Koronapay, Golden Crown, Contact, Unistream. Пайдалуу вариантты тандаңыз',
+    category: 'finance',
+    categoryName: 'Финансы',
+    categoryNameKy: 'Каржы',
+    icon: Banknote,
+    bgColor: 'bg-orange-50',
+    iconColor: 'text-orange-600',
+    usage: '18,540'
+  },
+  {
     id: 'loan-calculator',
     title: 'Кредитный калькулятор',
     titleKy: 'Кредит калькулятору',
