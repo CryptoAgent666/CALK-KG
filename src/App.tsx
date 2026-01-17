@@ -21,6 +21,7 @@ const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'));
 const TermsOfServicePage = lazy(() => import('./pages/TermsOfServicePage'));
 const CurrencyExchangePage = lazy(() => import('./pages/CurrencyExchangePage'));
 const MoneyTransferCalculatorPage = lazy(() => import('./pages/MoneyTransferCalculatorPage'));
+const MobileTariffsCalculatorPage = lazy(() => import('./pages/MobileTariffsCalculatorPage'));
 const SalaryCalculatorPage = lazy(() => import('./pages/SalaryCalculatorPage'));
 const SingleTaxCalculatorPage = lazy(() => import('./pages/SingleTaxCalculatorPage'));
 const PropertyTaxCalculatorPage = lazy(() => import('./pages/PropertyTaxCalculatorPage'));
@@ -183,6 +184,7 @@ function App() {
   const calculatorRoutes = [
     { path: 'calculator/currency-exchange', element: <CurrencyExchangePage /> },
     { path: 'calculator/money-transfer', element: <MoneyTransferCalculatorPage /> },
+    { path: 'calculator/mobile-tariffs', element: <MobileTariffsCalculatorPage /> },
     { path: 'calculator/salary', element: <SalaryCalculatorPage /> },
     { path: 'calculator/single-tax', element: <SingleTaxCalculatorPage /> },
     { path: 'calculator/property-tax', element: <PropertyTaxCalculatorPage /> },

@@ -22,7 +22,8 @@ import {
   Flame,
   Users,
   MapPin,
-  ArrowLeftRight
+  ArrowLeftRight,
+  Smartphone
 } from 'lucide-react';
 import { Calculator as CalculatorType } from '../types/calculator';
 
@@ -55,6 +56,20 @@ export const calculators: CalculatorType[] = [
     bgColor: 'bg-orange-50',
     iconColor: 'text-orange-600',
     usage: '18,540'
+  },
+  {
+    id: 'mobile-tariffs',
+    title: 'Калькулятор мобильных тарифов',
+    titleKy: 'Мобилдик тарифтер калькулятору',
+    description: 'Сравнение тарифов MegaCom, Beeline, O!. Подберите оптимальный тариф по использованию',
+    descriptionKy: 'MegaCom, Beeline, O! тарифтерин салыштыруу. Колдонууга жараша оптималдуу тарифти тандаңыз',
+    category: 'finance',
+    categoryName: 'Финансы',
+    categoryNameKy: 'Каржы',
+    icon: Smartphone,
+    bgColor: 'bg-green-50',
+    iconColor: 'text-green-600',
+    usage: '16,320'
   },
   {
     id: 'loan-calculator',
