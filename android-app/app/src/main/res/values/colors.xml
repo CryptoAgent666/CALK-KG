@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand colors matching calk.kg -->
+    <color name="colorPrimary">#DC2626</color>
+    <color name="colorPrimaryDark">#B91C1C</color>
+    <color name="colorAccent">#EF4444</color>
+    
+    <!-- UI colors -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="background">#F9FAFB</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="textPrimary">#111827</color>
+    <color name="textSecondary">#6B7280</color>
+    
+    <!-- Status bar -->
+    <color name="statusBar">#B91C1C</color>
+    <color name="navigationBar">#FFFFFF</color>
+</resources>
+
+
+
+

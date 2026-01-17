@@ -1,0 +1,32 @@
+# Robots.txt для Calk.KG - Онлайн калькуляторы Кыргызстана
+# Разрешаем всем поисковым ботам индексировать сайт
+
+User-agent: *
+Allow: /
+
+# Указываем расположение карты сайта
+Sitemap: https://calk.kg/sitemap.xml
+
+# Дополнительная информация для ботов
+Crawl-delay: 1
+
+# Важные страницы для приоритетной индексации
+# Главная страница
+Allow: /
+
+# Популярные калькуляторы
+Allow: /calculator/salary
+Allow: /calculator/loan
+Allow: /calculator/mortgage
+Allow: /calculator/customs
+Allow: /calculator/electricity
+Allow: /calculator/single-tax
+
+# Все остальные калькуляторы
+Allow: /calculator/*
+
+# Информационные страницы
+Allow: /about
+Allow: /contact
+Allow: /privacy-policy
+Allow: /terms-of-service

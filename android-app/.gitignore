@@ -1,0 +1,27 @@
+# Android Studio / IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+.gradle/
+build/
+local.properties
+
+# Keystore (keep safe, never commit!)
+keystore/*.keystore
+keystore/*.jks
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Release files
+*.apk
+*.aab
+*.ap_
+
+# Logs
+*.log
+
+
+
+

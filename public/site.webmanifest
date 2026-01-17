@@ -1,0 +1,25 @@
+{
+  "name": "Calk.KG - Калькуляторы Кыргызстана",
+  "short_name": "Calk.KG",
+  "description": "Бесплатные онлайн калькуляторы для жителей Кыргызстана",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#DC2626",
+  "icons": [
+    {
+      "src": "/calculator-logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["finance", "utilities", "productivity"],
+  "lang": "ru",
+  "dir": "ltr"
+}
