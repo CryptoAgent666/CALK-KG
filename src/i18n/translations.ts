@@ -1834,12 +1834,14 @@ export const translations = {
     patent_where_district_office: 'Районные отделения ГНС КР',
     patent_where_service_center: 'Центры обслуживания налогоплательщиков',
     patent_where_online: 'Онлайн через портал ГНС (cabinet.salyk.kg)',
-    patent_important_notice: 'Важная информация:',
-    patent_calculation_preliminary: 'Расчет является предварительным.',
-    patent_rates_based_on: 'Ставки патентов основаны на данных, утвержденных местными кенешами, и актуальны на',
-    patent_official_info: 'Для получения официальной информации о стоимости патента и порядке его приобретения обратитесь в',
-    patent_district_gns: 'районное отделение Государственной налоговой службы КР',
-    patent_by_location: 'по месту ведения деятельности.',
+    patent_important_notice: '⚠️ Важная информация для предпринимателей:',
+    patent_calculation_preliminary: 'Расчет является ПРЕДВАРИТЕЛЬНЫМ и носит информационный характер.',
+    patent_rates_based_on: 'Ставки патентов устанавливаются местными кенешами и могут отличаться от указанных. Данные актуальны на',
+    patent_official_info: 'Перед оплатой ОБЯЗАТЕЛЬНО уточните точную стоимость патента в',
+    patent_district_gns: 'районной налоговой инспекции ГНС КР',
+    patent_by_location: 'по месту ведения вашей деятельности или на официальном сайте salyk.kg',
+    patent_rates_warning: 'ВНИМАНИЕ! Тарифы могут измениться без предварительного уведомления',
+    patent_check_local_tax: 'Всегда проверяйте актуальные ставки в вашей налоговой инспекции перед получением патента',
 
     // Patent - FAQ & Guide
     patent_faq_title: 'Часто задаваемые вопросы',
@@ -1883,6 +1885,10 @@ export const translations = {
     activity_computer_repair_1: 'Ремонт компьютерной техники (1 рабочее место)',
     activity_auto_repair_1: 'Техническое обслуживание автомобилей (1 пост)',
     activity_catering_small: 'Общественное питание (до 50 посадочных мест)',
+    activity_cargo_transportation: 'Грузоперевозки (1 транспортное средство)',
+    activity_tutoring: 'Репетиторство и обучение (1 специалист)',
+    activity_apartment_rental: 'Сдача жилья в аренду (1 объект)',
+    activity_electronics_repair: 'Ремонт бытовой электроники (1 рабочее место)',
 
     // Electricity Calculator  
     electricity_calc_title: 'Калькулятор стоимости электроэнергии',
@@ -6404,12 +6410,14 @@ export const translations = {
     patent_where_district_office: 'КРдын ММКнын район бөлүмдөрү',
     patent_where_service_center: 'Салык төлөөчүлөргө тейлөө борборлору',
     patent_where_online: 'ММКнын порталы аркылуу онлайн (cabinet.salyk.kg)',
-    patent_important_notice: 'Маанилүү маалымат:',
-    patent_calculation_preliminary: 'Эсептөө алдын ала болуп саналат.',
-    patent_rates_based_on: 'Патент ставкалары жергиликтүү кеңештер тарабынан бекитилген маалыматтарга негизделет жана актуалдуу',
-    patent_official_info: 'Патенттин наркы жана аны сатып алуу тартиби боюнча расмий маалымат алуу үчүн',
-    patent_district_gns: 'Кыргыз Республикасынын Мамлекеттик салык кызматынын район бөлүмүнө',
-    patent_by_location: 'ишмердүүлүк жүргүзүлгөн жер боюнча кайрылыңыз.',
+    patent_important_notice: '⚠️ Ишкерлер үчүн маанилүү маалымат:',
+    patent_calculation_preliminary: 'Эсептөө АЛДЫН АЛА жана маалыматтык мүнөзгө ээ.',
+    patent_rates_based_on: 'Патент ставкалары жергиликтүү кеңештер тарабынан белгиленет жана көрсөтүлгөндөн айырмаланышы мүмкүн. Маалыматтар актуалдуу',
+    patent_official_info: 'Төлөмдөн мурун патенттин так наркын',
+    patent_district_gns: 'ММКнын район салык инспекциясынан',
+    patent_by_location: 'ишмердүүлүк жүргүзүлгөн жер боюнча же salyk.kg расмий сайтынан МИЛДЕТТҮҮ түрдө тактаңыз',
+    patent_rates_warning: 'КӨҢҮЛ БУРУҢУЗ! Тарифтер алдын ала эскертүүсүз өзгөрүшү мүмкүн',
+    patent_check_local_tax: 'Патент алуудан мурун дайыма салык инспекциянызда актуалдуу ставкаларды текшериңиз',
 
     // Patent - FAQ & Guide
     patent_faq_title: 'Көп берилүүчү суроолор',
@@ -6453,6 +6461,10 @@ export const translations = {
     activity_computer_repair_1: 'Компьютер техникасын оңдоо (1 иш орду)',
     activity_auto_repair_1: 'Автоунааларды техникалык тейлөө (1 пост)',
     activity_catering_small: 'Коомдук тамактануу (50ге чейин олтургуч орундар)',
+    activity_cargo_transportation: 'Жүк ташуулары (1 транспорт каражаты)',
+    activity_tutoring: 'Репетитордук жана окутуу (1 адис)',
+    activity_apartment_rental: 'Турак жайды ижарага берүү (1 объект)',
+    activity_electronics_repair: 'Үй электроникасын оңдоо (1 иш орду)',
 
     // Electricity Calculator
     electricity_calc_title: 'Электр энергиясынын баасын эсептөө калькулятору',

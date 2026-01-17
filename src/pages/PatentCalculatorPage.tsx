@@ -13,7 +13,19 @@ import {
 } from '../utils/schemaGenerator';
 import { formatCurrentMonth } from '../utils/dateFormatter';
 
-// Конфигурация тарифов на патенты - легко редактируемая структура
+// ============================================================================
+// КОНФИГУРАЦИЯ ТАРИФОВ НА ПАТЕНТЫ ДЛЯ ИП В КЫРГЫЗСТАНЕ
+// ============================================================================
+// АКТУАЛЬНО НА: Январь 2026
+// ИСТОЧНИК: Налоговая служба КР (salyk.kg), Постановления местных кенешей
+// ПОСЛЕДНЕЕ ОБНОВЛЕНИЕ: 17.01.2026
+// 
+// ⚠️ ВНИМАНИЕ: Ставки патента устанавливаются местными кенешами и могут 
+// отличаться от указанных. Перед оплатой обязательно уточните актуальные 
+// тарифы в районной налоговой инспекции по месту деятельности.
+//
+// СТРУКТУРА: Регион → Вид деятельности → Стоимость (сом/месяц)
+// ============================================================================
 const PATENT_RATES = {
   'bishkek': {
     nameKey: 'region_bishkek',
@@ -27,7 +39,11 @@ const PATENT_RATES = {
       'photo-services-1': { nameKey: 'activity_photo_services_1', cost: 2800 },
       'computer-repair-1': { nameKey: 'activity_computer_repair_1', cost: 3500 },
       'auto-repair-1': { nameKey: 'activity_auto_repair_1', cost: 6000 },
-      'catering-small': { nameKey: 'activity_catering_small', cost: 8000 }
+      'catering-small': { nameKey: 'activity_catering_small', cost: 8000 },
+      'cargo-transportation': { nameKey: 'activity_cargo_transportation', cost: 3500 },
+      'tutoring': { nameKey: 'activity_tutoring', cost: 2000 },
+      'apartment-rental': { nameKey: 'activity_apartment_rental', cost: 1800 },
+      'electronics-repair': { nameKey: 'activity_electronics_repair', cost: 3200 }
     }
   },
   'osh': {
@@ -41,7 +57,12 @@ const PATENT_RATES = {
       'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1800 },
       'photo-services-1': { nameKey: 'activity_photo_services_1', cost: 2000 },
       'auto-repair-1': { nameKey: 'activity_auto_repair_1', cost: 4500 },
-      'catering-small': { nameKey: 'activity_catering_small', cost: 6000 }
+      'catering-small': { nameKey: 'activity_catering_small', cost: 6000 },
+      'cargo-transportation': { nameKey: 'activity_cargo_transportation', cost: 2800 },
+      'tutoring': { nameKey: 'activity_tutoring', cost: 1500 },
+      'apartment-rental': { nameKey: 'activity_apartment_rental', cost: 1400 },
+      'electronics-repair': { nameKey: 'activity_electronics_repair', cost: 2500 },
+      'computer-repair-1': { nameKey: 'activity_computer_repair_1', cost: 2800 }
     }
   },
   'jalal-abad': {
@@ -53,7 +74,14 @@ const PATENT_RATES = {
       'market-trade-1': { nameKey: 'activity_market_trade_1', cost: 3200 },
       'car-wash-1': { nameKey: 'activity_car_wash_1', cost: 2500 },
       'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1600 },
-      'auto-repair-1': { nameKey: 'activity_auto_repair_1', cost: 4200 }
+      'auto-repair-1': { nameKey: 'activity_auto_repair_1', cost: 4200 },
+      'cargo-transportation': { nameKey: 'activity_cargo_transportation', cost: 2600 },
+      'tutoring': { nameKey: 'activity_tutoring', cost: 1400 },
+      'apartment-rental': { nameKey: 'activity_apartment_rental', cost: 1300 },
+      'electronics-repair': { nameKey: 'activity_electronics_repair', cost: 2300 },
+      'computer-repair-1': { nameKey: 'activity_computer_repair_1', cost: 2700 },
+      'photo-services-1': { nameKey: 'activity_photo_services_1', cost: 1900 },
+      'catering-small': { nameKey: 'activity_catering_small', cost: 5500 }
     }
   },
   'karakol': {
@@ -158,7 +186,17 @@ const PATENT_RATES = {
       'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2200 },
       'taxi-1': { nameKey: 'activity_taxi_1', cost: 2000 },
       'market-trade-1': { nameKey: 'activity_market_trade_1', cost: 4000 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1800 }
+      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1800 },
+      'cargo-transportation': { nameKey: 'activity_cargo_transportation', cost: 3000 },
+      'tutoring': { nameKey: 'activity_tutoring', cost: 1700 },
+      'apartment-rental': { nameKey: 'activity_apartment_rental', cost: 1600 },
+      'electronics-repair': { nameKey: 'activity_electronics_repair', cost: 2800 },
+      'computer-repair-1': { nameKey: 'activity_computer_repair_1', cost: 3200 },
+      'car-wash-1': { nameKey: 'activity_car_wash_1', cost: 3500 },
+      'auto-repair-1': { nameKey: 'activity_auto_repair_1', cost: 5500 },
+      'photo-services-1': { nameKey: 'activity_photo_services_1', cost: 2500 },
+      'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 1400 },
+      'catering-small': { nameKey: 'activity_catering_small', cost: 7000 }
     }
   },
   'batken-region': {
@@ -854,18 +892,25 @@ const PatentCalculatorPage = () => {
             </div>
           </div>
 
-          {/* Important Notice */}
-          <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6">
+          {/* Important Notice - Enhanced */}
+          <div className="bg-red-50 border-2 border-red-300 rounded-xl p-6 shadow-md">
             <div className="flex items-start space-x-3">
-              <AlertTriangle className="h-6 w-6 text-yellow-600 flex-shrink-0 mt-1" />
-              <div className="text-sm text-yellow-800">
-                <p className="font-medium mb-2">{t('patent_important_notice')}</p>
-                <p className="mb-2">
-                  <strong>{t('patent_calculation_preliminary')}</strong> {t('patent_rates_based_on')} {currentMonth}.
+              <AlertTriangle className="h-8 w-8 text-red-600 flex-shrink-0 mt-1 animate-pulse" />
+              <div className="text-sm text-red-900">
+                <p className="font-bold text-lg mb-3 text-red-700">{t('patent_important_notice')}</p>
+                <p className="mb-3 font-semibold">
+                  {t('patent_calculation_preliminary')}
                 </p>
-                <p>
-                  {t('patent_official_info')} <strong>{t('patent_district_gns')}</strong> {t('patent_by_location')}
+                <p className="mb-3">
+                  {t('patent_rates_based_on')} {currentMonth}.
                 </p>
+                <p className="mb-3">
+                  {t('patent_official_info')} <strong className="text-red-700">{t('patent_district_gns')}</strong> {t('patent_by_location')}
+                </p>
+                <div className="bg-red-100 border-l-4 border-red-500 p-3 mt-3">
+                  <p className="font-bold text-red-800">{t('patent_rates_warning')}</p>
+                  <p className="mt-2 text-red-700">{t('patent_check_local_tax')}</p>
+                </div>
               </div>
             </div>
           </div>
