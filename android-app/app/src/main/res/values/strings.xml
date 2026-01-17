@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Calk.KG</string>
+    <string name="app_name_full">Calk.KG - Калькуляторы</string>
+    <string name="app_tagline">Онлайн калькуляторы</string>
+    
+    <!-- Asset statements for Digital Asset Links verification -->
+    <string name="asset_statements">
+        [{
+            \"relation\": [\"delegate_permission/common.handle_all_urls\"],
+            \"target\": {
+                \"namespace\": \"web\",
+                \"site\": \"https://calk.kg\"
+            }
+        }]
+    </string>
+    
+    <!-- Error messages -->
+    <string name="error_title">Нет подключения</string>
+    <string name="error_message">Проверьте подключение к интернету и попробуйте снова</string>
+    <string name="error_no_internet">Нет подключения к интернету</string>
+    <string name="error_loading">Ошибка загрузки</string>
+    <string name="retry">Повторить</string>
+    <string name="retry_button">Попробовать снова</string>
+</resources>
+
+

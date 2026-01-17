@@ -1,0 +1,20 @@
+<?php
+// Handler for /.well-known/assetlinks.json
+// Place this file in the root and add redirect in .htaccess
+
+header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
+header('Cache-Control: public, max-age=86400');
+
+echo '[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "kg.calk.app",
+      "sha256_cert_fingerprints": [
+        "3E:B1:1D:54:97:D2:E1:3A:41:E7:D6:94:73:C1:E1:17:59:78:A5:B6:89:46:49:C4:DE:06:5A:6E:32:6C:89:21"
+      ]
+    }
+  }
+]';

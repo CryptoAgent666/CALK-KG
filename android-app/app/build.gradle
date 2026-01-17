@@ -1,0 +1,68 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'kg.calk.app'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "kg.calk.app"
+        minSdk 21
+        targetSdk 35
+        versionCode 8
+        versionName "1.0.7"
+
+        // TWA Configuration
+        manifestPlaceholders = [
+            hostName: "calk.kg",
+            defaultUrl: "https://calk.kg",
+            launcherName: "Calk.KG",
+            // SHA256 fingerprint of your signing key (update after generating keystore)
+            assetStatements: '[{ "relation": ["delegate_permission/common.handle_all_urls"], "target": { "namespace": "web", "site": "https://calk.kg" } }]'
+        ]
+    }
+
+    signingConfigs {
+        release {
+            storeFile file('../keystore/calk-kg-release.keystore')
+            storePassword 'calkkg2025'
+            keyAlias 'calk-kg'
+            keyPassword 'calkkg2025'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            applicationIdSuffix ".debug"
+            debuggable true
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation 'androidx.browser:browser:1.7.0'
+    implementation 'androidx.core:core:1.12.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    
+    // Exclude conflicting Kotlin stdlib versions
+    configurations.all {
+        resolutionStrategy {
+            force 'org.jetbrains.kotlin:kotlin-stdlib:1.9.0'
+            force 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.0'
+            force 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.0'
+        }
+    }
+}
+
