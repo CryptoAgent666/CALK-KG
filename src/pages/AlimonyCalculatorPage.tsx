@@ -5,6 +5,7 @@ import { Calculator, ArrowLeft, Info, Home, Printer, Users, Heart, Scale, AlertT
 import ActionButtons from '../components/ActionButtons';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
+import FAQSchema from '../components/FAQSchema';
 import { useLanguage } from '../contexts/LanguageContext';
 import {
   generateCalculatorSchema,
@@ -12,19 +13,21 @@ import {
   generateSoftwareApplicationSchema
 } from '../utils/schemaGenerator';
 import { formatCurrentMonth } from '../utils/dateFormatter';
+import { AlimonyCalculatorArticle } from '../components/AlimonyCalculatorArticle';
 
 // Конфигурация средних зарплат по регионам КР
+// Источник: Нацстатком КР, данные за январь 2026 г. (stat.gov.kg)
 const REGIONAL_AVERAGE_SALARY = {
-  'bishkek': { nameKey: 'city_bishkek', salary: 32500 },
-  'osh': { nameKey: 'city_osh', salary: 25800 },
-  'osh-region': { nameKey: 'region_osh', salary: 24200 },
-  'jalal-abad': { nameKey: 'city_jalal_abad', salary: 26100 },
-  'jalal-abad-region': { nameKey: 'region_jalal_abad', salary: 23800 },
-  'issyk-kul': { nameKey: 'region_issyk_kul', salary: 27300 },
-  'naryn': { nameKey: 'region_naryn', salary: 24800 },
-  'talas': { nameKey: 'region_talas', salary: 25200 },
-  'chui': { nameKey: 'region_chui', salary: 28900 },
-  'batken': { nameKey: 'region_batken', salary: 23100 }
+  'bishkek': { nameKey: 'city_bishkek', salary: 54600 },
+  'osh': { nameKey: 'city_osh', salary: 35200 },
+  'osh-region': { nameKey: 'region_osh', salary: 32800 },
+  'jalal-abad': { nameKey: 'city_jalal_abad', salary: 34500 },
+  'jalal-abad-region': { nameKey: 'region_jalal_abad', salary: 32100 },
+  'issyk-kul': { nameKey: 'region_issyk_kul', salary: 46300 },
+  'naryn': { nameKey: 'region_naryn', salary: 39900 },
+  'talas': { nameKey: 'region_talas', salary: 38700 },
+  'chui': { nameKey: 'region_chui', salary: 42500 },
+  'batken': { nameKey: 'region_batken', salary: 30800 }
 };
 
 // Процентные ставки алиментов по законодательству КР
@@ -67,7 +70,7 @@ const AlimonyCalculatorPage = () => {
       title: t('alimony_calc_title'),
       description: t('alimony_calc_subtitle'),
       calculatorName: t('alimony_calc_title'),
-      category: t('nav_other'),
+      category: t('nav_social'),
       language,
       inputProperties: ["childrenCount", "income", "calculationMethod"],
       outputProperties: ["alimonyAmount", "appliedRate"]
@@ -75,7 +78,7 @@ const AlimonyCalculatorPage = () => {
 
     const breadcrumbSchema = generateBreadcrumbSchema([
       { name: t('nav_home'), url: homeUrl },
-      { name: t('nav_other'), url: `${homeUrl}?category=other` },
+      { name: t('nav_social'), url: `${homeUrl}?category=social` },
       { name: t('alimony_calc_title'), url: currentUrl }
     ]);
 
@@ -225,6 +228,8 @@ const AlimonyCalculatorPage = () => {
         <meta name="twitter:image" content="https://calk.kg/og-images/alimony.png" />
         <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/alimony" : "https://calk.kg/calculator/alimony"} />
       </Helmet>
+      <HreflangTags path="/calculator/alimony" />
+      <FAQSchema translationPrefix="alimony" />
       {/* Schema.org микроразметка */}
       {generateSchemas().map((schema, index) => (
         <SchemaMarkup key={index} schema={schema} />
@@ -458,13 +463,13 @@ const AlimonyCalculatorPage = () => {
                     calculatorName={t('alimony_calc_title')}
                     resultText={`${t('alimony_calc_title')} - ${t('alimony_calculation_results')}:
 ${t('alimony_children_count_label')}: ${childrenCount}
-${t('alimony_calculation_base')}: ${formatCurrency(results.baseAmount)} сом
+${t('alimony_calculation_base')}: ${formatCurrency(results.baseAmount)} ${t('som')}
 ${t('alimony_rate_label')}: ${(results.appliedRate * 100)}%
 ${t('alimony_method_label')}: ${results.calculationMethod}
-${t('alimony_approximate_amount')}: ${formatCurrency(results.alimonyAmount)} сом в месяц
+${t('alimony_approximate_amount')}: ${formatCurrency(results.alimonyAmount)} ${t('som')} ${t('pension_per_month')}
 
 ${t('alimony_calculation_nature')}.
-Расчет выполнен на сайте Calk.KG`}
+${t('calculated_on_site')} Calk.KG`}
                   />
                 )}
               </div>
@@ -478,7 +483,7 @@ ${t('alimony_calculation_nature')}.
                       <span className="text-pink-100">{t('alimony_approximate_amount')}:</span>
                     </div>
                     <p className="text-5xl font-bold mb-2">
-                      {formatCurrency(results.alimonyAmount)} сом
+                      {formatCurrency(results.alimonyAmount)} {t('som')}
                     </p>
                     <p className="text-pink-100">
                       {t('alimony_per_month')} {childrenCount === 1 ? t('alimony_per_month_child_1') : t('alimony_per_month_children').replace('{count}', childrenCount.toString())}
@@ -499,7 +504,7 @@ ${t('alimony_calculation_nature')}.
                           </Tooltip>
                         </div>
                         <span className="text-xl font-semibold text-gray-900">
-                          {formatCurrency(results.baseAmount)} сом
+                          {formatCurrency(results.baseAmount)} {t('som')}
                         </span>
                       </div>
                       <div className="text-sm text-gray-500">
@@ -533,7 +538,7 @@ ${t('alimony_calculation_nature')}.
                         <span className="text-gray-700 font-medium">{t('alimony_formula')}:</span>
                       </div>
                       <div className="text-lg text-gray-900 font-mono bg-white p-4 rounded border">
-                        {formatCurrency(results.baseAmount)} × {(results.appliedRate * 100)}% = {formatCurrency(results.alimonyAmount)} сом
+                        {formatCurrency(results.baseAmount)} × {(results.appliedRate * 100)}% = {formatCurrency(results.alimonyAmount)} {t('som')}
                       </div>
                     </div>
                   </div>
@@ -644,10 +649,10 @@ ${t('alimony_calculation_nature')}.
                         {t(REGIONAL_AVERAGE_SALARY[selectedRegion].nameKey)} <span className="text-xs text-gray-500">{t('your_choice')}</span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
-                        {formatCurrency(REGIONAL_AVERAGE_SALARY[selectedRegion].salary)} сом
+                        {formatCurrency(REGIONAL_AVERAGE_SALARY[selectedRegion].salary)} {t('som')}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
-                        {formatCurrency(results.alimonyAmount)} сом
+                        {formatCurrency(results.alimonyAmount)} {t('som')}
                       </td>
                     </tr>
                     
@@ -666,10 +671,10 @@ ${t('alimony_calculation_nature')}.
                               {t(regionData.nameKey)}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                              {formatCurrency(regionData.salary)} сом
+                              {formatCurrency(regionData.salary)} {t('som')}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                              {formatCurrency(regionAlimony)} сом
+                              {formatCurrency(regionAlimony)} {t('som')}
                             </td>
                           </tr>
                         );
@@ -732,7 +737,7 @@ ${t('alimony_calculation_nature')}.
                     </div>
                     <div className="text-right">
                       <div className="text-pink-600 font-semibold">
-                        {formatCurrency(exampleResult.alimonyAmount)} сом
+                        {formatCurrency(exampleResult.alimonyAmount)} {t('som')}
                       </div>
                       <div className="text-xs text-gray-500">
                         {example.method === 'known-income'
@@ -832,7 +837,7 @@ ${t('alimony_calculation_nature')}.
                         {t(regionData.nameKey)}
                       </div>
                       <div className="text-lg font-bold text-gray-800">
-                        {formatCurrency(regionData.salary)} сом
+                        {formatCurrency(regionData.salary)} {t('som')}
                       </div>
                       <div className="text-xs text-gray-500 mt-1">
                         {t('alimony_avg_salary_per_month')}
@@ -852,7 +857,7 @@ ${t('alimony_calculation_nature')}.
       </div>
 
       {/* Print styles */}
-      <style jsx>{`
+      <style>{`
         @media print {
           .print\\:hidden {
             display: none !important;
@@ -900,6 +905,8 @@ ${t('alimony_calculation_nature')}.
           }
         }
       `}</style>
+
+      <AlimonyCalculatorArticle />
     </div>
   );
 };

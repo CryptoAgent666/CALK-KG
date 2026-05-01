@@ -5,6 +5,7 @@ import { Calculator, ArrowLeft, Info, Home, Printer, Flame, TrendingUp, Zap, Dro
 import ActionButtons from '../components/ActionButtons';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
+import FAQSchema from '../components/FAQSchema';
 import { useLanguage } from '../contexts/LanguageContext';
 import {
   generateCalculatorSchema,
@@ -12,28 +13,31 @@ import {
   generateSoftwareApplicationSchema
 } from '../utils/schemaGenerator';
 import { formatCurrentMonth } from '../utils/dateFormatter';
+import { GasCalculatorArticle } from '../components/GasCalculatorArticle';
 
-// Актуальные тарифы на природный газ в Кыргызстане (2024-2026)
-// Источник: ОАО "Кыргызгаз", Госагентство по регулированию ТЭК
+// Актуальные тарифы на природный газ в Кыргызстане (март 2026)
+// Источник: ОсОО «Газпром Кыргызстан», Департамент по регулированию ТЭК при МЭ КР
+// Тарифы пересчитываются ежемесячно в зависимости от курса доллара
+// Последнее обновление: март 2026
 const TARIFF_CONFIG = {
   'residential': {
     nameKey: 'tariff_population',
-    rate: 14.50,
+    rate: 22.70,
     descriptionKey: 'gas_desc_residential'
   },
   'residential_heating': {
     nameKey: 'tariff_population_heating',
-    rate: 11.60,
+    rate: 22.70,
     descriptionKey: 'gas_desc_residential_heating'
   },
   'commercial': {
     nameKey: 'tariff_commercial',
-    rate: 18.30,
+    rate: 28.00,
     descriptionKey: 'gas_desc_commercial'
   },
   'industrial': {
     nameKey: 'tariff_industrial',
-    rate: 16.80,
+    rate: 24.25,
     descriptionKey: 'gas_desc_industrial'
   }
 };
@@ -174,6 +178,7 @@ const GasCalculatorPage = () => {
         <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/gas" : "https://calk.kg/calculator/gas"} />
       </Helmet>
       <HreflangTags path="/calculator/gas" />
+      <FAQSchema translationPrefix="gas" />
       {generateSchemas().map((schema, index) => (
         <SchemaMarkup key={index} schema={schema} />
       ))}
@@ -433,15 +438,15 @@ const GasCalculatorPage = () => {
           {/* Источник тарифов */}
           <div className="mt-4 p-4 bg-gray-50 rounded-lg">
             <p className="text-sm text-gray-600">
-              <strong>{t('tariff_source')}:</strong> ОАО «Кыргызгаз», {t('tariffs_actual')} {currentMonth}.
+              <strong>{t('tariff_source')}:</strong> ОсОО «Газпром Кыргызстан», {t('tariffs_actual')} {currentMonth}.
               {' '}
-              <a 
-                href="https://kyrgyzgaz.kg" 
-                target="_blank" 
+              <a
+                href="https://kyrgyzstan.gazprom.ru/services/tarif/"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="text-red-600 hover:text-red-700 underline"
               >
-                kyrgyzgaz.kg →
+                kyrgyzstan.gazprom.ru →
               </a>
             </p>
           </div>
@@ -512,6 +517,8 @@ const GasCalculatorPage = () => {
           </div>
         </div>
       </div>
+
+      <GasCalculatorArticle />
     </div>
   );
 };

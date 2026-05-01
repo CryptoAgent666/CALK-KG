@@ -1,5 +1,6 @@
 // Данные о мобильных тарифах в Кыргызстане (2026)
-// Актуальны на январь 2026
+// Актуальны на апрель 2026 (Q2 2026)
+// Источники: megacom.kg, beeline.kg, o.kg
 
 export interface MobileTariff {
   id: string;

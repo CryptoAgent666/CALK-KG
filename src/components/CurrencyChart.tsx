@@ -1,5 +1,6 @@
 import React from 'react';
 import { HistoricalRate } from '../hooks/useCurrencyRates';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface CurrencyChartProps {
   data: HistoricalRate[];
@@ -12,8 +13,10 @@ const CurrencyChart: React.FC<CurrencyChartProps> = ({
   currencyCode, 
   color = '#2563eb' 
 }) => {
+  const { t, language } = useLanguage();
+
   if (!data || data.length === 0) {
-    return <div className="text-gray-500 text-center py-8">Нет данных для отображения</div>;
+    return <div className="text-gray-500 text-center py-8">{t('currency_chart_no_data')}</div>;
   }
 
   const width = 800;
@@ -74,10 +77,13 @@ const CurrencyChart: React.FC<CurrencyChartProps> = ({
       <div className="mb-4 flex items-center justify-between">
         <div>
           <div className="text-2xl font-bold text-gray-900">
-            {lastRate.toFixed(4)} KGS
+            {lastRate.toFixed(4)} {t('som')}
           </div>
           <div className="text-sm text-gray-500">
-            1 {currencyCode} = {lastRate.toFixed(4)} сом
+            {t('currency_chart_rate_line')
+              .replace('{code}', currencyCode)
+              .replace('{rate}', lastRate.toFixed(4))
+              .replace('{som}', t('som'))}
           </div>
         </div>
         <div className={`text-right ${isPositive ? 'text-green-600' : 'text-red-600'}`}>
@@ -170,7 +176,7 @@ const CurrencyChart: React.FC<CurrencyChartProps> = ({
               fontSize="11"
               fill="#6b7280"
             >
-              {new Date(point.date).toLocaleDateString('ru-RU', { 
+              {new Date(point.date).toLocaleDateString(language === 'ky' ? 'ky-KG' : 'ru-RU', { 
                 day: '2-digit', 
                 month: 'short' 
               })}

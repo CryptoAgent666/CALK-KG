@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Calculator, User, Activity, Target, Info, Printer } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { CalorieCalculatorArticle } from '../components/CalorieCalculatorArticle';
 import ContentBlock from '../components/ContentBlock';
 import HreflangTags from '../components/HreflangTags';
+import FAQSchema from '../components/FAQSchema';
 
 type Gender = 'male' | 'female';
 type ActivityLevel = 'minimal' | 'low' | 'medium' | 'high' | 'extreme';
@@ -119,6 +121,7 @@ export default function CalorieCalculatorPage() {
         <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/calorie" : "https://calk.kg/calculator/calorie"} />
       </Helmet>
       <HreflangTags path="/calculator/calorie" />
+      <FAQSchema translationPrefix="calorie" />
 
       <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 py-8 px-4 print:bg-white">
         <div className="max-w-5xl mx-auto">
@@ -607,6 +610,8 @@ export default function CalorieCalculatorPage() {
           <ContentBlock />
         </div>
       </div>
+
+      <CalorieCalculatorArticle />
     </>
   );
 }

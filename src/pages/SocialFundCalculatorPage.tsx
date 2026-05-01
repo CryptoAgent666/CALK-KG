@@ -5,15 +5,59 @@ import { Calculator, ArrowLeft, Info, Home, Printer, Shield, Users, CreditCard, 
 import ActionButtons from '../components/ActionButtons';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
+import FAQSchema from '../components/FAQSchema';
 import { useLanguage } from '../contexts/LanguageContext';
 import { 
   generateCalculatorSchema, 
   generateBreadcrumbSchema,
   generateSoftwareApplicationSchema 
 } from '../utils/schemaGenerator';
+import { SocialFundCalculatorArticle } from '../components/SocialFundCalculatorArticle';
+
+type LocalizedCopy = {
+  ru: string;
+  ky: string;
+};
+
+const EMPLOYEE_RATES = {
+  pf: 0.08,
+  gnpf: 0.02
+};
+
+const EMPLOYER_CONFIG = {
+  business: {
+    label: {
+      ru: 'Частный бизнес и большинство работодателей',
+      ky: 'Жеке бизнес жана көпчүлүк иш берүүчүлөр'
+    },
+    description: {
+      ru: 'С 01.08.2024 действует сниженный тариф работодателя 2.25%: ПФ 1%, ФОМС 1%, ФОТ 0.25%',
+      ky: '01.08.2024төн тартып жумуш берүүчү үчүн төмөндөтүлгөн чен 2.25%: ПФ 1%, ФОМС 1%, ФОТ 0.25%'
+    },
+    employerPFRate: 0.01,
+    employerFOMSRate: 0.01,
+    employerFOTRate: 0.0025
+  },
+  standard: {
+    label: {
+      ru: 'Бюджетные, государственные и специальные категории',
+      ky: 'Бюджеттик, мамлекеттик жана атайын категориялар'
+    },
+    description: {
+      ru: 'Стандартный тариф работодателя 17.25%: ПФ 15%, ФОМС 2%, ФОТ 0.25%',
+      ky: 'Жумуш берүүчүнүн стандарттык чени 17.25%: ПФ 15%, ФОМС 2%, ФОТ 0.25%'
+    },
+    employerPFRate: 0.15,
+    employerFOMSRate: 0.02,
+    employerFOTRate: 0.0025
+  }
+} as const;
+
+type EmployerCategory = keyof typeof EMPLOYER_CONFIG;
 
 const SocialFundCalculatorPage = () => {
   const { language, t, getLocalizedPath} = useLanguage();
+  const getLocalized = (copy: LocalizedCopy) => language === 'ky' ? copy.ky : copy.ru;
 
   React.useEffect(() => {
     document.title = t('social_fund_calc_title') + " - Calk.KG";
@@ -35,7 +79,7 @@ const SocialFundCalculatorPage = () => {
       calculatorName: t('social_fund_calc_title'),
       category: t('nav_finance'),
       language,
-      inputProperties: ["grossSalary"],
+      inputProperties: ["grossSalary", "employerCategory"],
       outputProperties: ["employeeDeductions", "employerContributions", "netSalary"]
     });
 
@@ -49,6 +93,7 @@ const SocialFundCalculatorPage = () => {
   };
 
   const [grossSalary, setGrossSalary] = useState<string>('');
+  const [employerCategory, setEmployerCategory] = useState<EmployerCategory>('business');
   const [results, setResults] = useState({
     grossAmount: 0,
     // Удержания с работника
@@ -65,19 +110,18 @@ const SocialFundCalculatorPage = () => {
     totalEmployeeCost: 0
   });
 
-  const calculateSocialFund = (gross: number) => {
-    // Удержания с работника (10%)
-    const employeePF = gross * 0.08;      // 8% - Пенсионный фонд
-    const employeeGNPF = gross * 0.02;    // 2% - ГНПФ
-    const totalEmployeeDeductions = gross * 0.10;
-    
-    // Взносы работодателя (17.25%)
-    const employerPF = gross * 0.15;      // 15% - Пенсионный фонд
-    const employerFOMS = gross * 0.02;    // 2% - ФОМС
-    const employerFOT = gross * 0.0025;   // 0.25% - ФОТ
-    const totalEmployerContributions = gross * 0.1725;
-    
-    // Итоговая сводка
+  const calculateSocialFund = (gross: number, category: EmployerCategory) => {
+    const employerRates = EMPLOYER_CONFIG[category];
+
+    const employeePF = gross * EMPLOYEE_RATES.pf;
+    const employeeGNPF = gross * EMPLOYEE_RATES.gnpf;
+    const totalEmployeeDeductions = employeePF + employeeGNPF;
+
+    const employerPF = gross * employerRates.employerPFRate;
+    const employerFOMS = gross * employerRates.employerFOMSRate;
+    const employerFOT = gross * employerRates.employerFOTRate;
+    const totalEmployerContributions = employerPF + employerFOMS + employerFOT;
+
     const salaryAfterDeductions = gross - totalEmployeeDeductions;
     const totalEmployeeCost = gross + totalEmployerContributions;
     
@@ -98,9 +142,9 @@ const SocialFundCalculatorPage = () => {
   useEffect(() => {
     const gross = parseFloat(grossSalary) || 0;
     if (gross >= 0) {
-      setResults(calculateSocialFund(gross));
+      setResults(calculateSocialFund(gross, employerCategory));
     }
-  }, [grossSalary]);
+  }, [grossSalary, employerCategory]);
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('ru-KG', {
@@ -158,6 +202,8 @@ const SocialFundCalculatorPage = () => {
         <meta name="twitter:image" content="https://calk.kg/og-images/social-fund.png" />
         <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/social-fund" : "https://calk.kg/calculator/social-fund"} />
       </Helmet>
+      <HreflangTags path="/calculator/social-fund" />
+      <FAQSchema translationPrefix="socialfund" />
       {/* Schema.org микроразметка */}
       {generateSchemas().map((schema, index) => (
         <SchemaMarkup key={index} schema={schema} />
@@ -217,6 +263,35 @@ const SocialFundCalculatorPage = () => {
             <div className="bg-white rounded-xl shadow-sm p-8 print:shadow-none print:border">
               <h2 className="text-xl font-semibold text-gray-900 mb-6">{t('social_fund_input_data')}</h2>
 
+              <div className="mb-8">
+                <div className="flex items-center mb-3">
+                  <label className="block text-sm font-medium text-gray-700">
+                    {language === 'ky' ? 'Иш берүүчүнүн категориясы' : 'Категория работодателя'}
+                  </label>
+                  <Tooltip
+                    text={
+                      language === 'ky'
+                        ? 'Көпчүлүк жеке компанияларга төмөндөтүлгөн 2.25% чен колдонулат. Бюджеттик жана айрым атайын категорияларда стандарттык чен сакталат.'
+                        : 'Для большинства частных компаний действует сниженная ставка работодателя 2.25%. Для бюджетных и специальных категорий сохраняется стандартный тариф.'
+                    }
+                  >
+                    <Info className="h-4 w-4 text-gray-400 ml-2 cursor-help" />
+                  </Tooltip>
+                </div>
+                <select
+                  value={employerCategory}
+                  onChange={(e) => setEmployerCategory(e.target.value as EmployerCategory)}
+                  className="w-full px-4 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-base"
+                >
+                  {Object.entries(EMPLOYER_CONFIG).map(([key, value]) => (
+                    <option key={key} value={key}>
+                      {getLocalized(value.label)}
+                    </option>
+                  ))}
+                </select>
+                <p className="mt-2 text-sm text-gray-500">{getLocalized(EMPLOYER_CONFIG[employerCategory].description)}</p>
+              </div>
+
               {/* Gross Salary Input */}
               <div className="mb-8">
                 <div className="flex items-center mb-3">
@@ -241,26 +316,31 @@ const SocialFundCalculatorPage = () => {
                 <div className="flex items-start space-x-3">
                   <Info className="h-6 w-6 text-blue-600 flex-shrink-0 mt-1" />
                   <div className="text-sm text-blue-800">
-                    <p className="font-medium mb-2">{t('social_fund_structure_title')}</p>
+                    <p className="font-medium mb-2">
+                      {language === 'ky' ? 'Март 2026га карата колдонулган түзүм' : 'Структура расчёта на март 2026'}
+                    </p>
                     <div className="space-y-2">
                       <div>
                         <p className="font-medium">{t('social_fund_employee_deductions')}</p>
                         <ul className="list-disc list-inside ml-4 space-y-1">
-                          <li>{t('social_fund_pension_8')}</li>
-                          <li>{t('social_fund_gnpf_2')}</li>
+                          <li>{language === 'ky' ? 'Пенсиялык фонд: 8%' : 'Пенсионный фонд: 8%'}</li>
+                          <li>{language === 'ky' ? 'Мамлекеттик топтоочу фонд: 2%' : 'ГНПФ: 2%'}</li>
                         </ul>
                       </div>
                       <div>
                         <p className="font-medium mt-3">{t('social_fund_employer_contributions')}</p>
                         <ul className="list-disc list-inside ml-4 space-y-1">
-                          <li>{t('social_fund_pension_15')}</li>
-                          <li>{t('social_fund_foms_2')}</li>
-                          <li>{t('social_fund_fot_025')}</li>
+                          <li>{language === 'ky' ? `Пенсиялык фонд: ${(EMPLOYER_CONFIG[employerCategory].employerPFRate * 100).toFixed(2).replace('.00', '')}%` : `Пенсионный фонд: ${(EMPLOYER_CONFIG[employerCategory].employerPFRate * 100).toFixed(2).replace('.00', '')}%`}</li>
+                          <li>{language === 'ky' ? `ФОМС: ${(EMPLOYER_CONFIG[employerCategory].employerFOMSRate * 100).toFixed(2).replace('.00', '')}%` : `ФОМС: ${(EMPLOYER_CONFIG[employerCategory].employerFOMSRate * 100).toFixed(2).replace('.00', '')}%`}</li>
+                          <li>{language === 'ky' ? 'ФОТ: 0.25%' : 'ФОТ: 0.25%'}</li>
                         </ul>
                       </div>
                     </div>
                     <p className="mt-3">
-                      💡 <strong>{t('social_fund_related_calcs')}</strong> {t('social_fund_related_text')}
+                      💡 <strong>{language === 'ky' ? 'Эскертүү:' : 'Примечание:'}</strong>{' '}
+                      {language === 'ky'
+                        ? 'Калькулятор кызматкердин 10% кармоосун жана тандалган иш берүүчү категориясынын ченин өз-өзүнчө көрсөтөт.'
+                        : 'Калькулятор отдельно показывает удержания работника 10% и ставку работодателя по выбранной категории.'}
                     </p>
                   </div>
                 </div>
@@ -354,7 +434,7 @@ const SocialFundCalculatorPage = () => {
                       </Tooltip>
                     </div>
                     <span className="text-xl font-semibold text-gray-900">
-                      {formatCurrency(results.grossAmount)} KGS
+                      {formatCurrency(results.grossAmount)} {t('som')}
                     </span>
                   </div>
 
@@ -376,7 +456,7 @@ const SocialFundCalculatorPage = () => {
                           </Tooltip>
                         </div>
                         <span className="text-orange-600 font-semibold">
-                          -{formatCurrency(results.employeePF)} KGS
+                          -{formatCurrency(results.employeePF)} {t('som')}
                         </span>
                       </div>
                       <div className="flex justify-between items-center">
@@ -387,14 +467,14 @@ const SocialFundCalculatorPage = () => {
                           </Tooltip>
                         </div>
                         <span className="text-orange-600 font-semibold">
-                          -{formatCurrency(results.employeeGNPF)} KGS
+                          -{formatCurrency(results.employeeGNPF)} {t('som')}
                         </span>
                       </div>
                       <div className="border-t pt-2">
                         <div className="flex justify-between items-center">
                           <span className="text-gray-900 font-medium">{t('social_fund_total_deducted')}</span>
                           <span className="text-orange-600 font-bold text-lg">
-                            -{formatCurrency(results.totalEmployeeDeductions)} KGS
+                            -{formatCurrency(results.totalEmployeeDeductions)} {t('som')}
                           </span>
                         </div>
                       </div>
@@ -419,7 +499,7 @@ const SocialFundCalculatorPage = () => {
                           </Tooltip>
                         </div>
                         <span className="text-red-600 font-semibold">
-                          +{formatCurrency(results.employerPF)} KGS
+                          +{formatCurrency(results.employerPF)} {t('som')}
                         </span>
                       </div>
                       <div className="flex justify-between items-center">
@@ -430,7 +510,7 @@ const SocialFundCalculatorPage = () => {
                           </Tooltip>
                         </div>
                         <span className="text-red-600 font-semibold">
-                          +{formatCurrency(results.employerFOMS)} KGS
+                          +{formatCurrency(results.employerFOMS)} {t('som')}
                         </span>
                       </div>
                       <div className="flex justify-between items-center">
@@ -441,14 +521,14 @@ const SocialFundCalculatorPage = () => {
                           </Tooltip>
                         </div>
                         <span className="text-red-600 font-semibold">
-                          +{formatCurrency(results.employerFOT)} KGS
+                          +{formatCurrency(results.employerFOT)} {t('som')}
                         </span>
                       </div>
                       <div className="border-t pt-2">
                         <div className="flex justify-between items-center">
                           <span className="text-gray-900 font-medium">{t('social_fund_total_charged')}</span>
                           <span className="text-red-600 font-bold text-lg">
-                            +{formatCurrency(results.totalEmployerContributions)} KGS
+                            +{formatCurrency(results.totalEmployerContributions)} {t('som')}
                           </span>
                         </div>
                       </div>
@@ -470,7 +550,7 @@ const SocialFundCalculatorPage = () => {
                           </Tooltip>
                         </div>
                         <span className="text-white font-bold text-lg">
-                          {formatCurrency(results.salaryAfterDeductions)} KGS
+                          {formatCurrency(results.salaryAfterDeductions)} {t('som')}
                         </span>
                       </div>
                       <div className="flex justify-between items-center">
@@ -481,7 +561,7 @@ const SocialFundCalculatorPage = () => {
                           </Tooltip>
                         </div>
                         <span className="text-white font-bold text-lg">
-                          {formatCurrency(results.totalEmployeeCost)} KGS
+                          {formatCurrency(results.totalEmployeeCost)} {t('som')}
                         </span>
                       </div>
                     </div>
@@ -501,11 +581,11 @@ const SocialFundCalculatorPage = () => {
                       </div>
                       <div className="flex justify-between">
                         <span>{t('social_fund_employer_rate')}</span>
-                        <span>17.25%</span>
+                        <span>{((results.totalEmployerContributions / results.grossAmount) * 100).toFixed(2)}%</span>
                       </div>
                       <div className="flex justify-between">
                         <span>{t('social_fund_total_burden')}</span>
-                        <span>27.25%</span>
+                        <span>{(((results.totalEmployeeDeductions + results.totalEmployerContributions) / results.grossAmount) * 100).toFixed(2)}%</span>
                       </div>
                     </div>
                   </div>
@@ -527,7 +607,7 @@ const SocialFundCalculatorPage = () => {
             <h3 className="font-medium text-gray-900 mb-4">{t('social_fund_examples')}</h3>
             <div className="space-y-3">
               {[50000, 75000, 100000, 150000].map(amount => {
-                const example = calculateSocialFund(amount);
+                const example = calculateSocialFund(amount, employerCategory);
                 return (
                   <button
                     key={amount}
@@ -536,11 +616,11 @@ const SocialFundCalculatorPage = () => {
                   >
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-gray-700 font-medium">
-                        {formatCurrency(amount)} KGS
+                        {formatCurrency(amount)} {t('som')}
                       </span>
                       <div className="text-right">
                         <div className="text-green-600 font-semibold">
-                          {formatCurrency(example.salaryAfterDeductions)} KGS
+                          {formatCurrency(example.salaryAfterDeductions)} {t('som')}
                         </div>
                         <div className="text-xs text-gray-500">
                           {t('social_fund_after_label')}
@@ -696,7 +776,7 @@ const SocialFundCalculatorPage = () => {
       </div>
 
       {/* Print styles */}
-      <style jsx>{`
+      <style>{`
         @media print {
           .print\\:hidden {
             display: none !important;
@@ -744,6 +824,8 @@ const SocialFundCalculatorPage = () => {
           }
         }
       `}</style>
+
+      <SocialFundCalculatorArticle />
     </div>
   );
 };

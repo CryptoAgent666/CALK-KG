@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { ArrowLeft, Home, Calculator, Heart, Users, Shield, TrendingUp, Target, Award, Lightbulb, CheckCircle } from 'lucide-react';
+import { Calculator, Heart, Users, Shield, TrendingUp, Target, Award, Lightbulb, CheckCircle } from 'lucide-react';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -12,7 +12,7 @@ import {
 } from '../utils/schemaGenerator';
 
 const AboutPage = () => {
-  const { t, language, getLocalizedPath } = useLanguage();
+  const { t, language } = useLanguage();
 
   React.useEffect(() => {
     document.title = t('nav_about') + " - Calk.KG";
@@ -78,37 +78,6 @@ const AboutPage = () => {
       {generateSchemas().map((schema, index) => (
         <SchemaMarkup key={index} schema={schema} />
       ))}
-
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-4">
-              <Link 
-                to="/" 
-                className="flex items-center space-x-2 text-gray-600 hover:text-red-600 transition-colors"
-              >
-                <ArrowLeft className="h-5 w-5" />
-                <span>{t('back')}</span>
-              </Link>
-              <div className="h-6 w-px bg-gray-300"></div>
-              <Link to="/" className="flex items-center space-x-2">
-                <div className="bg-gradient-to-r from-red-600 to-red-700 p-2 rounded-lg">
-                  <Calculator className="h-5 w-5 text-white" />
-                </div>
-                <span className="text-lg font-bold text-gray-900">Calk.KG</span>
-              </Link>
-            </div>
-            <Link 
-              to="/"
-              className="flex items-center space-x-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
-            >
-              <Home className="h-4 w-4" />
-              <span>{t('home')}</span>
-            </Link>
-          </div>
-        </div>
-      </header>
 
       {/* Page Header */}
       <div className="bg-gradient-to-r from-red-600 to-red-700 text-white">
@@ -271,7 +240,7 @@ const AboutPage = () => {
           <h2 className="text-3xl font-bold mb-8">{t('about_stats_title')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <div className="text-4xl font-bold mb-2">25+</div>
+              <div className="text-4xl font-bold mb-2">35+</div>
               <div className="text-red-100">{t('about_stats_calculators')}</div>
             </div>
             <div>

@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Calculator, ArrowLeft, Info, Home, Printer, Droplets, TrendingUp, MapPin, Zap, Flame } from 'lucide-react';
 import ActionButtons from '../components/ActionButtons';
+import { WaterCalculatorArticle } from '../components/WaterCalculatorArticle';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
+import FAQSchema from '../components/FAQSchema';
 import { useLanguage } from '../contexts/LanguageContext';
 import {
   generateCalculatorSchema,
@@ -14,13 +16,16 @@ import {
 import { formatCurrentMonth } from '../utils/dateFormatter';
 
 // Конфигурация тарифов - легко редактируемая структура
+// АКТУАЛЬНО НА: 21 апреля 2026 (тарифы действуют)
+// Бишкек: действуют с 01.06.2023 (Постановление БГК от 30.05.2023), повышение не вводилось
+// Источник: МП «Бишкекводоканал», bishkek.gov.kg
 const WATER_TARIFFS = {
   'bishkek': {
     nameKey: 'region_bishkek',
     tariffs: {
-      'population': { water: 8.10, sewerage: 3.25, nameKey: 'tariff_population' },
-      'budget': { water: 9.10, sewerage: 4.25, nameKey: 'tariff_budget' },
-      'commercial': { water: 13.00, sewerage: 6.00, nameKey: 'tariff_commercial_enterprises' }
+      'population': { water: 10.45, sewerage: 3.45, nameKey: 'tariff_population' },
+      'budget': { water: 12.95, sewerage: 4.50, nameKey: 'tariff_budget' },
+      'commercial': { water: 18.50, sewerage: 9.00, nameKey: 'tariff_commercial_enterprises' }
     }
   },
   'osh': {
@@ -231,6 +236,8 @@ const WaterCalculatorPage = () => {
         <meta name="twitter:image" content="https://calk.kg/og-images/water.png" />
         <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/water" : "https://calk.kg/calculator/water"} />
       </Helmet>
+      <HreflangTags path="/calculator/water" />
+      <FAQSchema translationPrefix="water" />
       {/* Schema.org микроразметка */}
       {generateSchemas().map((schema, index) => (
         <SchemaMarkup key={index} schema={schema} />
@@ -768,8 +775,7 @@ ${t('water_calculated_on')}`}
             </div>
           </div>
 
-          {/* Educational Content Section - Russian only */}
-          {language === 'ru' && (
+          {/* Educational Content Section */}
           <div className="bg-white rounded-xl shadow-sm p-8 print:hidden">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('water_guide_title')}</h2>
 
@@ -781,8 +787,7 @@ ${t('water_calculated_on')}`}
               </p>
               <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
                 <p className="text-gray-700">
-                  <strong>{t('text_important')}:</strong> В большинстве городов КР действует двухкомпонентный тариф:
-                  отдельно за холодное водоснабжение и отдельно за водоотведение (канализацию).
+                  <strong>{t('text_important')}:</strong> {t('water_tariff_details')}
                 </p>
               </div>
               <p className="text-gray-700">
@@ -953,8 +958,7 @@ ${t('water_calculated_on')}`}
 
               <div className="bg-green-50 border border-green-200 rounded-lg p-5 mt-4">
                 <p className="text-gray-700">
-                  <strong>{t('water_total_savings')}</strong> {t('water_total_savings_desc')}
-                  расход воды на 30-40%, что составляет 50-100 сомов в месяц или 600-1200 сомов в год!
+                  <strong>{t('water_total_savings_text')}</strong> {t('water_total_savings_desc')}
                 </p>
               </div>
             </div>
@@ -966,64 +970,52 @@ ${t('water_calculated_on')}`}
               <div className="space-y-4">
                 <details className="border border-gray-200 rounded-lg p-5 cursor-pointer hover:bg-gray-50">
                   <summary className="font-semibold text-gray-900">
-                    Что делать, если счетчик неисправен?
+                    {t('water_faq_broken_meter')}
                   </summary>
                   <p className="text-gray-700 mt-3 text-sm">
-                    Сообщите в водоканал в течение 3 дней. До замены счетчика расчет будет вестись
-                    по среднему потреблению за последние 6 месяцев. Замена счетчика производится
-                    за счет владельца жилья. Стоимость: 2000-4000 сом (счетчик + установка + опломбировка).
+                    {t('water_faq_broken_meter_a')}
                   </p>
                 </details>
 
                 <details className="border border-gray-200 rounded-lg p-5 cursor-pointer hover:bg-gray-50">
                   <summary className="font-semibold text-gray-900">
-                    Как часто нужно поверять счетчик?
+                    {t('water_faq_verification')}
                   </summary>
                   <p className="text-gray-700 mt-3 text-sm">
-                    Холодная вода: каждые 6 лет. Горячая вода: каждые 4 года. Дата следующей поверки
-                    указана в паспорте счетчика. Поверку проводят аккредитованные организации.
-                    Стоимость: 500-1000 сом. Без своевременной поверки счетчик считается неисправным.
+                    {t('water_faq_verification_a')}
                   </p>
                 </details>
 
                 <details className="border border-gray-200 rounded-lg p-5 cursor-pointer hover:bg-gray-50">
                   <summary className="font-semibold text-gray-900">
-                    Можно ли получить льготы на воду?
+                    {t('water_faq_benefits')}
                   </summary>
                   <p className="text-gray-700 mt-3 text-sm">
-                    Да, льготы предоставляются: ветеранам ВОВ и труда (50% скидка), инвалидам 1-2 группы
-                    (30-50%), многодетным семьям (в некоторых регионах). Для получения льготы обратитесь
-                    в отдел соцзащиты по месту жительства со справками, затем в водоканал.
+                    {t('water_faq_benefits_a')}
                   </p>
                 </details>
 
                 <details className="border border-gray-200 rounded-lg p-5 cursor-pointer hover:bg-gray-50">
                   <summary className="font-semibold text-gray-900">
-                    Могут ли отключить воду за неуплату?
+                    {t('water_faq_disconnect')}
                   </summary>
                   <p className="text-gray-700 mt-3 text-sm">
-                    Да, при задолженности за 2-3 месяца. Перед отключением направляется письменное
-                    уведомление за 10 дней. Исключения: семьи с детьми до 3 лет, инвалидами 1 группы,
-                    в период карантина. Для возобновления подачи погасите долг и оплатите повторное
-                    подключение (обычно 200-500 сом).
+                    {t('water_faq_disconnect_a')}
                   </p>
                 </details>
 
                 <details className="border border-gray-200 rounded-lg p-5 cursor-pointer hover:bg-gray-50">
                   <summary className="font-semibold text-gray-900">
-                    Почему вода мутная или с запахом?
+                    {t('water_faq_quality')}
                   </summary>
                   <p className="text-gray-700 mt-3 text-sm">
-                    Причины: профилактика/ремонт водопровода (временно), старые трубы в доме (ржавчина),
-                    повышенное содержание хлора (обеззараживание). Решения: установите фильтры, дайте
-                    воде отстояться 2-3 часа, обратитесь в водоканал для проверки качества. Экстренная
-                    линия водоканала: 150 (Бишкек).
+                    {t('water_faq_quality_a')}
                   </p>
                 </details>
 
                 <details className="border border-gray-200 rounded-lg p-5 cursor-pointer hover:bg-gray-50">
                   <summary className="font-semibold text-gray-900">
-                    Сколько воды потребляет средняя семья?
+                    {t('water_faq_average_consumption')}
                   </summary>
                   <div className="text-gray-700 mt-3 text-sm">
                     <p className="mb-2">{t('water_avg_consumption')}</p>
@@ -1040,13 +1032,11 @@ ${t('water_calculated_on')}`}
 
                 <details className="border border-gray-200 rounded-lg p-5 cursor-pointer hover:bg-gray-50">
                   <summary className="font-semibold text-gray-900">
-                    Как проверить правильность начислений?
+                    {t('water_faq_check_billing')}
                   </summary>
                   <p className="text-gray-700 mt-3 text-sm">
-                    {t('text_formula')}: ({t('text_current_readings')} - {t('text_previous_readings')}) × тариф = {t('text_sum_to_pay')}.
-                    {t('text_example')}: (847 - 832) × 11,35 = 15 × 11,35 = 170,25 сом. Сверьте с квитанцией.
-                    При расхождении обратитесь в водоканал с заявлением о перерасчете, приложите
-                    копии квитанций и фото показаний счетчика.
+                    {t('text_formula')}: ({t('text_current_readings')} - {t('text_previous_readings')}) × {t('tariff')} = {t('text_sum_to_pay')}.
+                    {t('text_example')}: (847 - 832) × 11,35 = 15 × 11,35 = 170,25 {t('som')}. {t('water_faq_billing_a')}
                   </p>
                 </details>
               </div>
@@ -1073,7 +1063,7 @@ ${t('water_calculated_on')}`}
                   <div className="text-sm text-gray-700 space-y-1">
                     <p>☎ +996 (3222) 5-26-65</p>
                     <p>📍 {t('water_osh_address')}</p>
-                    <p>⏰ Пн-Пт: 8:00-17:00</p>
+                    <p>{t('water_osh_hours')}</p>
                   </div>
                 </div>
 
@@ -1095,7 +1085,6 @@ ${t('water_calculated_on')}`}
               </div>
             </div>
           </div>
-        )}
 
           {/* Tariff Matrix Display */}
           <div className="bg-white rounded-xl shadow-sm p-8 print:break-inside-avoid">
@@ -1174,7 +1163,7 @@ ${t('water_calculated_on')}`}
       </div>
 
       {/* Custom Slider Styles */}
-      <style jsx>{`
+      <style>{`
         .slider::-webkit-slider-thumb {
           appearance: none;
           height: 24px;
@@ -1243,4 +1232,7 @@ ${t('water_calculated_on')}`}
   );
 };
 
+
+      {/* Информационная статья под калькулятором */}
+      <WaterCalculatorArticle />
 export default WaterCalculatorPage;

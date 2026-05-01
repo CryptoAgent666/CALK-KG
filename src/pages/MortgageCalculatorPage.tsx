@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Calculator, ArrowLeft, Info, Home, Printer, DollarSign, TrendingUp, Building2, ChevronDown, ChevronUp, Car } from 'lucide-react';
+import { Calculator, ArrowLeft, Info, Home, DollarSign, TrendingUp, Building2, ChevronDown, ChevronUp, Car } from 'lucide-react';
 import ActionButtons from '../components/ActionButtons';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
+import FAQSchema from '../components/FAQSchema';
+import { MortgageCalculatorArticle } from '../components/MortgageCalculatorArticle';
 import { useLanguage } from '../contexts/LanguageContext';
 import { 
   generateCalculatorSchema, 
@@ -196,7 +198,7 @@ const MortgageCalculatorPage = () => {
       calculatorName: t('mortgage_calc_title'),
       category: "FinanceApplication",
       inputProperties: [t('mortgage_property_value'), t('mortgage_down_payment'), t('mortgage_loan_term'), t('mortgage_interest_rate')],
-      outputProperties: [t('mortgage_monthly_payment'), t('mortgage_total_amount'), t('mortgage_overpayment'), t('mortgage_payment_schedule')]
+      outputProperties: [t('mortgage_monthly_payment'), t('mortgage_result_total_payment'), t('mortgage_result_overpayment'), t('mortgage_payment_schedule')]
     });
 
     const breadcrumbSchema = generateBreadcrumbSchema([
@@ -254,10 +256,6 @@ const MortgageCalculatorPage = () => {
     if (value === '' || /^\d*\.?\d*$/.test(value)) {
       setInterestRate(value);
     }
-  };
-
-  const handlePrint = () => {
-    window.print();
   };
 
   const formatCurrency = (amount: number) => {
@@ -320,6 +318,7 @@ const MortgageCalculatorPage = () => {
         <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/mortgage" : "https://calk.kg/calculator/mortgage"} />
       </Helmet>
       <HreflangTags path="/calculator/mortgage" />
+      <FAQSchema translationPrefix="mortgage" />
       {generateSchemas().map((schema, index) => (
         <SchemaMarkup key={index} schema={schema} />
       ))}
@@ -501,14 +500,14 @@ const MortgageCalculatorPage = () => {
                   <ActionButtons
                     calculatorName={t('mortgage_calc_name')}
                     resultText={`${t('mortgage_result_template_intro')}
-${t('mortgage_result_property_value')} ${formatCurrency(parseFloat(propertyValue) || 0)} KGS
-${t('mortgage_result_down_payment')} ${formatCurrency(parseFloat(downPaymentAmount) || 0)} KGS
-${t('mortgage_result_loan_amount')} ${formatCurrency(results.loanAmount)} KGS
+${t('mortgage_result_property_value')} ${formatCurrency(parseFloat(propertyValue) || 0)} ${t('som')}
+${t('mortgage_result_down_payment')} ${formatCurrency(parseFloat(downPaymentAmount) || 0)} ${t('som')}
+${t('mortgage_result_loan_amount')} ${formatCurrency(results.loanAmount)} ${t('som')}
 ${t('mortgage_result_loan_term')} ${loanTermYears} ${t('mortgage_years_short')}
 ${t('mortgage_result_interest_rate')} ${interestRate}%
-${t('mortgage_result_monthly_payment')} ${formatCurrency(results.monthlyPayment)} KGS
-${t('mortgage_result_overpayment')} ${formatCurrency(results.overpayment)} KGS
-${t('mortgage_result_total_payment')} ${formatCurrency(results.totalAmount)} KGS
+${t('mortgage_result_monthly_payment')} ${formatCurrency(results.monthlyPayment)} ${t('som')}
+${t('mortgage_result_overpayment')} ${formatCurrency(results.overpayment)} ${t('som')}
+${t('mortgage_result_total_payment')} ${formatCurrency(results.totalAmount)} ${t('som')}
 
 ${t('calculated_on_site')} Calk.KG`}
                   />
@@ -525,7 +524,7 @@ ${t('calculated_on_site')} Calk.KG`}
                         <span className="text-green-100">{t('mortgage_monthly_payment')}</span>
                       </div>
                       <p className="text-3xl font-bold">
-                        {formatCurrency(results.monthlyPayment)} KGS
+                        {formatCurrency(results.monthlyPayment)} {t('som')}
                       </p>
                     </div>
 
@@ -535,7 +534,7 @@ ${t('calculated_on_site')} Calk.KG`}
                         <span className="text-blue-100">{t('mortgage_loan_amount')}</span>
                       </div>
                       <p className="text-3xl font-bold">
-                        {formatCurrency(results.loanAmount)} KGS
+                        {formatCurrency(results.loanAmount)} {t('som')}
                       </p>
                     </div>
                   </div>
@@ -630,7 +629,7 @@ ${t('calculated_on_site')} Calk.KG`}
                           </Tooltip>
                         </div>
                         <span className="text-amber-600 font-semibold">
-                          {formatCurrency(results.overpayment)} KGS
+                          {formatCurrency(results.overpayment)} {t('som')}
                         </span>
                       </div>
                     </div>
@@ -644,7 +643,7 @@ ${t('calculated_on_site')} Calk.KG`}
                           </Tooltip>
                         </div>
                         <span className="text-gray-900 font-semibold">
-                          {formatCurrency(results.totalAmount)} KGS
+                          {formatCurrency(results.totalAmount)} {t('som')}
                         </span>
                       </div>
                     </div>
@@ -731,16 +730,16 @@ ${t('calculated_on_site')} Calk.KG`}
                                 {item.date}
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
-                                {formatCurrency(item.payment)} KGS
+                                {formatCurrency(item.payment)} {t('som')}
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-600">
-                                {formatCurrency(item.principal)} KGS
+                                {formatCurrency(item.principal)} {t('som')}
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap text-sm text-red-600">
-                                {formatCurrency(item.interest)} KGS
+                                {formatCurrency(item.interest)} {t('som')}
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                {formatCurrency(item.balance)} KGS
+                                {formatCurrency(item.balance)} {t('som')}
                               </td>
                             </tr>
                           ))}
@@ -803,10 +802,10 @@ ${t('calculated_on_site')} Calk.KG`}
                         {loanTermYears} {t('mortgage_years_short')}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
-                        {formatCurrency(results.monthlyPayment)} KGS
+                        {formatCurrency(results.monthlyPayment)} {t('som')}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
-                        {formatCurrency(results.overpayment)} KGS
+                        {formatCurrency(results.overpayment)} {t('som')}
                       </td>
                     </tr>
 
@@ -827,7 +826,7 @@ ${t('calculated_on_site')} Calk.KG`}
                       return (
                         <tr key={index} className={isBetter ? 'bg-blue-50' : isWorse ? 'bg-red-50' : ''}>
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {t(bank.nameKey)}
+                            {t(bank.nameKey as any)}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                             {bank.minRate}% - {bank.maxRate}%
@@ -836,10 +835,10 @@ ${t('calculated_on_site')} Calk.KG`}
                             {t('mortgage_up_to')} {bank.maxTerm} {t('mortgage_years_short')}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                            {formatCurrency(bankResults.monthlyPayment)} KGS
+                            {formatCurrency(bankResults.monthlyPayment)} {t('som')}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                            {formatCurrency(bankResults.overpayment)} KGS
+                            {formatCurrency(bankResults.overpayment)} {t('som')}
                           </td>
                         </tr>
                       );
@@ -891,7 +890,7 @@ ${t('calculated_on_site')} Calk.KG`}
                   >
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-gray-700 font-medium">
-                        {formatCurrency(example.property)} KGS
+                        {formatCurrency(example.property)} {t('som')}
                       </span>
                       <span className="text-xs text-gray-500">
                         {example.term} {t('mortgage_years_short')} • {example.rate}%
@@ -902,10 +901,10 @@ ${t('calculated_on_site')} Calk.KG`}
                         {formatCurrency(exampleResult.monthlyPayment)} {t('mortgage_per_month_short')}
                       </div>
                       <div className="text-xs text-gray-500">
-                        {t('mortgage_down_payment_short')} {formatCurrency(example.downPayment)} KGS ({downPaymentPercent.toFixed(0)}%)
+                        {t('mortgage_down_payment_short')} {formatCurrency(example.downPayment)} {t('som')} ({downPaymentPercent.toFixed(0)}%)
                       </div>
                       <div className="text-xs text-gray-500">
-                        {t('mortgage_overpayment_short')} {formatCurrency(exampleResult.overpayment)} KGS
+                        {t('mortgage_overpayment_short')} {formatCurrency(exampleResult.overpayment)} {t('som')}
                       </div>
                     </div>
                   </button>
@@ -1369,7 +1368,7 @@ ${t('calculated_on_site')} Calk.KG`}
         </div>
 
         {/* Print styles */}
-        <style jsx>{`
+        <style>{`
           @media print {
             .print\\:hidden {
               display: none !important;
@@ -1421,6 +1420,9 @@ ${t('calculated_on_site')} Calk.KG`}
           }
         `}</style>
       </div>
+
+      {/* Информационная статья под калькулятором */}
+      <MortgageCalculatorArticle />
     </div>
   );
 };

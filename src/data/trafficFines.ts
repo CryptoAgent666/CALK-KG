@@ -9,12 +9,14 @@ export interface TrafficFine {
 }
 
 // База данных штрафов ПДД Кыргызстана
+// АКТУАЛЬНО НА: Март 2026 (поправки от 08.03.2023 в Кодекс о правонарушениях КР)
+// Источник: ГУОБДД МВД КР, joldo.kg, kabar.kg
 export const TRAFFIC_FINES: TrafficFine[] = [
   // Скоростной режим
   {
     id: 'speed_10_20',
     categoryId: 'speed',
-    fine: 1500,
+    fine: 1000,
     article: 'Ст. 187 ч. 1',
     notesId: 'discount_70',
     keywords: ['превышение', 'скорость', '10-20', 'км/ч']
@@ -30,7 +32,7 @@ export const TRAFFIC_FINES: TrafficFine[] = [
   {
     id: 'speed_40_60',
     categoryId: 'speed',
-    fine: 5500,
+    fine: 7500,
     article: 'Ст. 187 ч. 3',
     notesId: 'discount_70',
     keywords: ['превышение', 'скорость', '40-60', 'км/ч']
@@ -38,7 +40,7 @@ export const TRAFFIC_FINES: TrafficFine[] = [
   {
     id: 'speed_60_plus',
     categoryId: 'speed',
-    fine: 8000,
+    fine: 15000,
     article: 'Ст. 187 ч. 4',
     notesId: 'no_discount_license_6mo',
     keywords: ['превышение', 'скорость', '60', 'км/ч', 'лишение']
@@ -48,7 +50,7 @@ export const TRAFFIC_FINES: TrafficFine[] = [
   {
     id: 'red_light',
     categoryId: 'traffic_rules',
-    fine: 5000,
+    fine: 5500,
     article: 'Ст. 186 ч. 1',
     notesId: 'discount_70',
     keywords: ['светофор', 'красный', 'запрещающий', 'сигнал']
@@ -108,7 +110,7 @@ export const TRAFFIC_FINES: TrafficFine[] = [
   {
     id: 'no_license',
     categoryId: 'documents',
-    fine: 10000,
+    fine: 15000,
     article: 'Ст. 179 ч. 1',
     notesId: 'no_discount_driving_ban',
     keywords: ['права', 'удостоверение', 'без', 'документы']
@@ -124,10 +126,18 @@ export const TRAFFIC_FINES: TrafficFine[] = [
   {
     id: 'no_insurance',
     categoryId: 'documents',
-    fine: 3500,
-    article: 'Ст. 180 ч. 1',
+    fine: 3000,
+    article: 'Ст. 184',
     notesId: 'discount_70',
     keywords: ['страховка', 'полис', 'ОГПО', 'ВТС', 'страхование']
+  },
+  {
+    id: 'no_insurance_legal',
+    categoryId: 'documents',
+    fine: 13000,
+    article: 'Ст. 184',
+    notesId: 'discount_70',
+    keywords: ['страховка', 'полис', 'ОГПО', 'ВТС', 'страхование', 'юрлицо', 'юридическое лицо']
   },
   {
     id: 'faulty_vehicle',
@@ -138,29 +148,29 @@ export const TRAFFIC_FINES: TrafficFine[] = [
     keywords: ['неисправность', 'техническое', 'состояние', 'тормоза', 'свет']
   },
 
-  // Алкогольное опьянение
+  // Алкогольное опьянение (с 08.03.2023 — лишение прав без штрафа)
   {
     id: 'alcohol_under_08',
     categoryId: 'alcohol',
-    fine: 25000,
+    fine: 0,
     article: 'Ст. 189 ч. 1',
-    notesId: 'no_discount_license_1_5_2y',
+    notesId: 'no_discount_license_1y',
     keywords: ['алкоголь', 'опьянение', 'промилле', '0.8', 'пьяный']
   },
   {
     id: 'alcohol_over_08',
     categoryId: 'alcohol',
-    fine: 30000,
+    fine: 0,
     article: 'Ст. 189 ч. 2',
-    notesId: 'no_discount_license_2_3y',
+    notesId: 'no_discount_license_3y',
     keywords: ['алкоголь', 'опьянение', 'промилле', '0.8', 'пьяный', 'тяжелое']
   },
   {
     id: 'alcohol_refusal',
     categoryId: 'alcohol',
-    fine: 30000,
+    fine: 0,
     article: 'Ст. 189 ч. 3',
-    notesId: 'no_discount_license_1_5_2y',
+    notesId: 'no_discount_license_1y',
     keywords: ['отказ', 'медицинское', 'освидетельствование', 'алкотестер']
   },
 

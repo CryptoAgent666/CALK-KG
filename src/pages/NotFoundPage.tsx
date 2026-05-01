@@ -1,11 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Calculator, Home, Search, ArrowLeft, AlertCircle } from 'lucide-react';
+import { Calculator, Home, Search, AlertCircle } from 'lucide-react';
+import HreflangTags from '../components/HreflangTags';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const NotFoundPage = () => {
-  const { t } = useLanguage();
+  const { t, getPathWithoutLangPrefix } = useLanguage();
+  const location = useLocation();
+  const hreflangPath = getPathWithoutLangPrefix(location.pathname);
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -14,6 +17,7 @@ const NotFoundPage = () => {
         <meta name="description" content={t('notfound_description')} />
         <meta name="robots" content="noindex, follow" />
       </Helmet>
+      <HreflangTags path={hreflangPath} />
 
       <header className="bg-white shadow-sm border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

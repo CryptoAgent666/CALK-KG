@@ -1,619 +1,592 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <!-- Главная страница / Home page -->
   <url>
-    <loc>https://calk.kg/</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <loc>https://calk.kg</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg" />
   </url>
   <url>
     <loc>https://calk.kg/ky</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg" />
   </url>
-
-  <!-- Информационные страницы / Information pages -->
   <url>
     <loc>https://calk.kg/about</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/about"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/about"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/about"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/about" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/about" />
   </url>
   <url>
     <loc>https://calk.kg/ky/about</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/about"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/about"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/about"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/about" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/about" />
   </url>
-
   <url>
     <loc>https://calk.kg/contact</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/contact"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/contact"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/contact"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/contact" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/contact" />
   </url>
   <url>
     <loc>https://calk.kg/ky/contact</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/contact"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/contact"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/contact"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/contact" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/contact" />
   </url>
-
   <url>
     <loc>https://calk.kg/privacy-policy</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/privacy-policy"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/privacy-policy"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/privacy-policy"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/privacy-policy" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/privacy-policy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/privacy-policy" />
   </url>
   <url>
     <loc>https://calk.kg/ky/privacy-policy</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/privacy-policy"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/privacy-policy"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/privacy-policy"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/privacy-policy" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/privacy-policy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/privacy-policy" />
   </url>
-
   <url>
     <loc>https://calk.kg/terms-of-service</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/terms-of-service"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/terms-of-service"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/terms-of-service"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/terms-of-service" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/terms-of-service" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/terms-of-service" />
   </url>
   <url>
     <loc>https://calk.kg/ky/terms-of-service</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/terms-of-service"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/terms-of-service"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/terms-of-service"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-
-  <!-- Финансовые калькуляторы / Financial calculators -->
-  <url>
-    <loc>https://calk.kg/calculator/salary</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/salary"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/salary"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/salary"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/terms-of-service" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/terms-of-service" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/terms-of-service" />
   </url>
   <url>
-    <loc>https://calk.kg/ky/calculator/salary</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/salary"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/salary"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/salary"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://calk.kg/calculator/single-tax</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/single-tax"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/single-tax"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/single-tax"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://calk.kg/disclaimer</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/disclaimer" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/disclaimer" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/disclaimer" />
   </url>
   <url>
-    <loc>https://calk.kg/ky/calculator/single-tax</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/single-tax"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/single-tax"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/single-tax"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://calk.kg/ky/disclaimer</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/disclaimer" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/disclaimer" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/disclaimer" />
   </url>
-
-  <url>
-    <loc>https://calk.kg/calculator/property-tax</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/property-tax"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/property-tax"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/property-tax"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://calk.kg/ky/calculator/property-tax</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/property-tax"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/property-tax"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/property-tax"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://calk.kg/calculator/social-fund</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/social-fund"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/social-fund"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/social-fund"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://calk.kg/ky/calculator/social-fund</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/social-fund"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/social-fund"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/social-fund"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://calk.kg/calculator/pension</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/pension"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/pension"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/pension"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://calk.kg/ky/calculator/pension</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/pension"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/pension"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/pension"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://calk.kg/calculator/loan</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/loan"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/loan"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/loan"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://calk.kg/ky/calculator/loan</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/loan"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/loan"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/loan"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://calk.kg/calculator/mortgage</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/mortgage"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/mortgage"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/mortgage"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://calk.kg/ky/calculator/mortgage</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/mortgage"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/mortgage"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/mortgage"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://calk.kg/calculator/auto-loan</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/auto-loan"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/auto-loan"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/auto-loan"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://calk.kg/ky/calculator/auto-loan</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/auto-loan"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/auto-loan"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/auto-loan"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://calk.kg/calculator/deposit</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/deposit"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/deposit"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/deposit"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://calk.kg/ky/calculator/deposit</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/deposit"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/deposit"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/deposit"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://calk.kg/calculator/patent</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/patent"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/patent"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/patent"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://calk.kg/ky/calculator/patent</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/patent"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/patent"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/patent"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://calk.kg/calculator/taxi-tax</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/taxi-tax"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/taxi-tax"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/taxi-tax"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://calk.kg/ky/calculator/taxi-tax</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/taxi-tax"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/taxi-tax"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/taxi-tax"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Автомобильные калькуляторы / Auto calculators -->
-  <url>
-    <loc>https://calk.kg/calculator/customs</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/customs"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/customs"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/customs"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://calk.kg/ky/calculator/customs</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/customs"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/customs"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/customs"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://calk.kg/calculator/traffic-fines</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/traffic-fines"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/traffic-fines"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/traffic-fines"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://calk.kg/ky/calculator/traffic-fines</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/traffic-fines"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/traffic-fines"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/traffic-fines"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Коммунальные услуги / Utilities -->
-  <url>
-    <loc>https://calk.kg/calculator/electricity</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/electricity"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/electricity"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/electricity"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://calk.kg/ky/calculator/electricity</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/electricity"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/electricity"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/electricity"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://calk.kg/calculator/water</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/water"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/water"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/water"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://calk.kg/ky/calculator/water</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/water"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/water"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/water"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://calk.kg/calculator/heating</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/heating"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/heating"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/heating"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://calk.kg/ky/calculator/heating</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/heating"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/heating"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/heating"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://calk.kg/calculator/gas</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/gas"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/gas"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/gas"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://calk.kg/ky/calculator/gas</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/gas"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/gas"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/gas"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Социальные калькуляторы / Social calculators -->
-  <url>
-    <loc>https://calk.kg/calculator/alimony</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/alimony"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/alimony"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/alimony"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://calk.kg/ky/calculator/alimony</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/alimony"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/alimony"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/alimony"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://calk.kg/calculator/family-benefit</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/family-benefit"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/family-benefit"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/family-benefit"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://calk.kg/ky/calculator/family-benefit</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/family-benefit"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/family-benefit"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/family-benefit"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://calk.kg/calculator/zakat</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/zakat"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/zakat"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/zakat"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://calk.kg/ky/calculator/zakat</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/zakat"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/zakat"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/zakat"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <!-- Специальные калькуляторы / Special calculators -->
-  <url>
-    <loc>https://calk.kg/calculator/passport</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/passport"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/passport"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/passport"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://calk.kg/ky/calculator/passport</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/passport"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/passport"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/passport"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://calk.kg/calculator/tourist-fee</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/tourist-fee"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/tourist-fee"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/tourist-fee"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://calk.kg/ky/calculator/tourist-fee</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/tourist-fee"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/tourist-fee"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/tourist-fee"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://calk.kg/calculator/calorie</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/calorie"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/calorie"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/calorie"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://calk.kg/ky/calculator/calorie</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/calorie"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/calorie"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/calorie"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://calk.kg/calculator/sewing-cost</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/sewing-cost"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/sewing-cost"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/sewing-cost"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://calk.kg/ky/calculator/sewing-cost</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/sewing-cost"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/sewing-cost"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/sewing-cost"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://calk.kg/calculator/housing</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/housing"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/housing"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/housing"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://calk.kg/ky/calculator/housing</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/housing"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/housing"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/housing"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://calk.kg/calculator/wedding</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/wedding"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/wedding"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/wedding"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://calk.kg/ky/calculator/wedding</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/wedding"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/wedding"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/wedding"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Карта сайта / Sitemap -->
   <url>
     <loc>https://calk.kg/sitemap</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/sitemap"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/sitemap"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/sitemap"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/sitemap" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/sitemap" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/sitemap" />
   </url>
   <url>
     <loc>https://calk.kg/ky/sitemap</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/sitemap"/>
-    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/sitemap"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/sitemap"/>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/sitemap" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/sitemap" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/sitemap" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/currency-exchange</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/currency-exchange" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/currency-exchange" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/currency-exchange" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/currency-exchange</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/currency-exchange" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/currency-exchange" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/currency-exchange" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/money-transfer</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/money-transfer" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/money-transfer" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/money-transfer" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/money-transfer</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/money-transfer" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/money-transfer" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/money-transfer" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/mobile-tariffs</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/mobile-tariffs" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/mobile-tariffs" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/mobile-tariffs" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/mobile-tariffs</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/mobile-tariffs" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/mobile-tariffs" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/mobile-tariffs" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/crop-yield</loc>
+    <lastmod>2026-04-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/crop-yield" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/crop-yield" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/crop-yield" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/crop-yield</loc>
+    <lastmod>2026-04-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/crop-yield" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/crop-yield" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/crop-yield" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/rental</loc>
+    <lastmod>2026-04-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/rental" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/rental" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/rental" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/rental</loc>
+    <lastmod>2026-04-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/rental" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/rental" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/rental" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/sick-leave</loc>
+    <lastmod>2026-04-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/sick-leave" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/sick-leave" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/sick-leave" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/sick-leave</loc>
+    <lastmod>2026-04-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/sick-leave" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/sick-leave" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/sick-leave" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/fuel</loc>
+    <lastmod>2026-04-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/fuel" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/fuel" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/fuel" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/fuel</loc>
+    <lastmod>2026-04-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/fuel" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/fuel" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/fuel" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/construction</loc>
+    <lastmod>2026-04-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/construction" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/construction" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/construction" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/construction</loc>
+    <lastmod>2026-04-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/construction" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/construction" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/construction" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/scholarship</loc>
+    <lastmod>2026-04-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/scholarship" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/scholarship" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/scholarship" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/scholarship</loc>
+    <lastmod>2026-04-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/scholarship" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/scholarship" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/scholarship" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/salary</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/salary" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/salary" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/salary" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/salary</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/salary" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/salary" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/salary" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/single-tax</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/single-tax" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/single-tax" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/single-tax" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/single-tax</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/single-tax" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/single-tax" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/single-tax" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/property-tax</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/property-tax" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/property-tax" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/property-tax" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/property-tax</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/property-tax" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/property-tax" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/property-tax" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/social-fund</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/social-fund" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/social-fund" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/social-fund" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/social-fund</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/social-fund" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/social-fund" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/social-fund" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/pension</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/pension" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/pension" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/pension" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/pension</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/pension" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/pension" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/pension" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/loan</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/loan" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/loan" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/loan" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/loan</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/loan" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/loan" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/loan" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/mortgage</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/mortgage" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/mortgage" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/mortgage" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/mortgage</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/mortgage" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/mortgage" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/mortgage" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/auto-loan</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/auto-loan" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/auto-loan" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/auto-loan" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/auto-loan</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/auto-loan" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/auto-loan" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/auto-loan" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/deposit</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/deposit" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/deposit" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/deposit" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/deposit</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/deposit" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/deposit" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/deposit" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/customs</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/customs" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/customs" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/customs" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/customs</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/customs" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/customs" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/customs" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/electricity</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/electricity" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/electricity" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/electricity" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/electricity</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/electricity" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/electricity" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/electricity" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/water</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/water" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/water" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/water" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/water</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/water" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/water" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/water" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/heating</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/heating" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/heating" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/heating" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/heating</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/heating" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/heating" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/heating" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/gas</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/gas" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/gas" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/gas" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/gas</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/gas" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/gas" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/gas" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/alimony</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/alimony" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/alimony" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/alimony" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/alimony</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/alimony" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/alimony" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/alimony" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/family-benefit</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/family-benefit" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/family-benefit" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/family-benefit" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/family-benefit</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/family-benefit" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/family-benefit" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/family-benefit" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/patent</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/patent" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/patent" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/patent" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/patent</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/patent" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/patent" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/patent" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/traffic-fines</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/traffic-fines" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/traffic-fines" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/traffic-fines" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/traffic-fines</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/traffic-fines" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/traffic-fines" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/traffic-fines" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/zakat</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/zakat" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/zakat" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/zakat" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/zakat</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/zakat" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/zakat" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/zakat" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/taxi-tax</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/taxi-tax" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/taxi-tax" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/taxi-tax" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/taxi-tax</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/taxi-tax" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/taxi-tax" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/taxi-tax" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/passport</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/passport" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/passport" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/passport" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/passport</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/passport" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/passport" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/passport" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/tourist-fee</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/tourist-fee" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/tourist-fee" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/tourist-fee" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/tourist-fee</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/tourist-fee" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/tourist-fee" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/tourist-fee" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/calorie</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/calorie" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/calorie" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/calorie" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/calorie</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/calorie" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/calorie" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/calorie" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/sewing-cost</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/sewing-cost" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/sewing-cost" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/sewing-cost" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/sewing-cost</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/sewing-cost" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/sewing-cost" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/sewing-cost" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/housing</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/housing" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/housing" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/housing" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/housing</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/housing" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/housing" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/housing" />
+  </url>
+  <url>
+    <loc>https://calk.kg/calculator/wedding</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/wedding" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/wedding" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/wedding" />
+  </url>
+  <url>
+    <loc>https://calk.kg/ky/calculator/wedding</loc>
+    <lastmod>2026-01-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://calk.kg/calculator/wedding" />
+    <xhtml:link rel="alternate" hreflang="ky" href="https://calk.kg/ky/calculator/wedding" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://calk.kg/calculator/wedding" />
   </url>
 </urlset>

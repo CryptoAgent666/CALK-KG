@@ -6,6 +6,11 @@
   
   # Android App Links - redirect to PHP handler
   RewriteRule ^\.well-known/assetlinks\.json$ /assetlinks-handler.php [L]
+
+  # Backward compatibility for old OG image URLs (.png -> .svg)
+  RewriteCond %{REQUEST_URI} ^/og-images/(.+)\.png$
+  RewriteCond %{DOCUMENT_ROOT}/og-images/%1.svg -f
+  RewriteRule ^og-images/(.+)\.png$ /og-images/$1.svg [L]
   
   # Serve pre-compressed files if available
   # Brotli

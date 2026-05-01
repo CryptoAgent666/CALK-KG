@@ -29,6 +29,8 @@
       .loading-spinner { display: flex; justify-content: center; align-items: center; min-height: 100vh; }
       .loading-spinner::after { content: ''; width: 40px; height: 40px; border: 3px solid #f3f3f3; border-top: 3px solid #DC2626; border-radius: 50%; animation: spin 1s linear infinite; }
       @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+      /* Hide static SEO content once React app mounts (JS-only fallback) */
+      .react-mounted #static-content { display: none !important; }
     </style>
     
     <!-- Google AdSense - deferred loading -->
@@ -36,6 +38,14 @@
      crossorigin="anonymous"></script>
   </head>
   <body>
+    <!-- Hidden form for Netlify Forms (contact form submissions) - required for form detection at deploy -->
+    <form name="contact" method="post" action="/" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="subject" />
+      <textarea name="message"></textarea>
+      <input type="text" name="bot-field" />
+    </form>
     <div id="root"><div class="loading-spinner"></div></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

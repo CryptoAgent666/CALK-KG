@@ -2,6 +2,13 @@ plugins {
     id 'com.android.application'
 }
 
+// Загрузка секретов из keystore.properties (файл не должен попадать в git)
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 android {
     namespace 'kg.calk.app'
     compileSdk 35
@@ -25,10 +32,12 @@ android {
 
     signingConfigs {
         release {
-            storeFile file('../keystore/calk-kg-release.keystore')
-            storePassword '***REMOVED***'
-            keyAlias 'calk-kg'
-            keyPassword '***REMOVED***'
+            if (keystorePropertiesFile.exists()) {
+                storeFile file(keystoreProperties['storeFile'] ?: '../keystore/calk-kg-release.keystore')
+                storePassword keystoreProperties['storePassword']
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+            }
         }
     }
 

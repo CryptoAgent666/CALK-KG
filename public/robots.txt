@@ -1,32 +1,38 @@
 # Robots.txt для Calk.KG - Онлайн калькуляторы Кыргызстана
-# Разрешаем всем поисковым ботам индексировать сайт
 
+# Общие правила — разрешаем индексирование
 User-agent: *
 Allow: /
+Disallow: /assets/
 
-# Указываем расположение карты сайта
+# Карта сайта
 Sitemap: https://calk.kg/sitemap.xml
 
-# Дополнительная информация для ботов
-Crawl-delay: 1
-
-# Важные страницы для приоритетной индексации
-# Главная страница
+# AI поисковые краулеры — разрешаем (приносят трафик)
+User-agent: GPTBot
 Allow: /
 
-# Популярные калькуляторы
-Allow: /calculator/salary
-Allow: /calculator/loan
-Allow: /calculator/mortgage
-Allow: /calculator/customs
-Allow: /calculator/electricity
-Allow: /calculator/single-tax
+User-agent: OAI-SearchBot
+Allow: /
 
-# Все остальные калькуляторы
-Allow: /calculator/*
+User-agent: ClaudeBot
+Allow: /
 
-# Информационные страницы
-Allow: /about
-Allow: /contact
-Allow: /privacy-policy
-Allow: /terms-of-service
+User-agent: PerplexityBot
+Allow: /
+
+# AI тренировочные краулеры — блокируем (только берут контент, не дают трафик)
+User-agent: CCBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: cohere-ai
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /

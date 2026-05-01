@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Calculator, ArrowLeft, Info, Home, Printer, Flame, TrendingUp, MapPin, Users, Droplets, Zap } from 'lucide-react';
 import ActionButtons from '../components/ActionButtons';
+import { HeatingCalculatorArticle } from '../components/HeatingCalculatorArticle';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
+import FAQSchema from '../components/FAQSchema';
 import { useLanguage } from '../contexts/LanguageContext';
 import {
   generateCalculatorSchema,
@@ -13,75 +15,79 @@ import {
 import { formatCurrentMonth } from '../utils/dateFormatter';
 
 // Конфигурация тарифов - легко редактируемая структура
+// АКТУАЛЬНО НА: Отопительный сезон 2025-2026
+// Источник: Приказ Департамента по регулированию ТЭК при МЭ КР №105 от 30.05.2025
+// Бишкек: социальный тариф (до 80 м²) — 1950 сом/Гкал с 01.06.2025
+// Свыше 80 м² — по себестоимости (5998 сом/Гкал от ТЭЦ Бишкека)
 const HEATING_TARIFFS = {
   'bishkek': {
     nameKey: 'city_bishkek',
     heating: {
-      // Тариф за 1 Гкал
-      tariff_per_gcal: 1134.76,
+      // Социальный тариф за 1 Гкал (до 80 м², с 01.06.2025 +25%)
+      tariff_per_gcal: 1950.00,
       // Норматив потребления тепла на 1 кв.м в месяц (Гкал)
       standard_gcal_per_m2: 0.036
     },
     hot_water: {
       // Тариф за 1 м³ по счетчику
-      tariff_per_m3: 75.14,
+      tariff_per_m3: 108.07,
       // Норматив на одного человека в месяц (сом)
-      standard_per_person: 340.50
+      standard_per_person: 430.00
     }
   },
   'osh': {
     nameKey: 'city_osh',
     heating: {
-      tariff_per_gcal: 950.20,
+      tariff_per_gcal: 1187.75,
       standard_gcal_per_m2: 0.038
     },
     hot_water: {
-      tariff_per_m3: 65.80,
-      standard_per_person: 295.40
+      tariff_per_m3: 82.25,
+      standard_per_person: 369.25
     }
   },
   'karakol': {
     nameKey: 'city_karakol',
     heating: {
-      tariff_per_gcal: 1050.30,
+      tariff_per_gcal: 1312.88,
       standard_gcal_per_m2: 0.040
     },
     hot_water: {
-      tariff_per_m3: 58.20,
-      standard_per_person: 285.60
+      tariff_per_m3: 72.75,
+      standard_per_person: 357.00
     }
   },
   'jalal-abad': {
     nameKey: 'city_jalal_abad',
     heating: {
-      tariff_per_gcal: 980.15,
+      tariff_per_gcal: 1225.19,
       standard_gcal_per_m2: 0.037
     },
     hot_water: {
-      tariff_per_m3: 62.40,
-      standard_per_person: 315.80
+      tariff_per_m3: 78.00,
+      standard_per_person: 394.75
     }
   },
   'tokmok': {
     nameKey: 'city_tokmok',
     heating: {
-      tariff_per_gcal: 890.50,
+      tariff_per_gcal: 1113.13,
       standard_gcal_per_m2: 0.035
     },
     hot_water: {
-      tariff_per_m3: 55.30,
-      standard_per_person: 275.20
+      tariff_per_m3: 69.13,
+      standard_per_person: 344.00
     }
   },
   'naryn': {
     nameKey: 'city_naryn',
     heating: {
-      tariff_per_gcal: 1200.80,
+      tariff_per_gcal: 1501.00,
       standard_gcal_per_m2: 0.042
     },
     hot_water: {
-      tariff_per_m3: 68.90,
-      standard_per_person: 365.70
+      tariff_per_m3: 86.13,
+      standard_per_person: 457.13
     }
   }
 };
@@ -268,6 +274,7 @@ const HeatingCalculatorPage = () => {
         <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/heating" : "https://calk.kg/calculator/heating"} />
       </Helmet>
       <HreflangTags path="/calculator/heating" />
+      <FAQSchema translationPrefix="heating" />
       {generateSchemas().map((schema, index) => (
         <SchemaMarkup key={index} schema={schema} />
       ))}
@@ -964,13 +971,13 @@ const HeatingCalculatorPage = () => {
                   </div>
                   <div className="text-right">
                     <div className="text-amber-600 font-semibold">
-                      {formatCurrency(exampleResult.totalCost)} сом
+                      {formatCurrency(exampleResult.totalCost)} {t('som')}
                     </div>
                     <div className="text-xs text-gray-500">
-                      отопление: {formatCurrency(exampleResult.heatingCost)}
+                      {t('heating_example_heating')} {formatCurrency(exampleResult.heatingCost)}
                     </div>
                     <div className="text-xs text-gray-500">
-                      ГВС: {formatCurrency(exampleResult.hotWaterCost)}
+                      {t('heating_example_gws')} {formatCurrency(exampleResult.hotWaterCost)}
                     </div>
                   </div>
                 </button>
@@ -1037,9 +1044,7 @@ const HeatingCalculatorPage = () => {
           <div className="mb-8">
             <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('heating_how_works')}</h3>
             <p className="text-gray-700 mb-4">
-              В Кыргызстане централизованное отопление работает с октября по апрель (отопительный сезон).
-              Горячая вода подается от ТЭЦ или котельных по трубам в дома. Плата начисляется за количество
-              тепловой энергии (Гкал) или по площади квартиры.
+              {t('heating_how_it_works_text')}
             </p>
             <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
               <p className="text-gray-700">
@@ -1131,13 +1136,11 @@ const HeatingCalculatorPage = () => {
               <div className="border border-gray-200 rounded-lg p-5">
                 <h4 className="font-semibold text-gray-900 mb-3">{t('heating_building_meter')}</h4>
                 <p className="text-sm text-gray-700 mb-3">
-                  Устанавливается в многоквартирных домах на входе теплосети. Позволяет контролировать
-                  расход тепла и платить только за фактическое потребление.
+                  {t('heating_home_meter_desc')}
                 </p>
                 <div className="bg-yellow-50 rounded p-3">
                   <p className="text-xs text-gray-600">
-                    <strong>{t('heating_important_decision')}</strong> {t('heating_decision_desc')}
-                    Стоимость: 150,000-300,000 сом на весь дом, окупаемость 2-4 года.
+                    <strong>{t('heating_important')}</strong> {t('heating_home_meter_decision')}
                   </p>
                 </div>
               </div>
@@ -1152,8 +1155,7 @@ const HeatingCalculatorPage = () => {
               <div className="border-l-4 border-orange-500 pl-4 py-2">
                 <h4 className="font-semibold text-gray-900 mb-1">{t('heating_tip1_title')}</h4>
                 <p className="text-gray-700 text-sm">
-                  Устраните щели, установите уплотнители. Потери тепла через окна: до 30%.
-                  Экономия: 15-20% от платы за отопление или 300-400 сом/мес.
+                  {t('heating_saving_tip1_desc')}
                 </p>
               </div>
 
@@ -1174,40 +1176,35 @@ const HeatingCalculatorPage = () => {
               <div className="border-l-4 border-orange-500 pl-4 py-2">
                 <h4 className="font-semibold text-gray-900 mb-1">{t('heating_tip4_title')}</h4>
                 <p className="text-gray-700 text-sm">
-                  Наружное утепление пенопластом/минватой снижает теплопотери на 25-40%.
-                  Экономия: 500-800 сом/мес.
+                  {t('heating_saving_tip4_desc')}
                 </p>
               </div>
 
               <div className="border-l-4 border-orange-500 pl-4 py-2">
                 <h4 className="font-semibold text-gray-900 mb-1">5. {t('heating_install_reflective_screens')}</h4>
                 <p className="text-gray-700 text-sm">
-                  Фольга или специальные экраны отражают тепло в комнату. Экономия: 5-8% тепла.
-                  Стоимость: 200-500 сом.
+                  {t('heating_saving_tip5_desc')}
                 </p>
               </div>
 
               <div className="border-l-4 border-orange-500 pl-4 py-2">
                 <h4 className="font-semibold text-gray-900 mb-1">{t('heating_tip6_title')}</h4>
                 <p className="text-gray-700 text-sm">
-                  Открывайте окна полностью на 5-10 минут вместо длительного микропроветривания.
-                  Экономия: до 10% тепла.
+                  {t('heating_saving_tip6_desc')}
                 </p>
               </div>
 
               <div className="border-l-4 border-orange-500 pl-4 py-2">
                 <h4 className="font-semibold text-gray-900 mb-1">{t('heating_tip7_title')}</h4>
                 <p className="text-gray-700 text-sm">
-                  Душ вместо ванны, аэраторы на краны, устраните протечки.
-                  Экономия: 30-50% на ГВС или 300-500 сом/мес.
+                  {t('heating_saving_tip7_desc')}
                 </p>
               </div>
             </div>
 
             <div className="bg-green-50 border border-green-200 rounded-lg p-5 mt-4">
               <p className="text-gray-700">
-                <strong>{t('heating_total_savings')}</strong> {t('heating_total_savings_desc')}
-                на 30-50%, что составляет 1000-2000 сомов в месяц или 6000-12000 сомов за сезон!
+                <strong>{t('heating_total_savings')}</strong> {t('heating_total_savings_desc')} {t('heating_total_savings_extra')}
               </p>
             </div>
           </div>
@@ -1219,79 +1216,62 @@ const HeatingCalculatorPage = () => {
             <div className="space-y-4">
               <details className="border border-gray-200 rounded-lg p-5 cursor-pointer hover:bg-gray-50">
                 <summary className="font-semibold text-gray-900">
-                  Когда начинается и заканчивается отопительный сезон?
+                  {t('heating_faq_q1')}
                 </summary>
                 <p className="text-gray-700 mt-3 text-sm">
-                  Официально: с 15 октября по 15 апреля. Фактически зависит от погоды. Отопление включают,
-                  когда среднесуточная температура опускается ниже +8°C в течение 3 дней подряд.
-                  Отключают, когда температура стабильно выше +8°C. В Бишкеке сезон обычно длится 6 месяцев.
+                  {t('heating_faq_a1')}
                 </p>
               </details>
 
               <details className="border border-gray-200 rounded-lg p-5 cursor-pointer hover:bg-gray-50">
                 <summary className="font-semibold text-gray-900">
-                  Что делать, если батареи холодные?
+                  {t('heating_faq_q2')}
                 </summary>
                 <p className="text-gray-700 mt-3 text-sm">
-                  1) Проверьте, открыты ли краны на батареях. 2) Стравьте воздух через кран Маевского.
-                  3) Проверьте температуру труб в подъезде - если холодные, проблема общедомовая.
-                  4) Позвоните в диспетчерскую службу теплосети: Бишкек 150, Ош (3222) 5-11-11.
-                  5) Подайте заявку в письменном виде. По закону теплосеть обязана отреагировать в течение
-                  2 часов при аварии и 24 часов при плановых работах.
+                  {t('heating_faq_a2')}
                 </p>
               </details>
 
               <details className="border border-gray-200 rounded-lg p-5 cursor-pointer hover:bg-gray-50">
                 <summary className="font-semibold text-gray-900">
-                  Можно ли получить перерасчет за недогрев?
+                  {t('heating_faq_q3')}
                 </summary>
                 <p className="text-gray-700 mt-3 text-sm">
-                  Да! Если температура в квартире ниже +18°C (угловая комната +20°C), вы имеете право на
-                  перерасчет. Действия: 1) Вызовите комиссию теплосети для замера температуры.
-                  2) Получите акт. 3) Подайте заявление на перерасчет. За каждый час недогрева
-                  полагается перерасчет 0,15% от месячной платы. При температуре ниже +12°C плата за
-                  отопление не взимается.
+                  {t('heating_faq_a3')}
                 </p>
               </details>
 
               <details className="border border-gray-200 rounded-lg p-5 cursor-pointer hover:bg-gray-50">
                 <summary className="font-semibold text-gray-900">
-                  Есть ли льготы на отопление?
+                  {t('heating_faq_q4')}
                 </summary>
                 <p className="text-gray-700 mt-3 text-sm">
-                  Да, льготы предоставляются: ветеранам ВОВ (100% скидка), участникам боевых действий
-                  (50%), инвалидам 1-2 группы (50%), многодетным семьям (30% в некоторых регионах),
-                  малообеспеченным семьям (по программе социальной защиты). Для оформления обратитесь
-                  в отдел социальной защиты с документами, затем подайте заявление в теплосеть.
+                  {t('heating_faq_a4')}
                 </p>
               </details>
 
               <details className="border border-gray-200 rounded-lg p-5 cursor-pointer hover:bg-gray-50">
                 <summary className="font-semibold text-gray-900">
-                  Можно ли отказаться от централизованного отопления?
+                  {t('heating_faq_q5')}
                 </summary>
                 <p className="text-gray-700 mt-3 text-sm">
-                  Технически да, но сложно. Требуется: 1) Согласие всех жильцов дома (собрание ЖК).
-                  2) Проект переоборудования от лицензированной организации. 3) Согласование в теплосети,
-                  архитектуре, газовой службе. 4) Техническая возможность отключения без ущерба соседям.
-                  Альтернатива: автономное газовое отопление (котел). Стоимость оборудования: 30,000-80,000 сом.
-                  Экономия спорная - газ тоже дорожает.
+                  {t('heating_faq_a5')}
                 </p>
               </details>
 
               <details className="border border-gray-200 rounded-lg p-5 cursor-pointer hover:bg-gray-50">
                 <summary className="font-semibold text-gray-900">
-                  Сколько стоит отопление и ГВС для типовой квартиры?
+                  {t('heating_faq_q6')}
                 </summary>
                 <div className="text-gray-700 mt-3 text-sm">
-                  <p className="mb-2"><strong>{t('heating_example_apartment')}</strong></p>
+                  <p className="mb-2"><strong>{t('heating_faq_a6_title')}</strong></p>
                   <ul className="list-disc list-inside space-y-1 ml-4 text-gray-600">
-                    <li>{t('heating_example_heating')}</li>
-                    <li>{t('heating_hw_meter_example')}</li>
-                    <li>{t('heating_hw_norm_example')}</li>
-                    <li><strong>{t('text_total')} со счетчиком ГВС: 2267 сом/мес</strong></li>
-                    <li><strong>{t('text_total')} без счетчика: 3063 сом/мес</strong></li>
-                    <li>{t('heating_example_season')}</li>
+                    <li>{t('heating_faq_a6_item1')}</li>
+                    <li>{t('heating_faq_a6_item2')}</li>
+                    <li>{t('heating_faq_a6_item3')}</li>
+                    <li><strong>{t('text_total')} {t('heating_faq_a6_total1')}</strong></li>
+                    <li><strong>{t('text_total')} {t('heating_faq_a6_total2')}</strong></li>
+                    <li>{t('heating_faq_a6_season')}</li>
                   </ul>
                 </div>
               </details>
@@ -1318,7 +1298,7 @@ const HeatingCalculatorPage = () => {
                 <div className="text-sm text-gray-700 space-y-1">
                   <p>☎ +996 (3222) 5-11-11</p>
                   <p>📍 {t('heating_osh_address')}</p>
-                  <p>⏰ Пн-Пт: 8:00-17:00</p>
+                  <p>⏰ {t('heating_contact_osh_hours')}</p>
                 </div>
               </div>
 
@@ -1412,12 +1392,10 @@ const HeatingCalculatorPage = () => {
             <div className="text-sm text-yellow-800">
               <p className="font-medium mb-2">{t('heating_important_info')}</p>
               <p className="mb-2">
-                <strong>{t('heating_tariffs_current')} {currentMonth}.</strong> {t('heating_preliminary_calc')} 
-                индивидуальные особенности вашего дома и поставщика услуг.
+                <strong>{t('heating_tariffs_current')} {currentMonth}.</strong> {t('heating_preliminary_calc')}
               </p>
               <p>
-                Для получения точной информации о действующих тарифах и способах расчета обратитесь 
-                в управляющую компанию вашего дома или местное подразделение теплоснабжающей организации.
+                {t('heating_for_exact_info')}
               </p>
             </div>
           </div>
@@ -1425,7 +1403,7 @@ const HeatingCalculatorPage = () => {
       </div>
 
       {/* Custom Slider Styles */}
-      <style jsx>{`
+      <style>{`
         .slider-heating::-webkit-slider-thumb {
           appearance: none;
           height: 24px;
@@ -1536,4 +1514,7 @@ const HeatingCalculatorPage = () => {
   );
 };
 
+
+      {/* Информационная статья под калькулятором */}
+      <HeatingCalculatorArticle />
 export default HeatingCalculatorPage;

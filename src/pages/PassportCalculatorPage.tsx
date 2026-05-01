@@ -5,6 +5,7 @@ import { Calculator, ArrowLeft, Info, Home, Printer, CreditCard, FileText, Clock
 import ActionButtons from '../components/ActionButtons';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
+import FAQSchema from '../components/FAQSchema';
 import { useLanguage } from '../contexts/LanguageContext';
 import {
   generateCalculatorSchema,
@@ -12,59 +13,211 @@ import {
   generateSoftwareApplicationSchema
 } from '../utils/schemaGenerator';
 import { formatCurrentMonth } from '../utils/dateFormatter';
+import { PassportCalculatorArticle } from '../components/PassportCalculatorArticle';
 
-const getPassportFees = (t: any) => ({
+type LocalizedCopy = {
+  ru: string;
+  ky: string;
+};
+
+const PASSPORT_FEES = {
   'id-card': {
-    name: t('passport_doc_id_card'),
+    name: {
+      ru: 'ID-карта',
+      ky: 'ID-карта'
+    },
+    description: {
+      ru: 'Удостоверение личности гражданина КР',
+      ky: 'КР жаранынын өздүк күбөлүгү'
+    },
     causes: {
-      'normal': {
-        name: t('passport_cause_normal'),
+      first_issue: {
+        name: {
+          ru: 'Первичное оформление',
+          ky: 'Биринчи жолу алуу'
+        },
         urgency: {
-          '18': { days: t('passport_days_18'), cost: 650 },
-          '8': { days: t('passport_days_8'), cost: 1950 },
-          '4': { days: t('passport_days_4'), cost: 2800 },
-          '2': { days: t('passport_days_2'), cost: 3500 }
+          standard: {
+            days: { ru: '12 рабочих дней', ky: '12 жумуш күнү' },
+            cost: 1103
+          },
+          '8': {
+            days: { ru: '8 рабочих дней', ky: '8 жумуш күнү' },
+            cost: 1767
+          },
+          '4': {
+            days: { ru: '4 рабочих дня', ky: '4 жумуш күнү' },
+            cost: 2284
+          },
+          '2': {
+            days: { ru: '2 рабочих дня', ky: '2 жумуш күнү' },
+            cost: 2672
+          }
         }
       },
-      'loss': {
-        name: t('passport_cause_loss'),
+      exchange_special: {
+        name: {
+          ru: 'Обмен / безработные / этнические кыргызы',
+          ky: 'Алмаштыруу / жумушсуздар / этникалык кыргыздар'
+        },
         urgency: {
-          '18': { days: t('passport_days_18'), cost: 1150 },
-          '8': { days: t('passport_days_8'), cost: 2450 },
-          '4': { days: t('passport_days_4'), cost: 3300 },
-          '2': { days: t('passport_days_2'), cost: 4000 }
+          standard: {
+            days: { ru: '12 рабочих дней', ky: '12 жумуш күнү' },
+            cost: 1868
+          },
+          '8': {
+            days: { ru: '8 рабочих дней', ky: '8 жумуш күнү' },
+            cost: 2532
+          },
+          '4': {
+            days: { ru: '4 рабочих дня', ky: '4 жумуш күнү' },
+            cost: 3049
+          },
+          '2': {
+            days: { ru: '2 рабочих дня', ky: '2 жумуш күнү' },
+            cost: 3437
+          }
+        }
+      },
+      loss_damage: {
+        name: {
+          ru: 'Утрата или порча',
+          ky: 'Жоготуу же жараксыз кылуу'
+        },
+        urgency: {
+          standard: {
+            days: { ru: '12 рабочих дней', ky: '12 жумуш күнү' },
+            cost: 2068
+          },
+          '8': {
+            days: { ru: '8 рабочих дней', ky: '8 жумуш күнү' },
+            cost: 2732
+          },
+          '4': {
+            days: { ru: '4 рабочих дня', ky: '4 жумуш күнү' },
+            cost: 3249
+          },
+          '2': {
+            days: { ru: '2 рабочих дня', ky: '2 жумуш күнү' },
+            cost: 3637
+          }
+        }
+      },
+      name_address: {
+        name: {
+          ru: 'Смена ФИО или адреса',
+          ky: 'Аты-жөнүн же дарегин өзгөртүү'
+        },
+        urgency: {
+          standard: {
+            days: { ru: '12 рабочих дней', ky: '12 жумуш күнү' },
+            cost: 1928
+          },
+          '8': {
+            days: { ru: '8 рабочих дней', ky: '8 жумуш күнү' },
+            cost: 2592
+          },
+          '4': {
+            days: { ru: '4 рабочих дня', ky: '4 жумуш күнү' },
+            cost: 3109
+          },
+          '2': {
+            days: { ru: '2 рабочих дня', ky: '2 жумуш күнү' },
+            cost: 3497
+          }
         }
       }
     }
   },
-  'passport': {
-    name: t('passport_doc_foreign'),
+  passport: {
+    name: {
+      ru: 'Загранпаспорт',
+      ky: 'Чет элдик паспорт'
+    },
+    description: {
+      ru: 'Общегражданский паспорт образца 2020 года',
+      ky: '2020-жылкы үлгүдөгү жалпы жарандык паспорт'
+    },
     causes: {
-      'normal': {
-        name: t('passport_cause_normal'),
+      first_issue: {
+        name: {
+          ru: 'Первичное оформление / обмен / безработные',
+          ky: 'Биринчи жолу алуу / алмаштыруу / жумушсуздар'
+        },
         urgency: {
-          '18': { days: t('passport_days_18'), cost: 950 },
-          '8': { days: t('passport_days_8'), cost: 2500 },
-          '4': { days: t('passport_days_4'), cost: 3800 },
-          '2': { days: t('passport_days_2'), cost: 4500 }
+          standard: {
+            days: { ru: '18 рабочих дней', ky: '18 жумуш күнү' },
+            cost: 2981
+          },
+          '8': {
+            days: { ru: '8 рабочих дней', ky: '8 жумуш күнү' },
+            cost: 3645
+          },
+          '4': {
+            days: { ru: '4 рабочих дня', ky: '4 жумуш күнү' },
+            cost: 4162
+          },
+          '2': {
+            days: { ru: '2 рабочих дня', ky: '2 жумуш күнү' },
+            cost: 4550
+          }
         }
       },
-      'loss': {
-        name: t('passport_cause_loss'),
+      name_address: {
+        name: {
+          ru: 'Смена ФИО или адреса',
+          ky: 'Аты-жөнүн же дарегин өзгөртүү'
+        },
         urgency: {
-          '18': { days: t('passport_days_18'), cost: 1450 },
-          '8': { days: t('passport_days_8'), cost: 3000 },
-          '4': { days: t('passport_days_4'), cost: 4300 },
-          '2': { days: t('passport_days_2'), cost: 5000 }
+          standard: {
+            days: { ru: '18 рабочих дней', ky: '18 жумуш күнү' },
+            cost: 3081
+          },
+          '8': {
+            days: { ru: '8 рабочих дней', ky: '8 жумуш күнү' },
+            cost: 3745
+          },
+          '4': {
+            days: { ru: '4 рабочих дня', ky: '4 жумуш күнү' },
+            cost: 4262
+          },
+          '2': {
+            days: { ru: '2 рабочих дня', ky: '2 жумуш күнү' },
+            cost: 4650
+          }
+        }
+      },
+      loss_damage: {
+        name: {
+          ru: 'Утрата или порча',
+          ky: 'Жоготуу же жараксыз кылуу'
+        },
+        urgency: {
+          standard: {
+            days: { ru: '18 рабочих дней', ky: '18 жумуш күнү' },
+            cost: 3181
+          },
+          '8': {
+            days: { ru: '8 рабочих дней', ky: '8 жумуш күнү' },
+            cost: 3845
+          },
+          '4': {
+            days: { ru: '4 рабочих дня', ky: '4 жумуш күнү' },
+            cost: 4362
+          },
+          '2': {
+            days: { ru: '2 рабочих дня', ky: '2 жумуш күнү' },
+            cost: 4750
+          }
         }
       }
     }
   }
-});
+} as const;
 
-type DocumentType = 'id-card' | 'passport';
-type CauseType = 'normal' | 'loss';
-type UrgencyType = '18' | '8' | '4' | '2';
+type DocumentType = keyof typeof PASSPORT_FEES;
+type CauseType = string;
+type UrgencyType = string;
 
 interface PassportResults {
   documentType: string;
@@ -77,7 +230,7 @@ interface PassportResults {
 
 const PassportCalculatorPage = () => {
   const { language, t, getLocalizedPath} = useLanguage();
-  const PASSPORT_FEES = getPassportFees(t);
+  const getLocalized = (copy: LocalizedCopy) => language === 'ky' ? copy.ky : copy.ru;
 
   // Генерация схем для страницы калькулятора паспортов
   const generateSchemas = () => {
@@ -113,8 +266,8 @@ const PassportCalculatorPage = () => {
   }, [t]);
 
   const [documentType, setDocumentType] = useState<DocumentType>('id-card');
-  const [causeType, setCauseType] = useState<CauseType>('normal');
-  const [urgencyType, setUrgencyType] = useState<UrgencyType>('18');
+  const [causeType, setCauseType] = useState<CauseType>('first_issue');
+  const [urgencyType, setUrgencyType] = useState<UrgencyType>('standard');
   
   const [results, setResults] = useState<PassportResults>({
     documentType: '',
@@ -132,20 +285,34 @@ const PassportCalculatorPage = () => {
     urgency: UrgencyType
   ): PassportResults => {
     const documentData = PASSPORT_FEES[docType];
-    const causeData = documentData.causes[cause];
-    const urgencyData = causeData.urgency[urgency];
+    const causeData = documentData.causes[cause as keyof typeof documentData.causes];
+    const urgencyData = causeData.urgency[urgency as keyof typeof causeData.urgency];
 
     return {
-      documentType: documentData.name,
-      causeType: causeData.name,
+      documentType: getLocalized(documentData.name),
+      causeType: getLocalized(causeData.name),
       urgencyType: urgency,
-      deliveryTime: urgencyData.days,
+      deliveryTime: getLocalized(urgencyData.days),
       cost: urgencyData.cost,
       hasResult: true
     };
   };
 
-  // Обновление результатов при изменении входных данных
+  useEffect(() => {
+    const causeKeys = Object.keys(PASSPORT_FEES[documentType].causes);
+    if (!causeKeys.includes(causeType)) {
+      setCauseType(causeKeys[0]);
+    }
+  }, [documentType, causeType]);
+
+  useEffect(() => {
+    const currentCause = PASSPORT_FEES[documentType].causes[causeType as keyof typeof PASSPORT_FEES[typeof documentType]['causes']];
+    const urgencyKeys = Object.keys(currentCause.urgency);
+    if (!urgencyKeys.includes(urgencyType)) {
+      setUrgencyType(urgencyKeys[0]);
+    }
+  }, [documentType, causeType, urgencyType]);
+
   useEffect(() => {
     if (documentType && causeType && urgencyType) {
       setResults(calculatePassportCost(documentType, causeType, urgencyType));
@@ -176,16 +343,15 @@ const PassportCalculatorPage = () => {
   );
 
   const currentMonth = formatCurrentMonth(language);
-
   // Получение доступных вариантов срочности для выбранной комбинации
   const getAvailableUrgencyOptions = () => {
     if (!documentType || !causeType) return [];
 
-    const causeData = PASSPORT_FEES[documentType].causes[causeType];
+    const causeData = PASSPORT_FEES[documentType].causes[causeType as keyof typeof PASSPORT_FEES[typeof documentType]['causes']];
     return Object.entries(causeData.urgency).map(([key, data]) => ({
       value: key,
-      label: `${data.days} - ${formatCurrency(data.cost)} ${t('passport_som')}`,
-      days: data.days,
+      label: `${getLocalized(data.days)} - ${formatCurrency(data.cost)} ${t('passport_som')}`,
+      days: getLocalized(data.days),
       cost: data.cost
     }));
   };
@@ -213,6 +379,7 @@ const PassportCalculatorPage = () => {
         <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/passport" : "https://calk.kg/calculator/passport"} />
       </Helmet>
       <HreflangTags path="/calculator/passport" />
+      <FAQSchema translationPrefix="passport" />
       {generateSchemas().map((schema, index) => (
         <SchemaMarkup key={index} schema={schema} />
       ))}
@@ -313,8 +480,8 @@ const PassportCalculatorPage = () => {
                   <CreditCard className={`h-12 w-12 mx-auto mb-3 ${
                     documentType === 'id-card' ? 'text-blue-600' : 'text-gray-400'
                   }`} />
-                  <span className="text-lg font-semibold text-gray-900">{t('passport_doc_id_card')}</span>
-                  <p className="text-sm text-gray-500 mt-1">{language === 'ky' ? 'КР жарандарынын жеке күбөлүгү' : 'Удостоверение личности гражданина КР'}</p>
+                  <span className="text-lg font-semibold text-gray-900">{getLocalized(PASSPORT_FEES['id-card'].name)}</span>
+                  <p className="text-sm text-gray-500 mt-1">{getLocalized(PASSPORT_FEES['id-card'].description)}</p>
                 </div>
               </label>
 
@@ -335,8 +502,8 @@ const PassportCalculatorPage = () => {
                   <FileText className={`h-12 w-12 mx-auto mb-3 ${
                     documentType === 'passport' ? 'text-blue-600' : 'text-gray-400'
                   }`} />
-                  <span className="text-lg font-semibold text-gray-900">{t('passport_doc_foreign')}</span>
-                  <p className="text-sm text-gray-500 mt-1">{language === 'ky' ? 'КРдан тышкары чыгуу үчүн' : 'Для выезда за пределы КР'}</p>
+                  <span className="text-lg font-semibold text-gray-900">{getLocalized(PASSPORT_FEES.passport.name)}</span>
+                  <p className="text-sm text-gray-500 mt-1">{getLocalized(PASSPORT_FEES.passport.description)}</p>
                 </div>
               </label>
             </div>
@@ -359,7 +526,7 @@ const PassportCalculatorPage = () => {
             >
               {Object.entries(PASSPORT_FEES[documentType].causes).map(([key, cause]) => (
                 <option key={key} value={key}>
-                  {cause.name}
+                  {getLocalized(cause.name)}
                 </option>
               ))}
             </select>
@@ -452,10 +619,30 @@ const PassportCalculatorPage = () => {
             <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">{t('passport_quick_calc')}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
-                { doc: 'id-card' as DocumentType, cause: 'normal' as CauseType, urgency: '18' as UrgencyType, label: t('passport_id_normal') },
-                { doc: 'passport' as DocumentType, cause: 'normal' as CauseType, urgency: '18' as UrgencyType, label: t('passport_foreign_normal') },
-                { doc: 'id-card' as DocumentType, cause: 'normal' as CauseType, urgency: '4' as UrgencyType, label: t('passport_id_urgent') },
-                { doc: 'passport' as DocumentType, cause: 'loss' as CauseType, urgency: '8' as UrgencyType, label: t('passport_foreign_urgent') }
+                {
+                  doc: 'id-card' as DocumentType,
+                  cause: 'first_issue' as CauseType,
+                  urgency: 'standard' as UrgencyType,
+                  label: language === 'ky' ? 'ID-карта: биринчи жолу алуу' : 'ID-карта: первичное оформление'
+                },
+                {
+                  doc: 'passport' as DocumentType,
+                  cause: 'first_issue' as CauseType,
+                  urgency: 'standard' as UrgencyType,
+                  label: language === 'ky' ? 'Загранпаспорт: стандарттык мөөнөт' : 'Загранпаспорт: стандартный срок'
+                },
+                {
+                  doc: 'id-card' as DocumentType,
+                  cause: 'loss_damage' as CauseType,
+                  urgency: '4' as UrgencyType,
+                  label: language === 'ky' ? 'ID-карта: жоготуу, 4 күн' : 'ID-карта: утеря, 4 дня'
+                },
+                {
+                  doc: 'passport' as DocumentType,
+                  cause: 'loss_damage' as CauseType,
+                  urgency: '8' as UrgencyType,
+                  label: language === 'ky' ? 'Загранпаспорт: жоготуу, 8 күн' : 'Загранпаспорт: утеря, 8 дней'
+                }
               ].map((example, index) => {
                 const exampleResult = calculatePassportCost(example.doc, example.cause, example.urgency);
                 return (
@@ -492,12 +679,14 @@ const PassportCalculatorPage = () => {
             <div className="flex items-start space-x-3">
               <Info className="h-6 w-6 text-blue-600 flex-shrink-0 mt-1" />
               <div className="text-sm text-blue-800">
-                <p className="font-semibold mb-2">{t('passport_features_title')}</p>
+                <p className="font-semibold mb-2">
+                  {language === 'ky' ? 'Март 2026га карата актуалдуу маалымат' : 'Актуально на март 2026'}
+                </p>
                 <ul className="list-disc list-inside space-y-1">
-                  <li>{t('passport_feature_1')}</li>
-                  <li>{t('passport_feature_2')}</li>
-                  <li>{t('passport_feature_3')}</li>
-                  <li>{t('passport_feature_4')}</li>
+                  <li>{language === 'ky' ? 'Баалар Digital Service прейскуранты боюнча 11.03.2026 жаңыртылды.' : 'Цены обновлены по прейскуранту Digital Service от 11.03.2026.'}</li>
+                  <li>{language === 'ky' ? 'ID-картанын кадимки мөөнөтү 12 жумуш күнү, загранпаспорттуку 18 жумуш күнү.' : 'Стандартный срок ID-карты: 12 рабочих дней, загранпаспорта: 18 рабочих дней.'}</li>
+                  <li>{language === 'ky' ? 'Ыкчам даярдоо варианттары: 8, 4 жана 2 жумуш күнү.' : 'Срочные варианты оформления доступны за 8, 4 и 2 рабочих дня.'}</li>
+                  <li>{language === 'ky' ? 'Калькулятор мамлекеттик пошлинаны көрсөтөт; сүрөткө тартуу жана кошумча кызматтар өзүнчө болушу мүмкүн.' : 'Калькулятор показывает госпошлину; фото- и сопутствующие услуги могут оплачиваться отдельно.'}</li>
                 </ul>
               </div>
             </div>
@@ -620,7 +809,7 @@ const PassportCalculatorPage = () => {
                   ) : (
                     <FileText className="h-6 w-6 text-blue-600 mr-3" />
                   )}
-                  {docData.name}
+                  {getLocalized(docData.name)}
                 </h3>
                 
                 <div className="overflow-x-auto">
@@ -631,7 +820,7 @@ const PassportCalculatorPage = () => {
                           {t('passport_table_reason')}
                         </th>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          {t('passport_table_18_days')}
+                          {language === 'ky' ? 'Стандарттык мөөнөт' : 'Стандартный срок'}
                         </th>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           {t('passport_table_8_days')}
@@ -650,7 +839,7 @@ const PassportCalculatorPage = () => {
                         return (
                           <tr key={causeKey} className={isCurrentSelection ? 'bg-blue-50' : ''}>
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {causeData.name}
+                              {getLocalized(causeData.name)}
                             </td>
                             {Object.entries(causeData.urgency).map(([urgencyKey, urgencyData]) => {
                               const isCurrentCell = isCurrentSelection && urgencyKey === urgencyType;
@@ -658,7 +847,8 @@ const PassportCalculatorPage = () => {
                                 <td key={urgencyKey} className={`px-6 py-4 whitespace-nowrap text-sm ${
                                   isCurrentCell ? 'font-bold text-blue-600' : 'text-gray-900'
                                 }`}>
-                                  {formatCurrency(urgencyData.cost)} {t('passport_som')}
+                                  <div>{formatCurrency(urgencyData.cost)} {t('passport_som')}</div>
+                                  <div className="text-xs text-gray-500">{getLocalized(urgencyData.days)}</div>
                                 </td>
                               );
                             })}
@@ -755,7 +945,7 @@ const PassportCalculatorPage = () => {
       </div>
 
       {/* Print styles */}
-      <style jsx>{`
+      <style>{`
         @media print {
           .print\\:hidden {
             display: none !important;
@@ -793,6 +983,8 @@ const PassportCalculatorPage = () => {
           }
         }
       `}</style>
+
+      <PassportCalculatorArticle />
     </div>
   );
 };

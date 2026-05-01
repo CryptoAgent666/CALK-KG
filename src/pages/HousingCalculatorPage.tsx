@@ -5,12 +5,14 @@ import { Calculator, ArrowLeft, Info, Home, Printer, Building, MapPin, TrendingU
 import ActionButtons from '../components/ActionButtons';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
+import FAQSchema from '../components/FAQSchema';
 import { useLanguage } from '../contexts/LanguageContext';
 import {
   generateCalculatorSchema,
   generateBreadcrumbSchema
 } from '../utils/schemaGenerator';
 import { formatCurrentMonth } from '../utils/dateFormatter';
+import { HousingCalculatorArticle } from '../components/HousingCalculatorArticle';
 
 const getCityPrices = (t: (key: string) => string) => ({
   'bishkek': {
@@ -289,6 +291,7 @@ const HousingCalculatorPage = () => {
         <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/housing" : "https://calk.kg/calculator/housing"} />
       </Helmet>
       <HreflangTags path="/calculator/housing" />
+      <FAQSchema translationPrefix="housing" />
       {generateSchemas().map((schema, index) => (
         <SchemaMarkup key={index} schema={schema} />
       ))}
@@ -880,7 +883,7 @@ ${t('water_calculated_on')}`}
       </div>
 
       {/* Print styles */}
-      <style jsx>{`
+      <style>{`
         @media print {
           .print\\:hidden {
             display: none !important;
@@ -924,6 +927,8 @@ ${t('water_calculated_on')}`}
           }
         }
       `}</style>
+
+      <HousingCalculatorArticle />
     </div>
   );
 };

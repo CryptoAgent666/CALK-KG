@@ -4,12 +4,14 @@ import { Helmet } from 'react-helmet-async';
 import { Calculator, ArrowLeft, Info, Home, Printer, Star, TrendingUp, CheckCircle, XCircle, AlertTriangle, Calendar, Heart, Users, CreditCard } from 'lucide-react';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
+import FAQSchema from '../components/FAQSchema';
 import { useLanguage } from '../contexts/LanguageContext';
 import {
   generateCalculatorSchema,
   generateBreadcrumbSchema
 } from '../utils/schemaGenerator';
 import { formatCurrentMonth } from '../utils/dateFormatter';
+import { ZakatCalculatorArticle } from '../components/ZakatCalculatorArticle';
 
 // Конфигурация закята - легко редактируемая
 const ZAKAT_CONFIG = {
@@ -18,7 +20,7 @@ const ZAKAT_CONFIG = {
   // Ставка закята
   zakat_rate: 0.025, // 2.5%
   // Текущая стоимость 1 грамма золота (легко обновляемое значение)
-  gold_price_per_gram: 6000 // сом за грамм
+  gold_price_per_gram: 14200 // сом за грамм 999 пробы на 21.04.2026 (источник: НБКР, Кыргызалтын)
 };
 
 interface ZakatResults {
@@ -202,6 +204,7 @@ const ZakatCalculatorPage = () => {
         <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/zakat" : "https://calk.kg/calculator/zakat"} />
       </Helmet>
       <HreflangTags path="/calculator/zakat" />
+      <FAQSchema translationPrefix="zakat" />
       {generateSchemas().map((schema, index) => (
         <SchemaMarkup key={index} schema={schema} />
       ))}
@@ -301,7 +304,7 @@ const ZakatCalculatorPage = () => {
                   className="w-full px-4 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-lg print:text-base"
                 />
                 <p className="text-sm text-gray-500 mt-2">
-                  {t('zakat_nisab_equals')} {goldPrice ? formatCurrency(parseFloat(goldPrice) * ZAKAT_CONFIG.nisab_gold_grams) : 0} сом
+                  {t('zakat_nisab_equals')} {goldPrice ? formatCurrency(parseFloat(goldPrice) * ZAKAT_CONFIG.nisab_gold_grams) : 0} {t('som')}
                   ({ZAKAT_CONFIG.nisab_gold_grams} {t('zakat_grams_gold')})
                 </p>
               </div>
@@ -471,19 +474,19 @@ const ZakatCalculatorPage = () => {
                 <div className="space-y-2 text-sm text-gray-600">
                   <div className="flex justify-between">
                     <span>{t('zakat_total_assets_label')}</span>
-                    <span>{formatCurrency(results.totalAssets)} сом</span>
+                    <span>{formatCurrency(results.totalAssets)} {t('som')}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>{t('zakat_obligations_label')}</span>
-                    <span>{formatCurrency(results.totalObligations)} сом</span>
+                    <span>{formatCurrency(results.totalObligations)} {t('som')}</span>
                   </div>
                   <div className="flex justify-between font-medium text-gray-900">
                     <span>{t('zakat_net_assets_label')}</span>
-                    <span>{formatCurrency(results.netAssets)} сом</span>
+                    <span>{formatCurrency(results.netAssets)} {t('som')}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>{t('zakat_nisab_threshold')}</span>
-                    <span>{formatCurrency(results.nisabThreshold)} сом</span>
+                    <span>{formatCurrency(results.nisabThreshold)} {t('som')}</span>
                   </div>
                 </div>
               </div>
@@ -528,7 +531,7 @@ const ZakatCalculatorPage = () => {
                       <>
                         <p className="text-green-100 mb-2">{t('zakat_amount_to_pay')}</p>
                         <p className="text-5xl font-bold mb-2">
-                          {formatCurrency(results.zakatAmount)} сом
+                          {formatCurrency(results.zakatAmount)} {t('som')}
                         </p>
                         <p className="text-green-100">{t('zakat_annually')}</p>
                       </>
@@ -536,7 +539,7 @@ const ZakatCalculatorPage = () => {
                       <>
                         <p className="text-gray-100 mb-2">{t('zakat_below_nisab')}</p>
                         <p className="text-3xl font-bold">
-                          {formatCurrency(results.netAssets)} сом &lt; {formatCurrency(results.nisabThreshold)} сом
+                          {formatCurrency(results.netAssets)} {t('som')} &lt; {formatCurrency(results.nisabThreshold)} {t('som')}
                         </p>
                       </>
                     )}
@@ -556,7 +559,7 @@ const ZakatCalculatorPage = () => {
                             <div className="flex justify-between items-center mb-2">
                               <span className="text-sm text-gray-600">{t('zakat_total_assets_calc')}</span>
                               <span className="text-sm font-medium text-blue-600">
-                                {formatCurrency(results.totalAssets)} сом
+                                {formatCurrency(results.totalAssets)} {t('som')}
                               </span>
                             </div>
                             <div className="w-full bg-gray-200 rounded-full h-3">
@@ -574,7 +577,7 @@ const ZakatCalculatorPage = () => {
                             <div className="flex justify-between items-center mb-2">
                               <span className="text-sm text-gray-600">{t('zakat_obligations_label')}</span>
                               <span className="text-sm font-medium text-red-600">
-                                -{formatCurrency(results.totalObligations)} сом
+                                -{formatCurrency(results.totalObligations)} {t('som')}
                               </span>
                             </div>
                             <div className="w-full bg-gray-200 rounded-full h-3">
@@ -643,11 +646,11 @@ const ZakatCalculatorPage = () => {
                           </Tooltip>
                         </div>
                         <span className="text-2xl font-bold text-amber-600">
-                          {formatCurrency(results.nisabThreshold)} сом
+                          {formatCurrency(results.nisabThreshold)} {t('som')}
                         </span>
                       </div>
                       <div className="text-sm text-gray-500">
-                        {t('zakat_formula')} {formatCurrency(results.goldPrice)} сом/г × {ZAKAT_CONFIG.nisab_gold_grams} г = {formatCurrency(results.nisabThreshold)} сом
+                        {t('zakat_formula')} {formatCurrency(results.goldPrice)} {t('som_per_gram')} × {ZAKAT_CONFIG.nisab_gold_grams} {t('calorie_grams')} = {formatCurrency(results.nisabThreshold)} {t('som')}
                       </div>
                     </div>
 
@@ -661,33 +664,33 @@ const ZakatCalculatorPage = () => {
                           </Tooltip>
                         </div>
                         <span className="text-xl font-semibold text-blue-600">
-                          {formatCurrency(results.totalAssets)} сом
+                          {formatCurrency(results.totalAssets)} {t('som')}
                         </span>
                       </div>
                       <div className="text-sm text-gray-500 space-y-1">
                         <div className="flex justify-between">
                           <span>{t('zakat_cash_money')}</span>
-                          <span>{formatCurrency(parseFloat(cashMoney) || 0)} сом</span>
+                          <span>{formatCurrency(parseFloat(cashMoney) || 0)} {t('som')}</span>
                         </div>
                         <div className="flex justify-between">
                           <span>{t('zakat_gold_jewelry')}</span>
-                          <span>{formatCurrency(parseFloat(goldSilver) || 0)} сом</span>
+                          <span>{formatCurrency(parseFloat(goldSilver) || 0)} {t('som')}</span>
                         </div>
                         <div className="flex justify-between">
                           <span>{t('zakat_business_goods')}</span>
-                          <span>{formatCurrency(parseFloat(businessGoods) || 0)} сом</span>
+                          <span>{formatCurrency(parseFloat(businessGoods) || 0)} {t('som')}</span>
                         </div>
                         <div className="flex justify-between">
                           <span>{t('zakat_investments_calc')}</span>
-                          <span>{formatCurrency(parseFloat(investments) || 0)} сом</span>
+                          <span>{formatCurrency(parseFloat(investments) || 0)} {t('som')}</span>
                         </div>
                         <div className="flex justify-between">
                           <span>{t('zakat_rental_income')}</span>
-                          <span>{formatCurrency(parseFloat(rentalIncome) || 0)} сом</span>
+                          <span>{formatCurrency(parseFloat(rentalIncome) || 0)} {t('som')}</span>
                         </div>
                         <div className="flex justify-between">
                           <span>{t('zakat_receivable_debts')}</span>
-                          <span>{formatCurrency(parseFloat(receivableDebts) || 0)} сом</span>
+                          <span>{formatCurrency(parseFloat(receivableDebts) || 0)} {t('som')}</span>
                         </div>
                       </div>
                     </div>
@@ -702,11 +705,11 @@ const ZakatCalculatorPage = () => {
                           </Tooltip>
                         </div>
                         <span className="text-2xl font-bold text-green-600">
-                          {formatCurrency(results.netAssets)} сом
+                          {formatCurrency(results.netAssets)} {t('som')}
                         </span>
                       </div>
                       <div className="text-sm text-gray-500">
-                        {t('zakat_formula')} {formatCurrency(results.totalAssets)} - {formatCurrency(results.totalObligations)} = {formatCurrency(results.netAssets)} сом
+                        {t('zakat_formula')} {formatCurrency(results.totalAssets)} - {formatCurrency(results.totalObligations)} = {formatCurrency(results.netAssets)} {t('som')}
                       </div>
                     </div>
 
@@ -721,11 +724,11 @@ const ZakatCalculatorPage = () => {
                             </Tooltip>
                           </div>
                           <span className="text-3xl font-bold text-green-600">
-                            {formatCurrency(results.zakatAmount)} сом
+                            {formatCurrency(results.zakatAmount)} {t('som')}
                           </span>
                         </div>
                         <div className="text-sm text-gray-500">
-                          {t('zakat_formula')} {formatCurrency(results.netAssets)} × 2.5% = {formatCurrency(results.zakatAmount)} сом
+                          {t('zakat_formula')} {formatCurrency(results.netAssets)} × 2.5% = {formatCurrency(results.zakatAmount)} {t('som')}
                         </div>
                       </div>
                     )}
@@ -737,15 +740,15 @@ const ZakatCalculatorPage = () => {
                     <div className="space-y-2 text-sm text-gray-600">
                       <div className="flex justify-between">
                         <span>{t('zakat_gold_price_summary')}</span>
-                        <span>{formatCurrency(results.goldPrice)} сом/г</span>
+                        <span>{formatCurrency(results.goldPrice)} {t('som_per_gram')}</span>
                       </div>
                       <div className="flex justify-between">
                         <span>{t('zakat_nisab_label')} ({ZAKAT_CONFIG.nisab_gold_grams} {t('zakat_gold_grams')}):</span>
-                        <span>{formatCurrency(results.nisabThreshold)} сом</span>
+                        <span>{formatCurrency(results.nisabThreshold)} {t('som')}</span>
                       </div>
                       <div className="flex justify-between">
                         <span>{t('zakat_your_assets')}</span>
-                        <span>{formatCurrency(results.netAssets)} сом</span>
+                        <span>{formatCurrency(results.netAssets)} {t('som')}</span>
                       </div>
                       <div className="flex justify-between">
                         <span>{t('zakat_status')}</span>
@@ -814,10 +817,10 @@ const ZakatCalculatorPage = () => {
                     </div>
                     <div className="text-right">
                       <div className={`font-semibold ${exampleResult.mustPayZakat ? 'text-green-600' : 'text-gray-600'}`}>
-                        {exampleResult.mustPayZakat ? `${formatCurrency(exampleResult.zakatAmount)} сом` : t('zakat_not_needed')}
+                        {exampleResult.mustPayZakat ? `${formatCurrency(exampleResult.zakatAmount)} ${t('som')}` : t('zakat_not_needed')}
                       </div>
                       <div className="text-xs text-gray-500">
-                        {t('zakat_net_assets_short')} {formatCurrency(exampleResult.netAssets)} сом
+                        {t('zakat_net_assets_short')} {formatCurrency(exampleResult.netAssets)} {t('som')}
                       </div>
                     </div>
                   </button>
@@ -993,7 +996,7 @@ const ZakatCalculatorPage = () => {
       </div>
 
       {/* Print styles */}
-      <style jsx>{`
+      <style>{`
         @media print {
           .print\\:hidden {
             display: none !important;
@@ -1041,6 +1044,8 @@ const ZakatCalculatorPage = () => {
           }
         }
       `}</style>
+
+      <ZakatCalculatorArticle />
     </div>
   );
 };

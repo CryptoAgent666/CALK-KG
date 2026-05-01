@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { ArrowLeft, Home, Calculator, Map } from 'lucide-react';
+import { Home, Calculator, Map } from 'lucide-react';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
 import { generateWebPageSchema, generateBreadcrumbSchema } from '../utils/schemaGenerator';
@@ -80,37 +80,6 @@ const SitemapPage = () => {
       {generateSchemas().map((schema, index) => (
         <SchemaMarkup key={index} schema={schema} />
       ))}
-
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-4">
-              <Link 
-                to="/" 
-                className="flex items-center space-x-2 text-gray-600 hover:text-red-600 transition-colors"
-              >
-                <ArrowLeft className="h-5 w-5" />
-                <span>{t('back')}</span>
-              </Link>
-              <div className="h-6 w-px bg-gray-300"></div>
-              <Link to="/" className="flex items-center space-x-2">
-                <div className="bg-gradient-to-r from-red-600 to-red-700 p-2 rounded-lg">
-                  <Calculator className="h-5 w-5 text-white" />
-                </div>
-                <span className="text-lg font-bold text-gray-900">Calk.KG</span>
-              </Link>
-            </div>
-            <Link 
-              to="/"
-              className="flex items-center space-x-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
-            >
-              <Home className="h-4 w-4" />
-              <span>{t('home')}</span>
-            </Link>
-          </div>
-        </div>
-      </header>
 
       {/* Page Header */}
       <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
@@ -201,7 +170,7 @@ const SitemapPage = () => {
                     {getCategoryName(data.category)}
                   </h2>
                   <p className="text-gray-600">
-                    {data.calculators.length} {t('sitemap_calculator', { count: data.calculators.length })}
+                    {data.calculators.length} {t('sitemap_calculator')}
                   </p>
                 </div>
               </div>

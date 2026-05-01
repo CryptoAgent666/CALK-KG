@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Calculator, ArrowLeft, Info, Home, Printer, Car, AlertTriangle, Calendar, DollarSign } from 'lucide-react';
+import { Calculator, ArrowLeft, Info, Home, Car, AlertTriangle, Calendar, DollarSign } from 'lucide-react';
 import ActionButtons from '../components/ActionButtons';
+import { CustomsCalculatorArticle } from '../components/CustomsCalculatorArticle';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
+import FAQSchema from '../components/FAQSchema';
 import { useLanguage } from '../contexts/LanguageContext';
 import {
   generateCalculatorSchema,
@@ -13,6 +15,8 @@ import {
 } from '../utils/schemaGenerator';
 import { formatCurrentMonth } from '../utils/dateFormatter';
 
+type VehicleType = 'passenger' | 'electric' | 'hybrid' | 'truck' | 'motorcycle';
+
 interface CustomsResults {
   customsStoicostValue: number;
   customsFee: number;
@@ -20,17 +24,69 @@ interface CustomsResults {
   exciseTax: number;
   vat: number;
   totalCost: number;
+  benefitAmount?: number; // Сумма льготы для EV/Hybrid
+}
+
+interface AdditionalCosts {
+  delivery: number;
+  broker: number;
+  registration: number;
+  insurance: number;
+  inspection: number;
+  total: number;
 }
 
 // Актуальные ставки таможенных пошлин КР согласно единым тарифам ЕАЭС (2026)
-const getDutyRate = (year: number, engineVolume: number): { dutyRate: number; exciseRate: number } => {
+// С учетом льгот для электромобилей и гибридов
+const getDutyRate = (
+  year: number, 
+  engineVolume: number, 
+  vehicleType: VehicleType = 'passenger',
+  truckWeight?: number
+): { dutyRate: number; exciseRate: number } => {
   const currentYear = new Date().getFullYear();
   const age = currentYear - year;
 
-  // Ставки согласно единым тарифам ЕАЭС для легковых автомобилей
+  // Электромобили: ЛЬГОТА - 0% пошлина до 2027 года
+  if (vehicleType === 'electric') {
+    return { dutyRate: 0, exciseRate: 0 };
+  }
+
+  // Гибриды: сниженная ставка 10%
+  if (vehicleType === 'hybrid') {
+    if (age <= 3) {
+      if (engineVolume <= 1800) return { dutyRate: 0.10, exciseRate: 0 };
+      if (engineVolume <= 2300) return { dutyRate: 0.10, exciseRate: 0.03 };
+      if (engineVolume <= 3000) return { dutyRate: 0.10, exciseRate: 0.05 };
+      return { dutyRate: 0.10, exciseRate: 0.08 };
+    } else {
+      if (engineVolume <= 1500) return { dutyRate: 0.10, exciseRate: 0 };
+      if (engineVolume <= 1800) return { dutyRate: 0.10, exciseRate: 0.01 };
+      if (engineVolume <= 2300) return { dutyRate: 0.10, exciseRate: 0.04 };
+      if (engineVolume <= 3000) return { dutyRate: 0.10, exciseRate: 0.08 };
+      return { dutyRate: 0.10, exciseRate: 0.12 };
+    }
+  }
+
+  // Грузовые автомобили: фиксированная ставка + зависит от веса
+  if (vehicleType === 'truck') {
+    const weight = truckWeight || 3.5;
+    if (weight <= 5) return { dutyRate: 0.15, exciseRate: 0 };
+    if (weight <= 20) return { dutyRate: 0.15, exciseRate: 0 };
+    return { dutyRate: 0.15, exciseRate: 0 };
+  }
+
+  // Мотоциклы: упрощенная схема
+  if (vehicleType === 'motorcycle') {
+    if (engineVolume <= 250) return { dutyRate: 0.10, exciseRate: 0 };
+    if (engineVolume <= 500) return { dutyRate: 0.15, exciseRate: 0 };
+    if (engineVolume <= 800) return { dutyRate: 0.15, exciseRate: 0.02 };
+    return { dutyRate: 0.15, exciseRate: 0.05 };
+  }
+
+  // Легковые автомобили: стандартные ставки ЕАЭС
   // Новые автомобили (до 3 лет)
   if (age <= 3) {
-    // Новые автомобили: базовая ставка 15%
     if (engineVolume <= 1000) return { dutyRate: 0.15, exciseRate: 0 };
     if (engineVolume <= 1500) return { dutyRate: 0.15, exciseRate: 0 };
     if (engineVolume <= 1800) return { dutyRate: 0.15, exciseRate: 0.01 };
@@ -38,7 +94,7 @@ const getDutyRate = (year: number, engineVolume: number): { dutyRate: number; ex
     if (engineVolume <= 3000) return { dutyRate: 0.15, exciseRate: 0.08 };
     return { dutyRate: 0.15, exciseRate: 0.10 };
   }
-  // Подержанные автомобили (старше 3 лет): базовая ставка 20%
+  // Подержанные автомобили (старше 3 лет)
   else {
     if (engineVolume <= 1000) return { dutyRate: 0.20, exciseRate: 0 };
     if (engineVolume <= 1500) return { dutyRate: 0.20, exciseRate: 0.01 };
@@ -52,10 +108,18 @@ const getDutyRate = (year: number, engineVolume: number): { dutyRate: number; ex
 const CustomsCalculatorPage = () => {
   const { t, language, getLocalizedPath } = useLanguage();
 
-
+  const [vehicleType, setVehicleType] = useState<VehicleType>('passenger');
   const [year, setYear] = useState<string>('');
   const [engineVolume, setEngineVolume] = useState<string>('');
   const [customsValue, setCustomsValue] = useState<string>('');
+  const [truckWeight, setTruckWeight] = useState<string>('3.5');
+  
+  // Additional costs
+  const [deliveryCost, setDeliveryCost] = useState<string>('');
+  const [brokerFee, setBrokerFee] = useState<string>('300');
+  const [registrationFee, setRegistrationFee] = useState<string>('150');
+  const [insuranceCost, setInsuranceCost] = useState<string>('100');
+  const [inspectionCost, setInspectionCost] = useState<string>('50');
   
   const [results, setResults] = useState<CustomsResults>({
     customsStoicostValue: 0,
@@ -63,19 +127,43 @@ const CustomsCalculatorPage = () => {
     customsDuty: 0,
     exciseTax: 0,
     vat: 0,
-    totalCost: 0
+    totalCost: 0,
+    benefitAmount: 0
+  });
+
+  const [additionalCosts, setAdditionalCosts] = useState<AdditionalCosts>({
+    delivery: 0,
+    broker: 0,
+    registration: 0,
+    insurance: 0,
+    inspection: 0,
+    total: 0
   });
 
   // Расчет таможенных платежей
-  const calculateCustoms = (carYear: number, volume: number, value: number): CustomsResults => {
+  const calculateCustoms = (
+    carYear: number, 
+    volume: number, 
+    value: number, 
+    type: VehicleType = 'passenger',
+    weight?: number
+  ): CustomsResults => {
     if (value <= 0 || carYear <= 0 || volume <= 0) {
-      return { customsStoicostValue: value, customsFee: 0, customsDuty: 0, exciseTax: 0, vat: 0, totalCost: 0 };
+      return { 
+        customsStoicostValue: value, 
+        customsFee: 0, 
+        customsDuty: 0, 
+        exciseTax: 0, 
+        vat: 0, 
+        totalCost: 0,
+        benefitAmount: 0 
+      };
     }
 
-    // Получаем ставки из матрицы
-    const { dutyRate, exciseRate } = getDutyRate(carYear, volume);
+    // Получаем ставки из матрицы с учетом типа ТС
+    const { dutyRate, exciseRate } = getDutyRate(carYear, volume, type, weight);
 
-    // 1. Таможенный сбор (примерно 0.4% от стоимости)
+    // 1. Таможенный сбор (0.4% от стоимости)
     const customsFee = value * 0.004;
 
     // 2. Таможенная пошлина (по ставке из матрицы)
@@ -91,28 +179,73 @@ const CustomsCalculatorPage = () => {
     // 5. Итоговая сумма
     const totalCost = customsFee + customsDuty + exciseTax + vat;
 
+    // 6. Рассчитываем сумму льготы (для EV и Hybrid)
+    let benefitAmount = 0;
+    if (type === 'electric') {
+      // Для электромобилей: экономия на пошлине (15-20%)
+      const standardRate = carYear && (new Date().getFullYear() - carYear) <= 3 ? 0.15 : 0.20;
+      benefitAmount = value * standardRate;
+    } else if (type === 'hybrid') {
+      // Для гибридов: экономия 5-10% на пошлине
+      const standardRate = carYear && (new Date().getFullYear() - carYear) <= 3 ? 0.15 : 0.20;
+      benefitAmount = value * (standardRate - 0.10);
+    }
+
     return {
       customsStoicostValue: value,
       customsFee,
       customsDuty,
       exciseTax,
       vat,
-      totalCost
+      totalCost,
+      benefitAmount
     };
   };
 
-  // Обновление результатов
+  // Расчет дополнительных расходов
+  const calculateAdditionalCosts = (
+    delivery: number,
+    broker: number,
+    registration: number,
+    insurance: number,
+    inspection: number
+  ): AdditionalCosts => {
+    const total = delivery + broker + registration + insurance + inspection;
+    return { delivery, broker, registration, insurance, inspection, total };
+  };
+
+  // Обновление результатов таможенных платежей
   useEffect(() => {
     const carYear = parseInt(year) || 0;
     const volume = parseInt(engineVolume) || 0;
     const value = parseFloat(customsValue) || 0;
+    const weight = parseFloat(truckWeight) || 3.5;
 
     if (carYear > 0 && volume > 0 && value > 0) {
-      setResults(calculateCustoms(carYear, volume, value));
+      setResults(calculateCustoms(carYear, volume, value, vehicleType, weight));
     } else {
-      setResults({ customsStoicostValue: value, customsFee: 0, customsDuty: 0, exciseTax: 0, vat: 0, totalCost: 0 });
+      setResults({ 
+        customsStoicostValue: value, 
+        customsFee: 0, 
+        customsDuty: 0, 
+        exciseTax: 0, 
+        vat: 0, 
+        totalCost: 0,
+        benefitAmount: 0 
+      });
     }
-  }, [year, engineVolume, customsValue]);
+  }, [year, engineVolume, customsValue, vehicleType, truckWeight]);
+
+  // Обновление дополнительных расходов
+  useEffect(() => {
+    const delivery = parseFloat(deliveryCost) || 0;
+    const broker = parseFloat(brokerFee) || 0;
+    const registration = parseFloat(registrationFee) || 0;
+    const insurance = parseFloat(insuranceCost) || 0;
+    const inspection = parseFloat(inspectionCost) || 0;
+
+    setAdditionalCosts(calculateAdditionalCosts(delivery, broker, registration, insurance, inspection));
+  }, [deliveryCost, brokerFee, registrationFee, insuranceCost, inspectionCost]);
 
   // Генерация схем для страницы таможенного калькулятора
   const generateSchemas = () => {
@@ -157,13 +290,6 @@ const CustomsCalculatorPage = () => {
     }).format(amount);
   };
 
-  const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (value === '' || /^\d{4}$|^\d{0,3}$/.test(value)) {
-      setYear(value);
-    }
-  };
-
   const handleEngineVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (value === '' || /^\d*$/.test(value)) {
@@ -176,10 +302,6 @@ const CustomsCalculatorPage = () => {
     if (value === '' || /^\d*\.?\d*$/.test(value)) {
       setCustomsValue(value);
     }
-  };
-
-  const handlePrint = () => {
-    window.print();
   };
 
   // Tooltip component
@@ -230,6 +352,7 @@ const CustomsCalculatorPage = () => {
         <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/customs" : "https://calk.kg/calculator/customs"} />
       </Helmet>
       <HreflangTags path="/calculator/customs" />
+      <FAQSchema translationPrefix="customs" />
       {generateSchemas().map((schema, index) => (
         <SchemaMarkup key={index} schema={schema} />
       ))}
@@ -314,6 +437,46 @@ const CustomsCalculatorPage = () => {
             <div className="bg-white rounded-xl shadow-sm p-8 print:shadow-none print:border">
               <h2 className="text-xl font-semibold text-gray-900 mb-6">{t('customs_car_data')}</h2>
               
+              {/* Vehicle Type */}
+              <div className="mb-6">
+                <div className="flex items-center mb-3">
+                  <label className="block text-sm font-medium text-gray-700">
+                    {t('customs_vehicle_type')}
+                  </label>
+                  <Tooltip text={t('customs_vehicle_type_tooltip')}>
+                    <Info className="h-4 w-4 text-gray-400 ml-2 cursor-help" />
+                  </Tooltip>
+                </div>
+                <select
+                  value={vehicleType}
+                  onChange={(e) => setVehicleType(e.target.value as VehicleType)}
+                  className="w-full px-4 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg print:text-base"
+                >
+                  <option value="passenger">{t('customs_type_passenger')}</option>
+                  <option value="electric">⚡ {t('customs_type_electric')}</option>
+                  <option value="hybrid">🔋 {t('customs_type_hybrid')}</option>
+                  <option value="truck">🚛 {t('customs_type_truck')}</option>
+                  <option value="motorcycle">🏍️ {t('customs_type_motorcycle')}</option>
+                </select>
+                {vehicleType === 'electric' && (
+                  <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg">
+                    <p className="text-sm text-green-800 font-medium">
+                      {t('customs_ev_benefit_title')}
+                    </p>
+                    <p className="text-xs text-green-700 mt-1">
+                      {t('customs_ev_benefit_text')}
+                    </p>
+                  </div>
+                )}
+                {vehicleType === 'hybrid' && (
+                  <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                    <p className="text-sm text-blue-800">
+                      {t('customs_hybrid_benefit_text')}
+                    </p>
+                  </div>
+                )}
+              </div>
+
               {/* Year */}
               <div className="mb-6">
                 <div className="flex items-center mb-3">
@@ -341,13 +504,34 @@ const CustomsCalculatorPage = () => {
                 )}
               </div>
 
+              {/* Engine Volume / Truck Weight */}
+              {vehicleType === 'truck' ? (
+                <div className="mb-6">
+                  <div className="flex items-center mb-3">
+                    <label className="block text-sm font-medium text-gray-700">
+                      {t('customs_truck_weight')}
+                    </label>
+                    <Tooltip text={t('customs_truck_weight_tooltip')}>
+                      <Info className="h-4 w-4 text-gray-400 ml-2 cursor-help" />
+                    </Tooltip>
+                  </div>
+                  <input
+                    type="text"
+                    value={truckWeight}
+                    onChange={(e) => setTruckWeight(e.target.value)}
+                    placeholder="3.5"
+                    className="w-full px-4 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg print:text-base"
+                  />
+                </div>
+              ) : null}
+
               {/* Engine Volume */}
               <div className="mb-6">
                 <div className="flex items-center mb-3">
                   <label className="block text-sm font-medium text-gray-700">
-                    {t('customs_engine_volume')}
+                    {vehicleType === 'motorcycle' ? t('customs_moto_engine') : t('customs_engine_volume')}
                   </label>
-                  <Tooltip text={t('customs_engine_tooltip')}>
+                  <Tooltip text={vehicleType === 'motorcycle' ? t('customs_moto_tooltip') : t('customs_engine_tooltip')}>
                     <Info className="h-4 w-4 text-gray-400 ml-2 cursor-help" />
                   </Tooltip>
                 </div>
@@ -355,7 +539,7 @@ const CustomsCalculatorPage = () => {
                   type="text"
                   value={engineVolume}
                   onChange={handleEngineVolumeChange}
-                  placeholder={t('placeholder_example_amount')}
+                  placeholder={vehicleType === 'motorcycle' ? '750' : t('placeholder_example_amount')}
                   className="w-full px-4 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg print:text-base"
                 />
               </div>
@@ -397,6 +581,119 @@ const CustomsCalculatorPage = () => {
                   </div>
                 </div>
               </div>
+            </div>
+
+            {/* Additional Costs Section */}
+            <div className="bg-white rounded-xl shadow-sm p-8 print:shadow-none print:border print:break-inside-avoid">
+              <h2 className="text-xl font-semibold text-gray-900 mb-4">{t('customs_additional_costs')}</h2>
+              <p className="text-sm text-gray-600 mb-6">{t('customs_additional_costs_subtitle')}</p>
+              
+              {/* Delivery Cost */}
+              <div className="mb-4">
+                <div className="flex items-center mb-2">
+                  <label className="block text-sm font-medium text-gray-700">
+                    {t('customs_delivery_cost')} (USD)
+                  </label>
+                  <Tooltip text={t('customs_delivery_tooltip')}>
+                    <Info className="h-4 w-4 text-gray-400 ml-2 cursor-help" />
+                  </Tooltip>
+                </div>
+                <input
+                  type="text"
+                  value={deliveryCost}
+                  onChange={(e) => setDeliveryCost(e.target.value)}
+                  placeholder="1000-3000"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                />
+              </div>
+
+              {/* Broker Fee */}
+              <div className="mb-4">
+                <div className="flex items-center mb-2">
+                  <label className="block text-sm font-medium text-gray-700">
+                    {t('customs_broker_fee')} (USD)
+                  </label>
+                  <Tooltip text={t('customs_broker_tooltip')}>
+                    <Info className="h-4 w-4 text-gray-400 ml-2 cursor-help" />
+                  </Tooltip>
+                </div>
+                <input
+                  type="text"
+                  value={brokerFee}
+                  onChange={(e) => setBrokerFee(e.target.value)}
+                  placeholder="200-500"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                />
+              </div>
+
+              {/* Registration */}
+              <div className="mb-4">
+                <div className="flex items-center mb-2">
+                  <label className="block text-sm font-medium text-gray-700">
+                    {t('customs_registration_fee')} (USD)
+                  </label>
+                  <Tooltip text={t('customs_registration_tooltip')}>
+                    <Info className="h-4 w-4 text-gray-400 ml-2 cursor-help" />
+                  </Tooltip>
+                </div>
+                <input
+                  type="text"
+                  value={registrationFee}
+                  onChange={(e) => setRegistrationFee(e.target.value)}
+                  placeholder="150"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                />
+              </div>
+
+              {/* Insurance */}
+              <div className="mb-4">
+                <div className="flex items-center mb-2">
+                  <label className="block text-sm font-medium text-gray-700">
+                    {t('customs_insurance_cost')} (USD)
+                  </label>
+                  <Tooltip text={t('customs_insurance_tooltip')}>
+                    <Info className="h-4 w-4 text-gray-400 ml-2 cursor-help" />
+                  </Tooltip>
+                </div>
+                <input
+                  type="text"
+                  value={insuranceCost}
+                  onChange={(e) => setInsuranceCost(e.target.value)}
+                  placeholder="100"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                />
+              </div>
+
+              {/* Inspection */}
+              <div className="mb-6">
+                <div className="flex items-center mb-2">
+                  <label className="block text-sm font-medium text-gray-700">
+                    {t('customs_inspection_cost')} (USD)
+                  </label>
+                  <Tooltip text={t('customs_inspection_tooltip')}>
+                    <Info className="h-4 w-4 text-gray-400 ml-2 cursor-help" />
+                  </Tooltip>
+                </div>
+                <input
+                  type="text"
+                  value={inspectionCost}
+                  onChange={(e) => setInspectionCost(e.target.value)}
+                  placeholder="50"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                />
+              </div>
+
+              {/* Total Additional */}
+              {additionalCosts.total > 0 && (
+                <div className="bg-gray-50 rounded-lg p-4 mt-4">
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-700 font-medium">{t('customs_additional_only')}:</span>
+                    <span className="text-xl font-bold text-orange-600">
+                      ${formatCurrency(additionalCosts.total)}
+                    </span>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
@@ -511,13 +808,30 @@ ${t('calculated_on_calk')}`}
                     </div>
                   </div>
 
+                  {/* Benefit Badge (for EV/Hybrid) */}
+                  {results.benefitAmount && results.benefitAmount > 0 && (
+                    <div className="bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl p-6 text-white">
+                      <div className="text-center">
+                        <div className="text-green-100 mb-1">
+                          {vehicleType === 'electric' ? '⚡ ' + t('customs_ev_benefit_title') : '🔋 ' + t('customs_hybrid_benefit_text').split(':')[0]}
+                        </div>
+                        <p className="text-3xl font-bold">
+                          ${formatCurrency(results.benefitAmount)}
+                        </p>
+                        <p className="text-sm text-green-100 mt-2">
+                          {t('customs_customs_payments')} {vehicleType === 'electric' ? '(0%)' : '(10%)'}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
                   {/* Total Cost */}
-                  <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-xl p-6 text-white">
+                  <div className="bg-gradient-to-r from-red-500 to-red-600 rounded-xl p-6 text-white">
                     <div className="text-center">
                       <div className="flex items-center justify-center mb-2">
-                        <span className="text-green-100">{t('customs_total_to_pay')}:</span>
+                        <span className="text-red-100">{t('customs_customs_only')}:</span>
                         <Tooltip text={t('customs_total_to_pay_tooltip')}>
-                          <Info className="h-4 w-4 text-green-200 ml-2 cursor-help" />
+                          <Info className="h-4 w-4 text-red-200 ml-2 cursor-help" />
                         </Tooltip>
                       </div>
                       <p className="text-4xl font-bold">
@@ -526,7 +840,7 @@ ${t('calculated_on_calk')}`}
                     </div>
                   </div>
 
-                  {/* Summary */}
+                  {/* Summary with Additional Costs */}
                   <div className="bg-gray-50 rounded-lg p-6">
                     <h4 className="font-medium text-gray-700 mb-3">{t('customs_total_cost')}:</h4>
                     <div className="space-y-2 text-sm text-gray-600">
@@ -535,15 +849,29 @@ ${t('calculated_on_calk')}`}
                         <span>${formatCurrency(results.customsStoicostValue)}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span>{t('customs_customs_payments')}:</span>
+                        <span>{t('customs_customs_only')}:</span>
                         <span>${formatCurrency(results.totalCost)}</span>
                       </div>
+                      {additionalCosts.total > 0 && (
+                        <div className="flex justify-between text-orange-600">
+                          <span>{t('customs_additional_only')}:</span>
+                          <span>${formatCurrency(additionalCosts.total)}</span>
+                        </div>
+                      )}
                       <div className="border-t pt-2">
                         <div className="flex justify-between font-medium text-gray-900">
                           <span>{t('customs_full_cost')}:</span>
                           <span>${formatCurrency(results.customsStoicostValue + results.totalCost)}</span>
                         </div>
                       </div>
+                      {additionalCosts.total > 0 && (
+                        <div className="border-t pt-2 mt-2">
+                          <div className="flex justify-between font-bold text-indigo-600 text-base">
+                            <span>{t('customs_total_with_additional')}:</span>
+                            <span>${formatCurrency(results.customsStoicostValue + results.totalCost + additionalCosts.total)}</span>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -611,35 +939,44 @@ ${t('calculated_on_calk')}`}
           {/* Quick Examples */}
           <div className="bg-white rounded-xl shadow-sm p-8 print:hidden">
             <h3 className="font-medium text-gray-900 mb-4">{t('customs_examples')}</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {[
-                { year: 2020, volume: 1500, value: 15000 },
-                { year: 2015, volume: 2000, value: 12000 },
-                { year: 2010, volume: 2500, value: 8000 }
+                { year: 2022, volume: 0, value: 25000, type: 'electric' as VehicleType, label: t('customs_example_electric'), emoji: '⚡' },
+                { year: 2020, volume: 1800, value: 18000, type: 'hybrid' as VehicleType, label: t('customs_example_hybrid'), emoji: '🔋' },
+                { year: 2018, volume: 3000, value: 15000, type: 'truck' as VehicleType, label: t('customs_example_truck'), emoji: '🚛', weight: 3.5 },
+                { year: 2021, volume: 750, value: 8000, type: 'motorcycle' as VehicleType, label: t('customs_example_moto'), emoji: '🏍️' },
+                { year: 2020, volume: 1500, value: 15000, type: 'passenger' as VehicleType, label: `2020, 1500${t('unit_cm3')}`, emoji: '🚗' },
+                { year: 2015, volume: 2000, value: 12000, type: 'passenger' as VehicleType, label: `2015, 2000${t('unit_cm3')}`, emoji: '🚗' }
               ].map((example, index) => {
-                const exampleResult = calculateCustoms(example.year, example.volume, example.value);
+                const exampleResult = calculateCustoms(example.year, example.volume, example.value, example.type, example.weight);
                 return (
                   <button
                     key={index}
                     onClick={() => {
+                      setVehicleType(example.type);
                       setYear(example.year.toString());
                       setEngineVolume(example.volume.toString());
                       setCustomsValue(example.value.toString());
+                      if (example.weight) setTruckWeight(example.weight.toString());
                     }}
                     className="text-left p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200"
                   >
                     <div className="flex justify-between items-center mb-2">
-                      <span className="text-gray-700 font-medium">
-                        {example.year}, {example.volume}{t('unit_cm3')}
-                      </span>
+                      <span className="text-2xl">{example.emoji}</span>
                       <span className="text-xs text-gray-500">
                         ${formatCurrency(example.value)}
                       </span>
                     </div>
+                    <div className="text-xs text-gray-600 mb-2">{example.label}</div>
                     <div className="text-right">
                       <div className="text-red-600 font-semibold">
                         ${formatCurrency(exampleResult.totalCost)}
                       </div>
+                      {exampleResult.benefitAmount && exampleResult.benefitAmount > 0 && (
+                        <div className="text-xs text-green-600">
+                          💰 -{formatCurrency(exampleResult.benefitAmount)}
+                        </div>
+                      )}
                       <div className="text-xs text-gray-500">
                         {t('customs_to_pay')}
                       </div>
@@ -850,6 +1187,22 @@ ${t('calculated_on_calk')}`}
                 </summary>
                 <p className="mt-4 text-gray-700 leading-relaxed">{t('customs_faq_a6')}</p>
               </details>
+
+              <details className="group bg-green-50 rounded-lg p-6 hover:bg-green-100 transition-colors">
+                <summary className="font-semibold text-lg text-gray-900 cursor-pointer list-none flex items-center justify-between">
+                  <span>⚡ {t('customs_faq_q7')}</span>
+                  <span className="text-green-600 group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <p className="mt-4 text-gray-700 leading-relaxed">{t('customs_faq_a7')}</p>
+              </details>
+
+              <details className="group bg-gray-50 rounded-lg p-6 hover:bg-gray-100 transition-colors">
+                <summary className="font-semibold text-lg text-gray-900 cursor-pointer list-none flex items-center justify-between">
+                  <span>🚛 {t('customs_faq_q8')}</span>
+                  <span className="text-blue-600 group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <p className="mt-4 text-gray-700 leading-relaxed">{t('customs_faq_a8')}</p>
+              </details>
             </div>
           </div>
 
@@ -940,7 +1293,7 @@ ${t('calculated_on_calk')}`}
         </div>
 
         {/* Print styles */}
-        <style jsx>{`
+        <style>{`
           @media print {
             .print\\:hidden {
               display: none !important;
@@ -993,4 +1346,7 @@ ${t('calculated_on_calk')}`}
   );
 };
 
+
+      {/* Информационная статья под калькулятором */}
+      <CustomsCalculatorArticle />
 export default CustomsCalculatorPage;

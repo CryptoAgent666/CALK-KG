@@ -2,7 +2,9 @@ import React, { useState, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Smartphone, Check, ExternalLink, TrendingDown, Star } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { MobileTariffsCalculatorArticle } from '../components/MobileTariffsCalculatorArticle';
 import HreflangTags from '../components/HreflangTags';
+import FAQSchema from '../components/FAQSchema';
 import { mobileTariffs, operatorInfo, calculateTariffCost, MobileTariff } from '../data/mobileTariffs';
 
 interface TariffResult extends MobileTariff {
@@ -87,9 +89,21 @@ const MobileTariffsCalculatorPage = () => {
         <meta name="description" content={t('mobile_tariffs_description')} />
         <meta property="og:title" content={`${t('mobile_tariffs_title')} - Calk.KG`} />
         <meta property="og:description" content={t('mobile_tariffs_description')} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/mobile-tariffs" : "https://calk.kg/calculator/mobile-tariffs"} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://calk.kg/og-images/mobile-tariffs.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${t('mobile_tariffs_title')} - Calk.KG`} />
+        <meta name="twitter:description" content={t('mobile_tariffs_description')} />
+        <meta name="twitter:image" content="https://calk.kg/og-images/mobile-tariffs.png" />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/mobile-tariffs" : "https://calk.kg/calculator/mobile-tariffs"} />
       </Helmet>
 
       <HreflangTags path="/calculator/mobile-tariffs" />
+      <FAQSchema translationPrefix="mobiletariffs" />
 
       <div className="min-h-screen bg-gradient-to-br from-green-50 via-yellow-50 to-red-50 py-8 px-4 print:bg-white">
         <div className="max-w-7xl mx-auto">
@@ -414,6 +428,8 @@ const MobileTariffsCalculatorPage = () => {
           )}
         </div>
       </div>
+
+      <MobileTariffsCalculatorArticle />
     </>
   );
 };

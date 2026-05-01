@@ -11,6 +11,18 @@ dist.tar.gz
 .env.local
 .env.production
 
+# Secrets / signing keys (NEVER commit)
+*.keystore
+*.keystore*
+*.jks
+*.pem
+*.key
+*.p12
+*.pfx
+keystore.properties
+android-app/keystore/
+calk-kg/*.keystore
+
 # IDE
 .vscode/
 .idea/
@@ -30,3 +42,35 @@ yarn-error.log*
 
 # Netlify
 .netlify/
+
+# Claude worktrees / scratch
+.claude/
+
+# Build artifacts and tarballs
+*.tar.gz
+*.aab
+*.apk
+calk-kg/
+
+# Backup files
+*.backup
+*.bak
+
+# Temporary working files
+tmp_*
+*_NEW.tsx
+fix-*.js
+fix-*.cjs
+add-ru-translations.cjs
+remove-*.cjs
+remove-*.js
+update_articles.sh
+fuel_translation_plan.md
+ky-construction-translations.txt
+adsense-html-report.*
+
+# Doc reports (working notes)
+*_FIX.md
+TRANSLATION_*.md
+DEPLOYMENT_GUIDE*.md
+README_FINAL.md

@@ -5,6 +5,7 @@ import { Calculator, ArrowLeft, Info, Home, Printer, Heart, Users, Shield, Dolla
 import ActionButtons from '../components/ActionButtons';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
+import FAQSchema from '../components/FAQSchema';
 import { useLanguage } from '../contexts/LanguageContext';
 import {
   generateCalculatorSchema,
@@ -12,6 +13,7 @@ import {
   generateSoftwareApplicationSchema
 } from '../utils/schemaGenerator';
 import { formatCurrentMonth } from '../utils/dateFormatter';
+import { FamilyBenefitCalculatorArticle } from '../components/FamilyBenefitCalculatorArticle';
 
 // Конфигурация пособия - легко обновляемая структура
 const BENEFIT_CONFIG = {
@@ -53,7 +55,7 @@ const FamilyBenefitCalculatorPage = () => {
       title: t('family_benefit_calc_title'),
       description: t('family_benefit_calc_subtitle'),
       calculatorName: t('family_benefit_calc_title'),
-      category: t('nav_other'),
+      category: t('nav_social'),
       language,
       inputProperties: ["familyIncome", "familySize", "childrenAges"],
       outputProperties: ["eligibility", "benefitAmount", "incomePerPerson"]
@@ -61,7 +63,7 @@ const FamilyBenefitCalculatorPage = () => {
 
     const breadcrumbSchema = generateBreadcrumbSchema([
       { name: t('nav_home'), url: homeUrl },
-      { name: t('nav_other'), url: `${homeUrl}?category=other` },
+      { name: t('nav_social'), url: `${homeUrl}?category=social` },
       { name: t('family_benefit_calc_title'), url: currentUrl }
     ]);
 
@@ -99,7 +101,7 @@ const FamilyBenefitCalculatorPage = () => {
     const reasons: string[] = [];
 
     if (!isIncomeEligible) {
-      reasons.push(`${t('family_income_exceeds_threshold')} (${Math.round(incomePerPerson)} сом) ${t('threshold')} ${BENEFIT_CONFIG.incomeThreshold} сом`);
+      reasons.push(`${t('family_income_exceeds_threshold')} (${Math.round(incomePerPerson)} ${t('som')}) ${t('threshold')} ${BENEFIT_CONFIG.incomeThreshold} ${t('som')}`);
     }
 
     if (eligibleChildren === 0) {
@@ -204,6 +206,7 @@ const FamilyBenefitCalculatorPage = () => {
         <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/family-benefit" : "https://calk.kg/calculator/family-benefit"} />
       </Helmet>
       <HreflangTags path="/calculator/family-benefit" />
+      <FAQSchema translationPrefix="familybenefit" />
       {generateSchemas().map((schema, index) => (
         <SchemaMarkup key={index} schema={schema} />
       ))}
@@ -387,9 +390,9 @@ const FamilyBenefitCalculatorPage = () => {
                   <div className="text-sm text-blue-800">
                     <p className="font-medium mb-2">{t('family_eligibility_criteria')}</p>
                     <ul className="list-disc list-inside space-y-1">
-                      <li>{t('family_criterion_1')} {BENEFIT_CONFIG.incomeThreshold} сом</li>
+                      <li>{t('family_criterion_1')} {BENEFIT_CONFIG.incomeThreshold} {t('som')}</li>
                       <li>{t('family_criterion_2')}</li>
-                      <li>{t('family_criterion_3')} {BENEFIT_CONFIG.benefitAmount} сом на каждого ребенка</li>
+                      <li>{t('family_criterion_3')} {BENEFIT_CONFIG.benefitAmount} {t('som_per_child')}</li>
                       <li>{t('family_criterion_4')}</li>
                     </ul>
                     <p className="mt-3">
@@ -410,9 +413,9 @@ const FamilyBenefitCalculatorPage = () => {
                   <ActionButtons
                     calculatorName={t('family_benefit_calc_name_full')}
                     resultText={`${t('family_calculation_text_prefix')}
-${t('family_total_income')} ${formatCurrency(results.totalIncome)} сом
+${t('family_total_income')} ${formatCurrency(results.totalIncome)} ${t('som')}
 ${t('family_size_label')}: ${results.familySize} ${t('person')}
-${t('family_income_per_person')} ${formatCurrency(Math.round(results.incomePerPerson))} сом
+${t('family_income_per_person')} ${formatCurrency(Math.round(results.incomePerPerson))} ${t('som')}
 ${t('family_children_under_16')} ${results.childrenCount}
 ${t('family_result_check_colon')} ${results.isEligible ? t('family_has_right_yes') : t('family_has_right_no')}
 ${results.isEligible ? `${t('family_total_benefit_per_month')}: ${formatCurrency(results.benefitAmount)} ${t('som_per_month')}` : `${t('family_refusal_reasons')}: ${results.reasons.join(', ')}`}
@@ -458,7 +461,7 @@ ${t('family_result_calculation_site')}`}
                       <div className="flex justify-between items-center">
                         <span className="text-gray-600">{t('family_total_income')}</span>
                         <span className="font-semibold text-gray-900">
-                          {formatCurrency(results.totalIncome)} сом
+                          {formatCurrency(results.totalIncome)} {t('som')}
                         </span>
                       </div>
                       <div className="flex justify-between items-center">
@@ -474,13 +477,13 @@ ${t('family_result_calculation_site')}`}
                             ? 'text-green-600'
                             : 'text-red-600'
                         }`}>
-                          {formatCurrency(Math.round(results.incomePerPerson))} сом
+                          {formatCurrency(Math.round(results.incomePerPerson))} {t('som')}
                         </span>
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-gray-600">{t('family_threshold_income')}</span>
                         <span className="font-semibold text-gray-900">
-                          {formatCurrency(BENEFIT_CONFIG.incomeThreshold)} сом
+                          {formatCurrency(BENEFIT_CONFIG.incomeThreshold)} {t('som')}
                         </span>
                       </div>
                     </div>
@@ -514,7 +517,7 @@ ${t('family_result_calculation_site')}`}
                       </div>
                       <div className="flex justify-between text-xs text-gray-500 mt-1">
                         <span>{t('zero_som')}</span>
-                        <span>{BENEFIT_CONFIG.incomeThreshold} сом ({t('threshold')})</span>
+                        <span>{BENEFIT_CONFIG.incomeThreshold} {t('som')} ({t('threshold')})</span>
                       </div>
                     </div>
                   </div>
@@ -577,20 +580,20 @@ ${t('family_result_calculation_site')}`}
                         <div className="flex justify-between items-center">
                           <span className="text-gray-600">{t('family_benefit_per_child')}</span>
                           <span className="font-semibold text-gray-900">
-                            {formatCurrency(BENEFIT_CONFIG.benefitAmount)} сом
+                            {formatCurrency(BENEFIT_CONFIG.benefitAmount)} {t('som')}
                           </span>
                         </div>
                         <div className="border-t pt-3">
                           <div className="flex justify-between items-center">
                             <span className="text-gray-900 font-medium">{t('family_total_benefit_per_month')}</span>
                             <span className="text-2xl font-bold text-green-600">
-                              {formatCurrency(results.benefitAmount)} сом
+                              {formatCurrency(results.benefitAmount)} {t('som')}
                             </span>
                           </div>
                         </div>
                         <div className="bg-white rounded-lg p-4 mt-4">
                           <div className="text-center text-gray-700 text-sm">
-                            {results.childrenCount} {t('family_total_children').toLowerCase()} × {BENEFIT_CONFIG.benefitAmount} сом = {formatCurrency(results.benefitAmount)} {t('som_per_month')}
+                            {results.childrenCount} {t('family_total_children').toLowerCase()} × {BENEFIT_CONFIG.benefitAmount} {t('som')} = {formatCurrency(results.benefitAmount)} {t('som_per_month')}
                           </div>
                         </div>
                       </div>
@@ -683,7 +686,7 @@ ${t('family_result_calculation_site')}`}
                       }`}>
                         {exampleResult.isEligible
                           ? `${formatCurrency(exampleResult.benefitAmount)} ${t('som_per_month')}`
-                          : '0 сом'
+                          : `0 ${t('som')}`
                         }
                       </div>
                       <div className="text-xs text-gray-500">
@@ -820,7 +823,7 @@ ${t('family_result_calculation_site')}`}
       </div>
 
       {/* Print styles */}
-      <style jsx>{`
+      <style>{`
         @media print {
           .print\\:hidden {
             display: none !important;
@@ -868,6 +871,8 @@ ${t('family_result_calculation_site')}`}
           }
         }
       `}</style>
+
+      <FamilyBenefitCalculatorArticle />
     </div>
   );
 };

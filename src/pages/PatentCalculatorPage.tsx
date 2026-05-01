@@ -5,7 +5,9 @@ import { Calculator, ArrowLeft, Info, Home, Printer, Building2, MapPin, Search, 
 import ActionButtons from '../components/ActionButtons';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
+import FAQSchema from '../components/FAQSchema';
 import { useLanguage } from '../contexts/LanguageContext';
+import { PatentCalculatorArticle } from '../components/PatentCalculatorArticle';
 import {
   generateCalculatorSchema,
   generateBreadcrumbSchema,
@@ -220,6 +222,29 @@ interface PatentResults {
   hasData: boolean;
 }
 
+interface PatentEntry {
+  id: string;
+  region: Region;
+  activity: string;
+  monthlyCost: number;
+}
+
+interface ComparisonData {
+  monthlyRevenue: number;
+  singleTaxRate: number;
+  patentCost: number;
+  singleTaxCost: number;
+  recommended: 'patent' | 'single-tax';
+  economy: number;
+  breakEvenPoint: number;
+}
+
+interface PaymentSchedule {
+  month: number;
+  amount: number;
+  deadline: string;
+}
+
 const PatentCalculatorPage = () => {
   const { language, t, getLocalizedPath} = useLanguage();
 
@@ -267,6 +292,19 @@ const PatentCalculatorPage = () => {
     yearlyCost: 0,
     hasData: false
   });
+
+  // Новые state для расширенного функционала
+  const [mode, setMode] = useState<'single' | 'multi' | 'comparison'>('single');
+  
+  // Для сравнения с единым налогом
+  const [monthlyRevenue, setMonthlyRevenue] = useState<string>('50000');
+  const [expensesPercent, setExpensesPercent] = useState<string>('30');
+  
+  // Для нескольких патентов
+  const [patents, setPatents] = useState<PatentEntry[]>([]);
+  
+  // Для календаря оплаты
+  const [paymentFrequency, setPaymentFrequency] = useState<'monthly' | 'quarterly' | 'yearly'>('monthly');
 
   // Получение доступных видов деятельности для выбранного региона
   const getAvailableActivities = (region: Region) => {
@@ -327,6 +365,94 @@ const PatentCalculatorPage = () => {
     }
   }, [selectedRegion, selectedActivity]);
 
+  // Функции для расширенного функционала
+  
+  // Расчет сравнения с единым налогом
+  const calculateComparison = (revenue: number, patentCost: number): ComparisonData => {
+    const singleTaxRate = 0.03; // 3% для ИП в КР
+    const singleTaxCost = revenue * singleTaxRate;
+    const economy = Math.abs(patentCost - singleTaxCost);
+    const recommended = patentCost < singleTaxCost ? 'patent' : 'single-tax';
+    const breakEvenPoint = patentCost / singleTaxRate;
+    
+    return {
+      monthlyRevenue: revenue,
+      singleTaxRate: singleTaxRate * 100,
+      patentCost,
+      singleTaxCost,
+      recommended,
+      economy,
+      breakEvenPoint
+    };
+  };
+
+  // Добавить патент в список
+  const addPatent = () => {
+    if (selectedActivity && results.hasData) {
+      const newPatent: PatentEntry = {
+        id: Date.now().toString(),
+        region: selectedRegion,
+        activity: selectedActivity,
+        monthlyCost: results.monthlyCost
+      };
+      setPatents([...patents, newPatent]);
+      // Сбросить выбранную активность после добавления
+      setSelectedActivity('');
+    }
+  };
+
+  // Удалить патент из списка
+  const removePatent = (id: string) => {
+    setPatents(patents.filter(p => p.id !== id));
+  };
+
+  // Рассчитать общую стоимость всех патентов
+  const calculateTotalPatentsCost = () => {
+    return patents.reduce((sum, patent) => sum + patent.monthlyCost, 0);
+  };
+
+  // Генерация календаря оплаты
+  const generatePaymentSchedule = (monthlyCost: number, frequency: string): PaymentSchedule[] => {
+    const schedule: PaymentSchedule[] = [];
+    const year = new Date().getFullYear();
+    
+    if (frequency === 'monthly') {
+      for (let month = 1; month <= 12; month++) {
+        schedule.push({
+          month,
+          amount: monthlyCost,
+          deadline: `25.${month < 10 ? '0' + month : month}.${year}`
+        });
+      }
+    } else if (frequency === 'quarterly') {
+      for (let quarter = 1; quarter <= 4; quarter++) {
+        const month = quarter * 3;
+        schedule.push({
+          month,
+          amount: monthlyCost * 3,
+          deadline: `25.${month < 10 ? '0' + month : month}.${year}`
+        });
+      }
+    } else {
+      schedule.push({
+        month: 12,
+        amount: monthlyCost * 12,
+        deadline: `25.12.${year}`
+      });
+    }
+    
+    return schedule;
+  };
+
+  const getMonthName = (monthNum: number) => {
+    const months = [
+      'patent_month_jan', 'patent_month_feb', 'patent_month_mar', 'patent_month_apr',
+      'patent_month_may', 'patent_month_jun', 'patent_month_jul', 'patent_month_aug',
+      'patent_month_sep', 'patent_month_oct', 'patent_month_nov', 'patent_month_dec'
+    ];
+    return t(months[monthNum - 1]);
+  };
+
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('ru-KG', {
       style: 'decimal',
@@ -374,6 +500,8 @@ const PatentCalculatorPage = () => {
         <meta name="twitter:image" content="https://calk.kg/og-images/patent.png" />
         <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/patent" : "https://calk.kg/calculator/patent"} />
       </Helmet>
+      <HreflangTags path="/calculator/patent" />
+      <FAQSchema translationPrefix="patent" />
       {/* Schema.org микроразметка */}
       {generateSchemas().map((schema, index) => (
         <SchemaMarkup key={index} schema={schema} />
@@ -435,6 +563,42 @@ const PatentCalculatorPage = () => {
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 print:py-6">
+        {/* Mode Switcher */}
+        <div className="bg-white rounded-xl shadow-sm p-6 mb-6 print:hidden">
+          <div className="flex flex-wrap gap-3">
+            <button
+              onClick={() => setMode('single')}
+              className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+                mode === 'single'
+                  ? 'bg-red-600 text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              {t('patent_single_mode')}
+            </button>
+            <button
+              onClick={() => setMode('multi')}
+              className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+                mode === 'multi'
+                  ? 'bg-red-600 text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              {t('patent_multi_mode')}
+            </button>
+            <button
+              onClick={() => setMode('comparison')}
+              className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+                mode === 'comparison'
+                  ? 'bg-red-600 text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              {t('patent_vs_single_tax')}
+            </button>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 print:gap-6">
           {/* Input Section */}
           <div className="space-y-8 print:break-inside-avoid">
@@ -660,8 +824,279 @@ const PatentCalculatorPage = () => {
 
         {/* Additional Sections */}
         <div className="mt-12 space-y-12">
-          {/* Regional Comparison */}
-          {results.hasData && (
+          {/* Comparison Mode - Patent vs Single Tax */}
+          {mode === 'comparison' && results.hasData && (
+            <div className="space-y-6">
+              {/* Revenue Input */}
+              <div className="bg-white rounded-xl shadow-sm p-8">
+                <h2 className="text-2xl font-semibold text-gray-900 mb-6">{t('patent_comparison_title')}</h2>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      {t('patent_monthly_revenue')}
+                    </label>
+                    <input
+                      type="number"
+                      value={monthlyRevenue}
+                      onChange={(e) => setMonthlyRevenue(e.target.value)}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                      placeholder="50000"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">{t('patent_monthly_revenue_tooltip')}</p>
+                  </div>
+                </div>
+
+                {/* Comparison Results */}
+                {(() => {
+                  const comparison = calculateComparison(parseFloat(monthlyRevenue) || 0, results.monthlyCost);
+                  return (
+                    <div className="space-y-6">
+                      {/* Comparison Table */}
+                      <div className="overflow-x-auto">
+                        <table className="w-full border-collapse">
+                          <thead>
+                            <tr className="bg-gray-50">
+                              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-b-2">{t('patent_regime')}</th>
+                              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-b-2">{t('patent_monthly_payment')}</th>
+                              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-b-2">{t('patent_yearly_payment')}</th>
+                              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-b-2">{t('patent_tax_rate')}</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr className={comparison.recommended === 'patent' ? 'bg-green-50' : ''}>
+                              <td className="px-4 py-4 border-b">
+                                <div className="flex items-center">
+                                  <Receipt className="h-5 w-5 text-blue-600 mr-2" />
+                                  <span className="font-medium">{t('patent_option')}</span>
+                                  {comparison.recommended === 'patent' && (
+                                    <span className="ml-2 px-2 py-1 bg-green-600 text-white text-xs rounded-full">{t('patent_recommended')}</span>
+                                  )}
+                                </div>
+                              </td>
+                              <td className="px-4 py-4 border-b font-semibold text-blue-600">
+                                {formatCurrency(comparison.patentCost)} {t('patent_som')}
+                              </td>
+                              <td className="px-4 py-4 border-b">
+                                {formatCurrency(comparison.patentCost * 12)} {t('patent_som')}
+                              </td>
+                              <td className="px-4 py-4 border-b text-gray-600">{t('patent_fixed_amount')}</td>
+                            </tr>
+                            <tr className={comparison.recommended === 'single-tax' ? 'bg-green-50' : ''}>
+                              <td className="px-4 py-4 border-b">
+                                <div className="flex items-center">
+                                  <CreditCard className="h-5 w-5 text-purple-600 mr-2" />
+                                  <span className="font-medium">{t('patent_single_tax_option')}</span>
+                                  {comparison.recommended === 'single-tax' && (
+                                    <span className="ml-2 px-2 py-1 bg-green-600 text-white text-xs rounded-full">{t('patent_recommended')}</span>
+                                  )}
+                                </div>
+                              </td>
+                              <td className="px-4 py-4 border-b font-semibold text-purple-600">
+                                {formatCurrency(comparison.singleTaxCost)} {t('patent_som')}
+                              </td>
+                              <td className="px-4 py-4 border-b">
+                                {formatCurrency(comparison.singleTaxCost * 12)} {t('patent_som')}
+                              </td>
+                              <td className="px-4 py-4 border-b text-gray-600">3% {t('patent_from_revenue')}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+
+                      {/* Economy Banner */}
+                      <div className={`rounded-xl p-6 ${comparison.recommended === 'patent' ? 'bg-blue-50 border-2 border-blue-200' : 'bg-purple-50 border-2 border-purple-200'}`}>
+                        <div className="flex items-start">
+                          <Info className={`h-6 w-6 ${comparison.recommended === 'patent' ? 'text-blue-600' : 'text-purple-600'} mr-3 flex-shrink-0 mt-1`} />
+                          <div>
+                            <h3 className="font-semibold text-gray-900 mb-2">
+                              {comparison.recommended === 'patent' ? t('patent_profit_with_patent') : t('patent_profit_with_single')} {formatCurrency(comparison.economy)} {t('patent_som')} {t('patent_per_year')}
+                            </h3>
+                            <p className="text-sm text-gray-700">
+                              {t('patent_when_profitable_text')}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Break-even Point */}
+                      <div className="bg-amber-50 border border-amber-200 rounded-xl p-6">
+                        <h4 className="font-semibold text-gray-900 mb-3">{t('patent_when_profitable_title')}</h4>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <p className="text-sm text-gray-600 mb-1">{t('patent_breakeven_point')}:</p>
+                            <p className="text-2xl font-bold text-amber-600">
+                              {formatCurrency(comparison.breakEvenPoint)} {t('patent_som')} {t('patent_per_month')}
+                            </p>
+                          </div>
+                          <div>
+                            <p className="text-sm text-gray-600 mb-1">{t('patent_your_revenue')}:</p>
+                            <p className="text-2xl font-bold text-gray-900">
+                              {formatCurrency(comparison.monthlyRevenue)} {t('patent_som')} {t('patent_per_month')}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })()}
+              </div>
+            </div>
+          )}
+
+          {/* Multi-Patent Mode */}
+          {mode === 'multi' && (
+            <div className="space-y-6">
+              <div className="bg-white rounded-xl shadow-sm p-8">
+                <h2 className="text-2xl font-semibold text-gray-900 mb-4">{t('patent_multi_patents_title')}</h2>
+                <p className="text-gray-600 mb-6">{t('patent_multi_note')}</p>
+
+                {/* Add Patent Button */}
+                {results.hasData && (
+                  <button
+                    onClick={addPatent}
+                    className="w-full md:w-auto px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center justify-center space-x-2 mb-6"
+                  >
+                    <Building2 className="h-5 w-5" />
+                    <span>{t('patent_add_patent')}</span>
+                  </button>
+                )}
+
+                {/* Patents List */}
+                {patents.length > 0 && (
+                  <div className="space-y-4 mb-6">
+                    {patents.map((patent) => (
+                      <div key={patent.id} className="flex items-center justify-between bg-gray-50 rounded-lg p-4 border border-gray-200">
+                        <div className="flex-1">
+                          <p className="font-medium text-gray-900">
+                            {t(PATENT_RATES[patent.region].activities[patent.activity as keyof typeof PATENT_RATES[typeof patent.region]['activities']].nameKey)}
+                          </p>
+                          <p className="text-sm text-gray-600">{t(PATENT_RATES[patent.region].nameKey)}</p>
+                        </div>
+                        <div className="flex items-center space-x-4">
+                          <span className="text-lg font-semibold text-blue-600">
+                            {formatCurrency(patent.monthlyCost)} {t('patent_som')}
+                          </span>
+                          <button
+                            onClick={() => removePatent(patent.id)}
+                            className="text-red-600 hover:text-red-700 text-sm font-medium"
+                          >
+                            {t('patent_remove_patent')}
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Total Cost */}
+                {patents.length > 0 && (
+                  <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-6 text-white">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-blue-100 mb-1">{t('patent_total_patents')}: {patents.length}</p>
+                        <p className="text-sm text-blue-100">{t('patent_total_cost_all')}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-3xl font-bold">{formatCurrency(calculateTotalPatentsCost())} {t('patent_som')}</p>
+                        <p className="text-sm text-blue-100">{t('patent_per_month')}</p>
+                        <p className="text-xl font-semibold mt-2">{formatCurrency(calculateTotalPatentsCost() * 12)} {t('patent_som')} / {t('patent_per_year')}</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {patents.length === 0 && !results.hasData && (
+                  <div className="text-center py-12 text-gray-500">
+                    <Building2 className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+                    <p>{t('patent_select_region_activity')}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Payment Calendar - показываем в режиме single, если есть результат */}
+          {mode === 'single' && results.hasData && (
+            <div className="bg-white rounded-xl shadow-sm p-8">
+              <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+                <Calendar className="h-6 w-6 text-red-600 mr-3" />
+                {t('patent_payment_calendar')}
+              </h2>
+
+              {/* Frequency Selector */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-3">{t('patent_payment_frequency')}</label>
+                <div className="flex flex-wrap gap-3">
+                  <button
+                    onClick={() => setPaymentFrequency('monthly')}
+                    className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                      paymentFrequency === 'monthly'
+                        ? 'bg-red-600 text-white'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    {t('patent_payment_monthly')}
+                  </button>
+                  <button
+                    onClick={() => setPaymentFrequency('quarterly')}
+                    className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                      paymentFrequency === 'quarterly'
+                        ? 'bg-red-600 text-white'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    {t('patent_payment_quarterly')}
+                  </button>
+                  <button
+                    onClick={() => setPaymentFrequency('yearly')}
+                    className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                      paymentFrequency === 'yearly'
+                        ? 'bg-red-600 text-white'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    {t('patent_payment_yearly')}
+                  </button>
+                </div>
+              </div>
+
+              {/* Payment Schedule */}
+              <div className="space-y-3">
+                <h3 className="font-medium text-gray-700">
+                  {t('patent_payment_schedule')} {new Date().getFullYear()}
+                </h3>
+                {generatePaymentSchedule(results.monthlyCost, paymentFrequency).map((payment, index) => (
+                  <div key={index} className="flex items-center justify-between bg-gray-50 rounded-lg p-4 border border-gray-200">
+                    <div className="flex items-center space-x-4">
+                      <Calendar className="h-5 w-5 text-gray-400" />
+                      <div>
+                        <p className="font-medium text-gray-900">
+                          {paymentFrequency === 'monthly' && getMonthName(payment.month)}
+                          {paymentFrequency === 'quarterly' && `${t('patent_quarter_' + (payment.month / 3))}`}
+                          {paymentFrequency === 'yearly' && t('patent_payment_yearly')}
+                        </p>
+                        <p className="text-sm text-gray-600">{t('patent_payment_deadline')}: {payment.deadline}</p>
+                      </div>
+                    </div>
+                    <span className="text-lg font-semibold text-blue-600">
+                      {formatCurrency(payment.amount)} {t('patent_som')}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Payment Info */}
+              <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <p className="text-sm text-gray-700">
+                  <strong>{t('patent_payment_where')}:</strong> {t('patent_payment_where_text')}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Regional Comparison - показываем только в single режиме */}
+          {mode === 'single' && results.hasData && (
             <div className="bg-white rounded-xl shadow-sm p-8 print:break-inside-avoid">
               <div className="flex items-center mb-6">
                 <MapPin className="h-6 w-6 text-red-600 mr-3" />
@@ -787,7 +1222,7 @@ const PatentCalculatorPage = () => {
                         {formatCurrency(activityData.cost)} {t('patent_som_per_month')}
                       </div>
                       <div className="text-xs text-gray-500">
-                        {formatCurrency(activityData.cost * 12)} {t('patent_som')}/{language === 'ky' ? 'жыл' : 'год'}
+                        {formatCurrency(activityData.cost * 12)} {t('patent_som')}/{t('year')}
                       </div>
                     </div>
                   </button>
@@ -965,7 +1400,7 @@ const PatentCalculatorPage = () => {
       </div>
 
       {/* Print styles */}
-      <style jsx>{`
+      <style>{`
         @media print {
           .print\\:hidden {
             display: none !important;
@@ -1013,6 +1448,8 @@ const PatentCalculatorPage = () => {
           }
         }
       `}</style>
+
+      <PatentCalculatorArticle />
     </div>
   );
 };

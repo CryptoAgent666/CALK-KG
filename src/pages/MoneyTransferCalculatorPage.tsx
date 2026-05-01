@@ -4,7 +4,9 @@ import { ArrowRight, Check, ExternalLink, Info } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCurrencyRates } from '../hooks/useCurrencyRates';
 import HreflangTags from '../components/HreflangTags';
+import FAQSchema from '../components/FAQSchema';
 import { transferServices, calculateCommission, applyExchangeMarkup } from '../data/transferServices';
+import { MoneyTransferCalculatorArticle } from '../components/MoneyTransferCalculatorArticle';
 
 interface TransferResult {
   serviceId: string;
@@ -109,9 +111,21 @@ const MoneyTransferCalculatorPage = () => {
         <meta name="description" content={t('money_transfer_description')} />
         <meta property="og:title" content={`${t('money_transfer_title')} - Calk.KG`} />
         <meta property="og:description" content={t('money_transfer_description')} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/money-transfer" : "https://calk.kg/calculator/money-transfer"} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://calk.kg/og-images/money-transfer.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${t('money_transfer_title')} - Calk.KG`} />
+        <meta name="twitter:description" content={t('money_transfer_description')} />
+        <meta name="twitter:image" content="https://calk.kg/og-images/money-transfer.png" />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/money-transfer" : "https://calk.kg/calculator/money-transfer"} />
       </Helmet>
       
       <HreflangTags path="/calculator/money-transfer" />
+      <FAQSchema translationPrefix="moneytransfer" />
 
       <div className="min-h-screen bg-gradient-to-br from-orange-50 via-red-50 to-pink-50 py-8 px-4 print:bg-white">
         <div className="max-w-7xl mx-auto">
@@ -351,6 +365,8 @@ const MoneyTransferCalculatorPage = () => {
           )}
         </div>
       </div>
+
+      <MoneyTransferCalculatorArticle />
     </>
   );
 };

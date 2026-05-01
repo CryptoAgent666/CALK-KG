@@ -8,13 +8,14 @@ import {
   generateWebSiteSchema,
   generateOrganizationSchema,
   generateBreadcrumbSchema,
-  generateLocalBusinessSchema
 } from './utils/schemaGenerator';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import CalculatorGrid from './components/CalculatorGrid';
 import ContentBlock from './components/ContentBlock';
 import Footer from './components/Footer';
+import CookieConsentBanner from './components/CookieConsentBanner';
+import VisualBreadcrumbs from './components/VisualBreadcrumbs';
 import { calculators } from './data/calculators';
 
 const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'));
@@ -22,6 +23,12 @@ const TermsOfServicePage = lazy(() => import('./pages/TermsOfServicePage'));
 const CurrencyExchangePage = lazy(() => import('./pages/CurrencyExchangePage'));
 const MoneyTransferCalculatorPage = lazy(() => import('./pages/MoneyTransferCalculatorPage'));
 const MobileTariffsCalculatorPage = lazy(() => import('./pages/MobileTariffsCalculatorPage'));
+const CropYieldCalculatorPage = lazy(() => import('./pages/CropYieldCalculatorPage'));
+const RentalCalculatorPage = lazy(() => import('./pages/RentalCalculatorPage'));
+const SickLeaveCalculatorPage = lazy(() => import('./pages/SickLeaveCalculatorPage'));
+const FuelCalculatorPage = lazy(() => import('./pages/FuelCalculatorPage'));
+const ConstructionCalculatorPage = lazy(() => import('./pages/ConstructionCalculatorPage'));
+const StudentScholarshipPage = lazy(() => import('./pages/StudentScholarshipPage'));
 const SalaryCalculatorPage = lazy(() => import('./pages/SalaryCalculatorPage'));
 const SingleTaxCalculatorPage = lazy(() => import('./pages/SingleTaxCalculatorPage'));
 const PropertyTaxCalculatorPage = lazy(() => import('./pages/PropertyTaxCalculatorPage'));
@@ -115,9 +122,7 @@ const HomePage = () => {
       { name: t('nav_home'), url: "https://calk.kg" }
     ]);
 
-    const localBusinessSchema = generateLocalBusinessSchema();
-
-    return [websiteSchema, organizationSchema, breadcrumbSchema, localBusinessSchema];
+    return [websiteSchema, organizationSchema, breadcrumbSchema];
   };
 
   return (
@@ -161,6 +166,7 @@ const HomePage = () => {
 const CalculatorPageWrapper = ({ children }: { children: React.ReactNode }) => (
   <Suspense fallback={<PageLoader />}>
     <Header />
+    <VisualBreadcrumbs />
     {children}
     <Footer />
   </Suspense>
@@ -169,6 +175,7 @@ const CalculatorPageWrapper = ({ children }: { children: React.ReactNode }) => (
 const StaticPageWrapper = ({ children }: { children: React.ReactNode }) => (
   <Suspense fallback={<PageLoader />}>
     <Header />
+    <VisualBreadcrumbs />
     {children}
     <Footer />
   </Suspense>
@@ -185,6 +192,12 @@ function App() {
     { path: 'calculator/currency-exchange', element: <CurrencyExchangePage /> },
     { path: 'calculator/money-transfer', element: <MoneyTransferCalculatorPage /> },
     { path: 'calculator/mobile-tariffs', element: <MobileTariffsCalculatorPage /> },
+    { path: 'calculator/crop-yield', element: <CropYieldCalculatorPage /> },
+    { path: 'calculator/rental', element: <RentalCalculatorPage /> },
+    { path: 'calculator/sick-leave', element: <SickLeaveCalculatorPage /> },
+    { path: 'calculator/fuel', element: <FuelCalculatorPage /> },
+    { path: 'calculator/construction', element: <ConstructionCalculatorPage /> },
+    { path: 'calculator/scholarship', element: <StudentScholarshipPage /> },
     { path: 'calculator/salary', element: <SalaryCalculatorPage /> },
     { path: 'calculator/single-tax', element: <SingleTaxCalculatorPage /> },
     { path: 'calculator/property-tax', element: <PropertyTaxCalculatorPage /> },
@@ -256,6 +269,7 @@ function App() {
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      <CookieConsentBanner />
     </div>
   );
 }

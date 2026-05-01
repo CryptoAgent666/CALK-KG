@@ -5,7 +5,9 @@ import { Calculator, ArrowLeft, Info, Home, Printer, Building, Shield, CreditCar
 import ActionButtons from '../components/ActionButtons';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
+import FAQSchema from '../components/FAQSchema';
 import { useLanguage } from '../contexts/LanguageContext';
+import { PropertyTaxCalculatorArticle } from '../components/PropertyTaxCalculatorArticle';
 import {
   generateCalculatorSchema,
   generateBreadcrumbSchema,
@@ -191,6 +193,7 @@ const PropertyTaxCalculatorPage = () => {
         <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/property-tax" : "https://calk.kg/calculator/property-tax"} />
       </Helmet>
       <HreflangTags path="/calculator/property-tax" />
+      <FAQSchema translationPrefix="propertytax" />
       {generateSchemas().map((schema, index) => (
         <SchemaMarkup key={index} schema={schema} />
       ))}
@@ -402,10 +405,10 @@ const PropertyTaxCalculatorPage = () => {
 ${t('property_tax_total_area_label')} ${formatCurrency(results.totalArea)} м²
 ${t('property_tax_benefit_area_label')} ${formatCurrency(results.benefitArea)} м²
 ${t('property_tax_taxable_area_label')} ${formatCurrency(results.taxableArea)} м²
-${t('property_tax_rate')}: ${formatCurrency(results.taxRate)} сом/м²
-${t('property_tax_annual_tax')} ${formatCurrency(results.taxAmount)} KGS
+${t('property_tax_rate')}: ${formatCurrency(results.taxRate)} ${t('som')}/${t('unit_sqm')}
+${t('property_tax_annual_tax')} ${formatCurrency(results.taxAmount)} ${t('som')}
 
-Расчет выполнен на сайте Calk.KG`}
+${t('calculated_on_site')} Calk.KG`}
                   />
                 )}
               </div>
@@ -516,7 +519,7 @@ ${t('property_tax_annual_tax')} ${formatCurrency(results.taxAmount)} KGS
                       </Tooltip>
                     </div>
                     <span className="text-xl font-semibold text-gray-900">
-                      {formatCurrency(results.taxRate)} сом/м²
+                      {formatCurrency(results.taxRate)} {t('som')}/{t('unit_sqm')}
                     </span>
                   </div>
 
@@ -529,7 +532,7 @@ ${t('property_tax_annual_tax')} ${formatCurrency(results.taxAmount)} KGS
                         </Tooltip>
                       </div>
                       <p className="text-4xl font-bold">
-                        {formatCurrency(results.taxAmount)} KGS
+                        {formatCurrency(results.taxAmount)} {t('som')}
                       </p>
                     </div>
                   </div>
@@ -548,7 +551,7 @@ ${t('property_tax_annual_tax')} ${formatCurrency(results.taxAmount)} KGS
                       <div className="flex justify-between">
                         <span>{t('property_tax_calculation_formula')}</span>
                         <span>
-                          {formatCurrency(results.taxableArea)} м² × {formatCurrency(results.taxRate)} сом = {formatCurrency(results.taxAmount)} сом
+                          {formatCurrency(results.taxableArea)} м² × {formatCurrency(results.taxRate)} {t('som')} = {formatCurrency(results.taxAmount)} {t('som')}
                         </span>
                       </div>
                     </div>
@@ -585,11 +588,11 @@ ${t('property_tax_annual_tax')} ${formatCurrency(results.taxAmount)} KGS
                     >
                       <div className="flex justify-between items-center mb-2">
                         <span className="text-gray-700 font-medium">
-                          {example.type === 'apartment' ? t('property_tax_apartment_short') : t('property_tax_house_short')} {example.area} м² • {example.rate} сом/м²
+                          {example.type === 'apartment' ? t('property_tax_apartment_short') : t('property_tax_house_short')} {example.area} м² • {example.rate} {t('som')}/{t('unit_sqm')}
                         </span>
                         <div className="text-right">
                           <div className="text-red-600 font-semibold">
-                            {formatCurrency(exampleResult.taxAmount)} KGS
+                            {formatCurrency(exampleResult.taxAmount)} {t('som')}
                           </div>
                           <div className="text-xs text-gray-500">
                             с {exampleResult.taxableArea} м²
@@ -631,11 +634,11 @@ ${t('property_tax_annual_tax')} ${formatCurrency(results.taxAmount)} KGS
                   >
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-gray-700 font-medium">
-                        {example.type === 'apartment' ? t('property_tax_apartment_short') : t('property_tax_house_short')} {example.area} м² • {example.rate} сом/м²
+                          {example.type === 'apartment' ? t('property_tax_apartment_short') : t('property_tax_house_short')} {example.area} м² • {example.rate} {t('som')}/{t('unit_sqm')}
                       </span>
                       <div className="text-right">
                         <div className="text-red-600 font-semibold">
-                          {formatCurrency(exampleResult.taxAmount)} KGS
+                          {formatCurrency(exampleResult.taxAmount)} {t('som')}
                         </div>
                         <div className="text-xs text-gray-500">
                           с {exampleResult.taxableArea} м²
@@ -788,7 +791,7 @@ ${t('property_tax_annual_tax')} ${formatCurrency(results.taxAmount)} KGS
         )}
       </div>
 
-      <style jsx>{`
+      <style>{`
         @media print {
           .print\\:hidden {
             display: none !important;
@@ -836,6 +839,8 @@ ${t('property_tax_annual_tax')} ${formatCurrency(results.taxAmount)} KGS
           }
         }
       `}</style>
+
+      <PropertyTaxCalculatorArticle />
     </div>
   );
 };

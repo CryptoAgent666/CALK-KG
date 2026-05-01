@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Calculator, ArrowLeft, Info, Home, Printer, DollarSign, TrendingUp, Car, Building2 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { AutoLoanCalculatorArticle } from '../components/AutoLoanCalculatorArticle';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
+import FAQSchema from '../components/FAQSchema';
 import {
   generateCalculatorSchema,
   generateBreadcrumbSchema,
@@ -242,6 +244,7 @@ const AutoLoanCalculatorPage = () => {
         <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/auto-loan" : "https://calk.kg/calculator/auto-loan"} />
       </Helmet>
       <HreflangTags path="/calculator/auto-loan" />
+      <FAQSchema translationPrefix="auto_loan" />
       {generateSchemas().map((schema, index) => (
         <SchemaMarkup key={index} schema={schema} />
       ))}
@@ -436,7 +439,7 @@ const AutoLoanCalculatorPage = () => {
                       <span className="text-green-100">{t('auto_monthly_payment')}</span>
                     </div>
                     <p className="text-5xl font-bold mb-2">
-                      {formatCurrency(results.monthlyPayment)} KGS
+                      {formatCurrency(results.monthlyPayment)} {t('som')}
                     </p>
                   </div>
 
@@ -512,7 +515,7 @@ const AutoLoanCalculatorPage = () => {
                           </Tooltip>
                         </div>
                         <span className="text-blue-600 font-semibold">
-                          {formatCurrency(results.loanAmount)} KGS
+                          {formatCurrency(results.loanAmount)} {t('som')}
                         </span>
                       </div>
                     </div>
@@ -526,7 +529,7 @@ const AutoLoanCalculatorPage = () => {
                           </Tooltip>
                         </div>
                         <span className="text-red-600 font-semibold">
-                          {formatCurrency(results.overpayment)} KGS
+                          {formatCurrency(results.overpayment)} {t('som')}
                         </span>
                       </div>
                     </div>
@@ -540,7 +543,7 @@ const AutoLoanCalculatorPage = () => {
                           </Tooltip>
                         </div>
                         <span className="text-amber-600 font-semibold">
-                          {formatCurrency(results.totalCost)} KGS
+                          {formatCurrency(results.totalCost)} {t('som')}
                         </span>
                       </div>
                     </div>
@@ -660,10 +663,10 @@ const AutoLoanCalculatorPage = () => {
                         {Math.round(parseInt(loanTermMonths) / 12 * 10) / 10} {t('years_unit')}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
-                        {formatCurrency(results.monthlyPayment)} KGS
+                        {formatCurrency(results.monthlyPayment)} {t('som')}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
-                        {formatCurrency(results.overpayment)} KGS
+                        {formatCurrency(results.overpayment)} {t('som')}
                       </td>
                     </tr>
                     
@@ -693,10 +696,10 @@ const AutoLoanCalculatorPage = () => {
                             {t('up_to')} {Math.round(bank.maxTerm / 12)} {t('years_unit')}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                            {formatCurrency(bankResults.monthlyPayment)} KGS
+                            {formatCurrency(bankResults.monthlyPayment)} {t('som')}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                            {formatCurrency(bankResults.overpayment)} KGS
+                            {formatCurrency(bankResults.overpayment)} {t('som')}
                           </td>
                         </tr>
                       );
@@ -748,21 +751,21 @@ const AutoLoanCalculatorPage = () => {
                   >
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-gray-700 font-medium">
-                        {formatCurrency(example.car)} KGS
+                        {formatCurrency(example.car)} {t('som')}
                       </span>
                       <span className="text-xs text-gray-500">
-                        {example.term} мес. • {example.rate}%
+                        {example.term} {t('months_short')} • {example.rate}%
                       </span>
                     </div>
                     <div className="text-right">
                       <div className="text-green-600 font-semibold">
-                        {formatCurrency(exampleResult.monthlyPayment)} KGS/мес
+                        {formatCurrency(exampleResult.monthlyPayment)} {t('som')}/{t('months_short')}
                       </div>
                       <div className="text-xs text-gray-500">
-                        взнос: {formatCurrency(example.downPayment)} KGS ({downPaymentPercent.toFixed(0)}%)
+                        {t('mortgage_down_payment_short')} {formatCurrency(example.downPayment)} {t('som')} ({downPaymentPercent.toFixed(0)}%)
                       </div>
                       <div className="text-xs text-gray-500">
-                        переплата: {formatCurrency(exampleResult.overpayment)} KGS
+                        {t('mortgage_overpayment_short')} {formatCurrency(exampleResult.overpayment)} {t('som')}
                       </div>
                     </div>
                   </button>
@@ -971,7 +974,7 @@ const AutoLoanCalculatorPage = () => {
       </div>
 
       {/* Print styles */}
-      <style jsx>{`
+      <style>{`
         @media print {
           .print\\:hidden {
             display: none !important;
@@ -1023,4 +1026,7 @@ const AutoLoanCalculatorPage = () => {
   );
 };
 
+
+      {/* Информационная статья под калькулятором */}
+      <AutoLoanCalculatorArticle />
 export default AutoLoanCalculatorPage;

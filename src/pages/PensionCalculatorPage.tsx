@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Calculator, ArrowLeft, Info, Home, Printer, TrendingUp, ChevronRight, ChevronLeft, PieChart, Plus, Trash2, Shield, CreditCard } from 'lucide-react';
-import ActionButtons from '../components/ActionButtons';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
+import FAQSchema from '../components/FAQSchema';
 import { useLanguage } from '../contexts/LanguageContext';
 import { 
   generateCalculatorSchema, 
-  generateBreadcrumbSchema,
-  generateSoftwareApplicationSchema 
+  generateBreadcrumbSchema 
 } from '../utils/schemaGenerator';
+import { PensionCalculatorArticle } from '../components/PensionCalculatorArticle';
 
 type Gender = 'male' | 'female';
 type EmploymentType = 'employee' | 'entrepreneur' | 'farmer';
@@ -341,6 +341,8 @@ const PensionCalculatorPage = () => {
         <meta name="twitter:image" content="https://calk.kg/og-images/pension.png" />
         <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/pension" : "https://calk.kg/calculator/pension"} />
       </Helmet>
+      <HreflangTags path="/calculator/pension" />
+      <FAQSchema translationPrefix="pension" />
       {/* Schema.org микроразметка */}
       {generateSchemas().map((schema, index) => (
         <SchemaMarkup key={index} schema={schema} />
@@ -729,7 +731,7 @@ const PensionCalculatorPage = () => {
                   <span className="text-green-100">{t('pension_your_forecast')}</span>
                 </div>
                 <p className="text-5xl font-bold mb-2">
-                  {formatCurrency(results.totalPension)} KGS
+                  {formatCurrency(results.totalPension)} {t('som')}
                 </p>
                 <p className="text-green-100">{t('pension_per_month')}</p>
               </div>
@@ -753,7 +755,7 @@ const PensionCalculatorPage = () => {
                         </Tooltip>
                       </div>
                       <span className="text-xl font-semibold text-blue-600">
-                        {formatCurrency(results.basePart)} KGS
+                        {formatCurrency(results.basePart)} {t('som')}
                       </span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
@@ -781,7 +783,7 @@ const PensionCalculatorPage = () => {
                         </Tooltip>
                       </div>
                       <span className="text-xl font-semibold text-orange-600">
-                        {formatCurrency(results.insurancePart1)} KGS
+                        {formatCurrency(results.insurancePart1)} {t('som')}
                       </span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
@@ -791,7 +793,7 @@ const PensionCalculatorPage = () => {
                       ></div>
                     </div>
                     <p className="text-sm text-gray-500 mt-2">
-                      {t('pension_exp_before_1996')} {Math.floor(getExperienceBefore1996().months / 12)} {t('pension_years')} {getExperienceBefore1996().months % 12} {language === 'ky' ? 'ай' : 'мес.'}
+                      {t('pension_exp_before_1996')} {Math.floor(getExperienceBefore1996().months / 12)} {t('pension_years')} {getExperienceBefore1996().months % 12} {t('months_short')}
                     </p>
                   </div>
 
@@ -806,7 +808,7 @@ const PensionCalculatorPage = () => {
                         </Tooltip>
                       </div>
                       <span className="text-xl font-semibold text-green-600">
-                        {formatCurrency(results.insurancePart2)} KGS
+                        {formatCurrency(results.insurancePart2)} {t('som')}
                       </span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
@@ -816,7 +818,7 @@ const PensionCalculatorPage = () => {
                       ></div>
                     </div>
                     <p className="text-sm text-gray-500 mt-2">
-                      {t('pension_total_accumulated')} {formatCurrency(results.totalContributions)} KGS {t('pension_for_period')}
+                      {t('pension_total_accumulated')} {formatCurrency(results.totalContributions)} {t('som')} {t('pension_for_period')}
                     </p>
                   </div>
                 </div>
@@ -837,7 +839,7 @@ const PensionCalculatorPage = () => {
                     </div>
                     <div className="flex justify-between">
                       <span>{t('pension_info_total_experience')}</span>
-                      <span>{Math.floor(getTotalExperienceMonths() / 12)} {t('pension_years')} {getTotalExperienceMonths() % 12} {language === 'ky' ? 'ай' : 'мес.'}</span>
+                      <span>{Math.floor(getTotalExperienceMonths() / 12)} {t('pension_years')} {getTotalExperienceMonths() % 12} {t('months_short')}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>{t('pension_info_min_experience')}</span>
@@ -1307,7 +1309,7 @@ const PensionCalculatorPage = () => {
 
 
       {/* Print styles */}
-      <style jsx>{`
+      <style>{`
         @media print {
           .print\\:hidden {
             display: none !important;
@@ -1345,6 +1347,8 @@ const PensionCalculatorPage = () => {
           }
         }
       `}</style>
+
+      <PensionCalculatorArticle />
     </div>
   );
 };

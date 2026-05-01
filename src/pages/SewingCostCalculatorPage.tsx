@@ -5,12 +5,14 @@ import { Calculator, ArrowLeft, Info, Home, Printer, Scissors, Plus, Trash2, Shi
 import ActionButtons from '../components/ActionButtons';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
+import FAQSchema from '../components/FAQSchema';
 import { useLanguage } from '../contexts/LanguageContext';
 import {
   generateCalculatorSchema,
   generateBreadcrumbSchema
 } from '../utils/schemaGenerator';
 import { formatCurrentMonth } from '../utils/dateFormatter';
+import { SewingCostCalculatorArticle } from '../components/SewingCostCalculatorArticle';
 
 interface Material {
   id: string;
@@ -232,6 +234,7 @@ const SewingCostCalculatorPage = () => {
         <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/sewing-cost" : "https://calk.kg/calculator/sewing-cost"} />
       </Helmet>
       <HreflangTags path="/calculator/sewing-cost" />
+      <FAQSchema translationPrefix="sewingcost" />
       {generateSchemas().map((schema, index) => (
         <SchemaMarkup key={index} schema={schema} />
       ))}
@@ -946,7 +949,7 @@ const SewingCostCalculatorPage = () => {
       </div>
 
       {/* Print styles */}
-      <style jsx>{`
+      <style>{`
         @media print {
           .print\\:hidden {
             display: none !important;
@@ -990,6 +993,8 @@ const SewingCostCalculatorPage = () => {
           }
         }
       `}</style>
+
+      <SewingCostCalculatorArticle />
     </div>
   );
 };

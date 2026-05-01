@@ -5,12 +5,14 @@ import { Calculator, ArrowLeft, Info, Home, Printer, MapPin, Users, Calendar, Do
 import ActionButtons from '../components/ActionButtons';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
+import FAQSchema from '../components/FAQSchema';
 import { useLanguage } from '../contexts/LanguageContext';
 import {
   generateCalculatorSchema,
   generateBreadcrumbSchema
 } from '../utils/schemaGenerator';
 import { formatCurrentMonth } from '../utils/dateFormatter';
+import { TouristFeeCalculatorArticle } from '../components/TouristFeeCalculatorArticle';
 
 // Конфигурация туристических сборов - легко обновляемая структура
 const TOURIST_FEE_RATES = {
@@ -206,6 +208,7 @@ const TouristFeeCalculatorPage = () => {
         <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/tourist-fee" : "https://calk.kg/calculator/tourist-fee"} />
       </Helmet>
       <HreflangTags path="/calculator/tourist-fee" />
+      <FAQSchema translationPrefix="touristfee" />
       {generateSchemas().map((schema, index) => (
         <SchemaMarkup key={index} schema={schema} />
       ))}
@@ -253,11 +256,9 @@ const TouristFeeCalculatorPage = () => {
                 <Building className="h-10 w-10 print:text-green-600" />
               </div>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 print:text-2xl">
-              Калькулятор туристического сбора
-            </h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 print:text-2xl">{t('tourist_fee_calc_title')}</h1>
             <p className="text-xl text-green-100 max-w-3xl mx-auto leading-relaxed print:text-gray-600">
-              Быстрый расчет размера туристического сбора для гостиниц и туристов в Кыргызстане
+              {t('tourist_fee_calc_subtitle')}
             </p>
           </div>
         </div>
@@ -275,7 +276,7 @@ const TouristFeeCalculatorPage = () => {
             <div className="mb-8">
               <div className="flex items-center mb-4">
                 <label className="block text-lg font-semibold text-gray-700">
-                  Город / Курортная зона
+                  {t('tourist_city_zone_label')}
                 </label>
                 <Tooltip text={t('tooltip_tourist_city')}>
                   <Info className="h-5 w-5 text-gray-400 ml-2 cursor-help" />
@@ -302,7 +303,7 @@ const TouristFeeCalculatorPage = () => {
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center">
                   <label className="block text-lg font-semibold text-gray-700">
-                    Количество туристов
+                    {t('tourist_guests_count')}
                   </label>
                   <Tooltip text={t('tooltip_guest_count')}>
                     <Info className="h-5 w-5 text-gray-400 ml-2 cursor-help" />
@@ -345,7 +346,7 @@ const TouristFeeCalculatorPage = () => {
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center">
                   <label className="block text-lg font-semibold text-gray-700">
-                    Количество дней пребывания
+                    {t('tourist_stay_days')}
                   </label>
                   <Tooltip text={t('tooltip_stay_duration')}>
                     <Info className="h-5 w-5 text-gray-400 ml-2 cursor-help" />
@@ -423,10 +424,12 @@ const TouristFeeCalculatorPage = () => {
                       <span className="text-xl text-green-100">{t('tourist_total_to_pay')}</span>
                     </div>
                     <p className="text-6xl font-bold mb-4">
-                      {formatCurrency(results.totalFee)} сом
+                    {formatCurrency(results.totalFee)} {t('som')}
                     </p>
                     <p className="text-green-100 text-lg">
-                      за {touristCount} {touristCount === 1 ? 'туриста' : 'туристов'} на {daysCount} {daysCount === 1 ? 'день' : daysCount <= 4 ? 'дня' : 'дней'}
+                    {t('tourist_total_for_text')
+                      .replace('{tourists}', `${touristCount} ${touristCount === 1 ? t('tourist_word_one') : t('tourist_word_many')}`)
+                      .replace('{days}', `${daysCount} ${daysCount === 1 ? t('day_word_one') : daysCount <= 4 ? t('day_word_few') : t('day_word_many')}`)}
                     </p>
                   </div>
 
@@ -434,7 +437,7 @@ const TouristFeeCalculatorPage = () => {
                   <div className="bg-gray-50 rounded-xl p-6">
                     <h3 className="font-semibold text-gray-900 mb-4 flex items-center">
                       <Calculator className="h-5 w-5 mr-2" />
-                      Детализация расчета
+                    {t('tourist_breakdown_title')}
                     </h3>
                     
                     <div className="space-y-4">
@@ -452,14 +455,16 @@ const TouristFeeCalculatorPage = () => {
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-gray-600">{t('tourist_stay_days')}</span>
-                        <span className="font-medium text-gray-900">{results.daysCount} дней</span>
+                        <span className="font-medium text-gray-900">
+                          {results.daysCount} {results.daysCount === 1 ? t('day_word_one') : results.daysCount <= 4 ? t('day_word_few') : t('day_word_many')}
+                        </span>
                       </div>
                       
                       <div className="border-t pt-4">
                         <div className="bg-white rounded-lg p-4 border-2 border-green-200">
                           <p className="text-center text-gray-700 mb-2">{t('tourist_calculation_formula')}</p>
                           <p className="text-center text-lg font-mono text-gray-900">
-                            {results.touristCount} × {results.daysCount} × {formatCurrency(results.dailyRate)} = {formatCurrency(results.totalFee)} сом
+                            {results.touristCount} × {results.daysCount} × {formatCurrency(results.dailyRate)} = {formatCurrency(results.totalFee)} {t('som')}
                           </p>
                         </div>
                       </div>
@@ -531,7 +536,7 @@ const TouristFeeCalculatorPage = () => {
             <div className="flex items-center mb-6">
               <MapPin className="h-6 w-6 text-red-600 mr-3" />
               <h2 className="text-xl font-semibold text-gray-900">
-                Сравнение ставок по городам КР
+                {t('tourist_rates_comparison_title')}
               </h2>
             </div>
 
@@ -540,7 +545,7 @@ const TouristFeeCalculatorPage = () => {
                 <thead className="bg-gray-50">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Город / Курорт
+                      {t('tourist_city_resort_column')}
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       {t('tourist_fee_rate_label')} ({t('som_per_person_day')})
@@ -579,10 +584,10 @@ const TouristFeeCalculatorPage = () => {
                             {cityData.name}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                            {formatCurrency(cityData.rate)} сом
+                            {formatCurrency(cityData.rate)} {t('text_som')}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                            {formatCurrency(otherCityFee)} сом
+                            {formatCurrency(otherCityFee)} {t('text_som')}
                           </td>
                         </tr>
                       );
@@ -632,12 +637,12 @@ const TouristFeeCalculatorPage = () => {
                       {t(example.labelKey)}
                     </span>
                     <span className="text-xs text-gray-500">
-                      {example.tourists} чел × {example.days} дн
+                      {example.tourists} {t('persons_short_dot')} × {example.days} {t('days_short')}
                     </span>
                   </div>
                   <div className="text-right">
                     <div className="text-green-600 font-semibold">
-                      {formatCurrency(exampleResult.totalFee)} сом
+                      {formatCurrency(exampleResult.totalFee)} {t('som')}
                     </div>
                     <div className="text-xs text-gray-500">
                       {t(TOURIST_FEE_RATES[example.city].nameKey)}
@@ -659,15 +664,15 @@ const TouristFeeCalculatorPage = () => {
               <ul className="text-sm text-gray-600 space-y-2">
                 <li className="flex items-start">
                   <span className="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  Иностранные граждане и лица без гражданства
+                  {t('tourist_who_must_pay_1')}
                 </li>
                 <li className="flex items-start">
                   <span className="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  Граждане других стран ЕАЭС (по усмотрению города)
+                  {t('tourist_who_must_pay_2')}
                 </li>
                 <li className="flex items-start">
                   <span className="w-2 h-2 bg-gray-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  Граждане КР освобождены от сбора
+                  {t('tourist_who_must_pay_3')}
                 </li>
               </ul>
             </div>
@@ -677,19 +682,19 @@ const TouristFeeCalculatorPage = () => {
               <ul className="text-sm text-gray-600 space-y-2">
                 <li className="flex items-start">
                   <span className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  Сбор взимается при заселении в отель
+                  {t('tourist_payment_step_1')}
                 </li>
                 <li className="flex items-start">
                   <span className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  Оплачивается наличными или картой
+                  {t('tourist_payment_step_2')}
                 </li>
                 <li className="flex items-start">
                   <span className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  Выдается квитанция об оплате
+                  {t('tourist_payment_step_3')}
                 </li>
                 <li className="flex items-start">
                   <span className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  Средства идут на развитие туризма
+                  {t('tourist_payment_step_4')}
                 </li>
               </ul>
             </div>
@@ -728,7 +733,7 @@ const TouristFeeCalculatorPage = () => {
                     {results.hasData && (
                       <div className="mt-3 pt-3 border-t border-gray-200">
                         <div className="text-sm font-medium text-gray-900">
-                          За ваше пребывание: {formatCurrency(touristCount * daysCount * cityData.rate)} сом
+                          {t('tourist_stay_cost_text').replace('{amount}', formatCurrency(touristCount * daysCount * cityData.rate))}
                         </div>
                       </div>
                     )}
@@ -778,7 +783,7 @@ const TouristFeeCalculatorPage = () => {
       </div>
 
       {/* Custom Slider Styles */}
-      <style jsx>{`
+      <style>{`
         .slider::-webkit-slider-thumb {
           appearance: none;
           height: 24px;
@@ -843,6 +848,8 @@ const TouristFeeCalculatorPage = () => {
           }
         }
       `}</style>
+
+      <TouristFeeCalculatorArticle />
     </div>
   );
 };

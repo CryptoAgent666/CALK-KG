@@ -5,6 +5,7 @@ import { Calculator, ArrowLeft, Info, Home, Search, Car, AlertTriangle, Scale, C
 import ActionButtons from '../components/ActionButtons';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
+import FAQSchema from '../components/FAQSchema';
 import { useLanguage } from '../contexts/LanguageContext';
 import {
   generateCalculatorSchema,
@@ -13,6 +14,7 @@ import {
 } from '../utils/schemaGenerator';
 import { formatCurrentMonth } from '../utils/dateFormatter';
 import { TRAFFIC_FINES, TrafficFine as TrafficFineData } from '../data/trafficFines';
+import { TrafficFinesCalculatorArticle } from '../components/TrafficFinesCalculatorArticle';
 
 // Интерфейс для отображения штрафов
 interface TrafficFine {
@@ -170,6 +172,8 @@ const TrafficFinesCalculatorPage = () => {
         <meta name="twitter:image" content="https://calk.kg/og-images/traffic-fines.png" />
         <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/traffic-fines" : "https://calk.kg/calculator/traffic-fines"} />
       </Helmet>
+      <HreflangTags path="/calculator/traffic-fines" />
+      <FAQSchema translationPrefix="trafficfines" />
       {/* Schema.org микроразметка */}
       {generateSchemas().map((schema, index) => (
         <SchemaMarkup key={index} schema={schema} />
@@ -594,6 +598,8 @@ const TrafficFinesCalculatorPage = () => {
           </div>
         </div>
       </div>
+
+      <TrafficFinesCalculatorArticle />
     </div>
   );
 };

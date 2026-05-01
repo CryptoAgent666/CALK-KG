@@ -210,41 +210,32 @@ export const generateSoftwareApplicationSchema = (data: CalculatorSchemaData) =>
     "priceCurrency": "KGS",
     "availability": "https://schema.org/InStock"
   },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.8",
-    "reviewCount": "1250",
-    "bestRating": "5",
-    "worstRating": "1"
-  },
-  "featureList": data.inputProperties || [],
-  "screenshot": `${data.url}/preview.png`
+  "featureList": data.inputProperties || []
 });
 
-// Генерация LocalBusiness для региональных услуг
-export const generateLocalBusinessSchema = () => ({
+// Генерация OnlineBusiness для веб-сервиса
+export const generateOnlineBusinessSchema = () => ({
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": "OnlineBusiness",
   "name": "Calk.KG",
   "description": "Онлайн калькуляторы для жителей Кыргызстана",
   "url": "https://calk.kg",
-  "telephone": "+996-XXX-XXX-XXX",
   "address": {
     "@type": "PostalAddress",
     "addressCountry": "KG",
     "addressRegion": "Чуйская область",
     "addressLocality": "Бишкек"
   },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": "42.8746",
-    "longitude": "74.5698"
-  },
   "areaServed": {
     "@type": "Country",
     "name": "Кыргызстан"
   },
-  "serviceType": "Финансовые калькуляторы и консультации"
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "info@calk.kg",
+    "contactType": "customer service",
+    "availableLanguage": ["Russian", "Kyrgyz"]
+  }
 });
 
 // Утилита для создания JSON-LD скрипта

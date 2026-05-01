@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Calculator, ArrowLeft, Info, Home, Printer, Zap, TrendingUp, Droplets, Flame } from 'lucide-react';
+import { Calculator, ArrowLeft, Info, Home, Zap, TrendingUp, Droplets, Flame } from 'lucide-react';
 import ActionButtons from '../components/ActionButtons';
+import { ElectricityCalculatorArticle } from '../components/ElectricityCalculatorArticle';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
+import FAQSchema from '../components/FAQSchema';
 import { useLanguage } from '../contexts/LanguageContext';
 import {
   generateCalculatorSchema,
@@ -13,31 +15,176 @@ import {
 } from '../utils/schemaGenerator';
 import { formatCurrentMonth } from '../utils/dateFormatter';
 
-// Актуальные тарифы на электроэнергию в Кыргызстане (2024-2026)
-// Источник: ОАО "Северэлектро", Госагентство по регулированию ТЭК
-// Последнее обновление: декабрь 2024
-const TARIFF_CONFIG = {
-  'general': {
-    nameKey: 'tariff_general_population',
-    limit: 700,
-    rate1: 0.77,  // до 700 кВт·ч
-    rate2: 2.16   // свыше 700 кВт·ч
-  },
-  'highland': {
-    nameKey: 'tariff_highland_residents',
-    limit: 1000,
-    rate1: 0.77,  // до 1000 кВт·ч (льгота для высокогорья)
-    rate2: 2.16   // свыше 1000 кВт·ч
-  },
-  'lowIncome': {
-    nameKey: 'tariff_low_income_families',
-    limit: 700,
-    rate1: 0.50,  // льготный тариф до 700 кВт·ч
-    rate2: 2.16   // свыше 700 кВт·ч
-  }
+type LocalizedCopy = {
+  ru: string;
+  ky: string;
 };
 
-type ConsumerCategory = 'general' | 'highland' | 'lowIncome';
+type TariffMode = 'tiered' | 'flat';
+
+// Тарифы автоматически переключаются с 01.05.2026 на новые ставки.
+// Источник: Постановление Кабинета Министров КР (новые тарифы с 01.05.2026)
+const NEW_TARIFFS_START = new Date('2026-05-01T00:00:00');
+const USE_NEW_TARIFFS = new Date() >= NEW_TARIFFS_START;
+
+// Старые тарифы (01.05.2025 — 30.04.2026)
+const TARIFFS_OLD = {
+  general_rate1: 1.37, general_rate2: 2.60,
+  lowIncome_rate1: 0.50, lowIncome_rate2: 2.60,
+  highland: 1.37,
+  populationUnlimited: 4.42,
+  industrial: 3.34,
+  commercial: 3.96,
+  budget: 4.09,
+  energyIntensive: 6.06,
+  chargingStations: 5.31,
+  socialObjects: 2.62
+};
+
+// Новые тарифы (с 01.05.2026)
+const TARIFFS_NEW = {
+  general_rate1: 1.64, general_rate2: 2.94,
+  lowIncome_rate1: 0.50, lowIncome_rate2: 2.94,
+  highland: 1.64,
+  populationUnlimited: 4.48,
+  industrial: 3.78,
+  commercial: 4.48,
+  budget: 4.63,
+  energyIntensive: 6.86,
+  chargingStations: 6.00,
+  socialObjects: 2.97
+};
+
+const T = USE_NEW_TARIFFS ? TARIFFS_NEW : TARIFFS_OLD;
+
+const TARIFF_CONFIG = {
+  general: {
+    label: {
+      ru: 'Население (до 700 кВт·ч)',
+      ky: 'Калк (700 кВт·ч чейин)'
+    },
+    description: {
+      ru: 'Бытовой двухступенчатый тариф с базовой нормой потребления',
+      ky: 'Керектөөнүн базалык нормасы менен эки баскычтуу тиричилик тарифи'
+    },
+    mode: 'tiered' as TariffMode,
+    limit: 700,
+    rate1: T.general_rate1,
+    rate2: T.general_rate2
+  },
+  lowIncome: {
+    label: {
+      ru: 'Льготные семьи (үй-бүлөгө көмөк)',
+      ky: 'Жеңилдик алган үй-бүлөлөр (үй-бүлөгө көмөк)'
+    },
+    description: {
+      ru: 'Льготный тариф 0.50 сом до 700 кВт·ч, далее общий повышенный тариф',
+      ky: '700 кВт·ч чейин 0.50 сом, андан кийин жалпы жогорулатылган тариф'
+    },
+    mode: 'tiered' as TariffMode,
+    limit: 700,
+    rate1: T.lowIncome_rate1,
+    rate2: T.lowIncome_rate2
+  },
+  highland: {
+    label: {
+      ru: 'Высокогорье и отдалённые районы',
+      ky: 'Бийик тоолуу жана алыскы райондор'
+    },
+    description: {
+      ru: 'Фиксированный тариф без лимита по специальной категории',
+      ky: 'Атайын категория үчүн лимитсиз туруктуу тариф'
+    },
+    mode: 'flat' as TariffMode,
+    rate1: T.highland
+  },
+  populationUnlimited: {
+    label: {
+      ru: 'Население без льготной нормы',
+      ky: 'Жеңилдик нормасы жок калк'
+    },
+    description: {
+      ru: 'Безлимитный тариф для отдельных бытовых сценариев',
+      ky: 'Айрым тиричилик сценарийлери үчүн лимитсиз тариф'
+    },
+    mode: 'flat' as TariffMode,
+    rate1: T.populationUnlimited
+  },
+  industrial: {
+    label: {
+      ru: 'Промышленные потребители',
+      ky: 'Өнөр жай керектөөчүлөрү'
+    },
+    description: {
+      ru: 'Фиксированный промышленный тариф',
+      ky: 'Туруктуу өнөр жай тарифи'
+    },
+    mode: 'flat' as TariffMode,
+    rate1: T.industrial
+  },
+  commercial: {
+    label: {
+      ru: 'Коммерческие потребители',
+      ky: 'Коммерциялык керектөөчүлөр'
+    },
+    description: {
+      ru: 'Фиксированный тариф для бизнеса и сервиса',
+      ky: 'Бизнес жана кызмат көрсөтүү үчүн туруктуу тариф'
+    },
+    mode: 'flat' as TariffMode,
+    rate1: T.commercial
+  },
+  budget: {
+    label: {
+      ru: 'Бюджетные учреждения',
+      ky: 'Бюджеттик мекемелер'
+    },
+    description: {
+      ru: 'Тариф для бюджетных организаций',
+      ky: 'Бюджеттик уюмдар үчүн тариф'
+    },
+    mode: 'flat' as TariffMode,
+    rate1: T.budget
+  },
+  energyIntensive: {
+    label: {
+      ru: 'Энергоёмкие потребители',
+      ky: 'Энергияны көп керектеген керектөөчүлөр'
+    },
+    description: {
+      ru: 'Повышенный тариф для энергоёмких категорий',
+      ky: 'Энергияны көп керектеген категориялар үчүн жогорулатылган тариф'
+    },
+    mode: 'flat' as TariffMode,
+    rate1: T.energyIntensive
+  },
+  chargingStations: {
+    label: {
+      ru: 'Зарядные станции электромобилей',
+      ky: 'Электромобиль заряддоо станциялары'
+    },
+    description: {
+      ru: 'Отдельный тариф для ЭВ-зарядок',
+      ky: 'ЭВ кубаттагычтар үчүн өзүнчө тариф'
+    },
+    mode: 'flat' as TariffMode,
+    rate1: T.chargingStations
+  },
+  socialObjects: {
+    label: {
+      ru: 'Социальные объекты',
+      ky: 'Социалдык объекттер'
+    },
+    description: {
+      ru: 'Льготный тариф для социальных объектов',
+      ky: 'Социалдык объекттер үчүн жеңилдетилген тариф'
+    },
+    mode: 'flat' as TariffMode,
+    rate1: T.socialObjects
+  }
+} as const;
+
+type ConsumerCategory = keyof typeof TARIFF_CONFIG;
 
 interface ElectricityResults {
   consumption: number;
@@ -51,6 +198,7 @@ interface ElectricityResults {
 
 const ElectricityCalculatorPage = () => {
   const { t, language, getLocalizedPath} = useLanguage();
+  const getLocalized = (copy: LocalizedCopy) => language === 'ky' ? copy.ky : copy.ru;
 
   React.useEffect(() => {
     document.title = t('electricity_calc_title') + " - Calk.KG";
@@ -88,11 +236,23 @@ const ElectricityCalculatorPage = () => {
     }
 
     const tariff = TARIFF_CONFIG[categoryType];
-    
-    // Все категории имеют лимит с двухступенчатым тарифом
+
+    if (tariff.mode === 'flat' || !tariff.limit) {
+      const totalCost = kWh * tariff.rate1;
+      return {
+        consumption: kWh,
+        withinLimit: kWh,
+        withinLimitCost: totalCost,
+        beyondLimit: 0,
+        beyondLimitCost: 0,
+        totalCost,
+        averageRate: tariff.rate1
+      };
+    }
+
     const withinLimit = Math.min(kWh, tariff.limit);
     const beyondLimit = Math.max(0, kWh - tariff.limit);
-    
+
     const withinLimitCost = withinLimit * tariff.rate1;
     const beyondLimitCost = beyondLimit * tariff.rate2;
     const totalCost = withinLimitCost + beyondLimitCost;
@@ -158,11 +318,7 @@ const ElectricityCalculatorPage = () => {
   };
 
   const handleConsumptionChange = (value: number) => {
-    setConsumption(Math.max(0, Math.min(3000, value))); // Ограничение от 0 до 3000 кВт·ч
-  };
-
-  const handlePrint = () => {
-    window.print();
+    setConsumption(Math.max(0, Math.min(5000, value)));
   };
 
   // Tooltip component
@@ -205,6 +361,7 @@ const ElectricityCalculatorPage = () => {
         <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/electricity" : "https://calk.kg/calculator/electricity"} />
       </Helmet>
       <HreflangTags path="/calculator/electricity" />
+      <FAQSchema translationPrefix="electricity" />
       {generateSchemas().map((schema, index) => (
         <SchemaMarkup key={index} schema={schema} />
       ))}
@@ -290,7 +447,7 @@ const ElectricityCalculatorPage = () => {
                   <input
                     type="range"
                     min="0"
-                    max="3000"
+                    max="5000"
                     step="10"
                     value={consumption}
                     onChange={(e) => handleConsumptionChange(parseInt(e.target.value))}
@@ -299,7 +456,7 @@ const ElectricityCalculatorPage = () => {
                   <div className="flex justify-between text-xs text-gray-500 mt-1">
                     <span>0</span>
                     <span>1500</span>
-                    <span>3000 {t('electricity_kwh_max')}</span>
+                    <span>5000 {t('electricity_kwh_max')}</span>
                   </div>
                 </div>
 
@@ -310,7 +467,7 @@ const ElectricityCalculatorPage = () => {
                     value={consumption}
                     onChange={(e) => handleConsumptionChange(parseInt(e.target.value) || 0)}
                     min="0"
-                    max="3000"
+                    max="5000"
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-center text-lg"
                   />
                 </div>
@@ -342,16 +499,14 @@ const ElectricityCalculatorPage = () => {
                       />
                       <div className="flex-1">
                         <span className="text-gray-900 font-medium block">
-                          {key === 'general' && t('electricity_general')}
-                          {key === 'highland' && t('electricity_highland')}
-                          {key === 'lowIncome' && t('electricity_low_income')}
+                          {getLocalized(tariff.label)}
                         </span>
-                        <p className="text-sm text-gray-500 mt-1">{tariff.description}</p>
+                        <p className="text-sm text-gray-500 mt-1">{getLocalized(tariff.description)}</p>
                         <div className="text-xs text-gray-400 mt-1">
-                          {tariff.limit ? (
+                          {tariff.mode === 'tiered' && tariff.limit ? (
                             <>{t('electricity_up_to')} {tariff.limit} {t('electricity_kwh_max')}: {tariff.rate1} {t('electricity_som_per_kwh')}, {t('electricity_above')} {tariff.rate2} {t('electricity_som_per_kwh')}</>
                           ) : (
-                            <>{t('electricity_unified_tariff')} {tariff.rate} {t('electricity_som_per_kwh')}</>
+                            <>{t('electricity_unified_tariff')} {tariff.rate1} {t('electricity_som_per_kwh')}</>
                           )}
                         </div>
                       </div>
@@ -367,9 +522,9 @@ const ElectricityCalculatorPage = () => {
                   <div className="text-sm text-blue-800">
                     <p className="font-medium mb-2">{t('electricity_tariffication_features')}</p>
                     <ul className="list-disc list-inside space-y-1">
-                      <li>{t('electricity_feature_1')}</li>
-                      <li>{t('electricity_feature_2')}</li>
-                      <li>{t('electricity_feature_3')}</li>
+                      <li>{getLocalized({ ru: 'Тарифы действуют с 01.05.2025 по 30.04.2026 по ССТП 2025-2030.', ky: 'Тарифтер 01.05.2025тен 30.04.2026га чейин ССТП 2025-2030 боюнча колдонулат.' })}</li>
+                      <li>{getLocalized({ ru: 'Для населения и льготных семей применяется порог 700 кВт·ч, после которого включается повышенная ставка 2.60 сом.', ky: 'Калк жана жеңилдик алган үй-бүлөлөр үчүн 700 кВт·ч чек колдонулат, андан кийин 2.60 сомдук жогорку ставка иштейт.' })}</li>
+                      <li>{getLocalized({ ru: 'С 01.05.2026 бытовые и коммерческие тарифы будут снова пересмотрены, поэтому страницу нужно обновить до конца апреля.', ky: '01.05.2026дан тартып тиричилик жана коммерциялык тарифтер кайра каралат, ошондуктан баракты апрелдин аягына чейин жаңыртуу керек.' })}</li>
                     </ul>
                     <p className="mt-3">
                       💡 <strong>{t('electricity_save_utilities')}</strong> {t('electricity_also_calculate')}
@@ -392,10 +547,10 @@ const ElectricityCalculatorPage = () => {
                   <ActionButtons
                     calculatorName={t('schema_electricity_calc')}
                     resultText={`${t('electricity_calc_name')} - ${t('result_text_intro')}
-${t('monthly_consumption')}: ${results.consumption} кВт·ч
-${t('consumer_category')}: ${t(TARIFF_CONFIG[category].nameKey as any)}
+${t('monthly_consumption')}: ${results.consumption} ${t('electricity_kwh_max')}
+${t('consumer_category')}: ${getLocalized(TARIFF_CONFIG[category].label)}
 ${t('electricity_monthly_cost')}: ${formatCurrency(results.totalCost)} ${t('kgs')}
-${t('electricity_average_rate')}: ${formatCurrency(results.averageRate)} сом/кВт·ч
+${t('electricity_average_rate')}: ${formatCurrency(results.averageRate)} ${t('electricity_som_per_kwh')}
 
 ${t('calculated_on_site')} Calk.KG`}
                   />
@@ -419,7 +574,7 @@ ${t('calculated_on_site')} Calk.KG`}
                   </div>
 
                   {/* Cost Structure Visualization */}
-                  {currentTariff.limit && results.beyondLimit > 0 && (
+                  {currentTariff.mode === 'tiered' && currentTariff.limit && results.beyondLimit > 0 && (
                     <div className="bg-gray-50 rounded-xl p-6">
                       <h3 className="font-medium text-gray-900 mb-4 flex items-center">
                         <TrendingUp className="h-5 w-5 mr-2" />
@@ -474,7 +629,7 @@ ${t('calculated_on_site')} Calk.KG`}
                         </span>
                       </div>
                       <div className="text-sm text-gray-500">
-                        {t('consumer_category')}: {t(currentTariff.nameKey as any)}
+                        {t('consumer_category')}: {getLocalized(currentTariff.label)}
                       </div>
                     </div>
 
@@ -483,9 +638,11 @@ ${t('calculated_on_site')} Calk.KG`}
                       <div className="flex justify-between items-center mb-2">
                         <div className="flex items-center">
                           <span className="text-gray-700">
-                            {currentTariff.limit ? `${t('electricity_within_limit_full')} ${currentTariff.limit} ${t('electricity_kwh_max')}):` : t('electricity_general_consumption')}
+                            {currentTariff.mode === 'tiered' && currentTariff.limit
+                              ? `${t('electricity_within_limit_full')} ${currentTariff.limit} ${t('electricity_kwh_max')}):`
+                              : t('electricity_general_consumption')}
                           </span>
-                          <Tooltip text={currentTariff.limit ? t('electricity_within_limit_tooltip') : t('electricity_general_consumption_tooltip')}>
+                          <Tooltip text={currentTariff.mode === 'tiered' && currentTariff.limit ? t('electricity_within_limit_tooltip') : t('electricity_general_consumption_tooltip')}>
                             <Info className="h-4 w-4 text-gray-400 ml-2 cursor-help" />
                           </Tooltip>
                         </div>
@@ -494,12 +651,12 @@ ${t('calculated_on_site')} Calk.KG`}
                         </span>
                       </div>
                       <div className="text-sm text-gray-500">
-                        {results.withinLimit} {t('electricity_kwh_max')} × {currentTariff.limit ? currentTariff.rate1 : currentTariff.rate} {t('electricity_som')} = {formatCurrency(results.withinLimitCost)} {t('electricity_som')}
+                        {results.withinLimit} {t('electricity_kwh_max')} × {currentTariff.rate1} {t('electricity_som')} = {formatCurrency(results.withinLimitCost)} {t('electricity_som')}
                       </div>
                     </div>
 
                     {/* Beyond Limit */}
-                    {results.beyondLimit > 0 && (
+                    {currentTariff.mode === 'tiered' && results.beyondLimit > 0 && currentTariff.rate2 && (
                       <div className="bg-red-50 rounded-lg p-4">
                         <div className="flex justify-between items-center mb-2">
                           <div className="flex items-center">
@@ -662,7 +819,7 @@ ${t('calculated_on_site')} Calk.KG`}
                 {t('electricity_tariffs_actual')} {currentMonth}. {t('electricity_disclaimer_full')}
               </p>
               <p className="text-sm">
-                <strong>{t('tariff_source')}:</strong> ОАО «Северэлектро», Госагентство по регулированию ТЭК.
+                <strong>{t('tariff_source')}:</strong> {t('electricity_tariff_source')}
                 {' '}
                 <a 
                   href="https://severelectro.kg/services/tariff/" 
@@ -833,7 +990,7 @@ ${t('calculated_on_site')} Calk.KG`}
               {[1,2,3,4,5].map(i => (
                 <div key={i} className="flex items-start space-x-3 bg-white p-4 rounded-lg border-l-4 border-red-500">
                   <span className="text-red-600 font-bold text-xl">✗</span>
-                  <p className="text-gray-800">{t(`electricity_mistake_${i}`)}</p>
+                  <p className="text-gray-800">{t(`electricity_mistake_${i}` as any)}</p>
                 </div>
               ))}
             </div>
@@ -846,7 +1003,7 @@ ${t('calculated_on_site')} Calk.KG`}
               {[1,2,3,4,5].map(i => (
                 <p key={i} className="flex items-center">
                   <span className="mr-2">📍</span>
-                  {t(`electricity_company_${i}`)}
+                  {t(`electricity_company_${i}` as any)}
                 </p>
               ))}
             </div>
@@ -855,7 +1012,7 @@ ${t('calculated_on_site')} Calk.KG`}
       </div>
 
       {/* Custom Slider Styles */}
-      <style jsx>{`
+      <style>{`
         .slider::-webkit-slider-thumb {
           appearance: none;
           height: 24px;
@@ -924,4 +1081,7 @@ ${t('calculated_on_site')} Calk.KG`}
   );
 };
 
+
+      {/* Информационная статья под калькулятором */}
+      <ElectricityCalculatorArticle />
 export default ElectricityCalculatorPage;

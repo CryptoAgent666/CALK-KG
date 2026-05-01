@@ -12,5 +12,4 @@ export interface Calculator {
   icon: LucideIcon;
   bgColor: string;
   iconColor: string;
-  usage: string;
 }

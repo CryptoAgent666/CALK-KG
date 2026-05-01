@@ -5,6 +5,7 @@ import { Calculator, ArrowLeft, Info, Home, Printer, Heart, Users, Music, Camera
 import ActionButtons from '../components/ActionButtons';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
+import FAQSchema from '../components/FAQSchema';
 import { useLanguage } from '../contexts/LanguageContext';
 import {
   generateCalculatorSchema,
@@ -12,6 +13,7 @@ import {
   generateSoftwareApplicationSchema
 } from '../utils/schemaGenerator';
 import { formatCurrentMonth } from '../utils/dateFormatter';
+import { WeddingCalculatorArticle } from '../components/WeddingCalculatorArticle';
 
 // Конфигурация региональных цен на банкет - актуализированные цены 2026
 const BANQUET_PRICES = {
@@ -254,6 +256,7 @@ const WeddingCalculatorPage = () => {
         <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/wedding" : "https://calk.kg/calculator/wedding"} />
       </Helmet>
       <HreflangTags path="/calculator/wedding" />
+      <FAQSchema translationPrefix="wedding" />
       {generateSchemas().map((schema, index) => (
         <SchemaMarkup key={index} schema={schema} />
       ))}
@@ -388,7 +391,7 @@ const WeddingCalculatorPage = () => {
               <div className="text-center">
                 <div className="text-sm text-gray-600 mb-2">{t('wedding_banquet_cost')}</div>
                 <div className="text-3xl font-bold text-pink-600">
-                  {formatCurrency(results.banquetTotal)} сом
+                  {formatCurrency(results.banquetTotal)} {t('som')}
                 </div>
                 <div className="text-sm text-gray-500 mt-1">
                   {guestCount || 0} {t('text_guests_multiply')} × {formatCurrency(parseFloat(banquetPricePerGuest) || 0)} {t('kgs')}
@@ -438,7 +441,7 @@ const WeddingCalculatorPage = () => {
               <div className="text-center">
                 <div className="text-sm text-gray-600 mb-2">{t('wedding_total_services')}</div>
                 <div className="text-3xl font-bold text-blue-600">
-                  {formatCurrency(results.servicesTotal)} сом
+                  {formatCurrency(results.servicesTotal)} {t('som')}
                 </div>
                 <div className="text-sm text-gray-500 mt-1">
                   Выбрано: {services.filter(s => s.enabled).length} из {services.length}
@@ -488,7 +491,7 @@ const WeddingCalculatorPage = () => {
               <div className="text-center">
                 <div className="text-sm text-gray-600 mb-2">{t('wedding_total_other')}</div>
                 <div className="text-3xl font-bold text-amber-600">
-                  {formatCurrency(results.otherExpensesTotal)} сом
+                  {formatCurrency(results.otherExpensesTotal)} {t('som')}
                 </div>
                 <div className="text-sm text-gray-500 mt-1">
                   Выбрано: {otherExpenses.filter(e => e.enabled).length} из {otherExpenses.length}
@@ -522,7 +525,7 @@ const WeddingCalculatorPage = () => {
                   <span className="text-2xl text-pink-100">{t('wedding_grand_total')}</span>
                 </div>
                 <p className="text-7xl font-bold mb-4">
-                  {formatCurrency(results.grandTotal)} сом
+                  {formatCurrency(results.grandTotal)} {t('som')}
                 </p>
                 <p className="text-pink-100 text-xl">
                   {currentRegionData.name} • {guestCount || 0} гостей
@@ -1006,7 +1009,7 @@ const WeddingCalculatorPage = () => {
       </div>
 
       {/* Print styles */}
-      <style jsx>{`
+      <style>{`
         @media print {
           .print\\:hidden {
             display: none !important;
@@ -1050,6 +1053,8 @@ const WeddingCalculatorPage = () => {
           }
         }
       `}</style>
+
+      <WeddingCalculatorArticle />
     </div>
   );
 };

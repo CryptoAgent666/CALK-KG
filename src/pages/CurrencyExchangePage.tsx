@@ -4,7 +4,9 @@ import { ArrowDownUp, RefreshCw, TrendingUp, TrendingDown } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCurrencyRates } from '../hooks/useCurrencyRates';
 import HreflangTags from '../components/HreflangTags';
+import FAQSchema from '../components/FAQSchema';
 import CurrencyChart from '../components/CurrencyChart';
+import { CurrencyExchangeCalculatorArticle } from '../components/CurrencyExchangeCalculatorArticle';
 
 const CurrencyExchangePage = () => {
   const { language, t } = useLanguage();
@@ -64,9 +66,21 @@ const CurrencyExchangePage = () => {
         <meta name="description" content={t('currency_exchange_description')} />
         <meta property="og:title" content={`${t('currency_exchange_title')} - Calk.KG`} />
         <meta property="og:description" content={t('currency_exchange_description')} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/currency-exchange" : "https://calk.kg/calculator/currency-exchange"} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://calk.kg/og-images/currency-exchange.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${t('currency_exchange_title')} - Calk.KG`} />
+        <meta name="twitter:description" content={t('currency_exchange_description')} />
+        <meta name="twitter:image" content="https://calk.kg/og-images/currency-exchange.png" />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/currency-exchange" : "https://calk.kg/calculator/currency-exchange"} />
       </Helmet>
       
       <HreflangTags path="/calculator/currency-exchange" />
+      <FAQSchema translationPrefix="currency" />
 
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-8 px-4 print:bg-white">
         <div className="max-w-5xl mx-auto">
@@ -350,6 +364,8 @@ const CurrencyExchangePage = () => {
           )}
         </div>
       </div>
+
+      <CurrencyExchangeCalculatorArticle />
     </>
   );
 };

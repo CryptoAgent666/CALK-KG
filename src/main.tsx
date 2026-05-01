@@ -8,6 +8,14 @@ import './index.css';
 
 const container = document.getElementById('root')!;
 
+// Remove SSG static content before React renders — it's only for crawlers
+// Belt-and-suspenders: CSS class hides it immediately, then remove() cleans DOM
+document.documentElement.classList.add('react-mounted');
+const staticContent = document.getElementById('static-content');
+if (staticContent) {
+  staticContent.remove();
+}
+
 const AppWrapper = (
   <StrictMode>
     <HelmetProvider>
@@ -20,8 +28,5 @@ const AppWrapper = (
   </StrictMode>
 );
 
-if (container.hasChildNodes()) {
-  hydrateRoot(container, AppWrapper);
-} else {
-  createRoot(container).render(AppWrapper);
-}
+// Always use createRoot since SSG content structure differs from React tree
+createRoot(container).render(AppWrapper);

@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Calculator, ArrowLeft, Info, Home, Printer, DollarSign, TrendingUp, Building2, Car } from 'lucide-react';
+import { Calculator, ArrowLeft, Info, Home, DollarSign, TrendingUp, Building2, Car } from 'lucide-react';
 import ActionButtons from '../components/ActionButtons';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
+import FAQSchema from '../components/FAQSchema';
 import { useLanguage } from '../contexts/LanguageContext';
 import { 
   generateCalculatorSchema, 
-  generateBreadcrumbSchema, 
+  generateBreadcrumbSchema,
   generateSoftwareApplicationSchema 
 } from '../utils/schemaGenerator';
+import { LoanCalculatorArticle } from '../components/LoanCalculatorArticle';
 
 interface BankOffer {
   nameKey: string;
@@ -166,10 +168,6 @@ const LoanCalculatorPage = () => {
     }
   };
 
-  const handlePrint = () => {
-    window.print();
-  };
-
   // Tooltip component
   const Tooltip = ({ children, text }: { children: React.ReactNode; text: string }) => (
     <div className="group relative inline-flex items-center">
@@ -209,6 +207,7 @@ const LoanCalculatorPage = () => {
         <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/loan" : "https://calk.kg/calculator/loan"} />
       </Helmet>
       <HreflangTags path="/calculator/loan" />
+      <FAQSchema translationPrefix="loan" />
       {generateSchemas().map((schema, index) => (
         <SchemaMarkup key={index} schema={schema} />
       ))}
@@ -353,15 +352,15 @@ const LoanCalculatorPage = () => {
                 {results.monthlyPayment > 0 && (
                   <ActionButtons
                     calculatorName={t('schema_loan_calc')}
-                    resultText={`Потребительский кредит - Результаты расчета:
-Сумма кредита: ${formatCurrency(parseFloat(loanAmount) || 0)} KGS
-Срок кредита: ${loanTerm} месяцев
-Процентная ставка: ${interestRate}%
-Ежемесячный платеж: ${formatCurrency(results.monthlyPayment)} KGS
-Переплата: ${formatCurrency(results.overpayment)} KGS
-Общая сумма выплат: ${formatCurrency(results.totalAmount)} KGS
+                    resultText={`${t('loan_calc_name')} - ${t('result_text_intro')}
+${t('loan_principal')} ${formatCurrency(parseFloat(loanAmount) || 0)} ${t('som')}
+${t('loan_term_display')} ${loanTerm} ${t('months_short')}
+${t('interest_rate')} ${interestRate}%
+${t('loan_monthly_payment')} ${formatCurrency(results.monthlyPayment)} ${t('som')}
+${t('loan_overpayment')} ${formatCurrency(results.overpayment)} ${t('som')}
+${t('loan_total_cost')} ${formatCurrency(results.totalAmount)} ${t('som')}
 
-Расчет выполнен на сайте Calk.KG`}
+${t('calculated_on_site')} Calk.KG`}
                   />
                 )}
               </div>
@@ -375,7 +374,7 @@ const LoanCalculatorPage = () => {
                       <span className="text-green-100">{t('loan_monthly_payment')}</span>
                     </div>
                     <p className="text-4xl font-bold mb-2">
-                      {formatCurrency(results.monthlyPayment)} KGS
+                      {formatCurrency(results.monthlyPayment)} {t('som')}
                     </p>
                   </div>
 
@@ -431,7 +430,7 @@ const LoanCalculatorPage = () => {
                           </Tooltip>
                         </div>
                         <span className="text-blue-600 font-semibold">
-                          {formatCurrency(parseFloat(loanAmount) || 0)} KGS
+                          {formatCurrency(parseFloat(loanAmount) || 0)} {t('som')}
                         </span>
                       </div>
                     </div>
@@ -445,7 +444,7 @@ const LoanCalculatorPage = () => {
                           </Tooltip>
                         </div>
                         <span className="text-red-600 font-semibold">
-                          {formatCurrency(results.overpayment)} KGS
+                          {formatCurrency(results.overpayment)} {t('som')}
                         </span>
                       </div>
                     </div>
@@ -459,7 +458,7 @@ const LoanCalculatorPage = () => {
                           </Tooltip>
                         </div>
                         <span className="text-gray-900 font-semibold">
-                          {formatCurrency(results.totalAmount)} KGS
+                          {formatCurrency(results.totalAmount)} {t('som')}
                         </span>
                       </div>
                     </div>
@@ -581,13 +580,13 @@ const LoanCalculatorPage = () => {
                         {interestRate}%
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
-                        {formatCurrency(results.monthlyPayment)} KGS
+                        {formatCurrency(results.monthlyPayment)} {t('som')}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
-                        {formatCurrency(results.overpayment)} KGS
+                        {formatCurrency(results.overpayment)} {t('som')}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
-                        {formatCurrency(results.totalAmount)} KGS
+                        {formatCurrency(results.totalAmount)} {t('som')}
                       </td>
                     </tr>
                     
@@ -606,19 +605,19 @@ const LoanCalculatorPage = () => {
                       return (
                         <tr key={index} className={isBetter ? 'bg-blue-50' : isWorse ? 'bg-red-50' : ''}>
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {t(bank.nameKey)} <span className="text-xs text-gray-500">({t('indicative')})</span>
+                            {t(bank.nameKey as any)} <span className="text-xs text-gray-500">({t('indicative')})</span>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                             {bank.rate}%
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                            {formatCurrency(bankResults.monthlyPayment)} KGS
+                            {formatCurrency(bankResults.monthlyPayment)} {t('som')}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                            {formatCurrency(bankResults.overpayment)} KGS
+                            {formatCurrency(bankResults.overpayment)} {t('som')}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                            {formatCurrency(bankResults.totalAmount)} KGS
+                            {formatCurrency(bankResults.totalAmount)} {t('som')}
                           </td>
                         </tr>
                       );
@@ -667,7 +666,7 @@ const LoanCalculatorPage = () => {
                   >
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-gray-700 font-medium">
-                        {formatCurrency(example.amount)} KGS
+                        {formatCurrency(example.amount)} {t('som')}
                       </span>
                       <span className="text-xs text-gray-500">
                         {example.term} {t('per_month_short')} • {example.rate}%
@@ -675,10 +674,10 @@ const LoanCalculatorPage = () => {
                     </div>
                     <div className="text-right">
                       <div className="text-green-600 font-semibold">
-                        {formatCurrency(exampleResult.monthlyPayment)} KGS/{t('per_month')}
+                        {formatCurrency(exampleResult.monthlyPayment)} {t('som')}/{t('per_month')}
                       </div>
                       <div className="text-xs text-gray-500">
-                        {t('overpayment_text')} {formatCurrency(exampleResult.overpayment)} KGS
+                        {t('overpayment_text')} {formatCurrency(exampleResult.overpayment)} {t('som')}
                       </div>
                     </div>
                   </button>
@@ -863,7 +862,7 @@ const LoanCalculatorPage = () => {
       </div>
 
       {/* Print styles */}
-      <style jsx>{`
+      <style>{`
         @media print {
           .print\\:hidden {
             display: none !important;
@@ -911,6 +910,8 @@ const LoanCalculatorPage = () => {
           }
         }
       `}</style>
+
+      <LoanCalculatorArticle />
     </div>
   );
 };

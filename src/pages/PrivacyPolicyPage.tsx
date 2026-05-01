@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { ArrowLeft, Home, Calculator, Shield, Eye, Lock, Mail } from 'lucide-react';
+import { Home, Shield, Eye, Lock, Mail } from 'lucide-react';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
 import { generateWebPageSchema, generateBreadcrumbSchema } from '../utils/schemaGenerator';
 import { useLanguage } from '../contexts/LanguageContext';
+import type { TranslationKey } from '../i18n';
 
 const PrivacyPolicyPage = () => {
-  const { t, language, getLocalizedPath } = useLanguage();
+  const { t, language } = useLanguage();
 
   React.useEffect(() => {
     document.title = t('footer_privacy') + " - Calk.KG";
@@ -58,36 +59,6 @@ const PrivacyPolicyPage = () => {
       {generateSchemas().map((schema, index) => (
         <SchemaMarkup key={index} schema={schema} />
       ))}
-
-      <header className="bg-white shadow-sm border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-4">
-              <Link
-                to="/"
-                className="flex items-center space-x-2 text-gray-600 hover:text-red-600 transition-colors"
-              >
-                <ArrowLeft className="h-5 w-5" />
-                <span>{t('back')}</span>
-              </Link>
-              <div className="h-6 w-px bg-gray-300"></div>
-              <Link to="/" className="flex items-center space-x-2">
-                <div className="bg-gradient-to-r from-red-600 to-red-700 p-2 rounded-lg">
-                  <Calculator className="h-5 w-5 text-white" />
-                </div>
-                <span className="text-lg font-bold text-gray-900">Calk.KG</span>
-              </Link>
-            </div>
-            <Link
-              to="/"
-              className="flex items-center space-x-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
-            >
-              <Home className="h-4 w-4" />
-              <span>{t('home_button')}</span>
-            </Link>
-          </div>
-        </div>
-      </header>
 
       <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -153,7 +124,7 @@ const PrivacyPolicyPage = () => {
               {[1, 2, 3, 4].map(i => (
                 <div key={i} className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                  <p className="text-gray-600">{t(`pp_usage_${i}`)}</p>
+                  <p className="text-gray-600">{t(`pp_usage_${i}` as TranslationKey)}</p>
                 </div>
               ))}
             </div>
@@ -168,7 +139,7 @@ const PrivacyPolicyPage = () => {
                   <h3 className="font-semibold text-green-900 mb-3">{t('pp_calc_important')}</h3>
                   <ul className="list-disc list-inside space-y-2 text-green-800">
                     {[1, 2, 3, 4].map(i => (
-                      <li key={i}><strong>{t(`pp_calc_${i}`)}</strong></li>
+                      <li key={i}><strong>{t(`pp_calc_${i}` as TranslationKey)}</strong></li>
                     ))}
                   </ul>
                 </div>
@@ -214,7 +185,7 @@ const PrivacyPolicyPage = () => {
             <div className="bg-amber-50 border border-amber-200 rounded-lg p-6">
               <ul className="list-disc list-inside space-y-2 text-amber-800">
                 {[1, 2, 3, 4].map(i => (
-                  <li key={i}>{t(`pp_advertising_${i}`)}</li>
+                  <li key={i}>{t(`pp_advertising_${i}` as TranslationKey)}</li>
                 ))}
               </ul>
               <p className="text-amber-700 text-sm mt-4">
@@ -239,7 +210,7 @@ const PrivacyPolicyPage = () => {
                   {[1, 2, 3, 4].map(i => (
                     <li key={i} className="flex items-start space-x-2">
                       <span className="w-1.5 h-1.5 bg-green-500 rounded-full mt-2 flex-shrink-0"></span>
-                      <span className="text-gray-600">{t(`pp_rights_${i}`)}</span>
+                      <span className="text-gray-600">{t(`pp_rights_${i}` as TranslationKey)}</span>
                     </li>
                   ))}
                 </ul>
@@ -268,7 +239,7 @@ const PrivacyPolicyPage = () => {
             <p className="text-gray-600 leading-relaxed mb-4">{t('pp_compliance_intro')}</p>
             <ul className="list-disc list-inside space-y-2 text-gray-600">
               {[1, 2, 3].map(i => (
-                <li key={i}>{t(`pp_compliance_${i}`)}</li>
+                <li key={i}>{t(`pp_compliance_${i}` as TranslationKey)}</li>
               ))}
             </ul>
           </div>

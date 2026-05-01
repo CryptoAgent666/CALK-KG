@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useMemo, useCallback, ReactNode } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { translations, Language, TranslationKey } from '../i18n/translations';
+import { translations, loadKyTranslations, isKyLoaded, Language, TranslationKey } from '../i18n';
 
 interface LanguageContextType {
   language: Language;
@@ -54,6 +54,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
   const [language, setLanguageState] = useState<Language>(() => {
     return getLanguageFromPath(window.location.pathname);
   });
+  const [kyReady, setKyReady] = useState(isKyLoaded());
 
   useEffect(() => {
     const langFromPath = getLanguageFromPath(location.pathname);
@@ -61,6 +62,13 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       setLanguageState(langFromPath);
     }
   }, [location.pathname]);
+
+  // Lazy-load Kyrgyz translations when needed
+  useEffect(() => {
+    if (language === 'ky' && !kyReady) {
+      loadKyTranslations().then(() => setKyReady(true));
+    }
+  }, [language, kyReady]);
 
   useEffect(() => {
     const titles = {
@@ -86,42 +94,48 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     document.documentElement.lang = language;
   }, [language, location.pathname]);
 
-  const setLanguage = (lang: Language) => {
+  const setLanguage = useCallback((lang: Language) => {
     if (lang !== language) {
       setLanguageState(lang);
       localStorage.setItem('calk-language', lang);
     }
-  };
+  }, [language]);
 
-  const switchLanguage = (lang: Language) => {
+  const switchLanguage = useCallback((lang: Language) => {
     if (lang !== language) {
       const newPath = addLanguagePrefix(location.pathname, lang);
       const searchParams = location.search;
       navigate(newPath + searchParams, { replace: true });
     }
-  };
+  }, [language, location.pathname, location.search, navigate]);
 
-  const getLocalizedPath = (path: string): string => {
+  const getLocalizedPath = useCallback((path: string): string => {
     return addLanguagePrefix(path, language);
-  };
+  }, [language]);
 
-  const getPathWithoutLangPrefix = (path: string): string => {
+  const getPathWithoutLangPrefix = useCallback((path: string): string => {
     return removeLanguagePrefix(path);
-  };
+  }, []);
 
-  const t = (key: TranslationKey): string => {
-    return translations[language][key] || translations.ru[key] || key;
-  };
+  const t = useCallback((key: TranslationKey): string => {
+    const value = translations[language][key] ?? translations.ru[key];
+    if (!value && import.meta.env.DEV) {
+      console.warn(`[i18n] Missing translation key: ${key}`);
+    }
+    return value || key;
+  }, [language, kyReady]);
+
+  const contextValue = useMemo(() => ({
+    language,
+    setLanguage,
+    t,
+    getLocalizedPath,
+    getPathWithoutLangPrefix,
+    switchLanguage
+  }), [language, setLanguage, t, getLocalizedPath, getPathWithoutLangPrefix, switchLanguage]);
 
   return (
-    <LanguageContext.Provider value={{
-      language,
-      setLanguage,
-      t,
-      getLocalizedPath,
-      getPathWithoutLangPrefix,
-      switchLanguage
-    }}>
+    <LanguageContext.Provider value={contextValue}>
       {children}
     </LanguageContext.Provider>
   );

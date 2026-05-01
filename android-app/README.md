@@ -75,27 +75,26 @@ public/.well-known/assetlinks.json
 https://calk.kg/.well-known/assetlinks.json
 ```
 
-### Шаг 6: Настройте подпись в build.gradle
+### Шаг 6: Настройте подпись через keystore.properties
 
-Раскомментируйте и заполните в `app/build.gradle`:
+⚠️ **ВАЖНО:** Никогда не храните пароли в `build.gradle`! Используйте отдельный файл `keystore.properties`, который не попадает в git.
 
-```gradle
-signingConfigs {
-    release {
-        storeFile file('../keystore/calk-kg-release.keystore')
-        storePassword 'YOUR_STORE_PASSWORD'
-        keyAlias 'calk-kg'
-        keyPassword 'YOUR_KEY_PASSWORD'
-    }
-}
-
-buildTypes {
-    release {
-        // ...
-        signingConfig signingConfigs.release
-    }
-}
+1. Скопируйте шаблон:
+```bash
+cp keystore.properties.example keystore.properties
 ```
+
+2. Откройте `keystore.properties` и заполните реальными значениями:
+```properties
+storeFile=../keystore/calk-kg-release.keystore
+storePassword=ВАШ_РЕАЛЬНЫЙ_ПАРОЛЬ
+keyAlias=calk-kg
+keyPassword=ВАШ_РЕАЛЬНЫЙ_ПАРОЛЬ
+```
+
+3. Файл `keystore.properties` уже добавлен в `.gitignore` — он НЕ попадёт в репозиторий.
+
+`build.gradle` автоматически прочитает значения из этого файла при сборке release.
 
 ### Шаг 7: Соберите APK/AAB
 

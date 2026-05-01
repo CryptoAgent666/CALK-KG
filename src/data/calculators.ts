@@ -23,11 +23,109 @@ import {
   Users,
   MapPin,
   ArrowLeftRight,
-  Smartphone
+  Smartphone,
+  Sprout,
+  Award
 } from 'lucide-react';
 import { Calculator as CalculatorType } from '../types/calculator';
 
 export const calculators: CalculatorType[] = [
+  // Строительство
+  {
+    id: 'construction',
+    title: 'Калькулятор строительных материалов',
+    titleKy: 'Куруулуш материалдарынын калькулятору',
+    description: 'Расчёт количества и стоимости кирпича, цемента, песка, щебня, арматуры для строительства',
+    descriptionKy: 'Куруулуш үчүн кыш, цемент, кум, шагыл, арматуранын санын жана наркын эсептөө',
+    category: 'construction',
+    categoryName: 'Строительство',
+    categoryNameKy: 'Куруулуш',
+    icon: Hammer,
+    bgColor: 'bg-yellow-50',
+    iconColor: 'text-yellow-600',
+
+  },
+  
+  // Автомобильные калькуляторы
+  {
+    id: 'fuel',
+    title: 'Калькулятор расхода топлива',
+    titleKy: 'Отун чыгымынын калькулятору',
+    description: 'Расчёт стоимости поездки и расхода топлива. Актуальные цены на бензин, дизель, газ в Кыргызстане',
+    descriptionKy: 'Сапардын наркын жана отун чыгымын эсептөө. Кыргызстанда бензин, дизель, газдын актуалдуу баалары',
+    category: 'auto',
+    categoryName: 'Автомобили',
+    categoryNameKy: 'Автомобилдер',
+    icon: Fuel,
+    bgColor: 'bg-orange-50',
+    iconColor: 'text-orange-600',
+
+  },
+  
+  // Здоровье и социальные выплаты
+  {
+    id: 'sick-leave',
+    title: 'Калькулятор больничного листа',
+    titleKy: 'Оорулуу барагынын калькулятору',
+    description: 'Расчёт оплаты больничного по стажу работы и среднему заработку за 2 года',
+    descriptionKy: 'Иш тажрыйбасына жана 2 жылга орточо айлыкка жараша оорулуу барак төлөмүн эсептөө',
+    category: 'social',
+    categoryName: 'Социальные выплаты',
+    categoryNameKy: 'Социалдык төлөмдөр',
+    icon: Heart,
+    bgColor: 'bg-pink-50',
+    iconColor: 'text-pink-600',
+
+  },
+  
+  // Образование
+  {
+    id: 'scholarship',
+    title: 'Калькулятор стипендии студента',
+    titleKy: 'Студенттин стипендиясын эсептегич',
+    description: 'Расчёт академической, социальной, именной, президентской стипендии в зависимости от среднего балла',
+    descriptionKy: 'Орточо балыңызга жараша академиялык, социалдык, атактуу, президенттик стипендиянын өлчөмүн эсептеңиз',
+    category: 'social',
+    categoryName: 'Образование',
+    categoryNameKy: 'Билим берүү',
+    icon: Award,
+    bgColor: 'bg-blue-50',
+    iconColor: 'text-blue-600',
+
+  },
+  
+  // Недвижимость
+  {
+    id: 'rental',
+    title: 'Калькулятор аренды жилья',
+    titleKy: 'Үй ижарасы калькулятору',
+    description: 'Расчёт стоимости аренды квартир в Бишкеке по районам, коммунальные, залог, сравнение с ипотекой',
+    descriptionKy: 'Бишкекте үй ижарасынын наркын районлор боюнча эсептөө, коммуналдык, кепилдик, ипотека менен салыштыруу',
+    category: 'construction',
+    categoryName: 'Недвижимость',
+    categoryNameKy: 'Кыймылсыз мүлк',
+    icon: Home,
+    bgColor: 'bg-blue-50',
+    iconColor: 'text-blue-600',
+
+  },
+  
+  // Сельское хозяйство
+  {
+    id: 'crop-yield',
+    title: 'Калькулятор урожайности',
+    titleKy: 'Түшүмдүүлүк калькулятору',
+    description: 'Расчёт затрат, доходов и рентабельности (ROI) сельхозкультур для фермеров КР',
+    descriptionKy: 'КР фермерлери үчүн айыл чарба өсүмдүктөрүнүн чыгымдарын, кирешелерин жана рентабелдүүлүгүн (ROI) эсептөө',
+    category: 'other',
+    categoryName: 'Сельское хозяйство',
+    categoryNameKy: 'Айыл чарба',
+    icon: Sprout,
+    bgColor: 'bg-green-50',
+    iconColor: 'text-green-600',
+
+  },
+  
   // Финансовые калькуляторы
   {
     id: 'currency-exchange',
@@ -41,7 +139,6 @@ export const calculators: CalculatorType[] = [
     icon: ArrowLeftRight,
     bgColor: 'bg-green-50',
     iconColor: 'text-green-600',
-    usage: '25,840'
   },
   {
     id: 'money-transfer',
@@ -55,7 +152,6 @@ export const calculators: CalculatorType[] = [
     icon: Banknote,
     bgColor: 'bg-orange-50',
     iconColor: 'text-orange-600',
-    usage: '18,540'
   },
   {
     id: 'mobile-tariffs',
@@ -69,7 +165,6 @@ export const calculators: CalculatorType[] = [
     icon: Smartphone,
     bgColor: 'bg-green-50',
     iconColor: 'text-green-600',
-    usage: '16,320'
   },
   {
     id: 'loan-calculator',
@@ -83,7 +178,6 @@ export const calculators: CalculatorType[] = [
     icon: DollarSign,
     bgColor: 'bg-green-50',
     iconColor: 'text-green-600',
-    usage: '15,420'
   },
   {
     id: 'mortgage-calculator',
@@ -97,7 +191,6 @@ export const calculators: CalculatorType[] = [
     icon: Home,
     bgColor: 'bg-green-50',
     iconColor: 'text-green-600',
-    usage: '8,950'
   },
   {
     id: 'deposit-calculator',
@@ -111,7 +204,6 @@ export const calculators: CalculatorType[] = [
     icon: TrendingUp,
     bgColor: 'bg-green-50',
     iconColor: 'text-green-600',
-    usage: '8,350'
   },
   {
     id: 'salary-calculator',
@@ -125,7 +217,6 @@ export const calculators: CalculatorType[] = [
     icon: CreditCard,
     bgColor: 'bg-green-50',
     iconColor: 'text-green-600',
-    usage: '18,930'
   },
   {
     id: 'single-tax-calculator',
@@ -139,7 +230,6 @@ export const calculators: CalculatorType[] = [
     icon: Receipt,
     bgColor: 'bg-green-50',
     iconColor: 'text-green-600',
-    usage: '9,450'
   },
 
   {
@@ -154,7 +244,6 @@ export const calculators: CalculatorType[] = [
     icon: Shield,
     bgColor: 'bg-green-50',
     iconColor: 'text-green-600',
-    usage: '11,280'
   },
 
   {
@@ -169,7 +258,6 @@ export const calculators: CalculatorType[] = [
     icon: TrendingUp,
     bgColor: 'bg-green-50',
     iconColor: 'text-green-600',
-    usage: '5,890'
   },
   {
     id: 'auto-loan-calculator',
@@ -177,13 +265,12 @@ export const calculators: CalculatorType[] = [
     titleKy: 'Автокредит',
     description: 'Расчет автокредита с ежемесячным платежом и сравнением банков Кыргызстана',
     descriptionKy: 'Айлык төлөм жана Кыргызстандын банктарын салыштыруу менен автокредитти эсептөө',
-    category: 'auto',
-    categoryName: 'Автомобили',
-    categoryNameKy: 'Автоунаа',
+    category: 'social',
+    categoryName: 'Социальные',
+    categoryNameKy: 'Социалдык',
     icon: Car,
     bgColor: 'bg-red-50',
     iconColor: 'text-red-600',
-    usage: '14,720'
   },
   {
     id: 'customs-calculator',
@@ -197,7 +284,6 @@ export const calculators: CalculatorType[] = [
     icon: Car,
     bgColor: 'bg-red-50',
     iconColor: 'text-red-600',
-    usage: '22,150'
   },
 
 
@@ -214,7 +300,6 @@ export const calculators: CalculatorType[] = [
     icon: Zap,
     bgColor: 'bg-amber-50',
     iconColor: 'text-amber-600',
-    usage: '18,650'
   },
 
   {
@@ -229,7 +314,6 @@ export const calculators: CalculatorType[] = [
     icon: Droplets,
     bgColor: 'bg-blue-50',
     iconColor: 'text-blue-600',
-    usage: '14,280'
   },
   {
     id: 'gas-calculator',
@@ -243,7 +327,6 @@ export const calculators: CalculatorType[] = [
     icon: Flame,
     bgColor: 'bg-orange-50',
     iconColor: 'text-orange-600',
-    usage: '12,450'
   },
   {
     id: 'heating-calculator',
@@ -257,7 +340,6 @@ export const calculators: CalculatorType[] = [
     icon: Flame,
     bgColor: 'bg-amber-50',
     iconColor: 'text-amber-600',
-    usage: '13,290'
   },
 
   {
@@ -272,7 +354,6 @@ export const calculators: CalculatorType[] = [
     icon: Home,
     bgColor: 'bg-green-50',
     iconColor: 'text-green-600',
-    usage: '7,240'
   },
 
   {
@@ -281,13 +362,12 @@ export const calculators: CalculatorType[] = [
     titleKy: 'Алимент калькулятору',
     description: 'Расчет размера алиментов на детей по законодательству Кыргызстана',
     descriptionKy: 'Кыргызстандын мыйзамчылыгы боюнча балдарга алименттин өлчөмүн эсептөө',
-    category: 'other',
-    categoryName: 'Разное',
-    categoryNameKy: 'Башка',
+    category: 'social',
+    categoryName: 'Социальные',
+    categoryNameKy: 'Социалдык',
     icon: Users,
     bgColor: 'bg-gray-50',
     iconColor: 'text-gray-600',
-    usage: '4,320'
   },
   {
     id: 'family-benefit-calculator',
@@ -295,13 +375,12 @@ export const calculators: CalculatorType[] = [
     titleKy: '"үй-бүлөгө көмөк" жөлөкпулу',
     description: 'Проверка права на получение государственного пособия и расчет его размера',
     descriptionKy: 'Мамлекеттик жөлөкпул алуу укугун текшерүү жана анын өлчөмүн эсептөө',
-    category: 'other',
-    categoryName: 'Разное',
-    categoryNameKy: 'Башка',
+    category: 'social',
+    categoryName: 'Социальные выплаты',
+    categoryNameKy: 'Социалдык төлөмдөр',
     icon: Heart,
     bgColor: 'bg-gray-50',
     iconColor: 'text-gray-600',
-    usage: '6,150'
   },
   {
     id: 'patent-calculator',
@@ -315,7 +394,6 @@ export const calculators: CalculatorType[] = [
     icon: Building,
     bgColor: 'bg-green-50',
     iconColor: 'text-green-600',
-    usage: '8,720'
   },
   {
     id: 'traffic-fines-calculator',
@@ -323,13 +401,12 @@ export const calculators: CalculatorType[] = [
     titleKy: 'ЖКЭ штрафтары',
     description: 'Справочник штрафов за нарушения правил дорожного движения в Кыргызстане',
     descriptionKy: 'Кыргызстанда жол кыймыл эрежелерин бузгандыгы үчүн штрафтардын справочнигу',
-    category: 'other',
-    categoryName: 'Разное',
-    categoryNameKy: 'Башка',
+    category: 'auto',
+    categoryName: 'Автомобили',
+    categoryNameKy: 'Автоунаа',
     icon: Car,
     bgColor: 'bg-gray-50',
     iconColor: 'text-gray-600',
-    usage: '12,480'
   },
   {
     id: 'zakat-calculator',
@@ -343,7 +420,6 @@ export const calculators: CalculatorType[] = [
     icon: CalcIcon,
     bgColor: 'bg-green-50',
     iconColor: 'text-green-600',
-    usage: '3,850'
   },
   {
     id: 'tourist-fee-calculator',
@@ -357,7 +433,6 @@ export const calculators: CalculatorType[] = [
     icon: MapPin,
     bgColor: 'bg-green-50',
     iconColor: 'text-green-600',
-    usage: '2,340'
   },
   {
     id: 'calorie-calculator',
@@ -371,7 +446,6 @@ export const calculators: CalculatorType[] = [
     icon: Activity,
     bgColor: 'bg-green-50',
     iconColor: 'text-green-600',
-    usage: '8,920'
   },
   {
     id: 'taxi-tax-calculator',
@@ -385,7 +459,6 @@ export const calculators: CalculatorType[] = [
     icon: Car,
     bgColor: 'bg-blue-50',
     iconColor: 'text-blue-600',
-    usage: '14,280'
   },
   {
     id: 'passport-calculator',
@@ -399,7 +472,6 @@ export const calculators: CalculatorType[] = [
     icon: BookOpen,
     bgColor: 'bg-gray-50',
     iconColor: 'text-gray-600',
-    usage: '5,280'
   },
   {
     id: 'sewing-cost-calculator',
@@ -413,7 +485,6 @@ export const calculators: CalculatorType[] = [
     icon: Calculator,
     bgColor: 'bg-purple-50',
     iconColor: 'text-purple-600',
-    usage: '3,180'
   }
   ,
   {
@@ -428,7 +499,6 @@ export const calculators: CalculatorType[] = [
     icon: Building,
     bgColor: 'bg-blue-50',
     iconColor: 'text-blue-600',
-    usage: '12,450'
   },
   {
     id: 'wedding-calculator',
@@ -442,6 +512,5 @@ export const calculators: CalculatorType[] = [
     icon: Heart,
     bgColor: 'bg-pink-50',
     iconColor: 'text-pink-600',
-    usage: '8,750'
   }
 ];

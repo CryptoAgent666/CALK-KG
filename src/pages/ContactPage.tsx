@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { ArrowLeft, Home, Calculator, Mail, MapPin, Phone, Send, MessageCircle, Clock, CheckCircle } from 'lucide-react';
+import { Mail, MapPin, Send, MessageCircle, Clock, CheckCircle } from 'lucide-react';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
 import { generateWebPageSchema, generateBreadcrumbSchema } from '../utils/schemaGenerator';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const ContactPage = () => {
-  const { t, language, getLocalizedPath } = useLanguage();
+  const { t, language } = useLanguage();
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -17,10 +18,41 @@ const ContactPage = () => {
     message: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // В реальном приложении здесь была бы отправка на сервер
-    setFormSubmitted(true);
+    setSubmitError(null);
+    setSubmitting(true);
+    const form = e.target as HTMLFormElement;
+    const botField = (form.querySelector('[name="bot-field"]') as HTMLInputElement)?.value || '';
+    try {
+      // Netlify Forms only work on the deployed site, not on localhost
+      if (typeof window !== 'undefined' && /^localhost$|^127\.\d+\.\d+\.\d+$/.test(window.location.hostname)) {
+        setSubmitError(t('contact_submit_localhost') || 'Форма работает только на опубликованном сайте (calk.kg). Проверьте на продакшене.');
+        return;
+      }
+      const payload: Record<string, string> = {
+        'form-name': 'contact',
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject,
+        message: formData.message
+      };
+      if (botField) payload['bot-field'] = botField;
+      const body = new URLSearchParams(payload).toString();
+      const formAction = typeof window !== 'undefined' ? `${window.location.origin}/` : '/';
+      const res = await fetch(formAction, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body
+      });
+      if (!res.ok) throw new Error(`Submit failed: ${res.status}`);
+      setFormSubmitted(true);
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (err) {
+      setSubmitError(t('contact_submit_error') || 'Не удалось отправить. Попробуйте позже или напишите на info@calk.kg');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -71,37 +103,6 @@ const ContactPage = () => {
       {generateSchemas().map((schema, index) => (
         <SchemaMarkup key={index} schema={schema} />
       ))}
-
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-4">
-              <Link 
-                to={getLocalizedPath('/')}
-                className="flex items-center space-x-2 text-gray-600 hover:text-red-600 transition-colors"
-              >
-                <ArrowLeft className="h-5 w-5" />
-                <span>{t('back')}</span>
-              </Link>
-              <div className="h-6 w-px bg-gray-300"></div>
-              <Link to={getLocalizedPath('/')} className="flex items-center space-x-2">
-                <div className="bg-gradient-to-r from-red-600 to-red-700 p-2 rounded-lg">
-                  <Calculator className="h-5 w-5 text-white" />
-                </div>
-                <span className="text-lg font-bold text-gray-900">Calk.KG</span>
-              </Link>
-            </div>
-            <Link
-              to={getLocalizedPath('/')}
-              className="flex items-center space-x-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
-            >
-              <Home className="h-4 w-4" />
-              <span>{t('home_button')}</span>
-            </Link>
-          </div>
-        </div>
-      </header>
 
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-teal-600 to-teal-700 text-white">
@@ -190,6 +191,7 @@ const ContactPage = () => {
                   <button
                     onClick={() => {
                       setFormSubmitted(false);
+                      setSubmitError(null);
                       setFormData({ name: '', email: '', subject: '', message: '' });
                     }}
                     className="text-red-600 hover:text-red-700 font-medium"
@@ -199,6 +201,14 @@ const ContactPage = () => {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  <p className="hidden" aria-hidden="true">
+                    <label>Не заполняйте: <input name="bot-field" tabIndex={-1} autoComplete="off" /></label>
+                  </p>
+                  {submitError && (
+                    <div className="rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-red-700 text-sm">
+                      {submitError}
+                    </div>
+                  )}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
@@ -271,10 +281,11 @@ const ContactPage = () => {
 
                   <button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white py-4 px-6 rounded-xl font-semibold hover:from-red-700 hover:to-red-800 transition-all flex items-center justify-center space-x-2"
+                    disabled={submitting}
+                    className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white py-4 px-6 rounded-xl font-semibold hover:from-red-700 hover:to-red-800 transition-all flex items-center justify-center space-x-2 disabled:opacity-70 disabled:cursor-not-allowed"
                   >
                     <Send className="h-5 w-5" />
-                    <span>{t('contact_submit')}</span>
+                    <span>{submitting ? (t('contact_submitting') || 'Отправка…') : t('contact_submit')}</span>
                   </button>
                 </form>
               )}
@@ -309,7 +320,7 @@ const ContactPage = () => {
       {/* Footer */}
       <footer className="bg-gray-900 text-gray-400 py-8 mt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p>© 2026 Calk.KG. {t('footer_rights')}</p>
+          <p>© 2026 Calk.KG. {t('all_rights_reserved')}</p>
         </div>
       </footer>
     </div>

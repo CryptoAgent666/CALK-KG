@@ -87,22 +87,31 @@ export const useCurrencyRates = () => {
       setError(null);
 
       // Определяем URL API в зависимости от окружения
-      const apiUrl = import.meta.env.PROD 
+      const primaryApiUrl = import.meta.env.PROD 
         ? '/.netlify/functions/currency-rates'  // Production (Netlify)
         : 'http://localhost:8888/.netlify/functions/currency-rates'; // Development (Netlify Dev)
+      const netlifyFallbackUrl = 'https://magenta-axolotl-a06a72.netlify.app/.netlify/functions/currency-rates';
       
       // Сначала пробуем через Netlify Function
+      const fetchApi = async (url: string) => {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`API returned ${response.status}`);
+        }
+        return response;
+      };
+
       let response;
       try {
-        response = await fetch(apiUrl);
+        response = await fetchApi(primaryApiUrl);
       } catch (err) {
-        // Если Netlify Function недоступна (например, локальная разработка без netlify dev)
-        // используем fallback курсы
-        throw new Error('Netlify Function unavailable');
-      }
-
-      if (!response.ok) {
-        throw new Error(`API returned ${response.status}`);
+        // Если функция недоступна на текущем домене, пробуем Netlify fallback
+        if (import.meta.env.PROD && primaryApiUrl !== netlifyFallbackUrl) {
+          console.warn('Primary currency API unavailable, trying Netlify fallback');
+          response = await fetchApi(netlifyFallbackUrl);
+        } else {
+          throw new Error('Netlify Function unavailable');
+        }
       }
 
       const data = await response.json();

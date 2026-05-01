@@ -41,10 +41,7 @@ const CalculatorCard = ({ calculator, onClick }: CalculatorCardProps) => {
           {description}
         </p>
 
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-gray-500">
-            {calculator.usage} {t('calculator_uses')}
-          </span>
+        <div className="flex items-center justify-end">
           <div className="flex items-center text-red-600 text-sm font-medium group-hover:text-red-700 transition-colors">
             {t('calculator_open')}
             <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />

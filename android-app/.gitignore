@@ -7,8 +7,11 @@ build/
 local.properties
 
 # Keystore (keep safe, never commit!)
-keystore/*.keystore
-keystore/*.jks
+keystore/
+*.keystore
+*.keystore*
+*.jks
+keystore.properties
 
 # OS generated files
 .DS_Store

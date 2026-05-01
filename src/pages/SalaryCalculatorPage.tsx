@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Calculator, ArrowLeft, Info, Home, Printer, Shield, TrendingUp, Receipt, Car } from 'lucide-react';
+import { Calculator, ArrowLeft, Info, Home, Shield, TrendingUp, Receipt, Car } from 'lucide-react';
 import ActionButtons from '../components/ActionButtons';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
+import FAQSchema from '../components/FAQSchema';
+import { SalaryCalculatorArticle } from '../components/SalaryCalculatorArticle';
 import { useLanguage } from '../contexts/LanguageContext';
 import { 
   generateCalculatorSchema, 
@@ -121,10 +123,6 @@ const SalaryCalculatorPage = () => {
     }
   };
 
-  const handlePrint = () => {
-    window.print();
-  };
-
   // Tooltip component
   const Tooltip = ({ children, text }: { children: React.ReactNode; text: string }) => (
     <div className="group relative inline-flex items-center">
@@ -137,7 +135,6 @@ const SalaryCalculatorPage = () => {
   );
 
   // Calculate percentages for visualization
-  const totalDeductions = results.socialFund + results.incomeTax;
   const netPercentage = results.grossAmount > 0 ? (results.netSalary / results.grossAmount) * 100 : 0;
   const socialFundPercentage = results.grossAmount > 0 ? (results.socialFund / results.grossAmount) * 100 : 0;
   const taxPercentage = results.grossAmount > 0 ? (results.incomeTax / results.grossAmount) * 100 : 0;
@@ -164,6 +161,7 @@ const SalaryCalculatorPage = () => {
         <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/salary" : "https://calk.kg/calculator/salary"} />
       </Helmet>
       <HreflangTags path="/calculator/salary" />
+      <FAQSchema translationPrefix="salary" />
       {generateSchemas().map((schema, index) => (
         <SchemaMarkup key={index} schema={schema} />
       ))}
@@ -313,10 +311,10 @@ const SalaryCalculatorPage = () => {
                   <ActionButtons
                     calculatorName={t('salary_calc_name')}
                     resultText={`${t('salary_calc_name')} - ${t('result_text_intro')}
-${t('salary_gross_amount')} ${formatCurrency(results.grossAmount)} KGS
-${t('salary_social_fund')} ${formatCurrency(results.socialFund)} KGS
-${t('salary_income_tax')} ${formatCurrency(results.incomeTax)} KGS
-${t('salary_net_amount')} ${formatCurrency(results.netSalary)} KGS
+${t('salary_gross_amount')} ${formatCurrency(results.grossAmount)} ${t('som')}
+${t('salary_social_fund')} ${formatCurrency(results.socialFund)} ${t('som')}
+${t('salary_income_tax')} ${formatCurrency(results.incomeTax)} ${t('som')}
+${t('salary_net_amount')} ${formatCurrency(results.netSalary)} ${t('som')}
 
 ${t('calculated_on_site')} Calk.KG`}
                   />
@@ -393,7 +391,7 @@ ${t('calculated_on_site')} Calk.KG`}
                       </Tooltip>
                     </div>
                     <span className="text-xl font-semibold text-gray-900">
-                      {formatCurrency(results.grossAmount)} KGS
+                      {formatCurrency(results.grossAmount)} {t('som')}
                     </span>
                   </div>
 
@@ -410,7 +408,7 @@ ${t('calculated_on_site')} Calk.KG`}
                           </Tooltip>
                         </div>
                         <span className="text-red-600 font-semibold text-lg">
-                          -{formatCurrency(results.socialFund)} KGS
+                          -{formatCurrency(results.socialFund)} {t('som')}
                         </span>
                       </div>
                       <p className="text-sm text-gray-500">{t('salary_mandatory_pension')}</p>
@@ -425,12 +423,12 @@ ${t('calculated_on_site')} Calk.KG`}
                           </Tooltip>
                         </div>
                         <span className="text-red-600 font-semibold text-lg">
-                          -{formatCurrency(results.incomeTax)} KGS
+                          -{formatCurrency(results.incomeTax)} {t('som')}
                         </span>
                       </div>
                       <div className="flex items-center">
                         <p className="text-sm text-gray-500">
-                          {t('salary_taxable_base')}: {formatCurrency(results.taxableBase)} KGS
+                          {t('salary_taxable_base')}: {formatCurrency(results.taxableBase)} {t('som')}
                         </p>
                         <Tooltip text={t('tooltip_salary_taxable')}>
                           <Info className="h-4 w-4 text-gray-400 ml-2 cursor-help" />
@@ -449,7 +447,7 @@ ${t('calculated_on_site')} Calk.KG`}
                         </Tooltip>
                       </div>
                       <p className="text-4xl font-bold">
-                        {formatCurrency(results.netSalary)} KGS
+                        {formatCurrency(results.netSalary)} {t('som')}
                       </p>
                     </div>
                   </div>
@@ -460,7 +458,7 @@ ${t('calculated_on_site')} Calk.KG`}
                     <div className="space-y-2 text-sm text-gray-600">
                       <div className="flex justify-between">
                         <span>{t('salary_total_deductions')}</span>
-                        <span>{formatCurrency(results.socialFund + results.incomeTax)} KGS</span>
+                        <span>{formatCurrency(results.socialFund + results.incomeTax)} {t('som')}</span>
                       </div>
                       <div className="flex justify-between">
                         <span>{t('salary_tax_burden')}</span>
@@ -568,11 +566,11 @@ ${t('calculated_on_site')} Calk.KG`}
                       >
                         <div className="flex justify-between items-center">
                           <span className="text-gray-700 font-medium">
-                            {formatCurrency(amount)} KGS
+                            {formatCurrency(amount)} {t('som')}
                           </span>
                           <div className="text-right">
                             <div className="text-green-600 font-semibold">
-                              {formatCurrency(example.netSalary)} KGS
+                              {formatCurrency(example.netSalary)} {t('som')}
                             </div>
                             <div className="text-xs text-gray-500">
                               -{formatCurrency(example.socialFund + example.incomeTax)} {t('deductions_text')}
@@ -590,7 +588,7 @@ ${t('calculated_on_site')} Calk.KG`}
       </div>
 
       {/* Print styles */}
-      <style jsx>{`
+      <style>{`
         @media print {
           .print\\:hidden {
             display: none !important;
@@ -818,10 +816,13 @@ ${t('calculated_on_site')} Calk.KG`}
                 </ul>
               </div>
             </div>
+            </div>
           </div>
         </div>
-      </div>
       )}
+
+      {/* Информационная статья под калькулятором */}
+      <SalaryCalculatorArticle />
     </div>
   );
 };

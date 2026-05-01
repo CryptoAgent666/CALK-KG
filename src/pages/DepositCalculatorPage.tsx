@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Calculator, ArrowLeft, Info, Home, Printer, DollarSign, TrendingUp, Banknote, Building2, Car } from 'lucide-react';
 import SchemaMarkup from '../components/SchemaMarkup';
+import { DepositCalculatorArticle } from '../components/DepositCalculatorArticle';
 import HreflangTags from '../components/HreflangTags';
+import FAQSchema from '../components/FAQSchema';
 import { useLanguage } from '../contexts/LanguageContext';
 import {
   generateCalculatorSchema,
@@ -252,6 +254,7 @@ const DepositCalculatorPage = () => {
         <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/deposit" : "https://calk.kg/calculator/deposit"} />
       </Helmet>
       <HreflangTags path="/calculator/deposit" />
+      <FAQSchema translationPrefix="deposit" />
       {generateSchemas().map((schema, index) => (
         <SchemaMarkup key={index} schema={schema} />
       ))}
@@ -1513,7 +1516,7 @@ const DepositCalculatorPage = () => {
       </div>
 
       {/* Print styles */}
-      <style jsx>{`
+      <style>{`
         @media print {
           .print\\:hidden {
             display: none !important;
@@ -1565,4 +1568,7 @@ const DepositCalculatorPage = () => {
   );
 };
 
+
+      {/* Информационная статья под калькулятором */}
+      <DepositCalculatorArticle />
 export default DepositCalculatorPage;
