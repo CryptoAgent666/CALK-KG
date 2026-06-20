@@ -46,13 +46,13 @@ const TARIFFS_NEW = {
   general_rate1: 1.64, general_rate2: 2.94,
   lowIncome_rate1: 0.50, lowIncome_rate2: 2.94,
   highland: 1.64,
-  populationUnlimited: 4.48,
-  industrial: 3.78,
-  commercial: 4.48,
-  budget: 4.63,
-  energyIntensive: 6.86,
-  chargingStations: 6.00,
-  socialObjects: 2.97
+  populationUnlimited: 4.17,
+  industrial: 3.65,
+  commercial: 4.33,
+  budget: 4.62,
+  energyIntensive: 6.84,
+  chargingStations: 5.99,
+  socialObjects: 2.96
 };
 
 const T = USE_NEW_TARIFFS ? TARIFFS_NEW : TARIFFS_OLD;
@@ -201,7 +201,7 @@ const ElectricityCalculatorPage = () => {
   const getLocalized = (copy: LocalizedCopy) => language === 'ky' ? copy.ky : copy.ru;
 
   React.useEffect(() => {
-    document.title = t('electricity_calc_title') + " - Calk.KG";
+    document.title = t('electricity_calc_title') + " | Calk.KG";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', t('electricity_calc_description'));
@@ -276,7 +276,7 @@ const ElectricityCalculatorPage = () => {
 
   // Генерация схем для страницы калькулятора электроэнергии
   const generateSchemas = () => {
-    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/electricity" : "https://calk.kg/calculator/electricity";
+    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/electricity/" : "https://calk.kg/calculator/electricity/";
     const homeUrl = language === 'ky' ? "https://calk.kg/ky" : "https://calk.kg";
     
     const calculatorSchema = generateCalculatorSchema({
@@ -343,22 +343,23 @@ const ElectricityCalculatorPage = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Schema.org микроразметка */}
       <Helmet>
-        <title>{t('electricity_calc_title')} - Calk.KG</title>
+        <title>{t('electricity_calc_title')} | Calk.KG</title>
         <meta name="description" content={t('electricity_calc_subtitle')} />
         <meta name="keywords" content={t('electricity_calc_keywords')} />
-        <meta property="og:title" content={`${t('electricity_calc_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('electricity_calc_title')} | Calk.KG`} />
         <meta property="og:description" content={t('electricity_calc_subtitle')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/electricity" : "https://calk.kg/calculator/electricity"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/electricity/" : "https://calk.kg/calculator/electricity/"} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/electricity.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('electricity_calc_title')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('electricity_calc_title')} | Calk.KG`} />
         <meta name="twitter:description" content={t('electricity_calc_subtitle')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/electricity.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/electricity" : "https://calk.kg/calculator/electricity"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/electricity/" : "https://calk.kg/calculator/electricity/"} />
       </Helmet>
       <HreflangTags path="/calculator/electricity" />
       <FAQSchema translationPrefix="electricity" />

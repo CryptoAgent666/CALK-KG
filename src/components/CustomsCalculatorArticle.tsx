@@ -6,7 +6,7 @@ export const CustomsCalculatorArticle: React.FC = () => {
   const { t } = useLanguage();
   
   return (
-      <CalculatorArticle lastUpdated="2026-03-23">
+      <CalculatorArticle lastUpdated="2026-03-23" slug="customs">
       <ArticleSection title={t('customs_article_duties_title')}>
         <p className="text-sm mb-3">{t('customs_article_intro')}</p>
         <div className="bg-blue-50 p-4 rounded-lg">

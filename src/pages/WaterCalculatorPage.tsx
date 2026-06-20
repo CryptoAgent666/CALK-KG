@@ -102,7 +102,7 @@ const WaterCalculatorPage = () => {
   const { language, t, getLocalizedPath } = useLanguage();
 
   React.useEffect(() => {
-    document.title = t('water_calc_title') + " - Calk.KG";
+    document.title = t('water_calc_title') + " | Calk.KG";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', t('water_calc_description'));
@@ -111,7 +111,7 @@ const WaterCalculatorPage = () => {
 
   // Генерация схем для страницы калькулятора воды
   const generateSchemas = () => {
-    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/water" : "https://calk.kg/calculator/water";
+    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/water/" : "https://calk.kg/calculator/water/";
     const homeUrl = language === 'ky' ? "https://calk.kg/ky" : "https://calk.kg";
     
     const calculatorSchema = generateCalculatorSchema({
@@ -219,22 +219,23 @@ const WaterCalculatorPage = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Schema.org микроразметка */}
       <Helmet>
-        <title>{t('water_calc_title')} - Calk.KG</title>
+        <title>{t('water_calc_title')} | Calk.KG</title>
         <meta name="description" content={t('water_calc_subtitle')} />
         <meta name="keywords" content={t('water_keywords')} />
-        <meta property="og:title" content={`${t('water_calc_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('water_calc_title')} | Calk.KG`} />
         <meta property="og:description" content={t('water_calc_subtitle')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/water" : "https://calk.kg/calculator/water"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/water/" : "https://calk.kg/calculator/water/"} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/water.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('water_calc_title')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('water_calc_title')} | Calk.KG`} />
         <meta name="twitter:description" content={t('water_calc_subtitle')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/water.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/water" : "https://calk.kg/calculator/water"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/water/" : "https://calk.kg/calculator/water/"} />
       </Helmet>
       <HreflangTags path="/calculator/water" />
       <FAQSchema translationPrefix="water" />

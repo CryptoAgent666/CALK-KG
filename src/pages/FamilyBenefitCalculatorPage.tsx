@@ -17,8 +17,8 @@ import { FamilyBenefitCalculatorArticle } from '../components/FamilyBenefitCalcu
 
 // Конфигурация пособия - легко обновляемая структура
 const BENEFIT_CONFIG = {
-  benefitAmount: 1200, // сом на ребенка в месяц
-  incomeThreshold: 1000, // сом на человека в месяц
+  benefitAmount: 1500, // сом на ребенка в месяц
+  incomeThreshold: 1500, // сом на человека в месяц (ГМД — гарантированный минимальный доход)
   minimumAge: 0, // месяцев (с рождения)
   maximumAge: 16 * 12, // месяцев (до 16 лет включительно)
   applicationPeriod: 'Круглогодично'
@@ -38,7 +38,7 @@ const FamilyBenefitCalculatorPage = () => {
   const { language, t, getLocalizedPath} = useLanguage();
 
   React.useEffect(() => {
-    document.title = t('family_benefit_calc_title') + " - Calk.KG";
+    document.title = t('family_benefit_calc_title') + " | Calk.KG";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', t('family_benefit_calc_description'));
@@ -47,7 +47,7 @@ const FamilyBenefitCalculatorPage = () => {
 
   // Генерация схем для страницы калькулятора пособия
   const generateSchemas = () => {
-    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/family-benefit" : "https://calk.kg/calculator/family-benefit";
+    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/family-benefit/" : "https://calk.kg/calculator/family-benefit/";
     const homeUrl = language === 'ky' ? "https://calk.kg/ky" : "https://calk.kg";
     
     const calculatorSchema = generateCalculatorSchema({
@@ -188,22 +188,23 @@ const FamilyBenefitCalculatorPage = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Schema.org микроразметка */}
       <Helmet>
-        <title>{t('family_benefit_calc_title')} - Calk.KG</title>
+        <title>{t('family_benefit_calc_title')} | Calk.KG</title>
         <meta name="description" content={t('family_benefit_calc_description')} />
         <meta name="keywords" content={t('family_benefit_keywords')} />
-        <meta property="og:title" content={`${t('family_benefit_calc_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('family_benefit_calc_title')} | Calk.KG`} />
         <meta property="og:description" content={t('family_benefit_calc_subtitle')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/family-benefit" : "https://calk.kg/calculator/family-benefit"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/family-benefit/" : "https://calk.kg/calculator/family-benefit/"} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/family-benefit.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('family_benefit_calc_title')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('family_benefit_calc_title')} | Calk.KG`} />
         <meta name="twitter:description" content={t('family_benefit_calc_subtitle')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/family-benefit.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/family-benefit" : "https://calk.kg/calculator/family-benefit"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/family-benefit/" : "https://calk.kg/calculator/family-benefit/"} />
       </Helmet>
       <HreflangTags path="/calculator/family-benefit" />
       <FAQSchema translationPrefix="familybenefit" />

@@ -6,7 +6,7 @@ export const DepositCalculatorArticle: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-      <CalculatorArticle lastUpdated="2026-03-23">
+      <CalculatorArticle lastUpdated="2026-03-23" slug="deposit">
       <ArticleSection title={t('deposit_article_rates_title')}>
         <div className="space-y-3">
           <div className="bg-blue-50 p-4 rounded-lg">

@@ -103,22 +103,23 @@ export default function CalorieCalculatorPage() {
   return (
     <>
       <Helmet>
-        <title>{t('calorie_calc_title')} - Calk.KG</title>
+        <title>{t('calorie_calc_title')} | Calk.KG</title>
         <meta name="description" content={t('calorie_calc_description')} />
         <meta name="keywords" content={t('calorie_keywords')} />
-        <meta property="og:title" content={`${t('calorie_calc_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('calorie_calc_title')} | Calk.KG`} />
         <meta property="og:description" content={t('calorie_calc_description')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/calorie" : "https://calk.kg/calculator/calorie"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/calorie/" : "https://calk.kg/calculator/calorie/"} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/calorie.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('calorie_calc_title')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('calorie_calc_title')} | Calk.KG`} />
         <meta name="twitter:description" content={t('calorie_calc_description')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/calorie.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/calorie" : "https://calk.kg/calculator/calorie"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/calorie/" : "https://calk.kg/calculator/calorie/"} />
       </Helmet>
       <HreflangTags path="/calculator/calorie" />
       <FAQSchema translationPrefix="calorie" />

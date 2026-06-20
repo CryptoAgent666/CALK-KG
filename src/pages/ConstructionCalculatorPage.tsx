@@ -80,12 +80,12 @@ const ConstructionCalculatorPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Helmet>
-        <title>{t('construction_calc_title')} - Calk.KG</title>
+        <title>{t('construction_calc_title')} | Calk.KG</title>
         <meta name="description" content={t('construction_calc_description')} />
-        <meta property="og:title" content={`${t('construction_calc_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('construction_calc_title')} | Calk.KG`} />
         <meta property="og:description" content={t('construction_calc_description')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/construction" : "https://calk.kg/calculator/construction"} />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/construction" : "https://calk.kg/calculator/construction"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/construction/" : "https://calk.kg/calculator/construction/"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/construction/" : "https://calk.kg/calculator/construction/"} />
       </Helmet>
       <HreflangTags path="/calculator/construction" />
       <FAQSchema translationPrefix="construction" />

@@ -5,7 +5,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 export const PatentCalculatorArticle: React.FC = () => {
   const { t } = useLanguage();
   return (
-  <CalculatorArticle lastUpdated="2026-03-23">
+  <CalculatorArticle lastUpdated="2026-03-23" slug="patent">
     <ArticleSection title={t('patent_article_what_title')}>
       <p className="text-gray-700 leading-relaxed mb-4">
         {t('patent_article_what_intro')}

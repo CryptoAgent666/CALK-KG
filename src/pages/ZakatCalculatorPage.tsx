@@ -38,7 +38,7 @@ const ZakatCalculatorPage = () => {
 
   // Генерация схем для страницы калькулятора закята
   const generateSchemas = () => {
-    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/zakat" : "https://calk.kg/calculator/zakat";
+    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/zakat/" : "https://calk.kg/calculator/zakat/";
     const homeUrl = language === 'ky' ? "https://calk.kg/ky" : "https://calk.kg";
 
     const calculatorSchema = generateCalculatorSchema({
@@ -62,7 +62,7 @@ const ZakatCalculatorPage = () => {
   };
 
   React.useEffect(() => {
-    document.title = t('zakat_calc_title') + " - Calk.KG";
+    document.title = t('zakat_calc_title') + " | Calk.KG";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', t('zakat_calc_description'));
@@ -186,22 +186,23 @@ const ZakatCalculatorPage = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Schema.org микроразметка */}
       <Helmet>
-        <title>{t('zakat_calc_title')} - Calk.KG</title>
+        <title>{t('zakat_calc_title')} | Calk.KG</title>
         <meta name="description" content={t('zakat_calc_description')} />
         <meta name="keywords" content={t('zakat_keywords')} />
-        <meta property="og:title" content={`${t('zakat_calc_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('zakat_calc_title')} | Calk.KG`} />
         <meta property="og:description" content={t('zakat_calc_subtitle')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/zakat" : "https://calk.kg/calculator/zakat"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/zakat/" : "https://calk.kg/calculator/zakat/"} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/zakat.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('zakat_calc_title')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('zakat_calc_title')} | Calk.KG`} />
         <meta name="twitter:description" content={t('zakat_calc_subtitle')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/zakat.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/zakat" : "https://calk.kg/calculator/zakat"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/zakat/" : "https://calk.kg/calculator/zakat/"} />
       </Helmet>
       <HreflangTags path="/calculator/zakat" />
       <FAQSchema translationPrefix="zakat" />

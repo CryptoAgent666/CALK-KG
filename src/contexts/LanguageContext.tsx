@@ -97,7 +97,11 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
   const setLanguage = useCallback((lang: Language) => {
     if (lang !== language) {
       setLanguageState(lang);
-      localStorage.setItem('calk-language', lang);
+      try {
+        localStorage.setItem('calk-language', lang);
+      } catch {
+        // Storage unavailable (private mode / quota) — language still updates in memory
+      }
     }
   }, [language]);
 

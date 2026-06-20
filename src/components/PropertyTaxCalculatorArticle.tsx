@@ -5,7 +5,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 export const PropertyTaxCalculatorArticle: React.FC = () => {
   const { t } = useLanguage();
   return (
-  <CalculatorArticle lastUpdated="2026-03-23">
+  <CalculatorArticle lastUpdated="2026-03-23" slug="property-tax">
     <ArticleSection title={t('propertytax_article_what_title')}>
       <p className="text-gray-700 leading-relaxed mb-4">
         {t('propertytax_article_what_intro')}
@@ -53,8 +53,9 @@ export const PropertyTaxCalculatorArticle: React.FC = () => {
           <p><strong>{t('propertytax_taxable_area')}:</strong> 65 − 20 = 45 {t('propertytax_sqm')}</p>
           <p><strong>{t('propertytax_tax_rate_label')}:</strong> {t('propertytax_tax_rate_035')}</p>
           <p><strong>{t('propertytax_assessed_value_sqm_bishkek_apt')}:</strong> ~18,000 {t('propertytax_som')}</p>
+          <p><strong>{t('propertytax_effective_rate_label')}:</strong> 18,000 × 0.35% = 63 {t('propertytax_som')}/{t('propertytax_sqm')}</p>
           <p><strong>{t('propertytax_calculation_label')}:</strong></p>
-          <p className="pl-4 font-mono">45 {t('propertytax_sqm')} × 18,000 {t('propertytax_som')} × 0.35% = 2,835 {t('propertytax_som_year')}</p>
+          <p className="pl-4 font-mono">45 {t('propertytax_sqm')} × 63 {t('propertytax_som')}/{t('propertytax_sqm')} = 2,835 {t('propertytax_som_year')}</p>
           <p className="text-lg font-bold text-green-700">{t('propertytax_annual_tax')}: ~2,835 {t('propertytax_som')}</p>
         </div>
       </ArticleSubsection>
@@ -65,8 +66,9 @@ export const PropertyTaxCalculatorArticle: React.FC = () => {
           <p><strong>{t('propertytax_exempt_area_house')}:</strong> 35 {t('propertytax_sqm')}</p>
           <p><strong>{t('propertytax_taxable_area')}:</strong> 150 − 35 = 115 {t('propertytax_sqm')}</p>
           <p><strong>{t('propertytax_assessed_value_sqm_bishkek_house')}:</strong> ~15,000 {t('propertytax_som')}</p>
+          <p><strong>{t('propertytax_effective_rate_label')}:</strong> 15,000 × 0.35% = 52.5 {t('propertytax_som')}/{t('propertytax_sqm')}</p>
           <p><strong>{t('propertytax_calculation_label')}:</strong></p>
-          <p className="pl-4 font-mono">115 {t('propertytax_sqm')} × 15,000 {t('propertytax_som')} × 0.35% = 6,037 {t('propertytax_som_year')}</p>
+          <p className="pl-4 font-mono">115 {t('propertytax_sqm')} × 52.5 {t('propertytax_som')}/{t('propertytax_sqm')} = 6,037 {t('propertytax_som_year')}</p>
           <p className="text-lg font-bold text-green-700">{t('propertytax_annual_tax')}: ~6,037 {t('propertytax_som')}</p>
         </div>
       </ArticleSubsection>
@@ -76,8 +78,9 @@ export const PropertyTaxCalculatorArticle: React.FC = () => {
           <p><strong>{t('propertytax_total_area')}:</strong> 40 {t('propertytax_sqm')}</p>
           <p><strong>{t('propertytax_exempt_area_label')}:</strong> 20 {t('propertytax_sqm')}</p>
           <p><strong>{t('propertytax_taxable_area')}:</strong> 40 − 20 = 20 {t('propertytax_sqm')}</p>
+          <p><strong>{t('propertytax_effective_rate_label')}:</strong> 18,000 × 0.35% = 63 {t('propertytax_som')}/{t('propertytax_sqm')}</p>
           <p><strong>{t('propertytax_calculation_label')}:</strong></p>
-          <p className="pl-4 font-mono">20 {t('propertytax_sqm')} × 18,000 {t('propertytax_som')} × 0.35% = 1,260 {t('propertytax_som_year')}</p>
+          <p className="pl-4 font-mono">20 {t('propertytax_sqm')} × 63 {t('propertytax_som')}/{t('propertytax_sqm')} = 1,260 {t('propertytax_som_year')}</p>
           <p className="text-lg font-bold text-green-700">{t('propertytax_annual_tax')}: ~1,260 {t('propertytax_som')} (~105 {t('propertytax_som_month')})</p>
         </div>
       </ArticleSubsection>

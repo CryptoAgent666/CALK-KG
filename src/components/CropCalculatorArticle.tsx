@@ -6,7 +6,7 @@ export const CropCalculatorArticle: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-      <CalculatorArticle lastUpdated="2026-03-23">
+      <CalculatorArticle lastUpdated="2026-03-23" slug="crop-yield">
       <ArticleSection title={t('crop_article_yield_title')}>
         <p>{t('crop_yield_intro')}</p>
         <div className="grid md:grid-cols-2 gap-3 mt-4 text-sm">

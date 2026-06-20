@@ -9,14 +9,23 @@ const CookieConsentBanner = () => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const saved = window.localStorage.getItem(CONSENT_KEY);
-    if (!saved) {
+    try {
+      const saved = window.localStorage.getItem(CONSENT_KEY);
+      if (!saved) {
+        setVisible(true);
+      }
+    } catch {
+      // Private/incognito mode or storage disabled — show banner anyway
       setVisible(true);
     }
   }, []);
 
   const acceptCookies = () => {
-    window.localStorage.setItem(CONSENT_KEY, 'accepted');
+    try {
+      window.localStorage.setItem(CONSENT_KEY, 'accepted');
+    } catch {
+      // Storage unavailable — still hide banner this session
+    }
     setVisible(false);
   };
 

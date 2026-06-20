@@ -121,13 +121,21 @@ export const useCurrencyRates = () => {
       }
       
       const newRates: Partial<CurrencyRates> = {};
-      
-      // Преобразуем данные из API в нужный формат
+
+      // Преобразуем данные из API в нужный формат.
+      // API часто возвращает name равным code (например "USD" вместо "Доллар США"),
+      // поэтому отдаём приоритет нашему дефолтному человекочитаемому названию.
       Object.entries(data.rates).forEach(([code, rateData]: [string, any]) => {
         const nameKy = getKyrgyzName(code);
+        const defaultForCode = defaultRates[code as keyof typeof defaultRates];
+        const apiName = rateData.name;
+        // Используем API name только если он отличается от code (т.е. содержит реальное название)
+        const friendlyName = (apiName && apiName !== code && typeof defaultForCode === 'object' && 'name' in defaultForCode)
+          ? apiName
+          : (typeof defaultForCode === 'object' && 'name' in defaultForCode ? defaultForCode.name : apiName);
         newRates[code as keyof typeof newRates] = {
           code,
-          name: rateData.name,
+          name: friendlyName,
           nameKy,
           rate: rateData.rate,
           nominal: rateData.nominal

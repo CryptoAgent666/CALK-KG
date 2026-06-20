@@ -74,7 +74,7 @@ const staticRoutes: StaticRoute[] = [
   },
   {
     path: '/privacy-policy',
-    title: 'Политика конфиденциальности - Calk.KG',
+    title: 'Политика конфиденциальности | Calk.KG',
     description: 'Политика конфиденциальности Calk.KG: как мы защищаем ваши персональные данные и используем cookies.',
     ogImage: 'https://calk.kg/og-images/privacy-policy.png',
     content: `
@@ -90,7 +90,7 @@ const staticRoutes: StaticRoute[] = [
   },
   {
     path: '/terms-of-service',
-    title: 'Условия использования - Calk.KG',
+    title: 'Условия использования | Calk.KG',
     description: 'Условия использования сервиса Calk.KG. Правила пользования калькуляторами и ограничение ответственности.',
     ogImage: 'https://calk.kg/og-images/terms-of-service.png',
     content: `
@@ -106,7 +106,7 @@ const staticRoutes: StaticRoute[] = [
   },
   {
     path: '/contact',
-    title: 'Контакты - Calk.KG',
+    title: 'Контакты | Calk.KG',
     description: 'Свяжитесь с командой Calk.KG. Мы готовы ответить на ваши вопросы, принять предложения и помочь с использованием калькуляторов.',
     ogImage: 'https://calk.kg/og-images/about.png',
     content: `
@@ -134,7 +134,7 @@ const staticRoutes: StaticRoute[] = [
   },
   {
     path: '/sitemap',
-    title: 'Карта сайта - Calk.KG',
+    title: 'Карта сайта | Calk.KG',
     description: 'Полный список всех калькуляторов на Calk.KG. Найдите нужный калькулятор быстро.',
     ogImage: 'https://calk.kg/og-images/sitemap.png',
     content: `
@@ -166,7 +166,7 @@ const staticRoutes: StaticRoute[] = [
   },
   {
     path: '/disclaimer',
-    title: 'Отказ от ответственности - Calk.KG',
+    title: 'Отказ от ответственности | Calk.KG',
     description: 'Отказ от ответственности Calk.KG: ограничения использования онлайн-калькуляторов, информационный характер расчетов, рекомендации по консультации со специалистами.',
     ogImage: 'https://calk.kg/og-images/disclaimer.png',
     content: `
@@ -5052,7 +5052,7 @@ const kyContentOverrides: Record<string, { title: string; description: string; c
     `
   },
   '/privacy-policy': {
-    title: 'Купуялык саясаты - Calk.KG',
+    title: 'Купуялык саясаты | Calk.KG',
     description: 'Calk.KG купуялык саясаты: жеке маалыматтарыңызды кантип коргойбуз жана cookies колдонобуз.',
     content: `
       <h1>Calk.KG купуялык саясаты</h1>
@@ -5066,7 +5066,7 @@ const kyContentOverrides: Record<string, { title: string; description: string; c
     `
   },
   '/terms-of-service': {
-    title: 'Колдонуу шарттары - Calk.KG',
+    title: 'Колдонуу шарттары | Calk.KG',
     description: 'Calk.KG кызматын колдонуу шарттары. Калькуляторлорду колдонуу эрежелери жана жоопкерчиликти чектөө.',
     content: `
       <h1>Calk.KG колдонуу шарттары</h1>
@@ -5080,7 +5080,7 @@ const kyContentOverrides: Record<string, { title: string; description: string; c
     `
   },
   '/disclaimer': {
-    title: 'Жоопкерчиликтен баш тартуу - Calk.KG',
+    title: 'Жоопкерчиликтен баш тартуу | Calk.KG',
     description: 'Calk.KG жоопкерчиликтен баш тартуу. Маалыматтын тактыгы жана колдонуу чектери.',
     content: `
       <h1>Calk.KG жоопкерчиликтен баш тартуу</h1>
@@ -5100,7 +5100,7 @@ const kyContentOverrides: Record<string, { title: string; description: string; c
     `
   },
   '/sitemap': {
-    title: 'Сайт картасы - Calk.KG',
+    title: 'Сайт картасы | Calk.KG',
     description: 'Calk.KG сайт картасы - бардык калькуляторлор жана барактар.',
     content: `
       <h1>Calk.KG сайт картасы</h1>
@@ -5135,7 +5135,7 @@ const kyContentOverrides: Record<string, { title: string; description: string; c
     `
   },
   '/contact': {
-    title: 'Байланыш - Calk.KG',
+    title: 'Байланыш | Calk.KG',
     description: 'Calk.KG менен байланыш. Суроолор, сунуштар жана кызматташуу.',
     content: `
       <h1>Calk.KG менен байланыш</h1>
@@ -5241,6 +5241,7 @@ function staticHtmlPlugin(): Plugin {
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="${route.locale}" />
+    <meta property="og:site_name" content="Calk.KG" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${route.title}" />
     <meta name="twitter:description" content="${route.description}" />
@@ -5312,12 +5313,12 @@ ${createJsonLdScript(jsonLdSchemas.length === 1 ? jsonLdSchemas[0] : jsonLdSchem
              </nav>`;
 
         const staticContent = `
-      <article id="static-content" data-ssg-static="true" style="max-width: 800px; margin: 0 auto; padding: 20px; font-family: system-ui, sans-serif;">
+      <main id="static-content" data-ssg-static="true" style="max-width: 800px; margin: 0 auto; padding: 20px; font-family: system-ui, sans-serif;">
         ${route.content}
         <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
           ${footerContent}
         </footer>
-      </article>`;
+      </main>`;
 
         // Inject static content directly into root so crawlers see it in main DOM.
         html = replaceOrThrow(

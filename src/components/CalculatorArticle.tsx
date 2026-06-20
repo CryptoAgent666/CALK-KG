@@ -1,5 +1,7 @@
 import React from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
+import AuthorByline from './AuthorByline';
+import GovSources from './GovSources';
 
 interface CalculatorArticleProps {
   children: React.ReactNode;
@@ -8,18 +10,45 @@ interface CalculatorArticleProps {
   lastUpdated?: string;
   /** Translation key for the "updated" label, falls back to generic */
   updatedLabelKey?: string;
+  /** Calculator slug — enables GovSources and HowTo schema integration */
+  slug?: string;
+  /** Quick answer (TL;DR) — short citation-friendly summary, rendered at top */
+  quickAnswer?: React.ReactNode;
 }
 
 /**
  * Универсальный компонент для отображения статей/FAQ под калькуляторами
  * Обеспечивает единый стиль и SEO-оптимизацию контента
+ *
+ * Auto-adds (when slug is provided):
+ *   - AuthorByline at top (E-E-A-T signal)
+ *   - GovSources at bottom (authoritative references)
+ *
+ * Auto-adds (when quickAnswer is provided):
+ *   - QuickAnswer block at very top (AI citation)
  */
-export const CalculatorArticle: React.FC<CalculatorArticleProps> = ({ children, className = '', lastUpdated, updatedLabelKey }) => {
+export const CalculatorArticle: React.FC<CalculatorArticleProps> = ({
+  children,
+  className = '',
+  lastUpdated,
+  updatedLabelKey,
+  slug,
+  quickAnswer
+}) => {
   const { language, t } = useLanguage();
+
+  // Kyrgyz month names — manual formatter (Chrome ICU has no ky-KG locale).
+  const KY_MONTHS = [
+    'январь', 'февраль', 'март', 'апрель', 'май', 'июнь',
+    'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'
+  ];
 
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr + 'T00:00:00');
-    return date.toLocaleDateString(language === 'ky' ? 'ky-KG' : 'ru-RU', {
+    if (language === 'ky') {
+      return `${date.getDate()}-${KY_MONTHS[date.getMonth()]} ${date.getFullYear()}-жыл`;
+    }
+    return date.toLocaleDateString('ru-RU', {
       day: 'numeric',
       month: 'long',
       year: 'numeric'
@@ -31,7 +60,27 @@ export const CalculatorArticle: React.FC<CalculatorArticleProps> = ({ children, 
   return (
     <article className={`max-w-4xl mx-auto mt-12 px-4 ${className}`}>
       <div className="prose prose-gray max-w-none">
+        {/* Author + last updated byline (E-E-A-T) */}
+        <AuthorByline lastUpdated={lastUpdated} />
+
+        {/* Quick Answer / TL;DR block (AI citation) */}
+        {quickAnswer && (
+          <aside
+            role="note"
+            aria-label={language === 'ky' ? 'Кыска жооп' : 'Краткий ответ'}
+            className="not-prose my-6 rounded-xl border-l-4 border-yellow-500 bg-yellow-50 p-5 shadow-sm"
+          >
+            <h2 className="text-sm font-bold text-yellow-900 mb-2 uppercase tracking-wide">
+              {language === 'ky' ? 'Кыска жооп' : 'Краткий ответ'}
+            </h2>
+            <div className="text-gray-800 leading-relaxed">{quickAnswer}</div>
+          </aside>
+        )}
+
         {children}
+
+        {/* Government sources — авторитетные ссылки */}
+        {slug && <GovSources slug={slug} />}
       </div>
       {lastUpdated && (
         <time dateTime={lastUpdated} className="sr-only">{updatedLabel}: {formatDate(lastUpdated)}</time>

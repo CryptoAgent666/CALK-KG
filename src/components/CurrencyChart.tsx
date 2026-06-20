@@ -176,10 +176,14 @@ const CurrencyChart: React.FC<CurrencyChartProps> = ({
               fontSize="11"
               fill="#6b7280"
             >
-              {new Date(point.date).toLocaleDateString(language === 'ky' ? 'ky-KG' : 'ru-RU', { 
-                day: '2-digit', 
-                month: 'short' 
-              })}
+              {(() => {
+                const d = new Date(point.date);
+                if (language === 'ky') {
+                  const months = ['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+                  return `${String(d.getDate()).padStart(2,'0')} ${months[d.getMonth()]}`;
+                }
+                return d.toLocaleDateString('ru-RU', { day: '2-digit', month: 'short' });
+              })()}
             </text>
           ))}
 

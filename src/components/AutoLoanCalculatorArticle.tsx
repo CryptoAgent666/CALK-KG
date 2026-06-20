@@ -6,7 +6,7 @@ export const AutoLoanCalculatorArticle: React.FC = () => {
   const { t } = useLanguage();
   
   return (
-      <CalculatorArticle lastUpdated="2026-03-23">
+      <CalculatorArticle lastUpdated="2026-03-23" slug="auto-loan">
       <ArticleSection title={t('autoloan_article_conditions_title')}>
         <ul className="list-disc pl-6 space-y-2 text-sm">
           <li><strong>{t('autoloan_conditions_rate_label')}</strong> {t('autoloan_conditions_rate_value')}</li>

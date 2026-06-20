@@ -59,7 +59,10 @@ const Header = () => {
           <div className="xl:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-700 hover:text-red-600 transition-colors"
+              className="text-gray-700 hover:text-red-600 transition-colors p-2"
+              aria-label={isMenuOpen ? t('close_menu') : (t('open_menu') || 'Открыть меню')}
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-menu-drawer"
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>

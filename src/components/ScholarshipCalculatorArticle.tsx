@@ -6,7 +6,7 @@ export const ScholarshipCalculatorArticle: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-      <CalculatorArticle lastUpdated="2026-03-23">
+      <CalculatorArticle lastUpdated="2026-03-23" slug="scholarship">
       <ArticleSection title={t('scholarship_article_types_title')}>
         <div className="space-y-3">
           <div className="bg-blue-50 p-4 rounded-lg">
@@ -31,7 +31,6 @@ export const ScholarshipCalculatorArticle: React.FC = () => {
             <li><strong>{t('scholarship_gpa_367')}</strong> {t('scholarship_gpa_367_coef')}</li>
             <li><strong>{t('scholarship_gpa_333')}</strong> {t('scholarship_gpa_333_coef')}</li>
             <li><strong>{t('scholarship_gpa_30')}</strong> {t('scholarship_gpa_30_coef')}</li>
-            <li><strong>{t('scholarship_gpa_267')}</strong> {t('scholarship_gpa_267_coef')}</li>
             <li><strong>{t('scholarship_gpa_below')}</strong> {t('scholarship_gpa_below_text')}</li>
           </ul>
         </div>

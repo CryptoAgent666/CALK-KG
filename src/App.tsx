@@ -151,13 +151,15 @@ const HomePage = () => {
         <SchemaMarkup key={index} schema={schema} />
       ))}
       <Header />
-      <Hero searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-      <CalculatorGrid
-        calculators={filteredCalculators}
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
-      />
-      <ContentBlock />
+      <main id="main">
+        <Hero searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <CalculatorGrid
+          calculators={filteredCalculators}
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+        />
+        <ContentBlock />
+      </main>
       <Footer />
     </>
   );
@@ -167,7 +169,7 @@ const CalculatorPageWrapper = ({ children }: { children: React.ReactNode }) => (
   <Suspense fallback={<PageLoader />}>
     <Header />
     <VisualBreadcrumbs />
-    {children}
+    <main id="main">{children}</main>
     <Footer />
   </Suspense>
 );
@@ -176,7 +178,7 @@ const StaticPageWrapper = ({ children }: { children: React.ReactNode }) => (
   <Suspense fallback={<PageLoader />}>
     <Header />
     <VisualBreadcrumbs />
-    {children}
+    <main id="main">{children}</main>
     <Footer />
   </Suspense>
 );

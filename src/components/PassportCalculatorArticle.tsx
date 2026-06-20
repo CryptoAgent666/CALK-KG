@@ -6,7 +6,7 @@ export const PassportCalculatorArticle: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-    <CalculatorArticle lastUpdated="2026-03-23">
+    <CalculatorArticle lastUpdated="2026-03-23" slug="passport">
       <ArticleSection titleKey="passport_brief_title">
         <p className="mb-4 leading-relaxed text-gray-700">
           {t('passport_brief_intro')}

@@ -6,7 +6,10 @@ import { execSync } from 'child_process';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const rootDir = join(__dirname, '..');
 const appPath = join(rootDir, 'src', 'App.tsx');
-const outputPath = join(rootDir, 'public', 'sitemap.xml');
+const outputPaths = [
+  join(rootDir, 'public', 'sitemap.xml'), // source (kept in repo)
+  join(rootDir, 'dist', 'sitemap.xml'),   // build output (Vite copied stale version earlier)
+];
 
 const BASE_URL = 'https://calk.kg';
 
@@ -75,8 +78,16 @@ function generateSitemap() {
       lastmod = getLastModifiedDate(getRelevantFiles(slug));
     }
 
-    const ruUrl = `${BASE_URL}${route.path}`;
-    const kyUrl = `${BASE_URL}/ky${route.path || '/'}`;
+    // Add trailing slash for calculator/static pages to match nginx 301 redirect behavior.
+    // Home '' and /ky stay as-is (no slash on bare hostname).
+    const withSlash = (path) => {
+      if (!path) return '';
+      return path.endsWith('/') ? path : `${path}/`;
+    };
+    const slashedPath = route.type === 'home' ? route.path : withSlash(route.path);
+
+    const ruUrl = `${BASE_URL}${slashedPath}`;
+    const kyUrl = `${BASE_URL}/ky${slashedPath || '/'}`;
 
     const hreflangRu = ruUrl;
     const hreflangKy = route.path === '' ? `${BASE_URL}/ky` : kyUrl;
@@ -84,7 +95,7 @@ function generateSitemap() {
     // Russian version
     urls.push({ loc: ruUrl, lastmod, hreflangRu, hreflangKy: hreflangKy });
     // Kyrgyz version
-    urls.push({ loc: route.path === '' ? `${BASE_URL}/ky` : kyUrl, lastmod, hreflangRu, hreflangKy: hreflangKy });
+    urls.push({ loc: route.path === '' ? `${BASE_URL}/ky` : kyUrl, lastmod, hreflangRu, hreflangKy });
   }
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -99,7 +110,14 @@ ${urls.map(u => `  <url>
   </url>`).join('\n')}
 </urlset>`;
 
-  writeFileSync(outputPath, xml, 'utf-8');
+  for (const outputPath of outputPaths) {
+    try {
+      writeFileSync(outputPath, xml, 'utf-8');
+    } catch (e) {
+      // dist/ may not exist before first build — ignore
+      if (e.code !== 'ENOENT') throw e;
+    }
+  }
   console.log(`Sitemap generated: ${urls.length} URLs with git-based lastmod dates.`);
 }
 

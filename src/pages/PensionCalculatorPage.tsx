@@ -39,7 +39,7 @@ const PensionCalculatorPage = () => {
   const { language, t, getLocalizedPath} = useLanguage();
 
   React.useEffect(() => {
-    document.title = t('pension_calc_title') + " - Calk.KG";
+    document.title = t('pension_calc_title') + " | Calk.KG";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', t('pension_calc_description'));
@@ -48,7 +48,7 @@ const PensionCalculatorPage = () => {
 
   // Генерация схем для страницы пенсионного калькулятора
   const generateSchemas = () => {
-    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/pension" : "https://calk.kg/calculator/pension";
+    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/pension/" : "https://calk.kg/calculator/pension/";
     const homeUrl = language === 'ky' ? "https://calk.kg/ky" : "https://calk.kg";
     
     const calculatorSchema = generateCalculatorSchema({
@@ -194,7 +194,7 @@ const PensionCalculatorPage = () => {
 
     // Базовая часть (фиксированная сумма при минимальном стаже)
     const minRequiredMonths = 180; // 15 лет
-    const basePart = totalExperienceMonths >= minRequiredMonths ? 3000 : 0;
+    const basePart = totalExperienceMonths >= minRequiredMonths ? 3170 : 0;
 
     // Страховая часть 1 (за стаж до 1996)
     const insurancePart1 = experienceBefore1996.months > 0 ? 
@@ -324,22 +324,23 @@ const PensionCalculatorPage = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Schema.org микроразметка */}
       <Helmet>
-        <title>{t('pension_calc_title')} - Calk.KG</title>
+        <title>{t('pension_calc_title')} | Calk.KG</title>
         <meta name="description" content={t('pension_calc_subtitle')} />
         <meta name="keywords" content={t('pension_keywords')} />
-        <meta property="og:title" content={`${t('pension_calc_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('pension_calc_title')} | Calk.KG`} />
         <meta property="og:description" content={t('pension_calc_subtitle')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/pension" : "https://calk.kg/calculator/pension"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/pension/" : "https://calk.kg/calculator/pension/"} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/pension.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('pension_calc_title')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('pension_calc_title')} | Calk.KG`} />
         <meta name="twitter:description" content={t('pension_calc_subtitle')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/pension.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/pension" : "https://calk.kg/calculator/pension"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/pension/" : "https://calk.kg/calculator/pension/"} />
       </Helmet>
       <HreflangTags path="/calculator/pension" />
       <FAQSchema translationPrefix="pension" />

@@ -6,7 +6,7 @@ export const SocialFundCalculatorArticle: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-    <CalculatorArticle lastUpdated="2026-03-23">
+    <CalculatorArticle lastUpdated="2026-03-23" slug="social-fund">
       <ArticleSection titleKey="socialfund_rates_title">
         <p className="mb-4 leading-relaxed text-gray-700">
           {t('socialfund_rates_intro')}

@@ -10,7 +10,7 @@ export const FuelCalculatorArticle: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-      <CalculatorArticle lastUpdated="2026-03-23">
+      <CalculatorArticle lastUpdated="2026-03-23" slug="fuel">
       {/* Актуальные цены на топливо */}
       <ArticleSection title={t('fuel_article_prices_title')}>
         <p>{t('fuel_article_prices_intro')}</p>

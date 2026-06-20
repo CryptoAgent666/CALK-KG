@@ -60,7 +60,7 @@ const SocialFundCalculatorPage = () => {
   const getLocalized = (copy: LocalizedCopy) => language === 'ky' ? copy.ky : copy.ru;
 
   React.useEffect(() => {
-    document.title = t('social_fund_calc_title') + " - Calk.KG";
+    document.title = t('social_fund_calc_title') + " | Calk.KG";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', t('social_fund_calc_description'));
@@ -69,7 +69,7 @@ const SocialFundCalculatorPage = () => {
 
   // Генерация схем для страницы калькулятора соцфонда
   const generateSchemas = () => {
-    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/social-fund" : "https://calk.kg/calculator/social-fund";
+    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/social-fund/" : "https://calk.kg/calculator/social-fund/";
     const homeUrl = language === 'ky' ? "https://calk.kg/ky" : "https://calk.kg";
     
     const calculatorSchema = generateCalculatorSchema({
@@ -185,22 +185,23 @@ const SocialFundCalculatorPage = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Schema.org микроразметка */}
       <Helmet>
-        <title>{t('social_fund_calc_title')} - Calk.KG</title>
+        <title>{t('social_fund_calc_title')} | Calk.KG</title>
         <meta name="description" content={t('social_fund_calc_subtitle')} />
         <meta name="keywords" content={t('social_fund_keywords')} />
-        <meta property="og:title" content={`${t('social_fund_calc_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('social_fund_calc_title')} | Calk.KG`} />
         <meta property="og:description" content={t('social_fund_calc_subtitle')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/social-fund" : "https://calk.kg/calculator/social-fund"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/social-fund/" : "https://calk.kg/calculator/social-fund/"} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/social-fund.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('social_fund_calc_title')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('social_fund_calc_title')} | Calk.KG`} />
         <meta name="twitter:description" content={t('social_fund_calc_subtitle')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/social-fund.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/social-fund" : "https://calk.kg/calculator/social-fund"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/social-fund/" : "https://calk.kg/calculator/social-fund/"} />
       </Helmet>
       <HreflangTags path="/calculator/social-fund" />
       <FAQSchema translationPrefix="socialfund" />

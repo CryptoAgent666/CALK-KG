@@ -10,7 +10,7 @@ export const SickLeaveCalculatorArticle: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-      <CalculatorArticle lastUpdated="2026-03-23">
+      <CalculatorArticle lastUpdated="2026-03-23" slug="sick-leave">
       {/* Как рассчитывается больничный */}
       <ArticleSection title={t('sick_article_howto_title')}>
         <p>{t('sick_payment_factors')}</p>

@@ -62,21 +62,22 @@ const CurrencyExchangePage = () => {
   return (
     <>
       <Helmet>
-        <title>{t('currency_exchange_title')} - Calk.KG</title>
+        <title>{t('currency_exchange_title')} | Calk.KG</title>
         <meta name="description" content={t('currency_exchange_description')} />
-        <meta property="og:title" content={`${t('currency_exchange_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('currency_exchange_title')} | Calk.KG`} />
         <meta property="og:description" content={t('currency_exchange_description')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/currency-exchange" : "https://calk.kg/calculator/currency-exchange"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/currency-exchange/" : "https://calk.kg/calculator/currency-exchange/"} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/currency-exchange.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('currency_exchange_title')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('currency_exchange_title')} | Calk.KG`} />
         <meta name="twitter:description" content={t('currency_exchange_description')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/currency-exchange.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/currency-exchange" : "https://calk.kg/calculator/currency-exchange"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/currency-exchange/" : "https://calk.kg/calculator/currency-exchange/"} />
       </Helmet>
       
       <HreflangTags path="/calculator/currency-exchange" />
@@ -98,7 +99,14 @@ const CurrencyExchangePage = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <span className="text-sm text-blue-800">
-                  {t('currency_info_note')} {new Date(rates.date).toLocaleDateString(language === 'ru' ? 'ru-RU' : 'ky-KG', { day: 'numeric', month: 'long', year: 'numeric' })}
+                  {t('currency_info_note')} {(() => {
+                    const d = new Date(rates.date);
+                    if (language === 'ky') {
+                      const months = ['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'];
+                      return `${d.getDate()}-${months[d.getMonth()]} ${d.getFullYear()}-жыл`;
+                    }
+                    return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+                  })()}
                 </span>
               </div>
             )}

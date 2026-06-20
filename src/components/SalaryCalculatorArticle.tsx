@@ -10,7 +10,7 @@ export const SalaryCalculatorArticle: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-      <CalculatorArticle lastUpdated="2026-03-23">
+      <CalculatorArticle lastUpdated="2026-03-23" slug="salary">
       {/* Что учитывает калькулятор */}
       <ArticleSection title={t('salary_article_howto_title')}>
         <p>{t('salary_article_intro')}</p>

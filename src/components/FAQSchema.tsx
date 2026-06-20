@@ -37,15 +37,11 @@ const FAQSchema: React.FC<FAQSchemaProps> = ({ translationPrefix, maxItems = 10,
 
   if (faqItems.length === 0) return null;
 
-  const schema = generateFAQPageSchema(faqItems);
-
-  return (
-    <Helmet>
-      <script type="application/ld+json">
-        {JSON.stringify(schema, null, 2)}
-      </script>
-    </Helmet>
-  );
+  // SSG (generate-static-html.js) already injects FAQPage schema for each
+  // calculator page. Injecting it again from React (via Helmet) causes
+  // duplicate FAQPage blocks that Google's structured-data parser flags.
+  // SSG version is authoritative — skip here.
+  return null;
 };
 
 export default FAQSchema;

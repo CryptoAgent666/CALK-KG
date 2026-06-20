@@ -12,7 +12,7 @@ const TermsOfServicePage = () => {
   const { t, language } = useLanguage();
 
   React.useEffect(() => {
-    document.title = t('footer_terms') + " - Calk.KG";
+    document.title = t('footer_terms') + " | Calk.KG";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', t('terms_of_service_description'));
@@ -20,7 +20,7 @@ const TermsOfServicePage = () => {
   }, [t]);
 
   const generateSchemas = () => {
-    const currentUrl = "https://calk.kg/terms-of-service";
+    const currentUrl = "https://calk.kg/terms-of-service/";
 
     const webPageSchema = generateWebPageSchema({
       url: currentUrl,
@@ -39,21 +39,22 @@ const TermsOfServicePage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Helmet>
-        <title>{t('footer_terms')} - Calk.KG</title>
+        <title>{t('footer_terms')} | Calk.KG</title>
         <meta name="description" content={t('terms_of_service_description')} />
         <meta property="og:title" content={t('footer_terms')} />
         <meta property="og:description" content={t('terms_of_service_description')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/terms-of-service" : "https://calk.kg/terms-of-service"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/terms-of-service/" : "https://calk.kg/terms-of-service/"} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/terms-of-service.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('footer_terms')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('footer_terms')} | Calk.KG`} />
         <meta name="twitter:description" content={t('terms_of_service_description')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/terms-of-service.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/terms-of-service" : "https://calk.kg/terms-of-service"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/terms-of-service/" : "https://calk.kg/terms-of-service/"} />
       </Helmet>
       <HreflangTags path="/terms-of-service" />
       {generateSchemas().map((schema, index) => (

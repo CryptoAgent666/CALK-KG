@@ -114,17 +114,31 @@ export const generateCalculatorSchema = (data: CalculatorSchemaData) => ({
   "dateModified": new Date().toISOString().split('T')[0]
 });
 
-// Генерация схемы BreadcrumbList
-export const generateBreadcrumbSchema = (items: BreadcrumbItem[]) => ({
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": items.map((item, index) => ({
-    "@type": "ListItem",
-    "position": index + 1,
-    "name": item.name,
-    "item": item.url
-  }))
-});
+// Генерация схемы BreadcrumbList.
+//
+// Возвращает `null` для bedeutungslos breadcrumbs (< 2 items) — Google Search
+// Console flags single-item breadcrumbs как "Missing field 'itemListElement'"
+// (technically itemListElement exists but is treated as empty / meaningless).
+// Also filters out items missing required name/url fields, чтобы никогда
+// не эмитить invalid schema.
+export const generateBreadcrumbSchema = (items: BreadcrumbItem[]) => {
+  const validItems = (items || []).filter(
+    (i): i is BreadcrumbItem => !!(i && i.name && i.url)
+  );
+  // Schema.org BreadcrumbList without a meaningful trail (≥2 levels) is treated
+  // as malformed by Google's structured-data validator. Skip emission entirely.
+  if (validItems.length < 2) return null;
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": validItems.map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": item.name,
+      "item": item.url
+    }))
+  };
+};
 
 // Генерация схемы WebPage для информационных страниц
 export const generateWebPageSchema = (data: SchemaOrgData) => ({
@@ -171,6 +185,37 @@ export const generateAboutPageSchema = (data: SchemaOrgData) => ({
     "name": "Calk.KG",
     "url": "https://calk.kg"
   }
+});
+
+// Генерация схемы HowTo — пошаговая инструкция использования калькулятора
+// Используется AI-краулерами (ChatGPT, Perplexity, Google AI Overviews)
+// для цитирования при запросах "Как рассчитать..."
+export const generateHowToSchema = (data: {
+  name: string;
+  description: string;
+  url: string;
+  language?: string;
+  steps: Array<{ name: string; text: string }>;
+  totalTime?: string; // ISO 8601 duration, e.g. "PT1M"
+}) => ({
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": data.name,
+  "description": data.description,
+  "inLanguage": data.language || "ru",
+  "totalTime": data.totalTime || "PT1M",
+  "tool": {
+    "@type": "HowToTool",
+    "name": data.name,
+    "url": data.url
+  },
+  "step": data.steps.map((step, idx) => ({
+    "@type": "HowToStep",
+    "position": idx + 1,
+    "name": step.name,
+    "text": step.text,
+    "url": `${data.url}#step-${idx + 1}`
+  }))
 });
 
 // Генерация схемы FAQPage для страниц с вопросами и ответами

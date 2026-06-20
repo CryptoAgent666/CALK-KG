@@ -12,7 +12,7 @@ const PrivacyPolicyPage = () => {
   const { t, language } = useLanguage();
 
   React.useEffect(() => {
-    document.title = t('footer_privacy') + " - Calk.KG";
+    document.title = t('footer_privacy') + " | Calk.KG";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', t('privacy_policy_description'));
@@ -20,7 +20,7 @@ const PrivacyPolicyPage = () => {
   }, [t]);
 
   const generateSchemas = () => {
-    const currentUrl = "https://calk.kg/privacy-policy";
+    const currentUrl = "https://calk.kg/privacy-policy/";
 
     const webPageSchema = generateWebPageSchema({
       url: currentUrl,
@@ -39,21 +39,22 @@ const PrivacyPolicyPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Helmet>
-        <title>{t('footer_privacy')} - Calk.KG</title>
+        <title>{t('footer_privacy')} | Calk.KG</title>
         <meta name="description" content={t('privacy_policy_description')} />
         <meta property="og:title" content={t('footer_privacy')} />
         <meta property="og:description" content={t('privacy_policy_description')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/privacy-policy" : "https://calk.kg/privacy-policy"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/privacy-policy/" : "https://calk.kg/privacy-policy/"} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/privacy-policy.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('footer_privacy')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('footer_privacy')} | Calk.KG`} />
         <meta name="twitter:description" content={t('privacy_policy_description')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/privacy-policy.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/privacy-policy" : "https://calk.kg/privacy-policy"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/privacy-policy/" : "https://calk.kg/privacy-policy/"} />
       </Helmet>
       <HreflangTags path="/privacy-policy" />
       {generateSchemas().map((schema, index) => (

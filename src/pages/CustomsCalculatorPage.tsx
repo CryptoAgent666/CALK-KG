@@ -249,7 +249,7 @@ const CustomsCalculatorPage = () => {
 
   // Генерация схем для страницы таможенного калькулятора
   const generateSchemas = () => {
-    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/customs" : "https://calk.kg/calculator/customs";
+    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/customs/" : "https://calk.kg/calculator/customs/";
     const homeUrl = language === 'ky' ? "https://calk.kg/ky" : "https://calk.kg";
     
     const calculatorSchema = generateCalculatorSchema({
@@ -334,22 +334,23 @@ const CustomsCalculatorPage = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Schema.org микроразметка */}
       <Helmet>
-        <title>{t('customs_calc_title')} - Calk.KG</title>
+        <title>{t('customs_calc_title')} | Calk.KG</title>
         <meta name="description" content={t('customs_calc_description')} />
         <meta name="keywords" content={t('customs_calc_keywords')} />
-        <meta property="og:title" content={`${t('customs_calc_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('customs_calc_title')} | Calk.KG`} />
         <meta property="og:description" content={t('customs_calc_description')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/customs" : "https://calk.kg/calculator/customs"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/customs/" : "https://calk.kg/calculator/customs/"} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/customs.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('customs_calc_title')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('customs_calc_title')} | Calk.KG`} />
         <meta name="twitter:description" content={t('customs_calc_description')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/customs.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/customs" : "https://calk.kg/calculator/customs"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/customs/" : "https://calk.kg/calculator/customs/"} />
       </Helmet>
       <HreflangTags path="/calculator/customs" />
       <FAQSchema translationPrefix="customs" />

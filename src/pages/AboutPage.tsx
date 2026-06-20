@@ -15,7 +15,7 @@ const AboutPage = () => {
   const { t, language } = useLanguage();
 
   React.useEffect(() => {
-    document.title = t('nav_about') + " - Calk.KG";
+    document.title = t('nav_about') + " | Calk.KG";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', t('about_page_description'));
@@ -24,7 +24,7 @@ const AboutPage = () => {
 
   // Генерация схем для страницы "О нас"
   const generateSchemas = () => {
-    const currentUrl = "https://calk.kg/about";
+    const currentUrl = "https://calk.kg/about/";
     
     const aboutPageSchema = generateAboutPageSchema({
       url: currentUrl,
@@ -57,22 +57,23 @@ const AboutPage = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Schema.org микроразметка */}
       <Helmet>
-        <title>{t('nav_about')} - Calk.KG</title>
+        <title>{t('nav_about')} | Calk.KG</title>
         <meta name="description" content={t('about_page_description')} />
         <meta name="keywords" content={t('about_keywords')} />
         <meta property="og:title" content={t('nav_about')} />
         <meta property="og:description" content={t('about_page_description')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/about" : "https://calk.kg/about"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/about/" : "https://calk.kg/about/"} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/about.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('nav_about')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('nav_about')} | Calk.KG`} />
         <meta name="twitter:description" content={t('about_page_description')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/about.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/about" : "https://calk.kg/about"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/about/" : "https://calk.kg/about/"} />
       </Helmet>
       <HreflangTags path="/about" />
       {generateSchemas().map((schema, index) => (

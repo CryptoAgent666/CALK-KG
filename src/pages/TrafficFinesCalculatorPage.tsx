@@ -45,7 +45,7 @@ const TrafficFinesCalculatorPage = () => {
   const PDD_FINES_KG = getTranslatedFines();
 
   React.useEffect(() => {
-    document.title = t('traffic_fines_calc_title') + " - Calk.KG";
+    document.title = t('traffic_fines_calc_title') + " | Calk.KG";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', t('traffic_fines_calc_description'));
@@ -54,7 +54,7 @@ const TrafficFinesCalculatorPage = () => {
 
   // Генерация схем для страницы справочника штрафов
   const generateSchemas = () => {
-    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/traffic-fines" : "https://calk.kg/calculator/traffic-fines";
+    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/traffic-fines/" : "https://calk.kg/calculator/traffic-fines/";
     const homeUrl = language === 'ky' ? "https://calk.kg/ky" : "https://calk.kg";
     
     const calculatorSchema = generateCalculatorSchema({
@@ -156,21 +156,22 @@ const TrafficFinesCalculatorPage = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Schema.org микроразметка */}
       <Helmet>
-        <title>{t('traffic_fines_calc_title')} - Calk.KG</title>
+        <title>{t('traffic_fines_calc_title')} | Calk.KG</title>
         <meta name="description" content={t('traffic_fines_calc_subtitle')} />
         <meta name="keywords" content={t('traffic_fines_keywords')} />
-        <meta property="og:title" content={`${t('traffic_fines_calc_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('traffic_fines_calc_title')} | Calk.KG`} />
         <meta property="og:description" content={t('traffic_fines_calc_subtitle')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/traffic-fines" : "https://calk.kg/calculator/traffic-fines"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/traffic-fines/" : "https://calk.kg/calculator/traffic-fines/"} />
         <meta property="og:image" content="https://calk.kg/og-images/traffic-fines.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('traffic_fines_calc_title')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('traffic_fines_calc_title')} | Calk.KG`} />
         <meta name="twitter:description" content={t('traffic_fines_calc_subtitle')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/traffic-fines.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/traffic-fines" : "https://calk.kg/calculator/traffic-fines"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/traffic-fines/" : "https://calk.kg/calculator/traffic-fines/"} />
       </Helmet>
       <HreflangTags path="/calculator/traffic-fines" />
       <FAQSchema translationPrefix="trafficfines" />

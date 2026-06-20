@@ -234,7 +234,7 @@ const PassportCalculatorPage = () => {
 
   // Генерация схем для страницы калькулятора паспортов
   const generateSchemas = () => {
-    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/passport" : "https://calk.kg/calculator/passport";
+    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/passport/" : "https://calk.kg/calculator/passport/";
     const homeUrl = language === 'ky' ? "https://calk.kg/ky" : "https://calk.kg";
     
     const calculatorSchema = generateCalculatorSchema({
@@ -258,7 +258,7 @@ const PassportCalculatorPage = () => {
   };
 
   React.useEffect(() => {
-    document.title = t('passport_calc_title') + " - Calk.KG";
+    document.title = t('passport_calc_title') + " | Calk.KG";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', t('passport_calc_description'));
@@ -362,21 +362,22 @@ const PassportCalculatorPage = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Schema.org микроразметка */}
       <Helmet>
-        <title>{t('passport_calc_title')} - Calk.KG</title>
+        <title>{t('passport_calc_title')} | Calk.KG</title>
         <meta name="description" content={t('passport_calc_subtitle')} />
         <meta name="keywords" content={t('passport_keywords')} />
-        <meta property="og:title" content={`${t('passport_calc_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('passport_calc_title')} | Calk.KG`} />
         <meta property="og:description" content={t('passport_calc_subtitle')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/passport" : "https://calk.kg/calculator/passport"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/passport/" : "https://calk.kg/calculator/passport/"} />
         <meta property="og:image" content="https://calk.kg/og-images/passport.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('passport_calc_title')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('passport_calc_title')} | Calk.KG`} />
         <meta name="twitter:description" content={t('passport_calc_subtitle')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/passport.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/passport" : "https://calk.kg/calculator/passport"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/passport/" : "https://calk.kg/calculator/passport/"} />
       </Helmet>
       <HreflangTags path="/calculator/passport" />
       <FAQSchema translationPrefix="passport" />

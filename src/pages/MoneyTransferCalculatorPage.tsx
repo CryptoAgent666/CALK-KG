@@ -104,24 +104,34 @@ const MoneyTransferCalculatorPage = () => {
 
   const bestService = results[0];
 
+  // Format a received amount with space thousands separators + 2 decimals,
+  // e.g. 86138.25 → "86 138.25". Matches the site-wide number style instead
+  // of a raw toFixed() which omits grouping for large sums.
+  const formatReceived = (n: number): string => {
+    const [intPart, decPart] = n.toFixed(2).split('.');
+    const grouped = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    return `${grouped}.${decPart}`;
+  };
+
   return (
     <>
       <Helmet>
-        <title>{t('money_transfer_title')} - Calk.KG</title>
+        <title>{t('money_transfer_title')} | Calk.KG</title>
         <meta name="description" content={t('money_transfer_description')} />
-        <meta property="og:title" content={`${t('money_transfer_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('money_transfer_title')} | Calk.KG`} />
         <meta property="og:description" content={t('money_transfer_description')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/money-transfer" : "https://calk.kg/calculator/money-transfer"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/money-transfer/" : "https://calk.kg/calculator/money-transfer/"} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/money-transfer.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('money_transfer_title')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('money_transfer_title')} | Calk.KG`} />
         <meta name="twitter:description" content={t('money_transfer_description')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/money-transfer.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/money-transfer" : "https://calk.kg/calculator/money-transfer"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/money-transfer/" : "https://calk.kg/calculator/money-transfer/"} />
       </Helmet>
       
       <HreflangTags path="/calculator/money-transfer" />
@@ -295,7 +305,7 @@ const MoneyTransferCalculatorPage = () => {
                           <div>
                             <p className="text-sm text-gray-600">{t('money_transfer_received')}</p>
                             <p className="text-xl font-bold text-green-600">
-                              {toCurrency === 'KGS' ? '⊆' : ''}{result.received.toFixed(2)} {toCurrency}
+                              {formatReceived(result.received)} {toCurrency}
                             </p>
                           </div>
                         </div>
@@ -326,7 +336,7 @@ const MoneyTransferCalculatorPage = () => {
                   <p className="text-blue-800">
                     {t('money_transfer_best_service')}: <strong>{bestService.serviceName}</strong>
                     <br />
-                    {t('money_transfer_receive')}: <strong>{bestService.received.toFixed(2)} {toCurrency}</strong>
+                    {t('money_transfer_receive')}: <strong>{formatReceived(bestService.received)} {toCurrency}</strong>
                   </p>
                 </div>
               )}

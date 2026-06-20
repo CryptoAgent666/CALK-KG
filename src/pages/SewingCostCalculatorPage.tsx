@@ -42,7 +42,7 @@ const SewingCostCalculatorPage = () => {
 
   // Генерация схем для страницы калькулятора себестоимости
   const generateSchemas = () => {
-    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/sewing-cost" : "https://calk.kg/calculator/sewing-cost";
+    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/sewing-cost/" : "https://calk.kg/calculator/sewing-cost/";
     const homeUrl = language === 'ky' ? "https://calk.kg/ky" : "https://calk.kg";
 
     const calculatorSchema = generateCalculatorSchema({
@@ -216,22 +216,23 @@ const SewingCostCalculatorPage = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Schema.org микроразметка */}
       <Helmet>
-        <title>{t('sewing_calc_title')} - Calk.KG</title>
+        <title>{t('sewing_calc_title')} | Calk.KG</title>
         <meta name="description" content={t('sewing_calc_description')} />
         <meta name="keywords" content={t('sewing_keywords')} />
-        <meta property="og:title" content={`${t('sewing_calc_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('sewing_calc_title')} | Calk.KG`} />
         <meta property="og:description" content={t('sewing_calc_description')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/sewing-cost" : "https://calk.kg/calculator/sewing-cost"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/sewing-cost/" : "https://calk.kg/calculator/sewing-cost/"} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/sewing-cost.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('sewing_cost_calc_title')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('sewing_cost_calc_title')} | Calk.KG`} />
         <meta name="twitter:description" content={t('sewing_cost_calc_subtitle')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/sewing-cost.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/sewing-cost" : "https://calk.kg/calculator/sewing-cost"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/sewing-cost/" : "https://calk.kg/calculator/sewing-cost/"} />
       </Helmet>
       <HreflangTags path="/calculator/sewing-cost" />
       <FAQSchema translationPrefix="sewingcost" />

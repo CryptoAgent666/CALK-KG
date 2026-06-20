@@ -25,7 +25,7 @@ const TaxiTaxCalculatorPage = () => {
   const { language, t, getLocalizedPath } = useLanguage();
 
   const generateSchemas = () => {
-    const currentUrl = language === 'ky' ? 'https://calk.kg/ky/calculator/taxi-tax' : 'https://calk.kg/calculator/taxi-tax';
+    const currentUrl = language === 'ky' ? 'https://calk.kg/ky/calculator/taxi-tax/' : 'https://calk.kg/calculator/taxi-tax/';
     const homeUrl = language === 'ky' ? 'https://calk.kg/ky' : 'https://calk.kg';
 
     const calculatorSchema = generateCalculatorSchema({
@@ -49,7 +49,7 @@ const TaxiTaxCalculatorPage = () => {
   };
 
   React.useEffect(() => {
-    document.title = `${t('taxi_calc_title')} - Calk.KG`;
+    document.title = `${t('taxi_calc_title')} | Calk.KG`;
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', t('taxi_tax_calc_description'));
@@ -114,22 +114,23 @@ const TaxiTaxCalculatorPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Helmet>
-        <title>{t('taxi_calc_title')} - Calk.KG</title>
+        <title>{t('taxi_calc_title')} | Calk.KG</title>
         <meta name="description" content={t('taxi_calc_subtitle')} />
         <meta name="keywords" content={t('taxi_keywords')} />
-        <meta property="og:title" content={`${t('taxi_calc_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('taxi_calc_title')} | Calk.KG`} />
         <meta property="og:description" content={t('taxi_calc_subtitle')} />
-        <meta property="og:url" content={language === 'ky' ? 'https://calk.kg/ky/calculator/taxi-tax' : 'https://calk.kg/calculator/taxi-tax'} />
+        <meta property="og:url" content={language === 'ky' ? 'https://calk.kg/ky/calculator/taxi-tax/' : 'https://calk.kg/calculator/taxi-tax/'} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/taxi-tax.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? 'ky_KG' : 'ru_RU'} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('taxi_tax_calc_title')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('taxi_tax_calc_title')} | Calk.KG`} />
         <meta name="twitter:description" content={t('taxi_tax_calc_subtitle')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/taxi-tax.png" />
-        <link rel="canonical" href={language === 'ky' ? 'https://calk.kg/ky/calculator/taxi-tax' : 'https://calk.kg/calculator/taxi-tax'} />
+        <link rel="canonical" href={language === 'ky' ? 'https://calk.kg/ky/calculator/taxi-tax/' : 'https://calk.kg/calculator/taxi-tax/'} />
       </Helmet>
       <HreflangTags path="/calculator/taxi-tax" />
       <FAQSchema translationPrefix="taxitax" />

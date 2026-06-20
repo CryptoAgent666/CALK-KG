@@ -23,8 +23,8 @@ const HEATING_TARIFFS = {
   'bishkek': {
     nameKey: 'city_bishkek',
     heating: {
-      // Социальный тариф за 1 Гкал (до 80 м², с 01.06.2025 +25%)
-      tariff_per_gcal: 1950.00,
+      // Социальный тариф за 1 Гкал (до 80 м², с 01.03.2026)
+      tariff_per_gcal: 1560.00,
       // Норматив потребления тепла на 1 кв.м в месяц (Гкал)
       standard_gcal_per_m2: 0.036
     },
@@ -109,7 +109,7 @@ const HeatingCalculatorPage = () => {
 
   // Генерация схем для страницы калькулятора отопления
   const generateSchemas = () => {
-    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/heating" : "https://calk.kg/calculator/heating";
+    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/heating/" : "https://calk.kg/calculator/heating/";
     const homeUrl = language === 'ky' ? "https://calk.kg/ky" : "https://calk.kg";
     
     const calculatorSchema = generateCalculatorSchema({
@@ -203,7 +203,7 @@ const HeatingCalculatorPage = () => {
   }, [city, area, hotWaterMethod, hotWaterMeterConsumption, residentCount]);
 
   React.useEffect(() => {
-    document.title = t('heating_calc_title') + " - Calk.KG";
+    document.title = t('heating_calc_title') + " | Calk.KG";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', t('heating_calc_description'));
@@ -256,22 +256,23 @@ const HeatingCalculatorPage = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Schema.org микроразметка */}
       <Helmet>
-        <title>{t('heating_calc_title')} - Calk.KG</title>
+        <title>{t('heating_calc_title')} | Calk.KG</title>
         <meta name="description" content={t('heating_calc_subtitle')} />
         <meta name="keywords" content={t('heating_keywords')} />
-        <meta property="og:title" content={`${t('heating_calc_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('heating_calc_title')} | Calk.KG`} />
         <meta property="og:description" content={t('heating_calc_subtitle')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/heating" : "https://calk.kg/calculator/heating"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/heating/" : "https://calk.kg/calculator/heating/"} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/heating.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('heating_calc_title')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('heating_calc_title')} | Calk.KG`} />
         <meta name="twitter:description" content={t('heating_calc_subtitle')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/heating.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/heating" : "https://calk.kg/calculator/heating"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/heating/" : "https://calk.kg/calculator/heating/"} />
       </Helmet>
       <HreflangTags path="/calculator/heating" />
       <FAQSchema translationPrefix="heating" />

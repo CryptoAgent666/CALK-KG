@@ -118,12 +118,12 @@ const RentalCalculatorPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Helmet>
-        <title>{t('rent_calc_title')} - Calk.KG</title>
+        <title>{t('rent_calc_title')} | Calk.KG</title>
         <meta name="description" content={t('rent_calc_description')} />
-        <meta property="og:title" content={`${t('rent_calc_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('rent_calc_title')} | Calk.KG`} />
         <meta property="og:description" content={t('rent_calc_description')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/rental" : "https://calk.kg/calculator/rental"} />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/rental" : "https://calk.kg/calculator/rental"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/rental/" : "https://calk.kg/calculator/rental/"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/rental/" : "https://calk.kg/calculator/rental/"} />
       </Helmet>
       <HreflangTags path="/calculator/rental" />
       <FAQSchema translationPrefix="rent_calc" />

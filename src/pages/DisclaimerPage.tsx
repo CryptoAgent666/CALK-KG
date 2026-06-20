@@ -11,7 +11,7 @@ const DisclaimerPage = () => {
   const { t, language, getLocalizedPath } = useLanguage();
 
   React.useEffect(() => {
-    document.title = t('disclaimer_title') + " - Calk.KG";
+    document.title = t('disclaimer_title') + " | Calk.KG";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', t('disclaimer_description'));
@@ -19,7 +19,7 @@ const DisclaimerPage = () => {
   }, [t]);
 
   const generateSchemas = () => {
-    const currentUrl = language === 'ky' ? "https://calk.kg/ky/disclaimer" : "https://calk.kg/disclaimer";
+    const currentUrl = language === 'ky' ? "https://calk.kg/ky/disclaimer/" : "https://calk.kg/disclaimer/";
 
     const webPageSchema = generateWebPageSchema({
       url: currentUrl,
@@ -38,21 +38,22 @@ const DisclaimerPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Helmet>
-        <title>{t('disclaimer_title')} - Calk.KG</title>
+        <title>{t('disclaimer_title')} | Calk.KG</title>
         <meta name="description" content={t('disclaimer_description')} />
         <meta property="og:title" content={t('disclaimer_title')} />
         <meta property="og:description" content={t('disclaimer_description')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/disclaimer" : "https://calk.kg/disclaimer"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/disclaimer/" : "https://calk.kg/disclaimer/"} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/disclaimer.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('disclaimer_title')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('disclaimer_title')} | Calk.KG`} />
         <meta name="twitter:description" content={t('disclaimer_description')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/disclaimer.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/disclaimer" : "https://calk.kg/disclaimer"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/disclaimer/" : "https://calk.kg/disclaimer/"} />
       </Helmet>
       <HreflangTags path="/disclaimer" />
       {generateSchemas().map((schema, index) => (

@@ -79,10 +79,20 @@ const VisualBreadcrumbs = () => {
         </Link>
         {parts.map((part, index) => {
           const isLast = index === parts.length - 1;
+          // Middle "calculator" segment links back to home (where the calculator catalog lives).
+          // Last segment is current page — render as plain text.
+          const label = getSegmentLabel(part, language);
+          const linkTarget = part === 'calculator' ? getLocalizedPath('/') : null;
           return (
             <React.Fragment key={`${part}-${index}`}>
               <ChevronRight className="h-4 w-4 text-gray-400" />
-              {isLast ? <span className="font-medium text-gray-900">{getSegmentLabel(part, language)}</span> : <span>{getSegmentLabel(part, language)}</span>}
+              {isLast ? (
+                <span className="font-medium text-gray-900">{label}</span>
+              ) : linkTarget ? (
+                <Link to={linkTarget} className="hover:text-red-600">{label}</Link>
+              ) : (
+                <span>{label}</span>
+              )}
             </React.Fragment>
           );
         })}

@@ -7,6 +7,11 @@
   # Android App Links - redirect to PHP handler
   RewriteRule ^\.well-known/assetlinks\.json$ /assetlinks-handler.php [L]
 
+  # Apple App Site Association — must be served as application/json with no .json extension
+  # Required for Apple App Review (Guideline 4.1) to verify app-website ownership
+  RewriteCond %{REQUEST_URI} ^/\.well-known/apple-app-site-association$
+  RewriteRule .* - [E=AASA:1]
+
   # Backward compatibility for old OG image URLs (.png -> .svg)
   RewriteCond %{REQUEST_URI} ^/og-images/(.+)\.png$
   RewriteCond %{DOCUMENT_ROOT}/og-images/%1.svg -f
@@ -23,10 +28,31 @@
   RewriteCond %{REQUEST_FILENAME}.gz -f
   RewriteRule ^(.*)$ $1.gz [L]
   
+  # AASA file without extension must NOT be rewritten to index.html
+  RewriteCond %{REQUEST_URI} ^/\.well-known/apple-app-site-association$
+  RewriteRule .* - [L]
+
   # SPA fallback: if file/dir doesn't exist, serve index.html
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^(.*)$ /index.html [L]
+</IfModule>
+
+# AASA file: serve as application/json
+<IfModule mod_mime.c>
+  <Files "apple-app-site-association">
+    ForceType application/json
+  </Files>
+</IfModule>
+
+# Security headers (applied to all responses)
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://nbkr.kg https://pagead2.googlesyndication.com; frame-src https://googleads.g.doubleclick.net"
 </IfModule>
 
 # Correct content type for pre-compressed files

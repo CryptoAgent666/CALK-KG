@@ -10,7 +10,7 @@ export const RentalCalculatorArticle: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-      <CalculatorArticle lastUpdated="2026-03-23">
+      <CalculatorArticle lastUpdated="2026-03-23" slug="rental">
       {/* Цены на аренду по районам */}
       <ArticleSection title={t('rental_article_prices_title')}>
         <p>{t('rental_prices_intro')}</p>

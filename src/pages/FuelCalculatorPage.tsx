@@ -127,12 +127,12 @@ const FuelCalculatorPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Helmet>
-        <title>{t('fuel_calc_title')} - Calk.KG</title>
+        <title>{t('fuel_calc_title')} | Calk.KG</title>
         <meta name="description" content={t('fuel_calc_description')} />
-        <meta property="og:title" content={`${t('fuel_calc_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('fuel_calc_title')} | Calk.KG`} />
         <meta property="og:description" content={t('fuel_calc_description')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/fuel" : "https://calk.kg/calculator/fuel"} />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/fuel" : "https://calk.kg/calculator/fuel"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/fuel/" : "https://calk.kg/calculator/fuel/"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/fuel/" : "https://calk.kg/calculator/fuel/"} />
       </Helmet>
       <HreflangTags path="/calculator/fuel" />
       <FAQSchema translationPrefix="fuel" />

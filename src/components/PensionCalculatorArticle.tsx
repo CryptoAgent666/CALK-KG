@@ -5,7 +5,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 export const PensionCalculatorArticle: React.FC = () => {
   const { t } = useLanguage();
   return (
-  <CalculatorArticle lastUpdated="2026-03-23">
+  <CalculatorArticle lastUpdated="2026-03-23" slug="pension">
     <ArticleSection title={t('pension_article_what_title')}>
       <p className="text-gray-700 leading-relaxed mb-4">
         {t('pension_article_what_intro')}

@@ -39,7 +39,7 @@ const DepositCalculatorPage = () => {
   const { t, language, getLocalizedPath } = useLanguage();
 
   React.useEffect(() => {
-    document.title = t('deposit_calc_title') + " - Calk.KG";
+    document.title = t('deposit_calc_title') + " | Calk.KG";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', t('deposit_calc_description'));
@@ -48,7 +48,7 @@ const DepositCalculatorPage = () => {
 
   // Генерация схем для страницы депозитного калькулятора
   const generateSchemas = () => {
-    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/deposit" : "https://calk.kg/calculator/deposit";
+    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/deposit/" : "https://calk.kg/calculator/deposit/";
     const homeUrl = language === 'ky' ? "https://calk.kg/ky" : "https://calk.kg";
     
     const calculatorSchema = generateCalculatorSchema({
@@ -236,22 +236,23 @@ const DepositCalculatorPage = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Schema.org микроразметка */}
       <Helmet>
-        <title>{t('deposit_calc_title')} - Calk.KG</title>
+        <title>{t('deposit_calc_title')} | Calk.KG</title>
         <meta name="description" content={t('deposit_calc_description')} />
         <meta name="keywords" content={t('deposit_calc_keywords')} />
-        <meta property="og:title" content={`${t('deposit_calc_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('deposit_calc_title')} | Calk.KG`} />
         <meta property="og:description" content={t('deposit_calc_subtitle')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/deposit" : "https://calk.kg/calculator/deposit"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/deposit/" : "https://calk.kg/calculator/deposit/"} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/deposit.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('deposit_calc_title')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('deposit_calc_title')} | Calk.KG`} />
         <meta name="twitter:description" content={t('deposit_calc_subtitle')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/deposit.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/deposit" : "https://calk.kg/calculator/deposit"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/deposit/" : "https://calk.kg/calculator/deposit/"} />
       </Helmet>
       <HreflangTags path="/calculator/deposit" />
       <FAQSchema translationPrefix="deposit" />

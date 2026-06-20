@@ -85,21 +85,22 @@ const MobileTariffsCalculatorPage = () => {
   return (
     <>
       <Helmet>
-        <title>{t('mobile_tariffs_title')} - Calk.KG</title>
+        <title>{t('mobile_tariffs_title')} | Calk.KG</title>
         <meta name="description" content={t('mobile_tariffs_description')} />
-        <meta property="og:title" content={`${t('mobile_tariffs_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('mobile_tariffs_title')} | Calk.KG`} />
         <meta property="og:description" content={t('mobile_tariffs_description')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/mobile-tariffs" : "https://calk.kg/calculator/mobile-tariffs"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/mobile-tariffs/" : "https://calk.kg/calculator/mobile-tariffs/"} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/mobile-tariffs.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('mobile_tariffs_title')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('mobile_tariffs_title')} | Calk.KG`} />
         <meta name="twitter:description" content={t('mobile_tariffs_description')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/mobile-tariffs.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/mobile-tariffs" : "https://calk.kg/calculator/mobile-tariffs"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/mobile-tariffs/" : "https://calk.kg/calculator/mobile-tariffs/"} />
       </Helmet>
 
       <HreflangTags path="/calculator/mobile-tariffs" />
@@ -339,7 +340,7 @@ const MobileTariffsCalculatorPage = () => {
                           <div className="text-center p-3 bg-green-50 rounded-lg">
                             <p className="text-xs text-gray-600 mb-1">{t('mobile_tariffs_price')}</p>
                             <p className="text-2xl font-bold text-green-600">
-                              {tariff.calculatedCost.totalCost.toFixed(0)} ⊆
+                              {tariff.calculatedCost.totalCost.toFixed(0)} сом
                             </p>
                           </div>
                         </div>
@@ -352,13 +353,13 @@ const MobileTariffsCalculatorPage = () => {
                             </p>
                             <div className="text-xs text-yellow-700 space-y-1">
                               {tariff.calculatedCost.extraMinutesCost > 0 && (
-                                <p>• {t('mobile_tariffs_minutes')}: +{tariff.calculatedCost.extraMinutesCost.toFixed(0)} ⊆</p>
+                                <p>• {t('mobile_tariffs_minutes')}: +{tariff.calculatedCost.extraMinutesCost.toFixed(0)} сом</p>
                               )}
                               {tariff.calculatedCost.extraSMSCost > 0 && (
-                                <p>• {t('mobile_tariffs_sms')}: +{tariff.calculatedCost.extraSMSCost.toFixed(0)} ⊆</p>
+                                <p>• {t('mobile_tariffs_sms')}: +{tariff.calculatedCost.extraSMSCost.toFixed(0)} сом</p>
                               )}
                               {tariff.calculatedCost.extraGBCost > 0 && (
-                                <p>• {t('mobile_tariffs_internet')}: +{tariff.calculatedCost.extraGBCost.toFixed(0)} ⊆</p>
+                                <p>• {t('mobile_tariffs_internet')}: +{tariff.calculatedCost.extraGBCost.toFixed(0)} сом</p>
                               )}
                             </div>
                           </div>
@@ -389,7 +390,7 @@ const MobileTariffsCalculatorPage = () => {
                     💡 {t('mobile_tariffs_best_choice')}
                   </h3>
                   <p className="text-green-800">
-                    {t('mobile_tariffs_save_with')} <strong>{operatorInfo[bestTariff.operator].name} {language === 'ky' ? bestTariff.nameKy : bestTariff.name}</strong> — {t('mobile_tariffs_only')} <strong>{bestTariff.calculatedCost.totalCost.toFixed(0)} ⊆</strong> {t('mobile_tariffs_per_month')}
+                    {t('mobile_tariffs_save_with')} <strong>{operatorInfo[bestTariff.operator].name} {language === 'ky' ? bestTariff.nameKy : bestTariff.name}</strong> — {t('mobile_tariffs_only')} <strong>{bestTariff.calculatedCost.totalCost.toFixed(0)} сом</strong> {t('mobile_tariffs_per_month')}
                   </p>
                 </div>
               )}

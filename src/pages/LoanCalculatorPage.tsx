@@ -31,7 +31,7 @@ const LoanCalculatorPage = () => {
   const { t, language, getLocalizedPath} = useLanguage();
 
   React.useEffect(() => {
-    document.title = t('loan_calc_title') + " - Calk.KG";
+    document.title = t('loan_calc_title') + " | Calk.KG";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', t('loan_calc_description'));
@@ -106,7 +106,7 @@ const LoanCalculatorPage = () => {
 
   // Генерация схем для страницы кредитного калькулятора
   const generateSchemas = () => {
-    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/loan" : "https://calk.kg/calculator/loan";
+    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/loan/" : "https://calk.kg/calculator/loan/";
     const homeUrl = language === 'ky' ? "https://calk.kg/ky" : "https://calk.kg";
     
     const calculatorSchema = generateCalculatorSchema({
@@ -189,22 +189,23 @@ const LoanCalculatorPage = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Schema.org микроразметка */}
       <Helmet>
-        <title>{t('loan_calc_title')} - Calk.KG</title>
+        <title>{t('loan_calc_title')} | Calk.KG</title>
         <meta name="description" content={t('loan_calc_subtitle')} />
         <meta name="keywords" content={t('loan_calc_keywords')} />
-        <meta property="og:title" content={`${t('loan_calc_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('loan_calc_title')} | Calk.KG`} />
         <meta property="og:description" content={t('loan_calc_subtitle')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/loan" : "https://calk.kg/calculator/loan"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/loan/" : "https://calk.kg/calculator/loan/"} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/loan.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('loan_calc_title')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('loan_calc_title')} | Calk.KG`} />
         <meta name="twitter:description" content={t('loan_calc_subtitle')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/loan.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/loan" : "https://calk.kg/calculator/loan"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/loan/" : "https://calk.kg/calculator/loan/"} />
       </Helmet>
       <HreflangTags path="/calculator/loan" />
       <FAQSchema translationPrefix="loan" />

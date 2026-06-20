@@ -2,5 +2,8 @@
 # Ensure robots.txt and sitemap.xml are served as static files (not SPA fallback)
 /robots.txt  /robots.txt  200
 /sitemap.xml  /sitemap.xml  200
+/.well-known/apple-app-site-association  /.well-known/apple-app-site-association  200!  Content-Type=application/json
+/.well-known/assetlinks.json  /.well-known/assetlinks.json  200!  Content-Type=application/json
+/humans.txt  /humans.txt  200
 /og-images/*.png  /og-images/:splat.svg  301
 /*    /index.html   200

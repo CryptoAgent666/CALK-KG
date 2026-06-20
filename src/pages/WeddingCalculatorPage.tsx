@@ -55,7 +55,7 @@ const WeddingCalculatorPage = () => {
 
   // Генерация схем для страницы калькулятора тоя
   const generateSchemas = () => {
-    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/wedding" : "https://calk.kg/calculator/wedding";
+    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/wedding/" : "https://calk.kg/calculator/wedding/";
     const homeUrl = language === 'ky' ? "https://calk.kg/ky" : "https://calk.kg";
     
     const calculatorSchema = generateCalculatorSchema({
@@ -78,7 +78,7 @@ const WeddingCalculatorPage = () => {
     return [calculatorSchema, breadcrumbSchema];
   };
   React.useEffect(() => {
-    document.title = t('wedding_calc_title') + " - Calk.KG";
+    document.title = t('wedding_calc_title') + " | Calk.KG";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', t('wedding_calc_description'));
@@ -117,23 +117,28 @@ const WeddingCalculatorPage = () => {
     grandTotal: 0
   });
 
-  // Обновление переводов при смене языка
+  // Обновление переводов при смене языка (поиск по id, чтобы не зависеть от порядка)
   useEffect(() => {
+    const findById = <T extends { id: string; enabled: boolean; cost: number }>(
+      list: T[],
+      id: string
+    ) => list.find(item => item.id === id);
+
     setServices(prev => [
-      { id: 'tamada', name: t('wedding_service_tamada'), placeholder: t('wedding_service_tamada_placeholder'), enabled: prev[0]?.enabled || false, cost: prev[0]?.cost || 0 },
-      { id: 'music', name: t('wedding_service_music'), placeholder: t('wedding_service_music_placeholder'), enabled: prev[1]?.enabled || false, cost: prev[1]?.cost || 0 },
-      { id: 'photo', name: t('wedding_service_photo'), placeholder: t('wedding_service_photo_placeholder'), enabled: prev[2]?.enabled || false, cost: prev[2]?.cost || 0 },
-      { id: 'video', name: t('wedding_service_video'), placeholder: t('wedding_service_video_placeholder'), enabled: prev[3]?.enabled || false, cost: prev[3]?.cost || 0 },
-      { id: 'show', name: t('wedding_service_show'), placeholder: t('wedding_service_show_placeholder'), enabled: prev[4]?.enabled || false, cost: prev[4]?.cost || 0 }
+      { id: 'tamada', name: t('wedding_service_tamada'), placeholder: t('wedding_service_tamada_placeholder'), enabled: findById(prev, 'tamada')?.enabled || false, cost: findById(prev, 'tamada')?.cost || 0 },
+      { id: 'music', name: t('wedding_service_music'), placeholder: t('wedding_service_music_placeholder'), enabled: findById(prev, 'music')?.enabled || false, cost: findById(prev, 'music')?.cost || 0 },
+      { id: 'photo', name: t('wedding_service_photo'), placeholder: t('wedding_service_photo_placeholder'), enabled: findById(prev, 'photo')?.enabled || false, cost: findById(prev, 'photo')?.cost || 0 },
+      { id: 'video', name: t('wedding_service_video'), placeholder: t('wedding_service_video_placeholder'), enabled: findById(prev, 'video')?.enabled || false, cost: findById(prev, 'video')?.cost || 0 },
+      { id: 'show', name: t('wedding_service_show'), placeholder: t('wedding_service_show_placeholder'), enabled: findById(prev, 'show')?.enabled || false, cost: findById(prev, 'show')?.cost || 0 }
     ]);
 
     setOtherExpenses(prev => [
-      { id: 'meat', name: t('wedding_expense_meat'), placeholder: t('wedding_expense_meat_placeholder'), enabled: prev[0]?.enabled || false, cost: prev[0]?.cost || 0 },
-      { id: 'drinks', name: t('wedding_expense_drinks'), placeholder: t('wedding_expense_drinks_placeholder'), enabled: prev[1]?.enabled || false, cost: prev[1]?.cost || 0 },
-      { id: 'fruits', name: t('wedding_expense_fruits'), placeholder: t('wedding_expense_fruits_placeholder'), enabled: prev[2]?.enabled || false, cost: prev[2]?.cost || 0 },
-      { id: 'decor', name: t('wedding_expense_decor'), placeholder: t('wedding_expense_decor_placeholder'), enabled: prev[3]?.enabled || false, cost: prev[3]?.cost || 0 },
-      { id: 'cake', name: t('wedding_expense_cake'), placeholder: t('wedding_expense_cake_placeholder'), enabled: prev[4]?.enabled || false, cost: prev[4]?.cost || 0 },
-      { id: 'invitations', name: t('wedding_expense_invitations'), placeholder: t('wedding_expense_invitations_placeholder'), enabled: prev[5]?.enabled || false, cost: prev[5]?.cost || 0 }
+      { id: 'meat', name: t('wedding_expense_meat'), placeholder: t('wedding_expense_meat_placeholder'), enabled: findById(prev, 'meat')?.enabled || false, cost: findById(prev, 'meat')?.cost || 0 },
+      { id: 'drinks', name: t('wedding_expense_drinks'), placeholder: t('wedding_expense_drinks_placeholder'), enabled: findById(prev, 'drinks')?.enabled || false, cost: findById(prev, 'drinks')?.cost || 0 },
+      { id: 'fruits', name: t('wedding_expense_fruits'), placeholder: t('wedding_expense_fruits_placeholder'), enabled: findById(prev, 'fruits')?.enabled || false, cost: findById(prev, 'fruits')?.cost || 0 },
+      { id: 'decor', name: t('wedding_expense_decor'), placeholder: t('wedding_expense_decor_placeholder'), enabled: findById(prev, 'decor')?.enabled || false, cost: findById(prev, 'decor')?.cost || 0 },
+      { id: 'cake', name: t('wedding_expense_cake'), placeholder: t('wedding_expense_cake_placeholder'), enabled: findById(prev, 'cake')?.enabled || false, cost: findById(prev, 'cake')?.cost || 0 },
+      { id: 'invitations', name: t('wedding_expense_invitations'), placeholder: t('wedding_expense_invitations_placeholder'), enabled: findById(prev, 'invitations')?.enabled || false, cost: findById(prev, 'invitations')?.cost || 0 }
     ]);
   }, [language]);
 
@@ -238,22 +243,23 @@ const WeddingCalculatorPage = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Schema.org микроразметка */}
       <Helmet>
-        <title>{t('wedding_calc_title')} - Calk.KG</title>
+        <title>{t('wedding_calc_title')} | Calk.KG</title>
         <meta name="description" content={t('wedding_calc_subtitle')} />
         <meta name="keywords" content={t('wedding_keywords')} />
-        <meta property="og:title" content={`${t('wedding_calc_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('wedding_calc_title')} | Calk.KG`} />
         <meta property="og:description" content={t('wedding_calc_subtitle')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/wedding" : "https://calk.kg/calculator/wedding"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/wedding/" : "https://calk.kg/calculator/wedding/"} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/wedding.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('wedding_calc_title')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('wedding_calc_title')} | Calk.KG`} />
         <meta name="twitter:description" content={t('wedding_calc_subtitle')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/wedding.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/wedding" : "https://calk.kg/calculator/wedding"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/wedding/" : "https://calk.kg/calculator/wedding/"} />
       </Helmet>
       <HreflangTags path="/calculator/wedding" />
       <FAQSchema translationPrefix="wedding" />
@@ -528,7 +534,7 @@ const WeddingCalculatorPage = () => {
                   {formatCurrency(results.grandTotal)} {t('som')}
                 </p>
                 <p className="text-pink-100 text-xl">
-                  {currentRegionData.name} • {guestCount || 0} гостей
+                  {t(currentRegionData.nameKey)} • {guestCount || 0} {t('wedding_guests_plural')}
                 </p>
               </div>
 
@@ -782,7 +788,7 @@ const WeddingCalculatorPage = () => {
                   {/* Текущий выбор */}
                   <tr className="bg-green-50">
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      {currentRegionData.name} <span className="text-xs text-gray-500">({t('wedding_your_choice')})</span>
+                      {t(currentRegionData.nameKey)} <span className="text-xs text-gray-500">({t('wedding_your_choice')})</span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
                       {formatCurrency(currentRegionData.price)} {t('text_som')}

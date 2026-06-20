@@ -15,10 +15,10 @@ import {
 import { formatCurrentMonth } from '../utils/dateFormatter';
 import { GasCalculatorArticle } from '../components/GasCalculatorArticle';
 
-// Актуальные тарифы на природный газ в Кыргызстане (март 2026)
+// Актуальные тарифы на природный газ в Кыргызстане (май 2026)
 // Источник: ОсОО «Газпром Кыргызстан», Департамент по регулированию ТЭК при МЭ КР
 // Тарифы пересчитываются ежемесячно в зависимости от курса доллара
-// Последнее обновление: март 2026
+// Последнее обновление: май 2026 (стабильные с марта 2026)
 const TARIFF_CONFIG = {
   'residential': {
     nameKey: 'tariff_population',
@@ -32,7 +32,7 @@ const TARIFF_CONFIG = {
   },
   'commercial': {
     nameKey: 'tariff_commercial',
-    rate: 28.00,
+    rate: 24.2504,
     descriptionKey: 'gas_desc_commercial'
   },
   'industrial': {
@@ -54,7 +54,7 @@ const GasCalculatorPage = () => {
   const { t, language, getLocalizedPath} = useLanguage();
 
   React.useEffect(() => {
-    document.title = t('gas_calc_title') + " - Calk.KG";
+    document.title = t('gas_calc_title') + " | Calk.KG";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', t('gas_calc_description'));
@@ -95,7 +95,7 @@ const GasCalculatorPage = () => {
   }, [consumption, category]);
 
   const generateSchemas = () => {
-    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/gas" : "https://calk.kg/calculator/gas";
+    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/gas/" : "https://calk.kg/calculator/gas/";
     const homeUrl = language === 'ky' ? "https://calk.kg/ky" : "https://calk.kg";
 
     const calculatorSchema = generateCalculatorSchema({
@@ -160,22 +160,23 @@ const GasCalculatorPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Helmet>
-        <title>{t('gas_calc_title')} - Calk.KG</title>
+        <title>{t('gas_calc_title')} | Calk.KG</title>
         <meta name="description" content={t('gas_calc_subtitle')} />
         <meta name="keywords" content={t('gas_calc_keywords')} />
-        <meta property="og:title" content={`${t('gas_calc_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('gas_calc_title')} | Calk.KG`} />
         <meta property="og:description" content={t('gas_calc_subtitle')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/gas" : "https://calk.kg/calculator/gas"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/gas/" : "https://calk.kg/calculator/gas/"} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/gas.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('gas_calc_title')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('gas_calc_title')} | Calk.KG`} />
         <meta name="twitter:description" content={t('gas_calc_subtitle')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/gas.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/gas" : "https://calk.kg/calculator/gas"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/gas/" : "https://calk.kg/calculator/gas/"} />
       </Helmet>
       <HreflangTags path="/calculator/gas" />
       <FAQSchema translationPrefix="gas" />

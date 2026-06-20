@@ -6,7 +6,7 @@ export const ConstructionCalculatorArticle: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-      <CalculatorArticle lastUpdated="2026-03-23">
+      <CalculatorArticle lastUpdated="2026-03-23" slug="construction">
       <ArticleSection title={t('construction_article_prices_title')}>
         <p>{t('construction_prices_intro')}</p>
         <div className="grid md:grid-cols-2 gap-3 mt-4 text-sm">

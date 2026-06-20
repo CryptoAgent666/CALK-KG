@@ -10,7 +10,7 @@ export const MortgageCalculatorArticle: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-      <CalculatorArticle lastUpdated="2026-03-23">
+      <CalculatorArticle lastUpdated="2026-03-23" slug="mortgage">
       {/* Условия ипотеки в КР */}
       <ArticleSection title={t('mortgage_article_conditions_title')}>
         <p>{t('mortgage_article_conditions_intro')}</p>

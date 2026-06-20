@@ -112,7 +112,7 @@ const AutoLoanCalculatorPage = () => {
 
   // Генерация схем для страницы автокредитного калькулятора
   const generateSchemas = () => {
-    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/auto-loan" : "https://calk.kg/calculator/auto-loan";
+    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/auto-loan/" : "https://calk.kg/calculator/auto-loan/";
     const homeUrl = language === 'ky' ? "https://calk.kg/ky" : "https://calk.kg";
 
     const calculatorSchema = generateCalculatorSchema({
@@ -226,22 +226,23 @@ const AutoLoanCalculatorPage = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Schema.org микроразметка */}
       <Helmet>
-        <title>{t('auto_loan_calc_title')} - Calk.KG</title>
+        <title>{t('auto_loan_calc_title')} | Calk.KG</title>
         <meta name="description" content={t('auto_loan_calc_description')} />
         <meta name="keywords" content={t('auto_loan_calc_keywords')} />
-        <meta property="og:title" content={`${t('auto_loan_calc_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('auto_loan_calc_title')} | Calk.KG`} />
         <meta property="og:description" content={t('auto_loan_calc_subtitle')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/auto-loan" : "https://calk.kg/calculator/auto-loan"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/auto-loan/" : "https://calk.kg/calculator/auto-loan/"} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/auto-loan.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('auto_loan_calc_title')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('auto_loan_calc_title')} | Calk.KG`} />
         <meta name="twitter:description" content={t('auto_loan_calc_subtitle')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/auto-loan.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/auto-loan" : "https://calk.kg/calculator/auto-loan"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/auto-loan/" : "https://calk.kg/calculator/auto-loan/"} />
       </Helmet>
       <HreflangTags path="/calculator/auto-loan" />
       <FAQSchema translationPrefix="auto_loan" />
@@ -1022,11 +1023,11 @@ const AutoLoanCalculatorPage = () => {
           }
         }
       `}</style>
+
+      {/* Информационная статья под калькулятором */}
+      <AutoLoanCalculatorArticle />
     </div>
   );
 };
 
-
-      {/* Информационная статья под калькулятором */}
-      <AutoLoanCalculatorArticle />
 export default AutoLoanCalculatorPage;

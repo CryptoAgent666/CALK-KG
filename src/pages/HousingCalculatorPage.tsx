@@ -131,7 +131,7 @@ const HousingCalculatorPage = () => {
 
   // Генерация схем для страницы калькулятора жилья
   const generateSchemas = () => {
-    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/housing" : "https://calk.kg/calculator/housing";
+    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/housing/" : "https://calk.kg/calculator/housing/";
     const homeUrl = language === 'ky' ? "https://calk.kg/ky" : "https://calk.kg";
     
     const calculatorSchema = generateCalculatorSchema({
@@ -154,7 +154,7 @@ const HousingCalculatorPage = () => {
     return [calculatorSchema, breadcrumbSchema];
   };
   React.useEffect(() => {
-    document.title = t('housing_calc_title') + " - Calk.KG";
+    document.title = t('housing_calc_title') + " | Calk.KG";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', t('housing_calc_description'));
@@ -273,22 +273,23 @@ const HousingCalculatorPage = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Schema.org микроразметка */}
       <Helmet>
-        <title>{t('housing_calc_title')} - Calk.KG</title>
+        <title>{t('housing_calc_title')} | Calk.KG</title>
         <meta name="description" content={t('housing_calc_subtitle')} />
         <meta name="keywords" content={t('housing_keywords')} />
-        <meta property="og:title" content={`${t('housing_calc_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('housing_calc_title')} | Calk.KG`} />
         <meta property="og:description" content={t('housing_calc_subtitle')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/housing" : "https://calk.kg/calculator/housing"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/housing/" : "https://calk.kg/calculator/housing/"} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/housing.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('housing_calc_title')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('housing_calc_title')} | Calk.KG`} />
         <meta name="twitter:description" content={t('housing_calc_subtitle')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/housing.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/housing" : "https://calk.kg/calculator/housing"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/housing/" : "https://calk.kg/calculator/housing/"} />
       </Helmet>
       <HreflangTags path="/calculator/housing" />
       <FAQSchema translationPrefix="housing" />

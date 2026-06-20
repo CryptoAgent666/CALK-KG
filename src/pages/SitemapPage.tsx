@@ -11,6 +11,10 @@ import { categories } from '../data/categories';
 
 const SitemapPage = () => {
   const { language, t } = useLanguage();
+  // Prefix internal sitemap links with /ky when the page is rendered in Kyrgyz
+  // so the user stays in their chosen locale instead of being bounced to RU.
+  const localePrefix = language === 'ky' ? '/ky' : '';
+  const ky = (path: string) => `${localePrefix}${path}`;
 
   React.useEffect(() => {
     document.title = t('sitemap_page_title');
@@ -22,7 +26,7 @@ const SitemapPage = () => {
 
   // Генерация схем для карты сайта
   const generateSchemas = () => {
-    const currentUrl = "https://calk.kg/sitemap";
+    const currentUrl = "https://calk.kg/sitemap/";
     
     const webPageSchema = generateWebPageSchema({
       url: currentUrl,
@@ -64,17 +68,18 @@ const SitemapPage = () => {
         <meta name="keywords" content={t('sitemap_keywords')} />
         <meta property="og:title" content={t('sitemap_title')} />
         <meta property="og:description" content={t('sitemap_description')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/sitemap" : "https://calk.kg/sitemap"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/sitemap/" : "https://calk.kg/sitemap/"} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/sitemap.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('sitemap_title')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('sitemap_title')} | Calk.KG`} />
         <meta name="twitter:description" content={t('sitemap_description')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/sitemap.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/sitemap" : "https://calk.kg/sitemap"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/sitemap/" : "https://calk.kg/sitemap/"} />
       </Helmet>
       <HreflangTags path="/sitemap" />
       {generateSchemas().map((schema, index) => (
@@ -103,8 +108,8 @@ const SitemapPage = () => {
         <div className="bg-white rounded-xl shadow-sm p-8 mb-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('sitemap_main_pages')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Link 
-              to="/" 
+            <Link
+              to={ky('/')}
               className="flex items-center space-x-3 p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-blue-200 group"
             >
               <div className="bg-red-50 p-2 rounded-lg group-hover:bg-red-100 transition-colors">
@@ -115,9 +120,9 @@ const SitemapPage = () => {
                 <div className="text-sm text-gray-500">{t('sitemap_home_desc')}</div>
               </div>
             </Link>
-            
-            <Link 
-              to="/about" 
+
+            <Link
+              to={ky('/about')}
               className="flex items-center space-x-3 p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-blue-200 group"
             >
               <div className="bg-blue-50 p-2 rounded-lg group-hover:bg-blue-100 transition-colors">
@@ -129,8 +134,8 @@ const SitemapPage = () => {
               </div>
             </Link>
 
-            <Link 
-              to="/privacy-policy" 
+            <Link
+              to={ky('/privacy-policy')}
               className="flex items-center space-x-3 p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-blue-200 group"
             >
               <div className="bg-gray-50 p-2 rounded-lg group-hover:bg-gray-100 transition-colors">
@@ -142,8 +147,8 @@ const SitemapPage = () => {
               </div>
             </Link>
 
-            <Link 
-              to="/terms-of-service" 
+            <Link
+              to={ky('/terms-of-service')}
               className="flex items-center space-x-3 p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-blue-200 group"
             >
               <div className="bg-gray-50 p-2 rounded-lg group-hover:bg-gray-100 transition-colors">
@@ -178,7 +183,10 @@ const SitemapPage = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {data.calculators.map((calculator: any) => {
                   const IconComponent = calculator.icon;
-                  const calculatorUrl = `/calculator/${calculator.id.replace('-calculator', '')}`;
+                  const slug = calculator.id.replace('-calculator', '');
+                  // On the KY sitemap, point at the KY versions of each calculator
+                  // so users don't get bounced to the RU article via /calculator/...
+                  const calculatorUrl = ky(`/calculator/${slug}`);
                   
                   return (
                     <Link 
@@ -210,8 +218,8 @@ const SitemapPage = () => {
 
         {/* Back to Home */}
         <div className="mt-12 text-center">
-          <Link 
-            to="/"
+          <Link
+            to={ky('/')}
             className="inline-flex items-center space-x-2 bg-red-600 text-white px-8 py-4 rounded-lg hover:bg-red-700 transition-colors font-medium"
           >
             <Home className="h-5 w-5" />

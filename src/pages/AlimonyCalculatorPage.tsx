@@ -53,7 +53,7 @@ const AlimonyCalculatorPage = () => {
   const { language, t, getLocalizedPath } = useLanguage();
 
   React.useEffect(() => {
-    document.title = t('alimony_calc_title') + " - Calk.KG";
+    document.title = t('alimony_calc_title') + " | Calk.KG";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', t('alimony_calc_description'));
@@ -62,7 +62,7 @@ const AlimonyCalculatorPage = () => {
 
   // Генерация схем для страницы калькулятора алиментов
   const generateSchemas = () => {
-    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/alimony" : "https://calk.kg/calculator/alimony";
+    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/alimony/" : "https://calk.kg/calculator/alimony/";
     const homeUrl = language === 'ky' ? "https://calk.kg/ky" : "https://calk.kg";
     
     const calculatorSchema = generateCalculatorSchema({
@@ -211,22 +211,23 @@ const AlimonyCalculatorPage = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Schema.org микроразметка */}
       <Helmet>
-        <title>{t('alimony_calc_title')} - Calk.KG</title>
+        <title>{t('alimony_calc_title')} | Calk.KG</title>
         <meta name="description" content={t('alimony_calc_subtitle')} />
         <meta name="keywords" content={t('alimony_keywords')} />
-        <meta property="og:title" content={`${t('alimony_calc_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('alimony_calc_title')} | Calk.KG`} />
         <meta property="og:description" content={t('alimony_calc_subtitle')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/alimony" : "https://calk.kg/calculator/alimony"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/alimony/" : "https://calk.kg/calculator/alimony/"} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/alimony.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('alimony_calc_title')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('alimony_calc_title')} | Calk.KG`} />
         <meta name="twitter:description" content={t('alimony_calc_subtitle')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/alimony.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/alimony" : "https://calk.kg/calculator/alimony"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/alimony/" : "https://calk.kg/calculator/alimony/"} />
       </Helmet>
       <HreflangTags path="/calculator/alimony" />
       <FAQSchema translationPrefix="alimony" />
@@ -818,7 +819,7 @@ ${t('calculated_on_site')} Calk.KG`}
 
           {/* Regional Salary Data Reference */}
           <div className="bg-white rounded-xl shadow-sm p-8 print:break-inside-avoid">
-            <h3 className="font-medium text-gray-900 mb-6">{t('alimony_regional_salary_reference')} ({currentMonth.split(' ')[1]} г.)</h3>
+            <h3 className="font-medium text-gray-900 mb-6">{t('alimony_regional_salary_reference')} ({currentMonth.split(' ')[1]}{language === 'ky' ? '-жыл' : ' г.'})</h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {Object.entries(REGIONAL_AVERAGE_SALARY)

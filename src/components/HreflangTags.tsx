@@ -1,23 +1,17 @@
-import { Helmet } from 'react-helmet-async';
+// Hreflang link tags are emitted by the SSG (see scripts/generate-static-html.js,
+// which strips template hreflangs and inserts per-page <link rel="alternate" ...>
+// for ru / ky / x-default before serving HTML).
+//
+// This component used to ALSO add the same three links via React Helmet, which
+// caused them to appear twice in <head> after hydration (each hreflang shown 2x).
+// Search engines treat duplicate hreflang signals as an authority conflict, so
+// the component is now a no-op. Call sites can remain unchanged.
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface HreflangTagsProps {
   path: string;
 }
 
-const BASE_URL = 'https://calk.kg';
-
-const HreflangTags = ({ path }: HreflangTagsProps) => {
-  const cleanPath = path.startsWith('/') ? path : `/${path}`;
-  const ruUrl = cleanPath === '/' ? BASE_URL : `${BASE_URL}${cleanPath}`;
-  const kyUrl = cleanPath === '/' ? `${BASE_URL}/ky` : `${BASE_URL}/ky${cleanPath}`;
-
-  return (
-    <Helmet>
-      <link rel="alternate" hreflang="ru" href={ruUrl} />
-      <link rel="alternate" hreflang="ky" href={kyUrl} />
-      <link rel="alternate" hreflang="x-default" href={ruUrl} />
-    </Helmet>
-  );
-};
+const HreflangTags = (_props: HreflangTagsProps) => null;
 
 export default HreflangTags;

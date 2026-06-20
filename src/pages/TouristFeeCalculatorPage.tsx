@@ -74,7 +74,7 @@ const TouristFeeCalculatorPage = () => {
 
   // Генерация схем для страницы калькулятора турсбора
   const generateSchemas = () => {
-    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/tourist-fee" : "https://calk.kg/calculator/tourist-fee";
+    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/tourist-fee/" : "https://calk.kg/calculator/tourist-fee/";
     const homeUrl = language === 'ky' ? "https://calk.kg/ky" : "https://calk.kg";
     
     const calculatorSchema = generateCalculatorSchema({
@@ -97,7 +97,7 @@ const TouristFeeCalculatorPage = () => {
     return [calculatorSchema, breadcrumbSchema];
   };
   React.useEffect(() => {
-    document.title = t('tourist_fee_calc_title') + " - Calk.KG";
+    document.title = t('tourist_fee_calc_title') + " | Calk.KG";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', t('tourist_fee_calc_description'));
@@ -138,7 +138,7 @@ const TouristFeeCalculatorPage = () => {
     const totalFee = tourists * days * cityData.rate;
 
     return {
-      city: cityData.name,
+      city: t(cityData.nameKey),
       touristCount: tourists,
       daysCount: days,
       dailyRate: cityData.rate,
@@ -190,22 +190,23 @@ const TouristFeeCalculatorPage = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Schema.org микроразметка */}
       <Helmet>
-        <title>{t('tourist_fee_calc_title')} - Calk.KG</title>
+        <title>{t('tourist_fee_calc_title')} | Calk.KG</title>
         <meta name="description" content={t('tourist_fee_calc_description')} />
         <meta name="keywords" content={t('tourist_keywords')} />
-        <meta property="og:title" content={`${t('tourist_fee_calc_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('tourist_fee_calc_title')} | Calk.KG`} />
         <meta property="og:description" content={t('tourist_fee_calc_subtitle')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/tourist-fee" : "https://calk.kg/calculator/tourist-fee"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/tourist-fee/" : "https://calk.kg/calculator/tourist-fee/"} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/tourist-fee.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('tourist_fee_calc_title')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('tourist_fee_calc_title')} | Calk.KG`} />
         <meta name="twitter:description" content={t('tourist_fee_calc_subtitle')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/tourist-fee.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/tourist-fee" : "https://calk.kg/calculator/tourist-fee"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/tourist-fee/" : "https://calk.kg/calculator/tourist-fee/"} />
       </Helmet>
       <HreflangTags path="/calculator/tourist-fee" />
       <FAQSchema translationPrefix="touristfee" />
@@ -389,11 +390,11 @@ const TouristFeeCalculatorPage = () => {
               <div className="flex items-start space-x-3">
                 <Info className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
                 <div className="text-sm text-green-800">
-                  <p className="font-semibold mb-2">{t('tourist_fee_rate_in')} {currentCityData.name}:</p>
+                  <p className="font-semibold mb-2">{t('tourist_fee_rate_in')} {t(currentCityData.nameKey)}:</p>
                   <p className="text-2xl font-bold text-green-700 mb-2">
                     {formatCurrency(currentCityData.rate)} {t('som_per_person_day')}
                   </p>
-                  <p>{currentCityData.description}</p>
+                  <p>{t(currentCityData.descriptionKey)}</p>
                 </div>
               </div>
             </div>
@@ -559,7 +560,7 @@ const TouristFeeCalculatorPage = () => {
                   {/* Current Selection */}
                   <tr className="bg-green-50">
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      {currentCityData.name} <span className="text-xs text-gray-500">{t('your_choice')}</span>
+                      {t(currentCityData.nameKey)} <span className="text-xs text-gray-500">{t('your_choice')}</span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
                       {formatCurrency(currentCityData.rate)} {t('text_som')}
@@ -581,7 +582,7 @@ const TouristFeeCalculatorPage = () => {
                       return (
                         <tr key={cityKey} className={isCheaper ? 'bg-blue-50' : isMoreExpensive ? 'bg-red-50' : ''}>
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {cityData.name}
+                            {t(cityData.nameKey)}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                             {formatCurrency(cityData.rate)} {t('text_som')}
@@ -719,7 +720,7 @@ const TouristFeeCalculatorPage = () => {
                 >
                   <div className="text-center">
                     <div className="font-semibold text-gray-900 mb-2">
-                      {cityData.name}
+                      {t(cityData.nameKey)}
                     </div>
                     <div className="text-2xl font-bold text-green-600 mb-2">
                       {formatCurrency(cityData.rate)} {t('text_som')}
@@ -728,7 +729,7 @@ const TouristFeeCalculatorPage = () => {
                       {t('per_person_per_day')}
                     </div>
                     <p className="text-xs text-gray-600 leading-relaxed">
-                      {cityData.description}
+                      {t(cityData.descriptionKey)}
                     </p>
                     {results.hasData && (
                       <div className="mt-3 pt-3 border-t border-gray-200">

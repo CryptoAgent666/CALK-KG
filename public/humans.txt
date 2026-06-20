@@ -1,0 +1,20 @@
+/* TEAM */
+
+Owner & Developer: Konstantin Iakovlev
+Site: https://calk.kg
+Contact: info@calk.kg
+Apple Developer Team ID: SRKYS78RMQ
+Android Developer: kg.calk.app
+iOS App Bundle ID: kg.calk.ios
+
+/* SITE */
+
+Standards: HTML5, CSS3, JSON-LD
+Components: React, TypeScript, Vite
+Language: Russian / Kyrgyz
+Country: Kyrgyzstan
+Launched: 2024
+
+/* THANKS */
+
+Thanks to the people of Kyrgyzstan for using these calculators every day.

@@ -125,15 +125,15 @@ const CropYieldCalculatorPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Helmet>
-        <title>{t('crop_calc_title')} - Calk.KG</title>
+        <title>{t('crop_calc_title')} | Calk.KG</title>
         <meta name="description" content={t('crop_calc_description')} />
         <meta name="keywords" content={t('crop_keywords')} />
-        <meta property="og:title" content={`${t('crop_calc_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('crop_calc_title')} | Calk.KG`} />
         <meta property="og:description" content={t('crop_calc_description')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/crop-yield" : "https://calk.kg/calculator/crop-yield"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/crop-yield/" : "https://calk.kg/calculator/crop-yield/"} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/crop-yield.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/crop-yield" : "https://calk.kg/calculator/crop-yield"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/crop-yield/" : "https://calk.kg/calculator/crop-yield/"} />
       </Helmet>
       <HreflangTags path="/calculator/crop-yield" />
       <FAQSchema translationPrefix="crop_calc" />

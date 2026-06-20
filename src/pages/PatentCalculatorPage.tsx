@@ -18,9 +18,9 @@ import { formatCurrentMonth } from '../utils/dateFormatter';
 // ============================================================================
 // КОНФИГУРАЦИЯ ТАРИФОВ НА ПАТЕНТЫ ДЛЯ ИП В КЫРГЫЗСТАНЕ
 // ============================================================================
-// АКТУАЛЬНО НА: Январь 2026
+// АКТУАЛЬНО НА: Май 2026 (тарифы 2026 года, без изменений с января)
 // ИСТОЧНИК: Налоговая служба КР (salyk.kg), Постановления местных кенешей
-// ПОСЛЕДНЕЕ ОБНОВЛЕНИЕ: 17.01.2026
+// ПОСЛЕДНЕЕ ОБНОВЛЕНИЕ: 03.05.2026 (проверка актуальности)
 // 
 // ⚠️ ВНИМАНИЕ: Ставки патента устанавливаются местными кенешами и могут 
 // отличаться от указанных. Перед оплатой обязательно уточните актуальные 
@@ -249,7 +249,7 @@ const PatentCalculatorPage = () => {
   const { language, t, getLocalizedPath} = useLanguage();
 
   React.useEffect(() => {
-    document.title = t('patent_calc_title') + " - Calk.KG";
+    document.title = t('patent_calc_title') + " | Calk.KG";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', t('patent_calc_description'));
@@ -258,7 +258,7 @@ const PatentCalculatorPage = () => {
 
   // Генерация схем для страницы калькулятора патентов
   const generateSchemas = () => {
-    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/patent" : "https://calk.kg/calculator/patent";
+    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/patent/" : "https://calk.kg/calculator/patent/";
     const homeUrl = language === 'ky' ? "https://calk.kg/ky" : "https://calk.kg";
     
     const calculatorSchema = generateCalculatorSchema({
@@ -483,22 +483,23 @@ const PatentCalculatorPage = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Schema.org микроразметка */}
       <Helmet>
-        <title>{t('patent_calc_title')} - Calk.KG</title>
+        <title>{t('patent_calc_title')} | Calk.KG</title>
         <meta name="description" content={t('patent_calc_subtitle')} />
         <meta name="keywords" content={t('patent_keywords')} />
-        <meta property="og:title" content={`${t('patent_calc_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('patent_calc_title')} | Calk.KG`} />
         <meta property="og:description" content={t('patent_calc_subtitle')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/patent" : "https://calk.kg/calculator/patent"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/patent/" : "https://calk.kg/calculator/patent/"} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/patent.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('patent_calc_title')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('patent_calc_title')} | Calk.KG`} />
         <meta name="twitter:description" content={t('patent_calc_subtitle')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/patent.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/patent" : "https://calk.kg/calculator/patent"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/patent/" : "https://calk.kg/calculator/patent/"} />
       </Helmet>
       <HreflangTags path="/calculator/patent" />
       <FAQSchema translationPrefix="patent" />

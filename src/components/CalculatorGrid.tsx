@@ -1,5 +1,4 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import CalculatorCard from './CalculatorCard';
 import CategoryFilter from './CategoryFilter';
@@ -51,14 +50,6 @@ const calculatorRoutes: Record<string, string> = {
 
 const CalculatorGrid = ({ calculators, selectedCategory, setSelectedCategory }: CalculatorGridProps) => {
   const { t, getLocalizedPath } = useLanguage();
-  const navigate = useNavigate();
-
-  const handleCalculatorClick = (calculatorId: string) => {
-    const route = calculatorRoutes[calculatorId];
-    if (route) {
-      navigate(getLocalizedPath(route));
-    }
-  };
 
   return (
     <>
@@ -78,13 +69,17 @@ const CalculatorGrid = ({ calculators, selectedCategory, setSelectedCategory }: 
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {calculators.map((calculator) => (
-          <CalculatorCard
-            key={calculator.id}
-            calculator={calculator}
-            onClick={() => handleCalculatorClick(calculator.id)}
-          />
-        ))}
+        {calculators.map((calculator) => {
+          const route = calculatorRoutes[calculator.id];
+          const href = route ? getLocalizedPath(route) : undefined;
+          return (
+            <CalculatorCard
+              key={calculator.id}
+              calculator={calculator}
+              href={href}
+            />
+          );
+        })}
       </div>
 
       {calculators.length === 0 && (

@@ -16,7 +16,7 @@ const Hero = ({ searchTerm, setSearchTerm }: HeroProps) => {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-            {t('hero_title')}
+            {t('hero_title')}{' '}
             <span className="block text-red-200">{t('hero_subtitle')}</span>
           </h1>
           <p className="text-xl md:text-2xl text-red-100 mb-12 max-w-3xl mx-auto leading-relaxed">
