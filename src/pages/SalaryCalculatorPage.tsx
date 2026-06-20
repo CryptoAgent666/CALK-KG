@@ -18,7 +18,7 @@ const SalaryCalculatorPage = () => {
   const { language, t, getLocalizedPath} = useLanguage();
 
   React.useEffect(() => {
-    document.title = t('salary_calc_title') + " - Calk.KG";
+    document.title = t('salary_calc_title') + " | Calk.KG";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', t('salary_calc_description'));
@@ -27,30 +27,40 @@ const SalaryCalculatorPage = () => {
 
   const [grossSalary, setGrossSalary] = useState<string>('');
   const [taxRate, setTaxRate] = useState<number>(10); // 10% standard, 5% for PVT
+  const [dependents, setDependents] = useState<number>(0);
   const [results, setResults] = useState({
     grossAmount: 0,
     socialFund: 0,
+    standardDeduction: 0,
     taxableBase: 0,
     incomeTax: 0,
     netSalary: 0
   });
 
-  const calculateSalary = (gross: number, rate: number) => {
-    // Step 1: Social Fund contribution (10%)
+  // Стандартные налоговые вычеты, НК КР ст. 194 (1 расчётный показатель = 100 сом):
+  const PERSONAL_DEDUCTION = 650;  // на самого работника, 6.5 РП/мес
+  const DEPENDENT_DEDUCTION = 100; // на каждого иждивенца, 1 РП/мес
+
+  const calculateSalary = (gross: number, rate: number, deps: number = 0) => {
+    // Шаг 1: отчисления в Соцфонд (10% = 8% ПФ + 2% ГНПФ)
     const socialFund = gross * 0.10;
-    
-    // Step 2: Taxable base
-    const taxableBase = gross - socialFund;
-    
-    // Step 3: Income tax (10% or 5% for PVT)
+
+    // Шаг 2: стандартные вычеты (на себя + на иждивенцев)
+    const standardDeduction = PERSONAL_DEDUCTION + DEPENDENT_DEDUCTION * deps;
+
+    // Шаг 3: налоговая база = зарплата − соцфонд − вычеты (не ниже 0)
+    const taxableBase = Math.max(0, gross - socialFund - standardDeduction);
+
+    // Шаг 4: подоходный налог (10%, либо 5% для резидентов ПВТ)
     const incomeTax = taxableBase * (rate / 100);
-    
-    // Step 4: Net salary
+
+    // Шаг 5: зарплата на руки
     const netSalary = gross - socialFund - incomeTax;
-    
+
     return {
       grossAmount: gross,
       socialFund,
+      standardDeduction,
       taxableBase,
       incomeTax,
       netSalary
@@ -60,21 +70,22 @@ const SalaryCalculatorPage = () => {
   useEffect(() => {
     const gross = parseFloat(grossSalary) || 0;
     if (gross > 0) {
-      setResults(calculateSalary(gross, taxRate));
+      setResults(calculateSalary(gross, taxRate, dependents));
     } else {
       setResults({
         grossAmount: 0,
         socialFund: 0,
+        standardDeduction: 0,
         taxableBase: 0,
         incomeTax: 0,
         netSalary: 0
       });
     }
-  }, [grossSalary, taxRate]);
+  }, [grossSalary, taxRate, dependents]);
 
   // Генерация схем для страницы калькулятора зарплаты
   const generateSchemas = () => {
-    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/salary" : "https://calk.kg/calculator/salary";
+    const currentUrl = language === 'ky' ? "https://calk.kg/ky/calculator/salary/" : "https://calk.kg/calculator/salary/";
     const homeUrl = language === 'ky' ? "https://calk.kg/ky" : "https://calk.kg";
     
     const calculatorSchema = generateCalculatorSchema({
@@ -143,22 +154,27 @@ const SalaryCalculatorPage = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Schema.org микроразметка */}
       <Helmet>
-        <title>{t('salary_calc_title')} - Calk.KG</title>
-        <meta name="description" content={t('salary_calc_subtitle')} />
+        <title>{t('salary_calc_title')} | Calk.KG</title>
+        {/* salary_calc_subtitle is the short hero line shown on the page (~25 chars);
+            salary_calc_description is the SEO-grade ~180-char meta string. Helmet was
+            previously emitting the subtitle into <meta description> AND og:description,
+            which Google flagged as a thin/short description. Use the long form here. */}
+        <meta name="description" content={t('salary_calc_description')} />
         <meta name="keywords" content={t('salary_calc_keywords')} />
-        <meta property="og:title" content={`${t('salary_calc_title')} - Calk.KG`} />
-        <meta property="og:description" content={t('salary_calc_subtitle')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/salary" : "https://calk.kg/calculator/salary"} />
+        <meta property="og:title" content={`${t('salary_calc_title')} | Calk.KG`} />
+        <meta property="og:description" content={t('salary_calc_description')} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/salary/" : "https://calk.kg/calculator/salary/"} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://calk.kg/og-images/salary.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={language === 'ky' ? "ky_KG" : "ru_RU"} />
+        <meta property="og:site_name" content="Calk.KG" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${t('salary_calc_title')} - Calk.KG`} />
+        <meta name="twitter:title" content={`${t('salary_calc_title')} | Calk.KG`} />
         <meta name="twitter:description" content={t('salary_calc_subtitle')} />
         <meta name="twitter:image" content="https://calk.kg/og-images/salary.png" />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/salary" : "https://calk.kg/calculator/salary"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/salary/" : "https://calk.kg/calculator/salary/"} />
       </Helmet>
       <HreflangTags path="/calculator/salary" />
       <FAQSchema translationPrefix="salary" />
@@ -235,6 +251,26 @@ const SalaryCalculatorPage = () => {
                   value={grossSalary}
                   onChange={handleGrossSalaryChange}
                   placeholder={t('placeholder_enter_salary')}
+                  className="w-full px-4 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg print:text-base"
+                />
+              </div>
+
+              {/* Dependents Input */}
+              <div className="mb-8">
+                <div className="flex items-center mb-3">
+                  <label className="block text-sm font-medium text-gray-700">
+                    {t('salary_dependents')}
+                  </label>
+                  <Tooltip text={t('salary_dependents_tooltip')}>
+                    <Info className="h-4 w-4 text-gray-400 ml-2 cursor-help" />
+                  </Tooltip>
+                </div>
+                <input
+                  type="number"
+                  min="0"
+                  max="20"
+                  value={dependents}
+                  onChange={(e) => setDependents(Math.max(0, Math.min(20, parseInt(e.target.value) || 0)))}
                   className="w-full px-4 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg print:text-base"
                 />
               </div>
@@ -434,6 +470,9 @@ ${t('calculated_on_site')} Calk.KG`}
                           <Info className="h-4 w-4 text-gray-400 ml-2 cursor-help" />
                         </Tooltip>
                       </div>
+                      <p className="text-xs text-gray-400 mt-1">
+                        {t('salary_standard_deduction')}: −{formatCurrency(results.standardDeduction)} {t('som')}
+                      </p>
                     </div>
                   </div>
 
@@ -557,7 +596,7 @@ ${t('calculated_on_site')} Calk.KG`}
                 <h3 className="font-medium text-gray-900 mb-4">{t('calculation_examples')}</h3>
                 <div className="space-y-3">
                   {[30000, 50000, 100000, 150000].map(amount => {
-                    const example = calculateSalary(amount, taxRate);
+                    const example = calculateSalary(amount, taxRate, dependents);
                     return (
                       <button
                         key={amount}

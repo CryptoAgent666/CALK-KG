@@ -9,8 +9,10 @@ export interface TrafficFine {
 }
 
 // База данных штрафов ПДД Кыргызстана
-// АКТУАЛЬНО НА: Март 2026 (поправки от 08.03.2023 в Кодекс о правонарушениях КР)
-// Источник: ГУОБДД МВД КР, joldo.kg, kabar.kg
+// АКТУАЛЬНО НА: июнь 2026. Номера статей сверены с Кодексом КР о правонарушениях №128 (ред. 23.04.2026), cbd.minjust.gov.kg.
+// ⚠️ Требуют отдельной сверки (статья и/или сумма): parking_disabled, no_child_seat, cargo_overload_20(_plus), overtaking_crosswalk, railway_crossing, illegal_signals, passenger_rules.
+// Суммы и статьи сверены с Кодексом КР о правонарушениях №128 (ред. 23.04.2026): 1 РП = 100 сом.
+// Источник: cbd.minjust.gov.kg (№128), joldo.kg, ЦИК КР. drugs/leave_accident — лишение прав (0 сом).
 export const TRAFFIC_FINES: TrafficFine[] = [
   // Скоростной режим
   {
@@ -51,7 +53,7 @@ export const TRAFFIC_FINES: TrafficFine[] = [
     id: 'red_light',
     categoryId: 'traffic_rules',
     fine: 5500,
-    article: 'Ст. 186 ч. 1',
+    article: 'Ст. 188 ч. 3',
     notesId: 'discount_70',
     keywords: ['светофор', 'красный', 'запрещающий', 'сигнал']
   },
@@ -59,23 +61,23 @@ export const TRAFFIC_FINES: TrafficFine[] = [
     id: 'oncoming_lane',
     categoryId: 'traffic_rules',
     fine: 15000,
-    article: 'Ст. 188 ч. 3',
+    article: 'Ст. 188 ч. 5',
     notesId: 'no_discount_license_4_6mo',
     keywords: ['встречная', 'полоса', 'выезд', 'лобовое']
   },
   {
     id: 'turn_sign_violation',
     categoryId: 'traffic_rules',
-    fine: 2000,
-    article: 'Ст. 184 ч. 2',
+    fine: 1000,
+    article: 'Ст. 188 ч. 1',
     notesId: 'discount_70',
     keywords: ['поворот', 'разворот', 'знак', 'запрет']
   },
   {
     id: 'pedestrian_crossing',
     categoryId: 'traffic_rules',
-    fine: 4000,
-    article: 'Ст. 185 ч. 1',
+    fine: 3000,
+    article: 'Ст. 188 ч. 2',
     notesId: 'discount_70',
     keywords: ['пешеход', 'переход', 'зебра', 'преимущество']
   },
@@ -84,24 +86,24 @@ export const TRAFFIC_FINES: TrafficFine[] = [
   {
     id: 'parking_prohibited',
     categoryId: 'parking',
-    fine: 2500,
-    article: 'Ст. 183 ч. 1',
+    fine: 1000,
+    article: 'Ст. 188 ч. 1',
     notesId: 'discount_70_tow',
     keywords: ['парковка', 'стоянка', 'остановка', 'запрещенное', 'место']
   },
   {
     id: 'parking_disabled',
     categoryId: 'parking',
-    fine: 6000,
-    article: 'Ст. 183 ч. 3',
+    fine: 1000,
+    article: 'Ст. 188 ч. 1',
     notesId: 'discount_70_tow_mandatory',
     keywords: ['инвалид', 'парковка', 'место', 'остановка']
   },
   {
     id: 'parking_sidewalk',
     categoryId: 'parking',
-    fine: 4000,
-    article: 'Ст. 183 ч. 2',
+    fine: 1000,
+    article: 'Ст. 188 ч. 1',
     notesId: 'discount_70_tow',
     keywords: ['тротуар', 'парковка', 'стоянка', 'пешеходная', 'зона']
   },
@@ -111,15 +113,15 @@ export const TRAFFIC_FINES: TrafficFine[] = [
     id: 'no_license',
     categoryId: 'documents',
     fine: 15000,
-    article: 'Ст. 179 ч. 1',
+    article: 'Ст. 184 ч. 3',
     notesId: 'no_discount_driving_ban',
     keywords: ['права', 'удостоверение', 'без', 'документы']
   },
   {
     id: 'expired_license',
     categoryId: 'documents',
-    fine: 4000,
-    article: 'Ст. 179 ч. 2',
+    fine: 1000,
+    article: 'Ст. 184 ч. 1',
     notesId: 'discount_70',
     keywords: ['просроченные', 'права', 'срок', 'удостоверение']
   },
@@ -127,7 +129,7 @@ export const TRAFFIC_FINES: TrafficFine[] = [
     id: 'no_insurance',
     categoryId: 'documents',
     fine: 3000,
-    article: 'Ст. 184',
+    article: 'Ст. 184 ч. 2',
     notesId: 'discount_70',
     keywords: ['страховка', 'полис', 'ОГПО', 'ВТС', 'страхование']
   },
@@ -135,15 +137,15 @@ export const TRAFFIC_FINES: TrafficFine[] = [
     id: 'no_insurance_legal',
     categoryId: 'documents',
     fine: 13000,
-    article: 'Ст. 184',
+    article: 'Ст. 184 ч. 2',
     notesId: 'discount_70',
     keywords: ['страховка', 'полис', 'ОГПО', 'ВТС', 'страхование', 'юрлицо', 'юридическое лицо']
   },
   {
     id: 'faulty_vehicle',
     categoryId: 'documents',
-    fine: 2500,
-    article: 'Ст. 181 ч. 1',
+    fine: 5500,
+    article: 'Ст. 182 ч. 1',
     notesId: 'discount_70_driving_ban_repair',
     keywords: ['неисправность', 'техническое', 'состояние', 'тормоза', 'свет']
   },
@@ -153,7 +155,7 @@ export const TRAFFIC_FINES: TrafficFine[] = [
     id: 'alcohol_under_08',
     categoryId: 'alcohol',
     fine: 0,
-    article: 'Ст. 189 ч. 1',
+    article: 'Ст. 193 ч. 1',
     notesId: 'no_discount_license_1y',
     keywords: ['алкоголь', 'опьянение', 'промилле', '0.8', 'пьяный']
   },
@@ -161,7 +163,7 @@ export const TRAFFIC_FINES: TrafficFine[] = [
     id: 'alcohol_over_08',
     categoryId: 'alcohol',
     fine: 0,
-    article: 'Ст. 189 ч. 2',
+    article: 'Ст. 193 ч. 1',
     notesId: 'no_discount_license_3y',
     keywords: ['алкоголь', 'опьянение', 'промилле', '0.8', 'пьяный', 'тяжелое']
   },
@@ -169,7 +171,7 @@ export const TRAFFIC_FINES: TrafficFine[] = [
     id: 'alcohol_refusal',
     categoryId: 'alcohol',
     fine: 0,
-    article: 'Ст. 189 ч. 3',
+    article: 'Ст. 193 ч. 2',
     notesId: 'no_discount_license_1y',
     keywords: ['отказ', 'медицинское', 'освидетельствование', 'алкотестер']
   },
@@ -178,8 +180,8 @@ export const TRAFFIC_FINES: TrafficFine[] = [
   {
     id: 'phone_driving',
     categoryId: 'devices',
-    fine: 1500,
-    article: 'Ст. 182 ч. 1',
+    fine: 3000,
+    article: 'Ст. 188 ч. 2',
     notesId: 'discount_70',
     keywords: ['телефон', 'мобильный', 'разговор', 'hands-free', 'гарнитура']
   },
@@ -189,15 +191,15 @@ export const TRAFFIC_FINES: TrafficFine[] = [
     id: 'no_seatbelt',
     categoryId: 'seatbelt',
     fine: 1000,
-    article: 'Ст. 182 ч. 2',
+    article: 'Ст. 182 ч. 6',
     notesId: 'discount_70',
     keywords: ['ремень', 'безопасность', 'непристегнутый', 'водитель']
   },
   {
     id: 'no_child_seat',
     categoryId: 'seatbelt',
-    fine: 5000,
-    article: 'Ст. 182 ч. 4',
+    fine: 1000,
+    article: 'Ст. 182 ч. 6',
     notesId: 'discount_70',
     keywords: ['дети', 'автокресло', 'удерживающие', 'устройства', 'ребенок']
   },
@@ -206,16 +208,16 @@ export const TRAFFIC_FINES: TrafficFine[] = [
   {
     id: 'solid_line',
     categoryId: 'road_marking',
-    fine: 3000,
-    article: 'Ст. 184 ч. 1',
+    fine: 1000,
+    article: 'Ст. 188 ч. 1',
     notesId: 'discount_70',
     keywords: ['сплошная', 'линия', 'разметка', 'пересечение']
   },
   {
     id: 'shoulder_driving',
     categoryId: 'road_marking',
-    fine: 2000,
-    article: 'Ст. 184 ч. 3',
+    fine: 1000,
+    article: 'Ст. 188 ч. 1',
     notesId: 'discount_70',
     keywords: ['обочина', 'движение', 'край', 'дороги']
   },
@@ -224,16 +226,16 @@ export const TRAFFIC_FINES: TrafficFine[] = [
   {
     id: 'no_plates',
     categoryId: 'plates',
-    fine: 8000,
-    article: 'Ст. 180 ч. 2',
+    fine: 10000,
+    article: 'Ст. 182 ч. 4',
     notesId: 'discount_70_driving_ban',
     keywords: ['номера', 'регистрационные', 'знаки', 'отсутствие']
   },
   {
     id: 'fake_plates',
     categoryId: 'plates',
-    fine: 15000,
-    article: 'Ст. 180 ч. 3',
+    fine: 10000,
+    article: 'Ст. 182 ч. 4',
     notesId: 'no_discount_confiscation',
     keywords: ['подложные', 'поддельные', 'измененные', 'номера']
   },
@@ -243,7 +245,7 @@ export const TRAFFIC_FINES: TrafficFine[] = [
     id: 'passenger_rules',
     categoryId: 'passengers',
     fine: 3000,
-    article: 'Ст. 191 ч. 1',
+    article: 'Ст. 199 ч. 7',
     notesId: 'discount_70',
     keywords: ['пассажиры', 'перевозка', 'правила', 'нарушение']
   },
@@ -252,16 +254,16 @@ export const TRAFFIC_FINES: TrafficFine[] = [
   {
     id: 'cargo_overload_20',
     categoryId: 'cargo',
-    fine: 4000,
-    article: 'Ст. 192 ч. 1',
+    fine: 17500,
+    article: 'Ст. 181 ч. 1',
     notesId: 'discount_70',
     keywords: ['перегруз', 'масса', 'груз', '20%', 'превышение']
   },
   {
     id: 'cargo_overload_20_plus',
     categoryId: 'cargo',
-    fine: 8000,
-    article: 'Ст. 192 ч. 2',
+    fine: 20000,
+    article: 'Ст. 181 ч. 1',
     notesId: 'discount_70_driving_ban_unload',
     keywords: ['перегруз', 'масса', 'груз', '20%', 'свыше']
   },
@@ -270,16 +272,16 @@ export const TRAFFIC_FINES: TrafficFine[] = [
   {
     id: 'overtaking_prohibited',
     categoryId: 'overtaking',
-    fine: 6000,
-    article: 'Ст. 188 ч. 1',
+    fine: 15000,
+    article: 'Ст. 188 ч. 5',
     notesId: 'discount_70',
     keywords: ['обгон', 'запрещенное', 'место', 'опережение']
   },
   {
     id: 'overtaking_crosswalk',
     categoryId: 'overtaking',
-    fine: 8000,
-    article: 'Ст. 188 ч. 2',
+    fine: 15000,
+    article: 'Ст. 188 ч. 5',
     notesId: 'no_discount',
     keywords: ['обгон', 'пешеходный', 'переход', 'зебра']
   },
@@ -289,15 +291,15 @@ export const TRAFFIC_FINES: TrafficFine[] = [
     id: 'lights_daytime',
     categoryId: 'lights',
     fine: 1000,
-    article: 'Ст. 182 ч. 3',
+    article: 'Ст. 188 ч. 1',
     notesId: 'discount_70',
     keywords: ['фары', 'свет', 'дневное', 'время', 'ближний']
   },
   {
     id: 'high_beam_city',
     categoryId: 'lights',
-    fine: 1500,
-    article: 'Ст. 182 ч. 5',
+    fine: 1000,
+    article: 'Ст. 188 ч. 1',
     notesId: 'discount_70',
     keywords: ['дальний', 'свет', 'населенный', 'пункт', 'город']
   },
@@ -306,8 +308,8 @@ export const TRAFFIC_FINES: TrafficFine[] = [
   {
     id: 'railway_crossing',
     categoryId: 'railway',
-    fine: 12000,
-    article: 'Ст. 190 ч. 1',
+    fine: 1000,
+    article: 'Ст. 188 ч. 1',
     notesId: 'no_discount_license_3_6mo',
     keywords: ['железнодорожный', 'переезд', 'поезд', 'шлагбаум']
   },
@@ -316,8 +318,8 @@ export const TRAFFIC_FINES: TrafficFine[] = [
   {
     id: 'drugs',
     categoryId: 'drugs',
-    fine: 35000,
-    article: 'Ст. 189 ч. 4',
+    fine: 0,
+    article: 'Ст. 193 ч. 1',
     notesId: 'no_discount_license_2_3y',
     keywords: ['наркотики', 'наркотическое', 'опьянение', 'наркологический']
   },
@@ -326,8 +328,8 @@ export const TRAFFIC_FINES: TrafficFine[] = [
   {
     id: 'leave_accident',
     categoryId: 'accident',
-    fine: 20000,
-    article: 'Ст. 193 ч. 1',
+    fine: 0,
+    article: 'Ст. 192 ч. 4',
     notesId: 'no_discount_license_1_1_5y',
     keywords: ['ДТП', 'оставление', 'место', 'авария', 'скрылся']
   },
@@ -336,8 +338,8 @@ export const TRAFFIC_FINES: TrafficFine[] = [
   {
     id: 'illegal_signals',
     categoryId: 'signals',
-    fine: 15000,
-    article: 'Ст. 194 ч. 1',
+    fine: 5500,
+    article: 'Ст. 194 ч. 2',
     notesId: 'no_discount_confiscation',
     keywords: ['спецсигналы', 'мигалка', 'сирена', 'незаконное']
   },
@@ -346,8 +348,8 @@ export const TRAFFIC_FINES: TrafficFine[] = [
   {
     id: 'motorcycle_no_helmet',
     categoryId: 'motorcycle',
-    fine: 2000,
-    article: 'Ст. 195 ч. 1',
+    fine: 1000,
+    article: 'Ст. 182 ч. 6',
     notesId: 'discount_70',
     keywords: ['мотоцикл', 'шлем', 'защита', 'голова']
   },
@@ -356,8 +358,8 @@ export const TRAFFIC_FINES: TrafficFine[] = [
   {
     id: 'pedestrian_wrong_place',
     categoryId: 'pedestrian',
-    fine: 500,
-    article: 'Ст. 196 ч. 1',
+    fine: 1000,
+    article: 'Ст. 190 ч. 1',
     notesId: 'discount_70',
     keywords: ['пешеход', 'переход', 'неустановленное', 'место']
   },
@@ -365,7 +367,7 @@ export const TRAFFIC_FINES: TrafficFine[] = [
     id: 'pedestrian_red_light',
     categoryId: 'pedestrian',
     fine: 1000,
-    article: 'Ст. 196 ч. 2',
+    article: 'Ст. 190 ч. 1',
     notesId: 'discount_70',
     keywords: ['пешеход', 'красный', 'светофор', 'переход']
   }

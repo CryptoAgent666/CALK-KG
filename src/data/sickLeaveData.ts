@@ -68,21 +68,17 @@ export interface ExperienceRate {
   paymentPercent: number;
 }
 
+// По Пост. Кабмина КР №434: до 5 лет — 60%, 5–8 лет — 80%, свыше 8 лет — 100%.
 export const EXPERIENCE_RATES: ExperienceRate[] = [
   {
     minYears: 0,
-    maxYears: 3,
-    paymentPercent: 60
-  },
-  {
-    minYears: 3,
     maxYears: 5,
-    paymentPercent: 80
+    paymentPercent: 60
   },
   {
     minYears: 5,
     maxYears: 8,
-    paymentPercent: 100
+    paymentPercent: 80
   },
   {
     minYears: 8,
@@ -91,12 +87,16 @@ export const EXPERIENCE_RATES: ExperienceRate[] = [
   }
 ];
 
-// Минимальная и максимальная сумма больничного (по законодательству КР)
-export const MIN_MONTHLY_WAGE = 2500; // минимальный размер оплаты труда (МРОТ) КР с 01.01.2026
-export const MAX_MONTHLY_WAGE = 50000; // максимальная база для расчёта больничного
-
-// Расчётный период для больничного
-export const CALCULATION_PERIOD_DAYS = 730; // 2 года = 730 дней (365 * 2)
+// Параметры расчёта по Положению к Пост. Правительства КР №434
+// (в ред. Пост. Кабмина №151 от 22.03.2023, в силе с 13.04.2023).
+export const MIN_MONTHLY_WAGE = 3280; // МРОТ КР с 01.01.2026 (справочно)
+export const WORKING_DAYS_PER_MONTH = 22; // среднее число рабочих дней в месяце
+// База = заработок за 3 предшествующих месяца ÷ рабочие дни за этот период (≈ 66).
+export const CALCULATION_PERIOD_WORKING_DAYS = WORKING_DAYS_PER_MONTH * 3;
+// Первые 10 рабочих дней оплачивает работодатель (без лимита); с 11-го — Соцфонд.
+export const EMPLOYER_PAID_DAYS = 10;
+// Лимит выплаты Соцфонда с 11-го дня: 100 расчётных показателей = 10 000 сом/мес.
+export const FUND_MONTHLY_CAP = 10000;
 
 // Функция для определения процента выплаты по стажу
 export const getPaymentPercentByExperience = (experienceYears: number): number => {
@@ -108,33 +108,37 @@ export const getPaymentPercentByExperience = (experienceYears: number): number =
   return 60; // минимум, если стаж не указан
 };
 
-// Функция для расчёта среднедневного заработка
-export const calculateAverageDailyWage = (totalEarnings: number, periodDays: number = CALCULATION_PERIOD_DAYS): number => {
-  return totalEarnings / periodDays;
+// Среднедневной заработок = заработок за 3 месяца ÷ рабочие дни за этот период.
+export const calculateAverageDailyWage = (
+  earnings3Months: number,
+  periodWorkingDays: number = CALCULATION_PERIOD_WORKING_DAYS
+): number => {
+  return earnings3Months / periodWorkingDays;
 };
 
-// Функция для расчёта выплаты по больничному
+// Разбивка выплаты по обычному больничному: первые 10 рабочих дней (работодатель,
+// без лимита) + с 11-го дня (Соцфонд, дневная выплата ≤ 10 000 / рабочие дни в месяце).
+export const calculateSickLeaveBreakdown = (
+  averageDailyWage: number,
+  daysOnSickLeave: number,
+  paymentPercent: number
+): { employerPay: number; fundPay: number; total: number } => {
+  const dailyPay = averageDailyWage * (paymentPercent / 100);
+  const employerDays = Math.min(daysOnSickLeave, EMPLOYER_PAID_DAYS);
+  const fundDays = Math.max(0, daysOnSickLeave - EMPLOYER_PAID_DAYS);
+  const fundDailyCap = FUND_MONTHLY_CAP / WORKING_DAYS_PER_MONTH; // ≈ 454,5 сом/день
+  const employerPay = dailyPay * employerDays;
+  const fundPay = Math.min(dailyPay, fundDailyCap) * fundDays;
+  return { employerPay, fundPay, total: employerPay + fundPay };
+};
+
+// Совместимость: полная выплата без разбивки.
 export const calculateSickLeavePay = (
   averageDailyWage: number,
   daysOnSickLeave: number,
   paymentPercent: number
 ): number => {
-  return averageDailyWage * daysOnSickLeave * (paymentPercent / 100);
-};
-
-// Проверка на минимум/максимум
-export const validateWage = (wage: number): number => {
-  const minDailyWage = MIN_MONTHLY_WAGE / 30;
-  const maxDailyWage = MAX_MONTHLY_WAGE / 30;
-  const dailyWage = wage / 30;
-  
-  if (dailyWage < minDailyWage) {
-    return MIN_MONTHLY_WAGE;
-  }
-  if (dailyWage > maxDailyWage) {
-    return MAX_MONTHLY_WAGE;
-  }
-  return wage;
+  return calculateSickLeaveBreakdown(averageDailyWage, daysOnSickLeave, paymentPercent).total;
 };
 
 // Типичные ситуации для примеров
@@ -153,7 +157,7 @@ export const SICK_LEAVE_EXAMPLES: SickLeaveExample[] = [
     titleKey: 'sick_example_1_title',
     sickLeaveType: 'illness',
     experienceYears: 4,
-    totalEarnings: 480000, // 20,000 сом/мес * 24 мес
+    totalEarnings: 60000, // 20,000 сом/мес * 3 мес
     daysOnSickLeave: 10
   },
   {
@@ -161,7 +165,7 @@ export const SICK_LEAVE_EXAMPLES: SickLeaveExample[] = [
     titleKey: 'sick_example_2_title',
     sickLeaveType: 'pregnancy',
     experienceYears: 2,
-    totalEarnings: 600000, // 25,000 сом/мес * 24 мес
+    totalEarnings: 75000, // 25,000 сом/мес * 3 мес
     daysOnSickLeave: 126
   },
   {
@@ -169,7 +173,7 @@ export const SICK_LEAVE_EXAMPLES: SickLeaveExample[] = [
     titleKey: 'sick_example_3_title',
     sickLeaveType: 'child-care',
     experienceYears: 7,
-    totalEarnings: 720000, // 30,000 сом/мес * 24 мес
+    totalEarnings: 90000, // 30,000 сом/мес * 3 мес
     daysOnSickLeave: 7
   }
 ];
@@ -179,9 +183,9 @@ export const SICK_LEAVE_INFO = {
   whoCanGet: 'Все работники, за которых работодатель платит взносы в Социальный фонд КР',
   howToGet: 'Обратиться к врачу в течение 3 дней с момента начала болезни, получить больничный лист',
   whenPaid: 'В течение 10 дней с момента предоставления больничного листа работодателю',
-  firstDays: 'Первые 3 дня больничного оплачивает работодатель, с 4-го дня — Социальный фонд',
+  firstDays: 'Первые 10 рабочих дней больничного оплачивает работодатель, с 11-го дня — Социальный фонд (не более 10 000 сом/мес)',
   documents: 'Больничный лист, трудовая книжка или справка о стаже, справка о заработке за 2 года',
   taxable: 'Да, больничные облагаются подоходным налогом 10%',
-  minAmount: 'Не может быть меньше МРОТ (2,500 сом/мес)',
+  minAmount: 'Не может быть меньше МРОТ (3,280 сом/мес)',
   maxAmount: 'Не может быть больше 50,000 сом/мес в среднем'
 };

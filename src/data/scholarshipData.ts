@@ -15,13 +15,14 @@ export interface ScholarshipType {
   description: string;
   requiresGPA?: boolean; // зависит ли от среднего балла
   requiresSocialStatus?: boolean; // зависит ли от соц. статуса
+  isOneTime?: boolean; // разовая выплата (не ежемесячная) — напр. президентская
 }
 
 export const SCHOLARSHIP_TYPES: ScholarshipType[] = [
   {
     id: 'academic',
     nameKey: 'scholarship_academic',
-    baseAmount: 3000,
+    baseAmount: 800, // базовая академическая стипендия, сом/мес (пилот констант 2026)
     description: 'Государственная академическая стипендия',
     requiresGPA: true
   },
@@ -42,9 +43,10 @@ export const SCHOLARSHIP_TYPES: ScholarshipType[] = [
   {
     id: 'president',
     nameKey: 'scholarship_president',
-    baseAmount: 8000,
-    description: 'Президентская стипендия',
-    requiresGPA: true
+    baseAmount: 60000, // единоразовая выплата за учебный год (Указ Президента №174 от 02.07.2024)
+    description: 'Президентская стипендия (единоразовая)',
+    requiresGPA: true,
+    isOneTime: true
   },
   {
     id: 'government',
@@ -169,9 +171,12 @@ export const UNIVERSITIES: University[] = [
 ];
 
 // Функция для получения множителя по среднему баллу
+// Верхняя граница последнего диапазона включена (gpa = 5.0 → последний коэффициент).
 export const getGPAMultiplier = (gpa: number): number => {
-  for (const range of GPA_MULTIPLIERS) {
-    if (gpa >= range.minGPA && gpa < range.maxGPA) {
+  for (let i = 0; i < GPA_MULTIPLIERS.length; i++) {
+    const range = GPA_MULTIPLIERS[i];
+    const isLast = i === GPA_MULTIPLIERS.length - 1;
+    if (gpa >= range.minGPA && (isLast ? gpa <= range.maxGPA : gpa < range.maxGPA)) {
       return range.multiplier;
     }
   }
@@ -206,6 +211,18 @@ export const calculateScholarship = (
     };
   }
   
+  // Разовая выплата (президентская): фиксированная сумма, без множителей GPA/ВУЗа/бонусов.
+  if (scholarshipType.isOneTime) {
+    return {
+      baseAmount: scholarshipType.baseAmount,
+      gpaMultiplier: 1,
+      universityCoefficient: 1,
+      scholarshipAmount: scholarshipType.baseAmount,
+      bonusesAmount: 0,
+      totalAmount: scholarshipType.baseAmount
+    };
+  }
+
   const gpaMultiplier = scholarshipType.requiresGPA ? getGPAMultiplier(gpa) : 1.0;
   
   if (gpaMultiplier === 0) {

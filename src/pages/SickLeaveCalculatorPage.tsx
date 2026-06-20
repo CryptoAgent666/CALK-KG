@@ -11,7 +11,7 @@ import {
   EXPERIENCE_RATES,
   getPaymentPercentByExperience,
   calculateAverageDailyWage,
-  calculateSickLeavePay,
+  calculateSickLeaveBreakdown,
   MIN_MONTHLY_WAGE,
   SICK_LEAVE_EXAMPLES
 } from '../data/sickLeaveData';
@@ -21,8 +21,8 @@ interface SickLeaveResults {
   paymentPercent: number;
   totalPayment: number;
   afterTax: number;
-  first3Days: number;
-  after3Days: number;
+  employerPay: number;
+  fundPay: number;
 }
 
 const SickLeaveCalculatorPage = () => {
@@ -30,7 +30,7 @@ const SickLeaveCalculatorPage = () => {
   
   const [sickLeaveType, setSickLeaveType] = useState<string>('illness');
   const [experienceYears, setExperienceYears] = useState<string>('5');
-  const [totalEarnings, setTotalEarnings] = useState<string>('480000');
+  const [totalEarnings, setTotalEarnings] = useState<string>('60000');
   const [daysOnLeave, setDaysOnLeave] = useState<string>('10');
   
   const [results, setResults] = useState<SickLeaveResults | null>(null);
@@ -47,9 +47,9 @@ const SickLeaveCalculatorPage = () => {
       return;
     }
     
-    // Расчёт среднедневного заработка
+    // Среднедневной заработок: заработок за 3 месяца ÷ рабочие дни (≈66)
     const avgDailyWage = calculateAverageDailyWage(earnings);
-    
+
     // Определяем процент оплаты
     let paymentPercent = 100;
     if (selectedType?.dependsOnExperience) {
@@ -57,24 +57,30 @@ const SickLeaveCalculatorPage = () => {
     } else {
       paymentPercent = selectedType?.paymentPercent || 100;
     }
-    
-    // Расчёт общей суммы
-    const totalPayment = calculateSickLeavePay(avgDailyWage, days, paymentPercent);
-    
-    // Вычитаем налог 10%
+
+    // Обычный больничный: раздел 10 дней (работодатель) + с 11-го (Соцфонд, лимит).
+    // Декрет / Б&Р (не зависит от стажа): 100% без раздела и лимита.
+    let employerPay: number;
+    let fundPay: number;
+    let totalPayment: number;
+    if (selectedType?.dependsOnExperience) {
+      ({ employerPay, fundPay, total: totalPayment } = calculateSickLeaveBreakdown(avgDailyWage, days, paymentPercent));
+    } else {
+      totalPayment = avgDailyWage * days * (paymentPercent / 100);
+      employerPay = totalPayment;
+      fundPay = 0;
+    }
+
+    // Вычитаем подоходный налог 10%
     const afterTax = totalPayment * 0.9;
-    
-    // Первые 3 дня оплачивает работодатель, остальные — Соцфонд
-    const first3Days = days <= 3 ? totalPayment * 0.9 : calculateSickLeavePay(avgDailyWage, 3, paymentPercent) * 0.9;
-    const after3Days = days > 3 ? calculateSickLeavePay(avgDailyWage, days - 3, paymentPercent) * 0.9 : 0;
-    
+
     setResults({
       averageDailyWage: avgDailyWage,
       paymentPercent,
       totalPayment,
       afterTax,
-      first3Days,
-      after3Days
+      employerPay: employerPay * 0.9,
+      fundPay: fundPay * 0.9
     });
   }, [sickLeaveType, experienceYears, totalEarnings, daysOnLeave, selectedType]);
   
@@ -98,12 +104,12 @@ const SickLeaveCalculatorPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Helmet>
-        <title>{t('sick_calc_title')} - Calk.KG</title>
+        <title>{t('sick_calc_title')} | Calk.KG</title>
         <meta name="description" content={t('sick_calc_description')} />
-        <meta property="og:title" content={`${t('sick_calc_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('sick_calc_title')} | Calk.KG`} />
         <meta property="og:description" content={t('sick_calc_description')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/sick-leave" : "https://calk.kg/calculator/sick-leave"} />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/sick-leave" : "https://calk.kg/calculator/sick-leave"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/sick-leave/" : "https://calk.kg/calculator/sick-leave/"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/sick-leave/" : "https://calk.kg/calculator/sick-leave/"} />
       </Helmet>
       <HreflangTags path="/calculator/sick-leave" />
       <FAQSchema translationPrefix="sick_calc" />
@@ -191,7 +197,6 @@ const SickLeaveCalculatorPage = () => {
                     <p>• {t('sick_experience_0_3')}</p>
                     <p>• {t('sick_experience_3_5')}</p>
                     <p>• {t('sick_experience_5_8')}</p>
-                    <p>• {t('sick_experience_8_plus')}</p>
                   </div>
                 </div>
               )}
@@ -205,7 +210,7 @@ const SickLeaveCalculatorPage = () => {
                   type="number"
                   value={totalEarnings}
                   onChange={(e) => setTotalEarnings(e.target.value)}
-                  placeholder="480000"
+                  placeholder="60000"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                   min="0"
                 />
@@ -291,25 +296,27 @@ const SickLeaveCalculatorPage = () => {
                       </span>
                     </div>
                     
-                    {parseInt(daysOnLeave) > 3 && (
+                    {selectedType?.dependsOnExperience && (
                       <>
                         <div className="bg-blue-50 rounded-lg p-4">
                           <div className="flex justify-between items-center mb-2">
-                            <span className="text-sm text-gray-700">{t('sick_first_3_days')}</span>
+                            <span className="text-sm text-gray-700">{t('sick_first_10_days')}</span>
                             <span className="font-medium text-blue-600">
-                              {formatCurrency(results.first3Days)} {t('som')}
+                              {formatCurrency(results.employerPay)} {t('som')}
                             </span>
                           </div>
                         </div>
-                        
-                        <div className="bg-green-50 rounded-lg p-4">
-                          <div className="flex justify-between items-center mb-2">
-                            <span className="text-sm text-gray-700">{t('sick_after_3_days')}</span>
-                            <span className="font-medium text-green-600">
-                              {formatCurrency(results.after3Days)} {t('som')}
-                            </span>
+
+                        {results.fundPay > 0 && (
+                          <div className="bg-green-50 rounded-lg p-4">
+                            <div className="flex justify-between items-center mb-2">
+                              <span className="text-sm text-gray-700">{t('sick_after_10_days')}</span>
+                              <span className="font-medium text-green-600">
+                                {formatCurrency(results.fundPay)} {t('som')}
+                              </span>
+                            </div>
                           </div>
-                        </div>
+                        )}
                       </>
                     )}
                   </div>

@@ -47,6 +47,9 @@ const StudentScholarshipPage = () => {
     
     setResults(calculated);
   }, [scholarshipType, university, gpa, selectedBonuses]);
+
+  const selectedScholarship = SCHOLARSHIP_TYPES.find(s => s.id === scholarshipType);
+  const isOneTime = !!selectedScholarship?.isOneTime;
   
   const formatCurrency = (value: number): string => {
     return new Intl.NumberFormat('ru-RU', {
@@ -76,12 +79,12 @@ const StudentScholarshipPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Helmet>
-        <title>{t('scholarship_calc_title')} - Calk.KG</title>
+        <title>{t('scholarship_calc_title')} | Calk.KG</title>
         <meta name="description" content={t('scholarship_calc_description')} />
-        <meta property="og:title" content={`${t('scholarship_calc_title')} - Calk.KG`} />
+        <meta property="og:title" content={`${t('scholarship_calc_title')} | Calk.KG`} />
         <meta property="og:description" content={t('scholarship_calc_description')} />
-        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/scholarship" : "https://calk.kg/calculator/scholarship"} />
-        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/scholarship" : "https://calk.kg/calculator/scholarship"} />
+        <meta property="og:url" content={language === 'ky' ? "https://calk.kg/ky/calculator/scholarship/" : "https://calk.kg/calculator/scholarship/"} />
+        <link rel="canonical" href={language === 'ky' ? "https://calk.kg/ky/calculator/scholarship/" : "https://calk.kg/calculator/scholarship/"} />
       </Helmet>
       <HreflangTags path="/calculator/scholarship" />
       <FAQSchema translationPrefix="scholarship" />
@@ -136,7 +139,7 @@ const StudentScholarshipPage = () => {
               <div key={type.id} className="bg-blue-50 rounded-lg p-3 text-center">
                 <p className="text-xs text-gray-600 mb-1">{t(type.nameKey)}</p>
                 <p className="text-lg font-bold text-blue-600">{type.baseAmount} {t('som')}</p>
-                <p className="text-xs text-gray-500">/{t('month')}</p>
+                <p className="text-xs text-gray-500">{type.isOneTime ? t('scholarship_one_time') : `/${t('month')}`}</p>
               </div>
             ))}
           </div>
@@ -267,16 +270,22 @@ const StudentScholarshipPage = () => {
                     </div>
                     <DollarSign className="h-12 w-12 opacity-50" />
                   </div>
-                  <div className="bg-white/20 rounded-lg p-4 space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span>{t('scholarship_per_semester')}</span>
-                      <span className="font-medium">{formatCurrency(results.totalAmount * 5)} {t('som')}</span>
+                  {isOneTime ? (
+                    <div className="bg-white/20 rounded-lg p-4 text-sm">
+                      {t('scholarship_one_time_note')}
                     </div>
-                    <div className="flex justify-between text-sm">
-                      <span>{t('scholarship_per_year')}</span>
-                      <span className="font-medium">{formatCurrency(results.totalAmount * 10)} {t('som')}</span>
+                  ) : (
+                    <div className="bg-white/20 rounded-lg p-4 space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span>{t('scholarship_per_semester')}</span>
+                        <span className="font-medium">{formatCurrency(results.totalAmount * 5)} {t('som')}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span>{t('scholarship_per_year')}</span>
+                        <span className="font-medium">{formatCurrency(results.totalAmount * 10)} {t('som')}</span>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
                 
                 {/* Breakdown */}
@@ -291,21 +300,25 @@ const StudentScholarshipPage = () => {
                       <p className="font-semibold text-gray-900">{formatCurrency(results.baseAmount)} {t('som')}</p>
                     </div>
                     
-                    <div className="flex justify-between items-center pb-3 border-b">
-                      <div>
-                        <p className="font-medium text-gray-900">{t('scholarship_gpa_multiplier')}</p>
-                        <p className="text-sm text-gray-500">{t('scholarship_gpa_desc')} {parseFloat(gpa).toFixed(1)}</p>
-                      </div>
-                      <p className="font-semibold text-blue-600">×{results.gpaMultiplier.toFixed(1)}</p>
-                    </div>
-                    
-                    <div className="flex justify-between items-center pb-3 border-b">
-                      <div>
-                        <p className="font-medium text-gray-900">{t('scholarship_university_coefficient')}</p>
-                        <p className="text-sm text-gray-500">{t(`university_${university}`)}</p>
-                      </div>
-                      <p className="font-semibold text-blue-600">×{results.universityCoefficient.toFixed(1)}</p>
-                    </div>
+                    {!isOneTime && (
+                      <>
+                        <div className="flex justify-between items-center pb-3 border-b">
+                          <div>
+                            <p className="font-medium text-gray-900">{t('scholarship_gpa_multiplier')}</p>
+                            <p className="text-sm text-gray-500">{t('scholarship_gpa_desc')} {parseFloat(gpa).toFixed(1)}</p>
+                          </div>
+                          <p className="font-semibold text-blue-600">×{results.gpaMultiplier.toFixed(1)}</p>
+                        </div>
+
+                        <div className="flex justify-between items-center pb-3 border-b">
+                          <div>
+                            <p className="font-medium text-gray-900">{t('scholarship_university_coefficient')}</p>
+                            <p className="text-sm text-gray-500">{t(`university_${university}`)}</p>
+                          </div>
+                          <p className="font-semibold text-blue-600">×{results.universityCoefficient.toFixed(1)}</p>
+                        </div>
+                      </>
+                    )}
                     
                     <div className="flex justify-between items-center pb-3 border-b">
                       <div>
