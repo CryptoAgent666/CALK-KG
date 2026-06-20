@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Calk.KG</string>
+    <string name="title_activity_main">Calk.KG</string>
+    <string name="package_name">kg.calk.app</string>
+    <string name="custom_url_scheme">kg.calk.app</string>
+</resources>
