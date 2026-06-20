@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!--
+	  Privacy Manifest для Calk.KG iOS App
+	  Required by Apple since May 1, 2024 for App Store submissions.
+
+	  Native app collects NO data. Calculations run in WebView showing calk.kg.
+	  AdSense tracking happens INSIDE the website, declared in https://calk.kg/privacy-policy/
+	  and is not part of the native bundle.
+	-->
+
+	<!-- Tracking: app не использует Tracking (ATT) API -->
+	<key>NSPrivacyTracking</key>
+	<false/>
+
+	<!-- Tracking domains: native bundle не обращается напрямую к трекинг-доменам -->
+	<key>NSPrivacyTrackingDomains</key>
+	<array/>
+
+	<!-- Data collection: native bundle не собирает данные пользователя -->
+	<key>NSPrivacyCollectedDataTypes</key>
+	<array/>
+
+	<!--
+	  Required Reason APIs - объяснение использования.
+	  Наш код использует только WKWebView и стандартный UIKit.
+	  Декларируем пустой массив, потому что:
+	  - Не читаем file timestamps (NSFileManager.attributesOfItem)
+	  - Не читаем boot time (systemUptime)
+	  - Не пишем в UserDefaults (вся state хранится в WKWebsiteDataStore)
+	  - Не используем active keyboards
+	  - Не используем DiskSpace API
+	-->
+	<key>NSPrivacyAccessedAPITypes</key>
+	<array/>
+</dict>
+</plist>

@@ -74,3 +74,11 @@ adsense-html-report.*
 TRANSLATION_*.md
 DEPLOYMENT_GUIDE*.md
 README_FINAL.md
+
+# iOS provisioning profile (keep out of git)
+*.mobileprovision
+
+# Scratch screenshots at repo root (NOT site assets under public/og-images)
+/*.png
+apple-verification.zip
+.playwright-mcp/

@@ -1,0 +1,21 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["SRKYS78RMQ.kg.calk.ios"],
+        "components": [
+          {
+            "/": "/*",
+            "comment": "Universal links: open all calk.kg URLs in the iOS app when installed"
+          }
+        ]
+      }
+    ]
+  },
+  "webcredentials": {
+    "apps": ["SRKYS78RMQ.kg.calk.ios"]
+  },
+  "appclips": {
+    "apps": []
+  }
+}

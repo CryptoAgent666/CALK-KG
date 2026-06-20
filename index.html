@@ -33,9 +33,24 @@
       .react-mounted #static-content { display: none !important; }
     </style>
     
-    <!-- Google AdSense - deferred loading -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4859241862365215"
-     crossorigin="anonymous"></script>
+    <!-- Google AdSense (Auto ads) — deferred loading.
+         Skipped inside the CalkKG native app (v2.0+), which shows native AdMob banners instead.
+         Avoids double ads + AdSense-in-app policy issues. Web + older app builds keep AdSense.
+         Detects Android UA "CalkKG-App/2.0" and iOS UA "CalkKG/2.0 (iOS App)". -->
+    <script>
+      (function () {
+        var ua = navigator.userAgent || '';
+        var m = ua.match(/CalkKG(?:-App)?\/(\d+)/); // CalkKG/2 (iOS) or CalkKG-App/2 (Android)
+        var isNativeAppV2Plus = m && parseInt(m[1], 10) >= 2;
+        if (!isNativeAppV2Plus) {
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4859241862365215';
+          s.crossOrigin = 'anonymous';
+          document.head.appendChild(s);
+        }
+      })();
+    </script>
   </head>
   <body>
     <!-- Hidden form for Netlify Forms (contact form submissions) - required for form detection at deploy -->

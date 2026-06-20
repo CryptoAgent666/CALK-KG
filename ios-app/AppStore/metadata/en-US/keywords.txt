@@ -1,0 +1,1 @@
+calculator,kyrgyzstan,salary,tax,loan,mortgage,currency,nbkr,pension,alimony,utilities,zakat,fines,patent

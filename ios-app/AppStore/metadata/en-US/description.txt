@@ -1,0 +1,68 @@
+Calk.KG — the largest collection of free online calculators for residents of Kyrgyzstan. 35+ calculators for taxes, salary, loans, utilities and much more.
+
+🧮 ALL CALCULATORS IN ONE APP:
+
+💰 Finance & Loans:
+• Salary calculator (income tax 10%, Social Fund 10%, IT zone 5%)
+• Loan calculator (8 banks of Kyrgyzstan)
+• Mortgage calculator
+• Auto loan calculator
+• Deposit calculator
+• NBKR currency rates (live)
+• Money transfers (Koronapay, Golden Crown, etc.)
+
+📊 Taxes:
+• Single tax (0%, 0.5%, 1%, 2%, 4%, 6%, 8%)
+• Patent tax by region
+• Property tax
+• Customs duties (EAEU, electric vehicles 0%)
+• Social Fund (employer/employee)
+• Taxi tax (2%)
+
+🏛️ Social:
+• Pension calculator
+• Alimony (25%/33%/50% per KR law)
+• Family benefits (1200 KGS/child)
+• Zakat (nisab in gold)
+• Sick leave (MROT 2500)
+
+🏠 Utilities:
+• Electricity (2026 tariffs)
+• Gas • Water • Heating
+• Communal services
+• Fuel (current prices)
+• Construction materials
+
+🎓 Other:
+• Student scholarships
+• Calorie calculator
+• Bishkek rental rates
+• Agricultural yield
+• Wedding budget
+• Tailoring costs
+• Tourist fee
+• Mobile tariffs (MegaCom, Beeline, O!)
+• Government fees (passport, ID card)
+• Traffic fines
+
+✨ FEATURES:
+• 35+ calculators in one app
+• Two languages: Russian and Kyrgyz
+• Calculations performed locally (no data collection)
+• Up-to-date 2026 rates and tariffs
+• Share results via iOS Share Sheet
+• No registration required
+• Completely free
+
+📱 Built for residents of Kyrgyzstan and anyone working with KR legislation.
+
+All data based on current laws and regulations:
+• Tax Code of the Kyrgyz Republic
+• Social Insurance Code
+• Cabinet of Ministers decrees
+• Tariffs from NBKR, Gazprom Kyrgyzstan, Bishkek Vodokanal, Bishkek Teploset
+
+Website: https://calk.kg
+Support: info@calk.kg
+
+⚠️ Calculators provide estimates only. For official values, contact the Tax Service of Kyrgyzstan, Social Fund and relevant authorities.
