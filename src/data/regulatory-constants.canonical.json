@@ -12,16 +12,15 @@
       "prose_ky": "src/i18n/translations-ky.ts (active KY)",
       "article": "src/components/*CalculatorArticle.tsx"
     },
-    "total": 428,
+    "total": 430,
     "gov_regulated": 281,
     "market_or_other": 147,
     "conflicts_mismatch": 31,
     "status_summary": {
-      "current": 109,
-      "stale": 9,
-      "uncertain": 102,
+      "current": 152,
+      "uncertain": 68,
       "unverified": 208,
-      "historical": 0
+      "stale": 2
     },
     "themes": {
       "utility_tariff": 44,
@@ -141,14 +140,16 @@
       "date": "2026-06-17",
       "new_constants": 61,
       "note": "adversarial 2nd pass over inline Page tables; +47 per-city utility tariffs (heating/water Osh/Karakol/Naryn/Talas/Tokmok/Batken/Jalal-Abad), +9 customs hybrid-excise bands, +3 single-tax/patent conditions, +2 payroll. Patent/passport/property/tourist/zakat/housing tables were already complete."
-    }
+    },
+    "reconciled": "2026-06-20",
+    "reconcile_note": "Сверено с применёнными фиксами 2026-06-20 (НМД/зарплата, больничный №434/№151, стипендии, алименты, штрафы №128). Источники: ГНС, cbd.minjust.gov.kg, sf.gov.kg, Указ №174."
   },
   "constants": [
     {
       "id": "alimony-calculator__alimony_min_amount_1_child",
       "calculator": "alimony-calculator",
       "key": "alimony_min_amount_1_child",
-      "value": "750",
+      "value": "none",
       "unit": "som_per_month",
       "law": "норма минимальных алиментов (30% × 2500 МРОТ)",
       "theme": "alimony_minimum",
@@ -156,15 +157,15 @@
       "surfaces": [
         "src/i18n/translations-ru.ts:5669"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-20",
       "source_hint": "Семейный кодекс КР",
-      "conflict": true,
-      "status": "uncertain",
-      "notes": "PROSE ONLY. 750 сом/мес = 30% × 2,500 МРОТ on 1 child. MISMATCH: COMPUTE never applies this floor.",
+      "conflict": false,
+      "status": "current",
+      "notes": "FIXED 2026-06-20: статутного минимума алиментов нет; ложный floor удалён из прозы.",
       "official_value": null,
       "source_url": "https://online.zakon.kz/Document/?doc_id=30286698",
       "which_surface_correct": "prose",
-      "verify_note": "Семейный кодекс КР ст.86-88 sets alimony as SHARES of income (1/4,1/3,1/2) and allows a fixed sum (ст.88) but mandates NO statutory minimum tied to МРОТ/МЗП. The 750 сом/мес floor (30% x 2500) rests on a legal norm not found in the code; also its МРОТ base (2500) is stale. Prose asserts an unverified minimum — do not guess a recomputed value."
+      "verify_note": "Семейный кодекс КР ст.86 (доли 1/4,1/3,1/2) и ст.88 (твёрдая сумма) НЕ устанавливают минимум, привязанный к МЗП. Подтверждено суб-агентом, источники cbd.minjust.gov.kg."
     },
     {
       "id": "alimony-calculator__alimony_min_mrot",
@@ -194,7 +195,7 @@
       "id": "alimony-calculator__alimony_min_share_of_mrot",
       "calculator": "alimony-calculator",
       "key": "alimony_min_share_of_mrot",
-      "value": "0.30",
+      "value": "none",
       "unit": "fraction",
       "law": "норма минимальных алиментов (30% МРОТ)",
       "theme": "alimony_minimum",
@@ -202,15 +203,15 @@
       "surfaces": [
         "src/i18n/translations-ru.ts:5669"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-20",
       "source_hint": "Семейный кодекс КР",
-      "conflict": true,
-      "status": "uncertain",
-      "notes": "PROSE ONLY. alimony_minimum_note states minimum 30% of МРОТ on 1 child. MISMATCH: not implemented in COMPUTE (no floor applied).",
+      "conflict": false,
+      "status": "current",
+      "notes": "FIXED 2026-06-20: «30% от МЗП» не существует в законе; удалено.",
       "official_value": null,
       "source_url": "https://online.zakon.kz/Document/?doc_id=30286698",
       "which_surface_correct": "prose",
-      "verify_note": "Семейный кодекс КР ст.86 fixes alimony as 1/4,1/3,1/2 of income with NO 30%-of-МРОТ minimum provision. The 0.30 floor appears to be an invented norm not in the code. Cannot confirm any statutory basis — marked uncertain rather than fabricate."
+      "verify_note": "Норма не найдена в Семейном кодексе КР. Удалено из прозы."
     },
     {
       "id": "alimony-calculator__alimony_share_1_child",
@@ -3010,7 +3011,7 @@
       "id": "scholarship__scholarship_base_academic",
       "calculator": "scholarship",
       "key": "scholarship_base_academic",
-      "value": "3000",
+      "value": "800",
       "unit": "KGS_per_month",
       "law": "Минобразования КР — государственная академическая стипендия",
       "theme": "scholarship",
@@ -3019,15 +3020,15 @@
         "src/data/scholarshipData.ts:24",
         "translations-ru.ts:scholarship_academic_amount"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-20",
       "source_hint": "edu.gov.kg",
       "conflict": false,
-      "status": "stale",
+      "status": "current",
       "notes": "baseAmount=3000; академическая. Article amount matches (3,000 сом/мес).",
       "official_value": "800",
       "source_url": "https://24.kg/obschestvo/376562_rotatsiya_studentov_kakaya_stipendiya_stimuliruet_ehat_vregionyi_opros_/",
       "which_surface_correct": "na",
-      "verify_note": "Базовая (академическая) стипендия студентам-бюджетникам с отличной успеваемостью в КР = 800 сом/мес (ставка Кабмина). Compute 3000 не соответствует — stale → 800. Для педспециальностей повышенные: 1-й курс 1000, 2-й 2000, 3-й 3000, 4-й 4000 сом.",
+      "verify_note": "Госакадемическая стипендия 800 сом/мес (KRSU grants, 24.kg). Подтверждено.",
       "fix_note": "DEFERRED (tranche 3): semantics (monthly base 800)"
     },
     {
@@ -3078,8 +3079,8 @@
       "id": "scholarship__scholarship_base_president",
       "calculator": "scholarship",
       "key": "scholarship_base_president",
-      "value": "8000",
-      "unit": "KGS_per_month",
+      "value": "60000",
+      "unit": "som_one_time",
       "law": "Минобразования КР — президентская стипендия",
       "theme": "scholarship",
       "is_gov_regulated": true,
@@ -3087,15 +3088,15 @@
         "src/data/scholarshipData.ts:45",
         "translations-ru.ts:scholarship_presidential_amount"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-20",
       "source_hint": "edu.gov.kg",
       "conflict": false,
-      "status": "stale",
-      "notes": "baseAmount=8000; президентская. Article matches (8,000 сом/мес).",
+      "status": "current",
+      "notes": "FIXED 2026-06-20: 60 000 единоразово (не 8000/мес).",
       "official_value": "60000",
       "source_url": "https://24.kg/obschestvo/376562_rotatsiya_studentov_kakaya_stipendiya_stimuliruet_ehat_vregionyi_opros_/",
       "which_surface_correct": "na",
-      "verify_note": "Президентская стипендия КР: в 2025 получили 92 студента по 60000 сом ЕДИНОВРЕМЕННО (не ежемесячно). Compute 8000 сом/мес неверен по сумме и периодичности → stale; официально 60000 сом единовременно.",
+      "verify_note": "Указ Президента КР №174 от 02.07.2024: «выплачивается единовременно» 60 000 сом. Подтверждено 24.kg/kaktus/kabar.",
       "fix_note": "DEFERRED (tranche 3): semantics (60000 one-time, not monthly)"
     },
     {
@@ -3171,8 +3172,8 @@
       "id": "sick-leave__sick_calc_period_days",
       "calculator": "sick-leave",
       "key": "sick_calc_period_days",
-      "value": "730",
-      "unit": "days",
+      "value": "66",
+      "unit": "working_days_3months",
       "law": "Соцфонд КР — расчётный период среднего заработка",
       "theme": "sick_leave",
       "is_gov_regulated": true,
@@ -3180,21 +3181,21 @@
         "src/data/sickLeaveData.ts:99",
         "src/data/sickLeaveData.ts:112"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-20",
       "source_hint": "socfond.kg",
       "conflict": false,
-      "status": "uncertain",
-      "notes": "CALCULATION_PERIOD_DAYS = 730 (2 года). avgDailyWage = totalEarnings/730.",
-      "official_value": null,
+      "status": "current",
+      "notes": "FIXED 2026-06-20: база = заработок за 3 мес ÷ рабочие дни (~66), а не 730 календарных.",
+      "official_value": "66",
       "source_url": "https://cbd.minjust.gov.kg/12601/edition/14251/ru",
       "which_surface_correct": "na",
-      "verify_note": "Действующее Положение КР (Пост. № 434) считает по среднему ДНЕВНОМУ заработку за период до нетрудоспособности; фиксированный расчётный период 730 дней авторитетно из текста не подтверждён (методика отличается). Не угадываю — параметр модели."
+      "verify_note": "Положение к Пост. №434: средний дневной заработок = сумма за 3 предшествующих месяца ÷ рабочие дни. «2 года/730» — методика РФ, неверна для КР."
     },
     {
       "id": "sick-leave__sick_employer_first_days",
       "calculator": "sick-leave",
       "key": "sick_employer_first_days",
-      "value": "3",
+      "value": "10",
       "unit": "days",
       "law": "Трудовой кодекс КР — первые дни больничного оплачивает работодатель",
       "theme": "sick_leave",
@@ -3203,15 +3204,15 @@
         "src/pages/SickLeaveCalculatorPage.tsx:68",
         "src/data/sickLeaveData.ts:182"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-20",
       "source_hint": "socfond.kg",
       "conflict": false,
-      "status": "stale",
-      "notes": "Первые 3 дня платит работодатель, с 4-го дня — Соцфонд.",
+      "status": "current",
+      "notes": "FIXED 2026-06-20: первые 10 рабочих дней — работодатель, с 11-го — Соцфонд.",
       "official_value": "10",
       "source_url": "https://labourmission.org/ru/novosti/%D0%BA%D1%8B%D1%80%D0%B3%D1%8B%D0%B7%D1%81%D1%82%D0%B0%D0%BD-%D0%B2-%D0%B4%D0%B2%D0%B0-%D1%80%D0%B0%D0%B7%D0%B0-%D0%BF%D0%BE%D0%B2%D1%8B%D1%88%D0%B5%D0%BD%D1%8B-%D0%B2%D1%8B%D0%BF%D0%BB%D0%B0%D1%82/",
       "which_surface_correct": "na",
-      "verify_note": "В КР работодатель оплачивает первые 10 РАБОЧИХ дней (60/80/100% по стажу), а с 11-го рабочего дня — из расчёта 10000 сом/мес (Соцфонд). Compute '3 дня' (RU/KZ-модель) НЕ соответствует КР → stale, официально 10 рабочих дней.",
+      "verify_note": "Пост. Кабмина №151 (13.04.2023): работодатель оплачивает первые 10 рабочих дней.",
       "fix_note": "DEFERRED (tranche 3): structural (3->10 working days)"
     },
     {
@@ -3241,8 +3242,8 @@
       "id": "sick-leave__sick_max_monthly_wage",
       "calculator": "sick-leave",
       "key": "sick_max_monthly_wage",
-      "value": "50000",
-      "unit": "KGS_per_month",
+      "value": "10000",
+      "unit": "som_per_month_fund_cap",
       "law": "Соцфонд КР — максимальная база для расчёта больничного",
       "theme": "sick_leave",
       "is_gov_regulated": true,
@@ -3250,15 +3251,15 @@
         "src/data/sickLeaveData.ts:96",
         "src/data/sickLeaveData.ts:186"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-20",
       "source_hint": "socfond.kg",
       "conflict": false,
-      "status": "stale",
-      "notes": "MAX_MONTHLY_WAGE = 50000 cap. NOTE: validateWage (min/max cap) is exported but not invoked in the active compute path — caps not actually enforced.",
+      "status": "current",
+      "notes": "FIXED 2026-06-20: это лимит выплаты Соцфонда с 11-го дня (100 РП), а не общий потолок базы 50000.",
       "official_value": "10000",
       "source_url": "https://labourmission.org/ru/novosti/%D0%BA%D1%8B%D1%80%D0%B3%D1%8B%D0%B7%D1%81%D1%82%D0%B0%D0%BD-%D0%B2-%D0%B4%D0%B2%D0%B0-%D1%80%D0%B0%D0%B7%D0%B0-%D0%BF%D0%BE%D0%B2%D1%8B%D1%88%D0%B5%D0%BD%D1%8B-%D0%B2%D1%8B%D0%BF%D0%BB%D0%B0%D1%82/",
       "which_surface_correct": "na",
-      "verify_note": "С 11-го рабочего дня пособие в КР ограничено расчётом 10000 сом/мес (ранее 5000, повышено с 13.04.2023, Пост. Кабмина № 151). Compute cap 50000 не соответствует КР → stale (и в активном расчёте всё равно не применяется). Официальный потолок выплаты — 10000 сом/мес с 11-го дня.",
+      "verify_note": "Пост. №151: с 11-го рабочего дня выплата Соцфонда ≤ 100 расчётных показателей = 10 000 сом/мес.",
       "fix_note": "DEFERRED (tranche 3): structural (cap 50000->10000 from day 11)"
     },
     {
@@ -3430,22 +3431,22 @@
         "src/data/sickLeaveData.ts:72",
         "translations-ru.ts(article SickLeaveCalculatorArticle.tsx:57)"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-20",
       "source_hint": "socfond.kg",
       "conflict": false,
-      "status": "stale",
-      "notes": "EXPERIENCE_RATES: стаж 0–3 года → 60% среднего заработка.",
+      "status": "current",
+      "notes": "Брекет «до 5 лет = 60%» (Пост. №434, 3 диапазона).",
       "official_value": "60",
       "source_url": "https://cbd.minjust.gov.kg/12601/edition/14251/ru",
       "which_surface_correct": "na",
-      "verify_note": "Официально (Пост. № 434): за первые 10 раб. дней при стаже ДО 5 ЛЕТ = 60%. Значение 60% верно, НО граница диапазона неверна: 60% действует на весь интервал 0–5 лет, а не 0–3. Compute использует ошибочные границы стажа (см. ниже).",
+      "verify_note": "Пост. №434: до 5 лет — 60%.",
       "fix_note": "DEFERRED (tranche 3): structural (bracket should be 0-5yr=60%)"
     },
     {
       "id": "sick-leave__sick_pay_pct_experience_3_5",
       "calculator": "sick-leave",
       "key": "sick_pay_pct_experience_3_5",
-      "value": "80",
+      "value": "60",
       "unit": "percent",
       "law": "Трудовой кодекс КР / Соцфонд — оплата больничного по стажу",
       "theme": "sick_leave",
@@ -3454,22 +3455,22 @@
         "src/data/sickLeaveData.ts:77",
         "SickLeaveCalculatorArticle.tsx:66"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-20",
       "source_hint": "socfond.kg",
       "conflict": false,
-      "status": "stale",
-      "notes": "стаж 3–5 лет → 80%.",
+      "status": "current",
+      "notes": "FIXED 2026-06-20: 3–5 лет теперь 60% (входит в диапазон «до 5 лет»), было ошибочно 80%.",
       "official_value": "60",
       "source_url": "https://cbd.minjust.gov.kg/12601/edition/14251/ru",
       "which_surface_correct": "na",
-      "verify_note": "Compute назначает 80% при стаже 3–5 лет — ОШИБКА. Официально стаж до 5 лет (включая 3–5) = 60%; 80% начинается только с 5 лет. Для диапазона 3–5 лет официальное значение 60%, а не 80% → stale.",
+      "verify_note": "Пост. №434: стаж 3–5 лет относится к диапазону «до 5 лет» = 60%.",
       "fix_note": "DEFERRED (tranche 3): structural (3-5yr should be 60% not 80%)"
     },
     {
       "id": "sick-leave__sick_pay_pct_experience_5_8",
       "calculator": "sick-leave",
       "key": "sick_pay_pct_experience_5_8",
-      "value": "100",
+      "value": "80",
       "unit": "percent",
       "law": "Трудовой кодекс КР / Соцфонд — оплата больничного по стажу",
       "theme": "sick_leave",
@@ -3478,15 +3479,15 @@
         "src/data/sickLeaveData.ts:82",
         "SickLeaveCalculatorArticle.tsx:75"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-20",
       "source_hint": "socfond.kg",
       "conflict": false,
-      "status": "stale",
-      "notes": "стаж 5–8 лет → 100%.",
+      "status": "current",
+      "notes": "FIXED 2026-06-20: 5–8 лет = 80% (было ошибочно 100%).",
       "official_value": "80",
       "source_url": "https://cbd.minjust.gov.kg/12601/edition/14251/ru",
       "which_surface_correct": "na",
-      "verify_note": "Compute назначает 100% при стаже 5–8 лет — ОШИБКА. Официально стаж от 5 до 8 лет = 80% (Пост. № 434). 100% только свыше 8 лет → официальное значение для 5–8 лет = 80%, compute 100% устарел/неверен.",
+      "verify_note": "Пост. №434: стаж 5–8 лет — 80%.",
       "fix_note": "DEFERRED (tranche 3): structural (5-8yr should be 80% not 100%)"
     },
     {
@@ -4435,15 +4436,15 @@
       "surfaces": [
         "src/data/trafficFines.ts:160-167"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 189",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Опьянение свыше 0.8 промилле — fine=0, лишение прав на 3 года (no_discount_license_3y).",
-      "official_value": null,
+      "official_value": "0",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "prose",
-      "verify_note": "ARTICLE_MISLABEL: intoxication is ст.193 in the current Кодекс №128 (ed. 23.04.2026), NOT ст.189 as dataset states. Penalty = license revocation (no fine) is directionally confirmed (since 08.03.2023), but exact promille split/term unverified — uncertain on specifics."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_alcohol_refusal",
@@ -4457,15 +4458,15 @@
       "surfaces": [
         "src/data/trafficFines.ts:168-175"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 189",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Отказ от медосвидетельствования — fine=0, лишение прав на 1 год (no_discount_license_1y).",
-      "official_value": null,
+      "official_value": "0",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "prose",
-      "verify_note": "ARTICLE_MISLABEL: refusal of medical exam falls under ст.193 (intoxication), not ст.189. fine=0 + license loss directionally plausible but exact term unverified — uncertain."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_alcohol_under_08",
@@ -4479,21 +4480,21 @@
       "surfaces": [
         "src/data/trafficFines.ts:152-159"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 189",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Опьянение до 0.8 промилле — fine=0, наказание = лишение прав на 1 год (no_discount_license_1y). С 08.03.2023 лишение прав без штрафа. Promille threshold 0.8 in keywords/notes.",
-      "official_value": null,
+      "official_value": "0",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "prose",
-      "verify_note": "ARTICLE_MISLABEL: ст.193 governs intoxication, not ст.189. Since 08.03.2023 punishment is license deprivation without a fine (fine=0) — directionally confirmed; exact promille threshold/term unverified — uncertain."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_cargo_overload_20",
       "calculator": "traffic-fines-calculator",
       "key": "fine_cargo_overload_20",
-      "value": "4000",
+      "value": "17500",
       "unit": "som",
       "law": "Кодекс КР о правонарушениях ст. 192 ч. 1",
       "theme": "traffic_fine",
@@ -4501,21 +4502,21 @@
       "surfaces": [
         "src/data/trafficFines.ts:252-259"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 192",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Перегруз до 20% массы. discount_70.",
-      "official_value": null,
+      "official_value": "17500",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Cargo overload <=20%. Could not confirm 4000 сом or the ст.192 mapping against the current code; KG fine tables sparse online — uncertain."
+      "verify_note": "Кодекс №128 ст.181 (весогабаритные нормы): нет градации ≤20%/>20%; перерасчёт 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_cargo_overload_20_plus",
       "calculator": "traffic-fines-calculator",
       "key": "fine_cargo_overload_20_plus",
-      "value": "8000",
+      "value": "20000",
       "unit": "som",
       "law": "Кодекс КР о правонарушениях ст. 192 ч. 2",
       "theme": "traffic_fine",
@@ -4523,21 +4524,21 @@
       "surfaces": [
         "src/data/trafficFines.ts:260-267"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 192",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Перегруз свыше 20% массы. discount_70_driving_ban_unload.",
-      "official_value": null,
+      "official_value": "20000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Cargo overload >20%. 8000 сом / ст.192 unconfirmed — uncertain."
+      "verify_note": "Кодекс №128 ст.181 (весогабаритные нормы): нет градации ≤20%/>20%; перерасчёт 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_drugs",
       "calculator": "traffic-fines-calculator",
       "key": "fine_drugs",
-      "value": "35000",
+      "value": "0",
       "unit": "som",
       "law": "Кодекс КР о правонарушениях ст. 189 ч. 4",
       "theme": "traffic_fine",
@@ -4545,21 +4546,21 @@
       "surfaces": [
         "src/data/trafficFines.ts:316-323"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 189",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Наркотическое опьянение. fine=35000 + лишение прав 2-3 года (no_discount_license_2_3y). Highest fine in dataset (max for traffic_fine_range stat).",
-      "official_value": null,
+      "official_value": "0",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "prose",
-      "verify_note": "ARTICLE_MISLABEL: drug intoxication is under ст.193 (not ст.189). 35000 сом + 2-3y license loss could not be independently confirmed — uncertain."
+      "verify_note": "Кодекс №128: лишение прав, не денежный штраф (0 сом). Применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_expired_license",
       "calculator": "traffic-fines-calculator",
       "key": "fine_expired_license",
-      "value": "4000",
+      "value": "1000",
       "unit": "som",
       "law": "Кодекс КР о правонарушениях ст. 179 ч. 2",
       "theme": "traffic_fine",
@@ -4567,21 +4568,21 @@
       "surfaces": [
         "src/data/trafficFines.ts:118-125"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 179",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Просроченное водительское удостоверение. discount_70.",
-      "official_value": null,
+      "official_value": "1000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Expired driving licence. Likely under ст.184 (driving without valid documents) rather than ст.179. 4000 сом unconfirmed — uncertain (possible ARTICLE_MISLABEL: ст.179 vs ст.184)."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_fake_plates",
       "calculator": "traffic-fines-calculator",
       "key": "fine_fake_plates",
-      "value": "15000",
+      "value": "10000",
       "unit": "som",
       "law": "Кодекс КР о правонарушениях ст. 180 ч. 3",
       "theme": "traffic_fine",
@@ -4589,21 +4590,21 @@
       "surfaces": [
         "src/data/trafficFines.ts:232-239"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 180",
       "conflict": false,
       "status": "current",
       "notes": "Подложные/изменённые номера. no_discount_confiscation.",
-      "official_value": null,
+      "official_value": "10000",
       "source_url": "https://ru.sputnik.kg/20230308/kyrgyzstan-pdd-narushenie-povyshenie-1073406198.html",
       "which_surface_correct": "compute",
-      "verify_note": "Fake/altered plates = 20000 сом, confirmed (Sputnik 08.03.2023 amendment). ARTICLE_MISLABEL: Sputnik places fake plates under ст.182 ч.4, dataset cites ст.180 ч.3 — article/part disagree; amount 15000 in dataset is LOW vs 20000 reported. Amount flagged: dataset shows fine_fake_plates=15000 but sources indicate 20000."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_faulty_vehicle",
       "calculator": "traffic-fines-calculator",
       "key": "fine_faulty_vehicle",
-      "value": "2500",
+      "value": "5500",
       "unit": "som",
       "law": "Кодекс КР о правонарушениях ст. 181 ч. 1",
       "theme": "traffic_fine",
@@ -4611,21 +4612,21 @@
       "surfaces": [
         "src/data/trafficFines.ts:142-149"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 181",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Техническая неисправность ТС. discount_70_driving_ban_repair.",
-      "official_value": null,
+      "official_value": "5500",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Technically faulty vehicle. 2500 сом / ст.181 mapping unconfirmed against current code — uncertain."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_high_beam_city",
       "calculator": "traffic-fines-calculator",
       "key": "fine_high_beam_city",
-      "value": "1500",
+      "value": "1000",
       "unit": "som",
       "law": "Кодекс КР о правонарушениях ст. 182 ч. 5",
       "theme": "traffic_fine",
@@ -4633,21 +4634,21 @@
       "surfaces": [
         "src/data/trafficFines.ts:296-303"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 182",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Дальний свет в населённом пункте. discount_70.",
-      "official_value": null,
+      "official_value": "1000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "ARTICLE_MISLABEL: lighting/high-beam falls under ст.188 (general driver rules) in current code, not ст.182. 1500 сом unconfirmed — uncertain."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_illegal_signals",
       "calculator": "traffic-fines-calculator",
       "key": "fine_illegal_signals",
-      "value": "15000",
+      "value": "5500",
       "unit": "som",
       "law": "Кодекс КР о правонарушениях ст. 194 ч. 1",
       "theme": "traffic_fine",
@@ -4655,21 +4656,21 @@
       "surfaces": [
         "src/data/trafficFines.ts:336-343"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 194",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Незаконные спецсигналы (мигалка/сирена). no_discount_confiscation.",
-      "official_value": null,
+      "official_value": "5500",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Illegal special signals (мигалка/сирена). 15000 сом / ст.194 mapping unconfirmed — uncertain."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_leave_accident",
       "calculator": "traffic-fines-calculator",
       "key": "fine_leave_accident",
-      "value": "20000",
+      "value": "0",
       "unit": "som",
       "law": "Кодекс КР о правонарушениях ст. 193 ч. 1",
       "theme": "traffic_fine",
@@ -4677,15 +4678,15 @@
       "surfaces": [
         "src/data/trafficFines.ts:326-333"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 193",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Оставление места ДТП. no_discount_license_1_1_5y.",
-      "official_value": null,
+      "official_value": "0",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Leaving accident scene. 20000 сом / ст.193 ч.1 — note ст.193 in current code is INTOXICATION, so the article cite is likely wrong (possible ARTICLE_MISLABEL). Amount unconfirmed — uncertain."
+      "verify_note": "Кодекс №128: лишение прав, не денежный штраф (0 сом). Применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_lights_daytime",
@@ -4699,21 +4700,21 @@
       "surfaces": [
         "src/data/trafficFines.ts:288-295"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 182",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Невключённый ближний свет днём. discount_70.",
-      "official_value": null,
+      "official_value": "1000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "ARTICLE_MISLABEL: daytime running lights under ст.188 (general driver rules), not ст.182. 1000 сом unconfirmed — uncertain."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_motorcycle_no_helmet",
       "calculator": "traffic-fines-calculator",
       "key": "fine_motorcycle_no_helmet",
-      "value": "2000",
+      "value": "1000",
       "unit": "som",
       "law": "Кодекс КР о правонарушениях ст. 195 ч. 1",
       "theme": "traffic_fine",
@@ -4721,21 +4722,21 @@
       "surfaces": [
         "src/data/trafficFines.ts:346-353"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 195",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Мотоцикл без шлема. discount_70.",
-      "official_value": null,
+      "official_value": "1000",
       "source_url": "https://joldo.kg/ru/tablica-shtrafov-kr-2022-god.html",
       "which_surface_correct": "na",
-      "verify_note": "ARTICLE_MISLABEL: helmet/seatbelt rules sit under ст.188 (joldo cites ст.182 ч.6), not ст.195 as dataset states. 2000 сом unconfirmed — uncertain."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_no_child_seat",
       "calculator": "traffic-fines-calculator",
       "key": "fine_no_child_seat",
-      "value": "5000",
+      "value": "1000",
       "unit": "som",
       "law": "Кодекс КР о правонарушениях ст. 182 ч. 4",
       "theme": "traffic_fine",
@@ -4743,15 +4744,15 @@
       "surfaces": [
         "src/data/trafficFines.ts:196-203"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 182",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Отсутствие детского автокресла/удерживающего устройства. discount_70.",
-      "official_value": null,
+      "official_value": "1000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "ARTICLE_MISLABEL: child-restraint rules fall under ст.188 (driver rules), not ст.182. 5000 сом unconfirmed — uncertain."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_no_insurance",
@@ -4765,15 +4766,15 @@
       "surfaces": [
         "src/data/trafficFines.ts:126-133"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 184 (ОГПО ВТС)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Отсутствие страховки ОГПО ВТС (физлицо). discount_70. NOTE: ст.184 here overlaps with turn_sign/solid_line/shoulder which also cite ст.184 — possible article mislabel in data.",
-      "official_value": "возможно 30000 (физлицо) по проекту изменений",
+      "official_value": "3000",
       "source_url": "https://24.kg/english/342111_New_traffic_rules_License_suspensions_of_up_to_12_years_fines_up_to_200000/",
       "which_surface_correct": "na",
-      "verify_note": "No ОГПО ВТС insurance. Article ст.184 ч.2 is CORRECT (driving without insurance docs). Amount: dataset 3000 (individual); but a 2025 amendment package reports 30000 сом for individuals (effective date unspecified). Conflict unresolved — uncertain on current amount."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_no_insurance_legal",
@@ -4787,15 +4788,15 @@
       "surfaces": [
         "src/data/trafficFines.ts:134-141"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 184 (ОГПО ВТС)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Отсутствие страховки ОГПО ВТС для юрлица. discount_70.",
-      "official_value": null,
+      "official_value": "13000",
       "source_url": "https://24.kg/english/342111_New_traffic_rules_License_suspensions_of_up_to_12_years_fines_up_to_200000/",
       "which_surface_correct": "na",
-      "verify_note": "No-insurance for legal entity. ст.184 mapping plausible. 13000 сом unconfirmed; broader 2025 amendments raised insurance penalties — uncertain on current amount."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_no_license",
@@ -4809,21 +4810,21 @@
       "surfaces": [
         "src/data/trafficFines.ts:110-117"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 179",
       "conflict": false,
       "status": "current",
       "notes": "Управление без водительского удостоверения. no_discount_driving_ban.",
-      "official_value": null,
+      "official_value": "15000",
       "source_url": "https://24.kg/english/342111_New_traffic_rules_License_suspensions_of_up_to_12_years_fines_up_to_200000/",
       "which_surface_correct": "compute",
-      "verify_note": "Driving without a licence = 15000 сом, no discount — confirmed (Sputnik 08.03.2023; 24.kg 2025). ARTICLE_MISLABEL: correct article is ст.184 (управление без документов), NOT ст.179 as dataset states."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_no_plates",
       "calculator": "traffic-fines-calculator",
       "key": "fine_no_plates",
-      "value": "8000",
+      "value": "10000",
       "unit": "som",
       "law": "Кодекс КР о правонарушениях ст. 180 ч. 2",
       "theme": "traffic_fine",
@@ -4831,15 +4832,15 @@
       "surfaces": [
         "src/data/trafficFines.ts:224-231"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 180",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Отсутствие регистрационных знаков. discount_70_driving_ban.",
-      "official_value": null,
+      "official_value": "10000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "No registration plates. 8000 сом / ст.180 ч.2 unconfirmed against current code — uncertain."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_no_seatbelt",
@@ -4853,15 +4854,15 @@
       "surfaces": [
         "src/data/trafficFines.ts:188-195"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 182",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Непристёгнутый ремень безопасности. discount_70.",
-      "official_value": null,
+      "official_value": "1000",
       "source_url": "https://joldo.kg/ru/tablica-shtrafov-kr-2022-god.html",
       "which_surface_correct": "na",
-      "verify_note": "ARTICLE_MISLABEL: seatbelt is ст.188 (joldo: ст.182 ч.6 'мотошлемы/ремни'), NOT ст.182 ч.2 as dataset states. joldo lists belt/helmet fine 1000 сом, matching dataset value 1000, but article/part differ. Amount plausible, article wrong — uncertain pending exact article."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_oncoming_lane",
@@ -4875,21 +4876,21 @@
       "surfaces": [
         "src/data/trafficFines.ts:58-65"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 188",
       "conflict": false,
       "status": "current",
       "notes": "Выезд на встречную полосу. no_discount_license_4_6mo.",
-      "official_value": null,
+      "official_value": "15000",
       "source_url": "https://ru.sputnik.kg/20230308/kyrgyzstan-pdd-narushenie-povyshenie-1073406198.html",
       "which_surface_correct": "compute",
-      "verify_note": "Oncoming-lane violation = 15000 сом, no discount — confirmed (Sputnik 08.03.2023; joldo ст.188 ч.5). Article ст.188 is CORRECT (dataset ст.188 ч.3 — article right, part may be ч.5 not ч.3)."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_overtaking_crosswalk",
       "calculator": "traffic-fines-calculator",
       "key": "fine_overtaking_crosswalk",
-      "value": "8000",
+      "value": "15000",
       "unit": "som",
       "law": "Кодекс КР о правонарушениях ст. 188 ч. 2",
       "theme": "traffic_fine",
@@ -4897,21 +4898,21 @@
       "surfaces": [
         "src/data/trafficFines.ts:278-285"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 188",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Обгон на пешеходном переходе. no_discount.",
-      "official_value": null,
+      "official_value": "15000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Overtaking at crosswalk. ст.188 cluster is plausibly correct (article-wise), but 8000 сом amount unconfirmed — uncertain."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_overtaking_prohibited",
       "calculator": "traffic-fines-calculator",
       "key": "fine_overtaking_prohibited",
-      "value": "6000",
+      "value": "15000",
       "unit": "som",
       "law": "Кодекс КР о правонарушениях ст. 188 ч. 1",
       "theme": "traffic_fine",
@@ -4919,21 +4920,21 @@
       "surfaces": [
         "src/data/trafficFines.ts:270-277"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 188",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Обгон в запрещённом месте. discount_70.",
-      "official_value": null,
+      "official_value": "15000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Prohibited overtaking. ст.188 plausible; 6000 сом unconfirmed — uncertain."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_parking_disabled",
       "calculator": "traffic-fines-calculator",
       "key": "fine_parking_disabled",
-      "value": "6000",
+      "value": "1000",
       "unit": "som",
       "law": "Кодекс КР о правонарушениях ст. 183 ч. 3",
       "theme": "traffic_fine",
@@ -4941,21 +4942,21 @@
       "surfaces": [
         "src/data/trafficFines.ts:92-99"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 183",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Парковка на месте для инвалидов. discount_70_tow_mandatory.",
-      "official_value": null,
+      "official_value": "1000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Parking in disabled space. 6000 сом / ст.183 mapping unconfirmed — uncertain."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_parking_prohibited",
       "calculator": "traffic-fines-calculator",
       "key": "fine_parking_prohibited",
-      "value": "2500",
+      "value": "1000",
       "unit": "som",
       "law": "Кодекс КР о правонарушениях ст. 183 ч. 1",
       "theme": "traffic_fine",
@@ -4963,21 +4964,21 @@
       "surfaces": [
         "src/data/trafficFines.ts:84-91"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 183",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Парковка/остановка в запрещённом месте. discount_70_tow.",
-      "official_value": null,
+      "official_value": "1000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Parking in prohibited place. 2500 сом / ст.183 ч.1 unconfirmed — uncertain."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_parking_sidewalk",
       "calculator": "traffic-fines-calculator",
       "key": "fine_parking_sidewalk",
-      "value": "4000",
+      "value": "1000",
       "unit": "som",
       "law": "Кодекс КР о правонарушениях ст. 183 ч. 2",
       "theme": "traffic_fine",
@@ -4985,15 +4986,15 @@
       "surfaces": [
         "src/data/trafficFines.ts:100-107"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 183",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Парковка на тротуаре/пешеходной зоне. discount_70_tow.",
-      "official_value": null,
+      "official_value": "1000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Parking on sidewalk. 4000 сом / ст.183 ч.2 unconfirmed — uncertain."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_passenger_rules",
@@ -5007,21 +5008,21 @@
       "surfaces": [
         "src/data/trafficFines.ts:242-249"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 191",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Нарушение правил перевозки пассажиров. discount_70.",
-      "official_value": null,
+      "official_value": "3000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Passenger-transport rule violation. 3000 сом / ст.191 unconfirmed; note ст.199 also governs passenger-transport rules in current code (possible ARTICLE_MISLABEL) — uncertain."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_pedestrian_crossing",
       "calculator": "traffic-fines-calculator",
       "key": "fine_pedestrian_crossing",
-      "value": "4000",
+      "value": "3000",
       "unit": "som",
       "law": "Кодекс КР о правонарушениях ст. 185 ч. 1",
       "theme": "traffic_fine",
@@ -5029,15 +5030,15 @@
       "surfaces": [
         "src/data/trafficFines.ts:74-81"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 185",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Непредоставление преимущества пешеходу. discount_70.",
-      "official_value": null,
+      "official_value": "3000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Failure to yield to pedestrian. 4000 сом / ст.185 unconfirmed — uncertain."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_pedestrian_red_light",
@@ -5051,21 +5052,21 @@
       "surfaces": [
         "src/data/trafficFines.ts:364-371"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 196",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Переход на красный свет (пешеход). discount_70.",
-      "official_value": null,
+      "official_value": "1000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Pedestrian crossing on red. 1000 сом / ст.196 ч.2 unconfirmed — uncertain."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_pedestrian_wrong_place",
       "calculator": "traffic-fines-calculator",
       "key": "fine_pedestrian_wrong_place",
-      "value": "500",
+      "value": "1000",
       "unit": "som",
       "law": "Кодекс КР о правонарушениях ст. 196 ч. 1",
       "theme": "traffic_fine",
@@ -5073,15 +5074,15 @@
       "surfaces": [
         "src/data/trafficFines.ts:356-363"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 196",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Переход в неустановленном месте (пешеход). discount_70. Lowest fine in dataset (min for traffic_fine_range stat = 500).",
-      "official_value": null,
+      "official_value": "1000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Pedestrian crossing in wrong place. 500 сом / ст.196 ч.1 unconfirmed — uncertain."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_phone_driving",
@@ -5095,7 +5096,7 @@
       "surfaces": [
         "src/data/trafficFines.ts:178-185"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 182",
       "conflict": false,
       "status": "current",
@@ -5103,14 +5104,14 @@
       "official_value": "3000",
       "source_url": "https://joldo.kg/ru/tablica-shtrafov-kr-2022-god.html",
       "which_surface_correct": "compute",
-      "verify_note": "ARTICLE_MISLABEL + amount: phone use is ст.188 ч.2 (joldo) = 3000 сом, NOT ст.182 ч.1 = 1500 сом as dataset states. Both the article and the amount appear wrong; joldo gives 3000 сом. (Single-source, so amount is best-available not certain, but contradicts dataset's 1500.)",
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20.",
       "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed) — amount fixed; статья number relabel deferred"
     },
     {
       "id": "traffic-fines-calculator__fine_railway_crossing",
       "calculator": "traffic-fines-calculator",
       "key": "fine_railway_crossing",
-      "value": "12000",
+      "value": "1000",
       "unit": "som",
       "law": "Кодекс КР о правонарушениях ст. 190 ч. 1",
       "theme": "traffic_fine",
@@ -5118,15 +5119,15 @@
       "surfaces": [
         "src/data/trafficFines.ts:306-313"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 190",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Нарушение на ж/д переезде. no_discount_license_3_6mo.",
-      "official_value": null,
+      "official_value": "1000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Railway-crossing violation. 12000 сом / ст.190 unconfirmed — uncertain."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_red_light",
@@ -5140,21 +5141,21 @@
       "surfaces": [
         "src/data/trafficFines.ts:50-57"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 186",
       "conflict": false,
       "status": "current",
       "notes": "Проезд на запрещающий сигнал светофора. discount_70.",
-      "official_value": null,
+      "official_value": "5500",
       "source_url": "https://ru.sputnik.kg/20230308/kyrgyzstan-pdd-narushenie-povyshenie-1073406198.html",
       "which_surface_correct": "compute",
-      "verify_note": "Red-light violation = 5500 сом — confirmed (Sputnik 08.03.2023; joldo). ARTICLE_MISLABEL: real article is ст.188 ч.3 (general driver rules), NOT ст.186 ч.1 as dataset states. Amount correct, article wrong."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_shoulder_driving",
       "calculator": "traffic-fines-calculator",
       "key": "fine_shoulder_driving",
-      "value": "2000",
+      "value": "1000",
       "unit": "som",
       "law": "Кодекс КР о правонарушениях ст. 184 ч. 3",
       "theme": "traffic_fine",
@@ -5162,21 +5163,21 @@
       "surfaces": [
         "src/data/trafficFines.ts:214-221"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 184",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Движение по обочине. discount_70.",
-      "official_value": null,
+      "official_value": "1000",
       "source_url": "https://joldo.kg/ru/tablica-shtrafov-kr-2022-god.html",
       "which_surface_correct": "na",
-      "verify_note": "ARTICLE_MISLABEL: shoulder/sidewalk driving is ст.188 (joldo ст.188 ч.3), NOT ст.184 ч.3 as dataset states (ст.184 = no-documents). joldo shows 5500 сом vs dataset 2000 — amount also disputed. Uncertain."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_solid_line",
       "calculator": "traffic-fines-calculator",
       "key": "fine_solid_line",
-      "value": "3000",
+      "value": "1000",
       "unit": "som",
       "law": "Кодекс КР о правонарушениях ст. 184 ч. 1",
       "theme": "traffic_fine",
@@ -5184,15 +5185,15 @@
       "surfaces": [
         "src/data/trafficFines.ts:206-213"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 184",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Пересечение сплошной линии разметки. discount_70.",
-      "official_value": null,
+      "official_value": "1000",
       "source_url": "https://joldo.kg/ru/tablica-shtrafov-kr-2022-god.html",
       "which_surface_correct": "na",
-      "verify_note": "ARTICLE_MISLABEL: markings/solid-line is ст.188 ч.1 (joldo), NOT ст.184 ч.1 as dataset states. joldo shows 1000 сом vs dataset 3000 — amount also disputed. This is part of the flagged ст.184 over-citation. Uncertain."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_speed_10_20",
@@ -5206,15 +5207,15 @@
       "surfaces": [
         "src/data/trafficFines.ts:16-23"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 187",
       "conflict": false,
       "status": "current",
       "notes": "Превышение скорости 10-20 км/ч. discount_70 applies. Data file dated Март 2026, поправки 08.03.2023.",
-      "official_value": null,
+      "official_value": "1000",
       "source_url": "https://joldo.kg/ru/tablica-shtrafov-kr-2022-god.html",
       "which_surface_correct": "both",
-      "verify_note": "Speeding 10-20 km/h = 1000 сом (10 расчётных показателей), ст.187 ч.1 — CONFIRMED by 3 independent sources incl. joldo. Article ст.187 correct, amount correct."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_speed_20_40",
@@ -5228,15 +5229,15 @@
       "surfaces": [
         "src/data/trafficFines.ts:24-31"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 187",
       "conflict": false,
       "status": "current",
       "notes": "Превышение скорости 20-40 км/ч. discount_70.",
-      "official_value": null,
+      "official_value": "3000",
       "source_url": "https://joldo.kg/ru/tablica-shtrafov-kr-2022-god.html",
       "which_surface_correct": "both",
-      "verify_note": "Speeding 20-40 km/h = 3000 сом (30 РП), ст.187 ч.2 — CONFIRMED (joldo + search corroboration). Correct."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_speed_40_60",
@@ -5250,15 +5251,15 @@
       "surfaces": [
         "src/data/trafficFines.ts:32-39"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 187",
       "conflict": false,
       "status": "current",
       "notes": "Превышение скорости 40-60 км/ч. discount_70.",
-      "official_value": null,
+      "official_value": "7500",
       "source_url": "https://ru.sputnik.kg/20230308/kyrgyzstan-pdd-narushenie-povyshenie-1073406198.html",
       "which_surface_correct": "both",
-      "verify_note": "Speeding 40-60 km/h = 7500 сом, ст.187 ч.3 — CONFIRMED (Sputnik 08.03.2023 + joldo). Correct."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_speed_60_plus",
@@ -5272,21 +5273,21 @@
       "surfaces": [
         "src/data/trafficFines.ts:40-47"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 187",
       "conflict": false,
       "status": "current",
       "notes": "Превышение скорости >60 км/ч. no_discount_license_6mo (лишение прав до 6 мес, без скидки).",
-      "official_value": null,
+      "official_value": "15000",
       "source_url": "https://ru.sputnik.kg/20230308/kyrgyzstan-pdd-narushenie-povyshenie-1073406198.html",
       "which_surface_correct": "both",
-      "verify_note": "Speeding >60 km/h = 15000 сом, ст.187 ч.4, no discount + license loss up to 6mo — CONFIRMED (Sputnik 08.03.2023 + joldo). Correct."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "traffic-fines-calculator__fine_turn_sign_violation",
       "calculator": "traffic-fines-calculator",
       "key": "fine_turn_sign_violation",
-      "value": "2000",
+      "value": "1000",
       "unit": "som",
       "law": "Кодекс КР о правонарушениях ст. 184 ч. 2",
       "theme": "traffic_fine",
@@ -5294,15 +5295,15 @@
       "surfaces": [
         "src/data/trafficFines.ts:66-73"
       ],
-      "last_updated": "2026-03",
+      "last_updated": "2026-06-20",
       "source_hint": "Кодекс КР о правонарушениях ст. 184",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Поворот/разворот в нарушение знака. discount_70.",
-      "official_value": null,
+      "official_value": "1000",
       "source_url": "https://joldo.kg/ru/tablica-shtrafov-kr-2022-god.html",
       "which_surface_correct": "na",
-      "verify_note": "ARTICLE_MISLABEL: sign/turn violation is ст.188 ч.1 (joldo, general driver rules), NOT ст.184 ч.2 as dataset states (ст.184 = no-documents). joldo shows 1000 сом vs dataset 2000 — amount disputed. Part of the flagged ст.184 over-citation. Uncertain."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
     },
     {
       "id": "water-calculator__PROSE_water_bishkek_total_rate_legacy",
@@ -8888,6 +8889,50 @@
       "conflict": false,
       "status": "unverified",
       "notes": "COMPUTE ZAKAT_CONFIG.zakat_rate = 0.025 (2.5%). Religious not state — is_gov_regulated=false. Prose zakat_info_3, zakat_rate, zakat_calculation_2_5 all confirm 2.5%."
+    },
+    {
+      "id": "salary-calculator__standard_deduction_personal",
+      "calculator": "salary-calculator",
+      "key": "standard_deduction_personal",
+      "value": "650",
+      "unit": "som_per_month",
+      "law": "Стандартный вычет на работника (6.5 РП)",
+      "theme": "income_tax",
+      "is_gov_regulated": true,
+      "surfaces": [
+        "src/pages/SalaryCalculatorPage.tsx"
+      ],
+      "last_updated": "2026-06-20",
+      "source_hint": "НК КР ст.194",
+      "conflict": false,
+      "status": "current",
+      "notes": "ADD 2026-06-20: заменяет фиктивный «НМД 14 970». 6.5 расчётных показателей.",
+      "official_value": "650",
+      "source_url": "https://sti.gov.kg",
+      "which_surface_correct": "compute",
+      "verify_note": "НК КР ст.194 «Стандартные вычеты»: 650 сом/мес на самого работника. Подтверждено ГНС + 4 источника."
+    },
+    {
+      "id": "salary-calculator__standard_deduction_dependent",
+      "calculator": "salary-calculator",
+      "key": "standard_deduction_dependent",
+      "value": "100",
+      "unit": "som_per_month_per_dependent",
+      "law": "Стандартный вычет на иждивенца (1 РП)",
+      "theme": "income_tax",
+      "is_gov_regulated": true,
+      "surfaces": [
+        "src/pages/SalaryCalculatorPage.tsx"
+      ],
+      "last_updated": "2026-06-20",
+      "source_hint": "НК КР ст.194",
+      "conflict": false,
+      "status": "current",
+      "notes": "ADD 2026-06-20: вычет 100 сом/мес на каждого иждивенца.",
+      "official_value": "100",
+      "source_url": "https://sti.gov.kg",
+      "which_surface_correct": "compute",
+      "verify_note": "НК КР ст.194: 100 сом (1 РП) на иждивенца в месяц."
     }
   ]
 }
