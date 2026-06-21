@@ -4,6 +4,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { LanguageProvider } from './contexts/LanguageContext';
 import App from './App.tsx';
+import { initWebAds } from './lib/webAds';
+import { initNativeAds } from './lib/admob';
 import './index.css';
 
 const container = document.getElementById('root')!;
@@ -30,3 +32,7 @@ const AppWrapper = (
 
 // Always use createRoot since SSG content structure differs from React tree
 createRoot(container).render(AppWrapper);
+
+// Ads: AdSense on web (stripped from app builds), native AdMob inside the apps.
+initWebAds();
+initNativeAds();

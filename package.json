@@ -6,6 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && node scripts/generate-static-html.js && node scripts/generate-sitemap.js",
+    "build:app": "VITE_CALK_PLATFORM=app vite build",
+    "sync:ios": "npm run build:app && npx cap sync ios",
+    "sync:android": "npm run build:app && npx cap sync android",
+    "cap:open:ios": "npx cap open ios",
+    "cap:open:android": "npx cap open android",
+    "ota:publish": "bash scripts/ota-publish.sh",
     "lint": "eslint .",
     "preview": "vite preview"
   },
