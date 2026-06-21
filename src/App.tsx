@@ -271,7 +271,9 @@ function App() {
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-      <CookieConsentBanner />
+      {/* Cookie consent is for the website (AdSense/GA). Native apps strip AdSense and
+          handle ad consent via ATT/UMP, so it's omitted there (VITE_CALK_PLATFORM=app). */}
+      {import.meta.env.VITE_CALK_PLATFORM !== 'app' && <CookieConsentBanner />}
     </div>
   );
 }
