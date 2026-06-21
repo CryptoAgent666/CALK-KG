@@ -6,6 +6,7 @@ import { LanguageProvider } from './contexts/LanguageContext';
 import App from './App.tsx';
 import { initWebAds } from './lib/webAds';
 import { initNativeAds } from './lib/admob';
+import { initNativeUI } from './lib/nativeUI';
 import './index.css';
 
 const container = document.getElementById('root')!;
@@ -33,6 +34,8 @@ const AppWrapper = (
 // Always use createRoot since SSG content structure differs from React tree
 createRoot(container).render(AppWrapper);
 
+// Native shell setup (status bar safe-area) + ads.
+initNativeUI();
 // Ads: AdSense on web (stripped from app builds), native AdMob inside the apps.
 initWebAds();
 initNativeAds();
