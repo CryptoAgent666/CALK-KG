@@ -10,6 +10,7 @@ dist.tar.gz
 .env
 .env.local
 .env.production
+scripts/ota.env
 
 # Secrets / signing keys (NEVER commit)
 *.keystore
