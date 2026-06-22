@@ -49,8 +49,6 @@
 	<true/>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-4859241862365215~2728637081</string>
-	<key>NSUserTrackingUsageDescription</key>
-	<string>Разрешение используется, чтобы показывать более релевантную рекламу.</string>
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>
