@@ -34,6 +34,7 @@
     "react-router-dom": "^7.8.2"
   },
   "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
     "@eslint/js": "^9.9.1",
     "@netlify/functions": "^5.1.2",
     "@prerenderer/renderer-puppeteer": "^1.2.4",
