@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && node scripts/generate-static-html.js && node scripts/generate-sitemap.js",
-    "build:app": "VITE_CALK_PLATFORM=app vite build",
+    "build:app": "VITE_CALK_PLATFORM=app vite build && find dist -name '*.gz' -delete && find dist -name '*.br' -delete",
     "sync:ios": "npm run build:app && npx cap sync ios",
     "sync:android": "npm run build:app && npx cap sync android",
     "cap:open:ios": "npx cap open ios",

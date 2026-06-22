@@ -137,9 +137,15 @@ Publisher: `pub-4859241862365215`.
 - Banner — основной формат (по решению ранее); Interstitial — опционально (между переходами, с лимитом частоты).
 - Для отладки использовать **тестовые** ID Google, боевые — только в релизе (не кликать свои объявления).
 
-## Тулчейн (проверено 2026-06)
-iOS: Xcode 26.5 + CocoaPods 1.16.2 ✅. Android: SDK есть, но **нужен JDK 17** (`brew install openjdk@17`) и
-`ANDROID_HOME=~/Library/Android/sdk`. Без JDK Gradle-сборка Android не пройдёт.
+## Тулчейн (проверено 2026-06, обе платформы запущены на симуляторе/эмуляторе)
+- **iOS**: Xcode 26.5 ✅ (Capacitor 8 использует SPM — CocoaPods не нужен).
+- **Android**: нужен **JDK 21** (`brew install openjdk@21`) — Capacitor 8 требует source release 21, JDK 17 даёт
+  `invalid source release: 21`. + `ANDROID_HOME=~/Library/Android/sdk`.
+- **`build:app` вырезает `.gz/.br`** (vite-compression) — иначе Android asset-merger падает на дублях ресурсов.
+- **Эмулятор по CLI**: `sdkmanager --install emulator` + system-образ
+  `system-images;android-34;google_apis_playstore;arm64-v8a` (~1.5 ГБ); затем
+  `emulator -avd <name>` → `adb install -r app-debug.apk`.
+- **Тест-реклама**: собирать с `VITE_ADMOB_TEST=1` (тестовые объявления Google) — не кликать боевые на своих устройствах.
 
 ## Эталоны в кодовой базе (смотреть при реализации)
 - `CALK-AU/capacitor.config.ts` — конфиг + Capgo.

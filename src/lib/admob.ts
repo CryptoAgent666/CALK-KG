@@ -21,7 +21,9 @@ export async function initNativeAds(): Promise<void> {
     await AdMob.initialize();
 
     const platform = Capacitor.getPlatform() === 'ios' ? 'ios' : 'android';
-    const ids = import.meta.env.DEV ? TEST_BANNER : PROD_BANNER;
+    // Test ads: in dev server, OR when built with VITE_ADMOB_TEST=1 (safe device testing).
+    const useTestAds = import.meta.env.DEV || import.meta.env.VITE_ADMOB_TEST === '1';
+    const ids = useTestAds ? TEST_BANNER : PROD_BANNER;
 
     await AdMob.showBanner({
       adId: ids[platform],
