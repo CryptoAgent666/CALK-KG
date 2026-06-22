@@ -5,6 +5,9 @@ package-lock.json
 # Build output
 dist/
 dist.tar.gz
+build/
+*.ipa
+*.xcarchive
 
 # Environment variables
 .env
