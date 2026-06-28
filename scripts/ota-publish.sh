@@ -27,10 +27,12 @@ esac
 
 CHANNEL="${APP_KEY}-${PLATFORM}"   # kg-ios | kg-android
 
-# VPS config — shared with the rest of the network (override in scripts/ota.env).
+# OTA server — shared datahub box (Singapore), fronted by Cloudflare as https://ota.calk-au.com.
+# Non-root: the docroot is owned by the deploy user (konstantin), push uses the normal SSH key.
+# Override in scripts/ota.env if needed.
 [ -f "$ROOT/scripts/ota.env" ] && . "$ROOT/scripts/ota.env"
-OTA_SSH="${OTA_SSH:-root@176.97.68.234}"
-OTA_REMOTE_DIR="${OTA_REMOTE_DIR:-/var/www/www-root/data/www/ota.calk-au.com}"
+OTA_SSH="${OTA_SSH:-konstantin@mydatahub.duckdns.org}"
+OTA_REMOTE_DIR="${OTA_REMOTE_DIR:-/opt/data_hub/ota-au/html}"
 OTA_SSH_PORT="${OTA_SSH_PORT:-22}"
 
 echo "==> [1/4] Building app web bundle (VITE_CALK_PLATFORM=app vite build)…"

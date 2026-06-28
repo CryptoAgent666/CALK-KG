@@ -1,6 +1,13 @@
-# Подключение Calk.KG к общему OTA-серверу (VPS AU)
+# Подключение Calk.KG к общему OTA-серверу
 
-OTA-сервер общий для сети (`176.97.68.234`, `https://ota.calk-au.com`). `updates.php` маршрутизирует
+> **Обновлено 2026-06-28 — OTA переехал.** Боевой origin теперь — общий datahub-сервер (Сингапур):
+> `konstantin@mydatahub.duckdns.org`, docroot `/opt/data_hub/ota-au/html` (владелец **konstantin**, НЕ root,
+> пуш обычным SSH-ключом). Фронтится Cloudflare как `https://ota.calk-au.com` (запись `ota` — **Proxied**,
+> на origin стоит **Cloudflare Origin cert** `*.calk-au.com` до 2041, поэтому SSL/TLS = Full strict ок).
+> Деплой: `npm run ota:publish -- <ver> android` — дефолты в `ota-publish.sh` уже указывают сюда.
+> Старый сервер `176.97.68.234` (root, `/var/www/.../ota.calk-au.com`) — **устарел**, туда больше не пушим.
+
+OTA-сервер общий для сети, фронтится Cloudflare как `https://ota.calk-au.com`. `updates.php` маршрутизирует
 по `app_id` → префикс канала. Capgo шлёт `app_id` = нативный bundle id, поэтому у KG **две записи**
 (Android и iOS используют разные id), обе → префикс `kg`. Канал = `{префикс}-{platform}` → `kg-ios` / `kg-android`.
 
