@@ -15,81 +15,47 @@ import {
 import { formatCurrentMonth } from '../utils/dateFormatter';
 
 // Конфигурация тарифов - легко редактируемая структура
-// АКТУАЛЬНО НА: Отопительный сезон 2025-2026
-// Источник: Приказ Департамента по регулированию ТЭК при МЭ КР №105 от 30.05.2025
-// Бишкек: социальный тариф (до 80 м²) — 1950 сом/Гкал с 01.06.2025
-// Свыше 80 м² — по себестоимости (5998 сом/Гкал от ТЭЦ Бишкека)
-const HEATING_TARIFFS = {
-  'bishkek': {
-    nameKey: 'city_bishkek',
-    heating: {
-      // Социальный тариф за 1 Гкал (до 80 м², с 01.03.2026)
-      tariff_per_gcal: 1560.00,
-      // Норматив потребления тепла на 1 кв.м в месяц (Гкал)
-      standard_gcal_per_m2: 0.036
-    },
-    hot_water: {
-      // Тариф за 1 м³ по счетчику
-      tariff_per_m3: 108.07,
-      // Норматив на одного человека в месяц (сом)
-      standard_per_person: 430.00
-    }
+// АКТУАЛЬНО НА: Отопительный сезон 2025–2026 (тарифы с 01.03.2026)
+// Источник: Приказ Департамента по регулированию ТЭК при МЭ КР №42 от 10.03.2026;
+//           bishkek.gov.kg/ru/tariffs/2
+//
+// ВАЖНО: в Кыргызстане НЕТ отдельных тарифов на отопление по городам — действует
+// ЕДИНЫЙ национальный тариф на тепловую энергию для населения:
+//   • до 80 м² (социальная норма) ........ 1560,00 сом/Гкал
+//   • свыше 80 м² (по себестоимости) ...... 5998,17 сом/Гкал
+// Горячая вода тарифицируется по той же тепловой энергии (1560 сом/Гкал).
+// Центральное (от ТЭЦ) отопление и ГВС реально есть только в Бишкеке и Оше.
+const HEAT_TARIFF_SOCIAL = 1560.00;     // сом/Гкал — площадь до 80 м²
+const HEAT_TARIFF_ABOVE_NORM = 5998.17; // сом/Гкал — площадь свыше 80 м²
+const SOCIAL_NORM_AREA = 80;            // м² — граница социальной нормы
+const HEAT_NORM_GCAL_PER_M2 = 0.036;    // Гкал/м² в месяц — норматив потребления тепла
+// ГВС: тепловая энергия 1560 сом/Гкал. Тариф по счётчику МП «Бишкектеплосеть»
+// проиндексирован пропорционально росту энергии 1120→1560 сом/Гкал (72,0 → 100,30 сом/м³).
+const HOT_WATER_TARIFF_PER_M3 = 100.30;     // сом/м³ по счётчику
+const HOT_WATER_NORM_M3_PER_PERSON = 4.8;   // м³/чел в месяц — норматив ГВС (bishkek.gov.kg)
+const HOT_WATER_PER_PERSON = Math.round(HOT_WATER_NORM_M3_PER_PERSON * HOT_WATER_TARIFF_PER_M3 * 100) / 100; // 481,44 сом/чел
+
+// Единый национальный набор тарифов (одинаков для всех городов с центральным отоплением)
+const NATIONAL_HEATING_TARIFF = {
+  heating: {
+    // Социальный тариф за 1 Гкал (до 80 м²)
+    tariff_per_gcal: HEAT_TARIFF_SOCIAL,
+    // Тариф за 1 Гкал свыше социальной нормы (по себестоимости)
+    tariff_per_gcal_above: HEAT_TARIFF_ABOVE_NORM,
+    // Норматив потребления тепла на 1 кв.м в месяц (Гкал)
+    standard_gcal_per_m2: HEAT_NORM_GCAL_PER_M2
   },
-  'osh': {
-    nameKey: 'city_osh',
-    heating: {
-      tariff_per_gcal: 1187.75,
-      standard_gcal_per_m2: 0.038
-    },
-    hot_water: {
-      tariff_per_m3: 82.25,
-      standard_per_person: 369.25
-    }
-  },
-  'karakol': {
-    nameKey: 'city_karakol',
-    heating: {
-      tariff_per_gcal: 1312.88,
-      standard_gcal_per_m2: 0.040
-    },
-    hot_water: {
-      tariff_per_m3: 72.75,
-      standard_per_person: 357.00
-    }
-  },
-  'jalal-abad': {
-    nameKey: 'city_jalal_abad',
-    heating: {
-      tariff_per_gcal: 1225.19,
-      standard_gcal_per_m2: 0.037
-    },
-    hot_water: {
-      tariff_per_m3: 78.00,
-      standard_per_person: 394.75
-    }
-  },
-  'tokmok': {
-    nameKey: 'city_tokmok',
-    heating: {
-      tariff_per_gcal: 1113.13,
-      standard_gcal_per_m2: 0.035
-    },
-    hot_water: {
-      tariff_per_m3: 69.13,
-      standard_per_person: 344.00
-    }
-  },
-  'naryn': {
-    nameKey: 'city_naryn',
-    heating: {
-      tariff_per_gcal: 1501.00,
-      standard_gcal_per_m2: 0.042
-    },
-    hot_water: {
-      tariff_per_m3: 86.13,
-      standard_per_person: 457.13
-    }
+  hot_water: {
+    // Тариф за 1 м³ по счётчику
+    tariff_per_m3: HOT_WATER_TARIFF_PER_M3,
+    // Норматив на одного человека в месяц (сом)
+    standard_per_person: HOT_WATER_PER_PERSON
   }
+};
+
+const HEATING_TARIFFS = {
+  'bishkek': { nameKey: 'city_bishkek', ...NATIONAL_HEATING_TARIFF },
+  'osh': { nameKey: 'city_osh', ...NATIONAL_HEATING_TARIFF }
 };
 
 type City = keyof typeof HEATING_TARIFFS;
@@ -98,6 +64,8 @@ type HotWaterPaymentMethod = 'meter' | 'standard';
 interface HeatingResults {
   area: number;
   heatingCost: number;
+  socialHeatingCost: number;
+  aboveHeatingCost: number;
   hotWaterCost: number;
   totalCost: number;
   heatingConsumption: number;
@@ -141,6 +109,8 @@ const HeatingCalculatorPage = () => {
   const [results, setResults] = useState<HeatingResults>({
     area: 0,
     heatingCost: 0,
+    socialHeatingCost: 0,
+    aboveHeatingCost: 0,
     hotWaterCost: 0,
     totalCost: 0,
     heatingConsumption: 0,
@@ -159,6 +129,8 @@ const HeatingCalculatorPage = () => {
       return {
         area: apartmentArea,
         heatingCost: 0,
+        socialHeatingCost: 0,
+        aboveHeatingCost: 0,
         hotWaterCost: 0,
         totalCost: 0,
         heatingConsumption: 0,
@@ -167,10 +139,16 @@ const HeatingCalculatorPage = () => {
     }
 
     const tariff = HEATING_TARIFFS[selectedCity];
-    
-    // Расчет отопления
+
+    // Расчёт отопления: до 80 м² — по социальному тарифу, площадь свыше — по
+    // себестоимости. Тепловая энергия делится пропорционально площади
+    // (как в официальном примере мэрии Бишкека: 80 м² по 1560, остальное по 5998,17).
+    const socialArea = Math.min(apartmentArea, SOCIAL_NORM_AREA);
+    const aboveArea = Math.max(0, apartmentArea - SOCIAL_NORM_AREA);
     const heatingConsumption = apartmentArea * tariff.heating.standard_gcal_per_m2;
-    const heatingCost = heatingConsumption * tariff.heating.tariff_per_gcal;
+    const socialHeatingCost = socialArea * tariff.heating.standard_gcal_per_m2 * tariff.heating.tariff_per_gcal;
+    const aboveHeatingCost = aboveArea * tariff.heating.standard_gcal_per_m2 * tariff.heating.tariff_per_gcal_above;
+    const heatingCost = socialHeatingCost + aboveHeatingCost;
 
     // Расчет горячей воды
     let hotWaterCost = 0;
@@ -190,6 +168,8 @@ const HeatingCalculatorPage = () => {
     return {
       area: apartmentArea,
       heatingCost,
+      socialHeatingCost,
+      aboveHeatingCost,
       hotWaterCost,
       totalCost,
       heatingConsumption,
@@ -727,12 +707,29 @@ const HeatingCalculatorPage = () => {
                           <span>{formatCurrency(currentTariff.heating.tariff_per_gcal)} {t('heating_som_gcal')}</span>
                         </div>
                         <div className="border-t pt-2 mt-2">
-                          <div className="flex justify-between font-medium">
-                            <span>{t('heating_calc_formula')}</span>
-                            <span>
-                              {area} × {currentTariff.heating.standard_gcal_per_m2} × {formatCurrency(currentTariff.heating.tariff_per_gcal)} = {formatCurrency(results.heatingCost)}
-                            </span>
-                          </div>
+                          {area > SOCIAL_NORM_AREA ? (
+                            <div className="space-y-1">
+                              <div className="flex justify-between">
+                                <span>{t('heating_within_norm')}</span>
+                                <span>{SOCIAL_NORM_AREA} × {currentTariff.heating.standard_gcal_per_m2} × {formatCurrency(currentTariff.heating.tariff_per_gcal)} = {formatCurrency(results.socialHeatingCost)}</span>
+                              </div>
+                              <div className="flex justify-between">
+                                <span>{t('heating_above_norm')}</span>
+                                <span>{area - SOCIAL_NORM_AREA} × {currentTariff.heating.standard_gcal_per_m2} × {formatCurrency(currentTariff.heating.tariff_per_gcal_above)} = {formatCurrency(results.aboveHeatingCost)}</span>
+                              </div>
+                              <div className="flex justify-between font-medium border-t pt-1">
+                                <span>{t('heating_calc_formula')}</span>
+                                <span>{formatCurrency(results.heatingCost)} {t('text_som')}</span>
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="flex justify-between font-medium">
+                              <span>{t('heating_calc_formula')}</span>
+                              <span>
+                                {area} × {currentTariff.heating.standard_gcal_per_m2} × {formatCurrency(currentTariff.heating.tariff_per_gcal)} = {formatCurrency(results.heatingCost)}
+                              </span>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>

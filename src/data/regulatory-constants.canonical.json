@@ -5,7 +5,34 @@
     "currency": "KGS (сом)",
     "generated": "2026-06-17",
     "generator": "DATA_HUB constants pilot — Phase 2 canonicalize",
-    "note": "Audit ledger. NOT imported by the site. Live values are in src/pages/*CalculatorPage.tsx + src/data/*.ts (COMPUTE, authoritative) and src/i18n/translations-ru.ts / translations-ky.ts (PROSE). src/i18n/translations.ts is DEAD legacy — ignore. Apply fixes to the live files, then reconcile this ledger.",
+    "note": "Audit ledger. NOT imported by the site at runtime. Live values are in src/pages/*CalculatorPage.tsx + src/data/*.ts (COMPUTE, authoritative) and src/i18n/translations-ru.ts / translations-ky.ts (PROSE). CORRECTION (2026-06-28): src/i18n/translations.ts is not imported at runtime, BUT scripts/generate-static-html.js reads it via readFileSync for the static <head> SEO meta — so its *_calc_description / *_calc_title keys ARE live for crawlers (not fully dead). Apply fixes to the live files, then reconcile this ledger.",
+    "reconciliations": [
+      {
+        "date": "2026-06-28",
+        "summary": "Site fix for fabricated per-city WATER and HEATING tariff matrices (they produced wrong calculator outputs). Verification was already recorded (status stale_confirmed/uncertain, verify_method tier2-tail); this entry records the applied fix. Built OK (84 static HTML), NOT deployed.",
+        "heating": {
+          "change": "Collapsed fabricated per-city heating tariffs to the single national social-norm model. KG has NO per-city heating tariff.",
+          "tariff_social_per_gcal": "1560.00 (площадь ≤80 м²)",
+          "tariff_above_norm_per_gcal": "5998.17 (>80 м², по себестоимости) — modeled as area-proportional split per official mayor example",
+          "heat_norm_gcal_per_m2": "0.036 (national)",
+          "hot_water_per_m3": "100.30 (= 1560 сом/Гкал энергии × ~0.0643 Гкал/м³; replaced fabricated per-city 108.07/82.25/72.75/78.00/69.13/86.13)",
+          "hot_water_per_person": "481.44 (= 4.8 м³/чел норматив ГВС × 100.30; норматив 4.8 м³ per bishkek.gov.kg)",
+          "kept_cities": ["bishkek", "osh"],
+          "retired_cities": ["karakol", "jalal-abad", "tokmok", "naryn"],
+          "retired_keys": ["heating_tariff_per_gcal_{osh,karakol,jalal_abad,tokmok,naryn}", "heating_hot_water_tariff_per_m3_{osh,karakol,jalal_abad,tokmok,naryn}", "heating_hot_water_standard_per_person_{osh,karakol,jalal_abad,tokmok,naryn}", "heating_standard_gcal_per_m2_{karakol,jalal_abad,tokmok,naryn}"],
+          "law": "Приказ ДТЭК №42 от 10.03.2026; bishkek.gov.kg/ru/tariffs/2; вице-мэр (tazabek 2229816) подтвердил 5998.17 для >80 м²"
+        },
+        "water": {
+          "change": "Restricted calculator to cities with published tariffs (Bishkek + Osh); removed unverified small-city placeholders set by unpublished local keneshes.",
+          "bishkek": "unchanged (correct): население 10.45/3.45, бюджет 12.95/4.50, предприятия 18.50/9.00 сом/м³",
+          "osh": "fixed население → 6.88/4.20 сом/м³ (была фикция 12.96/0); бюджет/предприятия не опубликованы → опущены",
+          "retired_cities": ["karakol", "jalal-abad", "tokmok", "naryn", "talas", "batken"],
+          "source": "bishkek.gov.kg (Бишкек); МП «Ошский водоканал» (Ош население 6.88/4.20)"
+        },
+        "prose_note": "Worked examples were multi-era stale (heating 1134.76 & 1450 сом/Гкал, ГВС 75.14/340.50; water 8.10/3.25/11.35/13.50/19.30) and contradicted the corrected compute — recomputed in RU+KY so calculator == article. New keys heating_within_norm/heating_above_norm.",
+        "surfaces": ["src/pages/HeatingCalculatorPage.tsx", "src/pages/WaterCalculatorPage.tsx", "src/i18n/translations-ru.ts", "src/i18n/translations-ky.ts", "src/i18n/translations.ts (SEO meta description only)"]
+      }
+    ],
     "surfaces_legend": {
       "compute": "src/pages/*CalculatorPage.tsx + src/data/*.ts — authoritative math",
       "prose_ru": "src/i18n/translations-ru.ts (active RU)",
@@ -17,10 +44,10 @@
     "market_or_other": 147,
     "conflicts_mismatch": 31,
     "status_summary": {
-      "current": 152,
-      "uncertain": 68,
-      "unverified": 208,
-      "stale": 2
+      "current": 216,
+      "uncertain": 192,
+      "stale": 2,
+      "stale_confirmed": 20
     },
     "themes": {
       "utility_tariff": 44,
@@ -142,7 +169,13 @@
       "note": "adversarial 2nd pass over inline Page tables; +47 per-city utility tariffs (heating/water Osh/Karakol/Naryn/Talas/Tokmok/Batken/Jalal-Abad), +9 customs hybrid-excise bands, +3 single-tax/patent conditions, +2 payroll. Patent/passport/property/tourist/zakat/housing tables were already complete."
     },
     "reconciled": "2026-06-20",
-    "reconcile_note": "Сверено с применёнными фиксами 2026-06-20 (НМД/зарплата, больничный №434/№151, стипендии, алименты, штрафы №128). Источники: ГНС, cbd.minjust.gov.kg, sf.gov.kg, Указ №174."
+    "reconcile_note": "Сверено с применёнными фиксами 2026-06-20 (НМД/зарплата, больничный №434/№151, стипендии, алименты, штрафы №128). Источники: ГНС, cbd.minjust.gov.kg, sf.gov.kg, Указ №174.",
+    "tail_verification": {
+      "date": "2026-06-28",
+      "method": "tier2-tail",
+      "constants_verified": 208,
+      "note": "tier2-tail web-verification of the 208 unverified constants from DATA_HUB session."
+    }
   },
   "constants": [
     {
@@ -457,8 +490,13 @@
       "last_updated": "2026",
       "source_hint": "customs.gov.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Гибрид, возраст <=3 лет, объём >3000 см3: акциз 8%. [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Гибрид, возраст <=3 лет, объём >3000 см3: акциз 8%. [gap-audit 2026-06-17 completeness pass]",
+      "source_url": "https://www.customs.gov.kg/site/ru/master/customskg/news/gts-kr-izmenenij-v-stavkah-poshlin-i-nalogov-na-avto-net",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No primary KG source confirms this 8-band hybrid excise % schedule; official sources give import duty/VAT, not per-cc/age excise %."
     },
     {
       "id": "customs-calculator__customs_excise_hybrid_new_le3y_le1800cc",
@@ -475,8 +513,13 @@
       "last_updated": "2026",
       "source_hint": "customs.gov.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Гибрид, возраст <=3 лет, объём двигателя <=1800 см3: акциз 0%. Пошлина для гибрида 10% (уже в ledger). [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Гибрид, возраст <=3 лет, объём двигателя <=1800 см3: акциз 0%. Пошлина для гибрида 10% (уже в ledger). [gap-audit 2026-06-17 completeness pass]",
+      "source_url": "https://www.customs.gov.kg/site/ru/master/customskg/news/gts-kr-izmenenij-v-stavkah-poshlin-i-nalogov-na-avto-net",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No primary source confirms this exact hybrid excise band; could not verify or refute stored 0%."
     },
     {
       "id": "customs-calculator__customs_excise_hybrid_new_le3y_le2300cc",
@@ -493,8 +536,13 @@
       "last_updated": "2026",
       "source_hint": "customs.gov.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Гибрид, возраст <=3 лет, объём 1801-2300 см3: акциз 3%. [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Гибрид, возраст <=3 лет, объём 1801-2300 см3: акциз 3%. [gap-audit 2026-06-17 completeness pass]",
+      "source_url": "https://www.customs.gov.kg/site/ru/master/customskg/news/gts-kr-izmenenij-v-stavkah-poshlin-i-nalogov-na-avto-net",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No primary KG excise schedule found matching this hybrid age/cc band; cannot confirm stored 3%."
     },
     {
       "id": "customs-calculator__customs_excise_hybrid_new_le3y_le3000cc",
@@ -511,8 +559,13 @@
       "last_updated": "2026",
       "source_hint": "customs.gov.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Гибрид, возраст <=3 лет, объём 2301-3000 см3: акциз 5%. [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Гибрид, возраст <=3 лет, объём 2301-3000 см3: акциз 5%. [gap-audit 2026-06-17 completeness pass]",
+      "source_url": "https://www.customs.gov.kg/site/ru/master/customskg/news/gts-kr-izmenenij-v-stavkah-poshlin-i-nalogov-na-avto-net",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No primary source confirms this hybrid excise band; could not verify or refute stored 5%."
     },
     {
       "id": "customs-calculator__customs_excise_hybrid_used_gt3y_gt3000cc",
@@ -529,8 +582,13 @@
       "last_updated": "2026",
       "source_hint": "customs.gov.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Гибрид, возраст >3 лет, объём >3000 см3: акциз 12%. [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Гибрид, возраст >3 лет, объём >3000 см3: акциз 12%. [gap-audit 2026-06-17 completeness pass]",
+      "source_url": "https://www.customs.gov.kg/site/ru/master/customskg/news/gts-kr-izmenenij-v-stavkah-poshlin-i-nalogov-na-avto-net",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No primary KG source confirms granular hybrid excise %; ICE duty is 20% used, hybrids ~10% duty; excise schedule unverified."
     },
     {
       "id": "customs-calculator__customs_excise_hybrid_used_gt3y_le1500cc",
@@ -547,8 +605,13 @@
       "last_updated": "2026",
       "source_hint": "customs.gov.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Гибрид, возраст >3 лет, объём <=1500 см3: акциз 0%. [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Гибрид, возраст >3 лет, объём <=1500 см3: акциз 0%. [gap-audit 2026-06-17 completeness pass]",
+      "source_url": "https://www.customs.gov.kg/site/ru/master/customskg/news/gts-kr-izmenenij-v-stavkah-poshlin-i-nalogov-na-avto-net",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No primary source confirms this hybrid excise band; cannot confirm or refute stored 0%."
     },
     {
       "id": "customs-calculator__customs_excise_hybrid_used_gt3y_le1800cc",
@@ -565,8 +628,13 @@
       "last_updated": "2026",
       "source_hint": "customs.gov.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Гибрид, возраст >3 лет, объём 1501-1800 см3: акциз 1%. [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Гибрид, возраст >3 лет, объём 1501-1800 см3: акциз 1%. [gap-audit 2026-06-17 completeness pass]",
+      "source_url": "https://www.customs.gov.kg/site/ru/master/customskg/news/gts-kr-izmenenij-v-stavkah-poshlin-i-nalogov-na-avto-net",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No primary KG excise schedule found for this hybrid age/cc band; cannot confirm stored 1%."
     },
     {
       "id": "customs-calculator__customs_excise_hybrid_used_gt3y_le2300cc",
@@ -583,8 +651,13 @@
       "last_updated": "2026",
       "source_hint": "customs.gov.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Гибрид, возраст >3 лет, объём 1801-2300 см3: акциз 4%. [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Гибрид, возраст >3 лет, объём 1801-2300 см3: акциз 4%. [gap-audit 2026-06-17 completeness pass]",
+      "source_url": "https://www.customs.gov.kg/site/ru/master/customskg/news/gts-kr-izmenenij-v-stavkah-poshlin-i-nalogov-na-avto-net",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No primary source confirms this hybrid excise band; cannot confirm or refute stored 4%."
     },
     {
       "id": "customs-calculator__customs_excise_hybrid_used_gt3y_le3000cc",
@@ -601,8 +674,13 @@
       "last_updated": "2026",
       "source_hint": "customs.gov.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Гибрид, возраст >3 лет, объём 2301-3000 см3: акциз 8%. [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Гибрид, возраст >3 лет, объём 2301-3000 см3: акциз 8%. [gap-audit 2026-06-17 completeness pass]",
+      "source_url": "https://www.customs.gov.kg/site/ru/master/customskg/news/gts-kr-izmenenij-v-stavkah-poshlin-i-nalogov-na-avto-net",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No primary source confirms this hybrid excise band; cannot confirm or refute stored 8%."
     },
     {
       "id": "customs-calculator__customs_excise_passenger_new_by_cc",
@@ -1379,8 +1457,13 @@
       "last_updated": "2026",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Jalal-Abad — hot water normative per person/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Jalal-Abad — hot water normative per person/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Hot-water energy tariff is 1560 сом/Гкал (Приказ ДТЭК №42); no primary KG per-m³/per-person figure to confirm and per-city stored value is fictional. Not guessing."
     },
     {
       "id": "heating-calculator__heating_hot_water_standard_per_person_karakol",
@@ -1397,8 +1480,13 @@
       "last_updated": "2026",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Karakol — hot water normative per person/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Karakol — hot water normative per person/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Hot-water energy tariff is 1560 сом/Гкал (Приказ ДТЭК №42); no primary KG per-m³/per-person figure to confirm and per-city stored value is fictional. Not guessing."
     },
     {
       "id": "heating-calculator__heating_hot_water_standard_per_person_naryn",
@@ -1415,8 +1503,13 @@
       "last_updated": "2026",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Naryn — hot water normative per person/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Naryn — hot water normative per person/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Hot-water energy tariff is 1560 сом/Гкал (Приказ ДТЭК №42); no primary KG per-m³/per-person figure to confirm and per-city stored value is fictional. Not guessing."
     },
     {
       "id": "heating-calculator__heating_hot_water_standard_per_person_osh",
@@ -1433,8 +1526,13 @@
       "last_updated": "2026",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Osh — hot water normative per person/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Osh — hot water normative per person/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Hot-water energy tariff is 1560 сом/Гкал (Приказ ДТЭК №42); no primary KG per-m³/per-person figure to confirm and per-city stored value is fictional. Not guessing."
     },
     {
       "id": "heating-calculator__heating_hot_water_standard_per_person_tokmok",
@@ -1451,8 +1549,13 @@
       "last_updated": "2026",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Tokmok — hot water normative per person/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Tokmok — hot water normative per person/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Hot-water energy tariff is 1560 сом/Гкал (Приказ ДТЭК №42); no primary KG per-m³/per-person figure to confirm and per-city stored value is fictional. Not guessing."
     },
     {
       "id": "heating-calculator__heating_hot_water_tariff_per_m3_bishkek",
@@ -1491,8 +1594,13 @@
       "last_updated": "2026",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Jalal-Abad — hot water tariff per m3 by meter; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Jalal-Abad — hot water tariff per m3 by meter; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Hot-water energy tariff is 1560 сом/Гкал (Приказ ДТЭК №42); no primary KG per-m³/per-person figure to confirm and per-city stored value is fictional. Not guessing."
     },
     {
       "id": "heating-calculator__heating_hot_water_tariff_per_m3_karakol",
@@ -1509,8 +1617,13 @@
       "last_updated": "2026",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Karakol — hot water tariff per m3 by meter; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Karakol — hot water tariff per m3 by meter; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Hot-water energy tariff is 1560 сом/Гкал (Приказ ДТЭК №42); no primary KG per-m³/per-person figure to confirm and per-city stored value is fictional. Not guessing."
     },
     {
       "id": "heating-calculator__heating_hot_water_tariff_per_m3_naryn",
@@ -1527,8 +1640,13 @@
       "last_updated": "2026",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Naryn — hot water tariff per m3 by meter; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Naryn — hot water tariff per m3 by meter; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Hot-water energy tariff is 1560 сом/Гкал (Приказ ДТЭК №42); no primary KG per-m³/per-person figure to confirm and per-city stored value is fictional. Not guessing."
     },
     {
       "id": "heating-calculator__heating_hot_water_tariff_per_m3_osh",
@@ -1545,8 +1663,13 @@
       "last_updated": "2026",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Osh — hot water tariff per m3 by meter; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Osh — hot water tariff per m3 by meter; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Hot-water energy tariff is 1560 сом/Гкал (Приказ ДТЭК №42); no primary KG per-m³/per-person figure to confirm and per-city stored value is fictional. Not guessing."
     },
     {
       "id": "heating-calculator__heating_hot_water_tariff_per_m3_tokmok",
@@ -1563,8 +1686,13 @@
       "last_updated": "2026",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Tokmok — hot water tariff per m3 by meter; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Tokmok — hot water tariff per m3 by meter; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Hot-water energy tariff is 1560 сом/Гкал (Приказ ДТЭК №42); no primary KG per-m³/per-person figure to confirm and per-city stored value is fictional. Not guessing."
     },
     {
       "id": "heating-calculator__heating_standard_gcal_per_m2_bishkek",
@@ -1603,8 +1731,12 @@
       "last_updated": "2026",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Jalal-Abad — heat consumption normative per m2/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Jalal-Abad — heat consumption normative per m2/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No published Kyrgyz per-city Гкал/m²/month heating norm found; regulator sets сом/Гкал, not area norms. Cannot confirm 0.037."
     },
     {
       "id": "heating-calculator__heating_standard_gcal_per_m2_karakol",
@@ -1621,8 +1753,12 @@
       "last_updated": "2026",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Karakol — heat consumption normative per m2/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Karakol — heat consumption normative per m2/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No authoritative per-city Гкал/m²/month heating norm published for Karakol; value 0.040 unverifiable. No guess."
     },
     {
       "id": "heating-calculator__heating_standard_gcal_per_m2_naryn",
@@ -1639,8 +1775,12 @@
       "last_updated": "2026",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Naryn — heat consumption normative per m2/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Naryn — heat consumption normative per m2/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No authoritative per-city Гкал/m²/month heating norm for Naryn; 0.042 unverifiable. No guess."
     },
     {
       "id": "heating-calculator__heating_standard_gcal_per_m2_osh",
@@ -1657,8 +1797,12 @@
       "last_updated": "2026",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Osh — heat consumption normative per m2/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Osh — heat consumption normative per m2/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No authoritative per-city Гкал/m²/month heating norm for Osh; 0.038 unverifiable. No guess."
     },
     {
       "id": "heating-calculator__heating_standard_gcal_per_m2_tokmok",
@@ -1675,8 +1819,12 @@
       "last_updated": "2026",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Tokmok — heat consumption normative per m2/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Tokmok — heat consumption normative per m2/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No authoritative per-city Гкал/m²/month heating norm for Tokmok; 0.035 unverifiable. No guess."
     },
     {
       "id": "heating-calculator__heating_tariff_per_gcal_bishkek_social",
@@ -1699,7 +1847,7 @@
       "source_url": "https://knews.kg/2025/01/17/v-merii-bishkeka-dali-razyasnenie-otnositelno-nachisleniya-za-otoplenie/",
       "which_surface_correct": "compute",
       "verify_note": "Official Bishkek social heating tariff (жильё до 80 м²) = 1560 сом/Гкал from 01.03.2026 (Приказ ДТЭК №42 от 10.03.2026; was 1248/1120). Over-80-m² portion billed at ~5998.17 сом/Гкал — confirmed. BOTH surfaces wrong: COMPUTE 1950 too high, PROSE 1450 too low. COMPUTE is the better/intended-current surface but the value should be updated to 1560.",
-      "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)"
+      "fix_note": "fixed 2026-06-28: confirmed national social tariff 1560 сом/Гкал; >80 м² portion (5998.17) now modeled via area-proportional split in calculateHeating; prose 1134.76/1450 → 1560 in RU+KY. See _meta.reconciliations[0]. (working tree, not deployed)"
     },
     {
       "id": "heating-calculator__heating_tariff_per_gcal_jalal_abad",
@@ -1716,8 +1864,14 @@
       "last_updated": "2026",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Jalal-Abad — heating tariff per Gcal; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "stale_confirmed",
+      "notes": "Jalal-Abad — heating tariff per Gcal; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "official_value": "1560 сом/Гкал (нац. соцнорма ≤80 м²)",
+      "source_url": "https://bishkek.gov.kg/ru/tariffs/2",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "KG heating social-norm tariff=1560 сом/Гкал (Приказ ДТЭК №42 от 10.03.2026, ≤80 м²); KG has NO per-city heating tariff — stored per-city value is fictional. (b2 agent 1950 was the superseded value.)"
     },
     {
       "id": "heating-calculator__heating_tariff_per_gcal_karakol",
@@ -1734,8 +1888,14 @@
       "last_updated": "2026",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Karakol — heating tariff per Gcal; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "stale_confirmed",
+      "notes": "Karakol — heating tariff per Gcal; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "official_value": "1560 сом/Гкал (нац. соцнорма ≤80 м²)",
+      "source_url": "https://bishkek.gov.kg/ru/tariffs/2",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "KG heating social-norm tariff=1560 сом/Гкал (Приказ ДТЭК №42 от 10.03.2026, ≤80 м²); KG has NO per-city heating tariff — stored per-city value is fictional. (b2 agent 1950 was the superseded value.)"
     },
     {
       "id": "heating-calculator__heating_tariff_per_gcal_naryn",
@@ -1752,8 +1912,14 @@
       "last_updated": "2026",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Naryn — heating tariff per Gcal; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "stale_confirmed",
+      "notes": "Naryn — heating tariff per Gcal; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "official_value": "1560 сом/Гкал (нац. соцнорма ≤80 м²)",
+      "source_url": "https://bishkek.gov.kg/ru/tariffs/2",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "KG heating social-norm tariff=1560 сом/Гкал (Приказ ДТЭК №42 от 10.03.2026, ≤80 м²); KG has NO per-city heating tariff — stored per-city value is fictional. (b2 agent 1950 was the superseded value.)"
     },
     {
       "id": "heating-calculator__heating_tariff_per_gcal_osh",
@@ -1792,8 +1958,14 @@
       "last_updated": "2026",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Tokmok — heating tariff per Gcal; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "stale_confirmed",
+      "notes": "Tokmok — heating tariff per Gcal; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "official_value": "1560 сом/Гкал (нац. соцнорма ≤80 м²)",
+      "source_url": "https://bishkek.gov.kg/ru/tariffs/2",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "KG heating social-norm tariff=1560 сом/Гкал (Приказ ДТЭК №42 от 10.03.2026, ≤80 м²); KG has NO per-city heating tariff — stored per-city value is fictional. (b2 agent 1950 was the superseded value.)"
     },
     {
       "id": "housing-calculator__tariff_electricity",
@@ -2568,8 +2740,13 @@
       "last_updated": "2026",
       "source_hint": "sti.gov.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Hardcoded 3% single-tax rate used inside the patent page's 'patent vs single tax' comparison (singleTaxRate = 0.03; rendered '3% от выручки'). Illustrative ИП rate; not present in patent ledger. [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Hardcoded 3% single-tax rate used inside the patent page's 'patent vs single tax' comparison (singleTaxRate = 0.03; rendered '3% от выручки'). Illustrative ИП rate; not present in patent ledger. [gap-audit 2026-06-17 completeness pass]",
+      "source_url": "https://sti.gov.kg/section/0/%D1%81%D0%BF%D0%B5%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9_%D0%BD%D0%B0%D0%BB%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9_%D1%80%D0%B5%D0%B6%D0%B8%D0%BC",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Current single-tax trade rates are 0%/0.5%/1% (Art.423 NK); no current 3% single-tax rate confirmed for this comparison context."
     },
     {
       "id": "pension-calculator__pension_base_part_amount",
@@ -2722,8 +2899,13 @@
       "last_updated": "2026",
       "source_hint": "sf.gov.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Верхняя граница возраста выхода на пенсию, допускаемая в калькуляторе (max атрибут поля 'планируемый возраст'); отложенный выход на пенсию. [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Верхняя граница возраста выхода на пенсию, допускаемая в калькуляторе (max атрибут поля 'планируемый возраст'); отложенный выход на пенсию. [gap-audit 2026-06-17 completeness pass]",
+      "source_url": "https://sf.gov.kg/ru/vozrast-vyhoda-na-pensiyu-i-trebuemyj-stazh/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "Statutory retirement ages are 63 (men)/58 (women); no legal 70-year max found. Stored 70 is an app input/assumption, not regulatory."
     },
     {
       "id": "pension-calculator__pension_min_experience_months",
@@ -3778,8 +3960,14 @@
       "last_updated": "2026",
       "source_hint": "salyk.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Effective date of the 0% single-tax trade rate for ИП with ККМ ('действует с 01.04.2025'). Gates the 0% regime; not in ledger. [gap-audit 2026-06-17 completeness pass]"
+      "status": "stale_confirmed",
+      "notes": "Effective date of the 0% single-tax trade rate for ИП with ККМ ('действует с 01.04.2025'). Gates the 0% regime; not in ledger. [gap-audit 2026-06-17 completeness pass]",
+      "official_value": "01.01.2025",
+      "source_url": "https://cbd.minjust.gov.kg/3-39/edition/1286442/ru",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "0% trade rate (Art.423 p.1 NK, ≤8M som, ≤2 employees) took effect 01.01.2025; 01.04.2025 is when 0.1%/1% market rates were abolished."
     },
     {
       "id": "single-tax-calculator__single_tax_trade_0pct_ip_kkm",
@@ -3819,8 +4007,14 @@
       "last_updated": "2026",
       "source_hint": "salyk.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Max hired workers (не более 2 наёмных работников) condition to qualify for the 0% single-tax trade regime for ИП with ККМ, no export/import. Eligibility constant not in ledger. [gap-audit 2026-06-17 completeness pass]"
+      "status": "current",
+      "notes": "Max hired workers (не более 2 наёмных работников) condition to qualify for the 0% single-tax trade regime for ИП with ККМ, no export/import. Eligibility constant not in ledger. [gap-audit 2026-06-17 completeness pass]",
+      "official_value": "2",
+      "source_url": "https://kgaccount.com/en/unified-tax-in-kyrgyzstan-in-2025-a-detailed-guide-for-businesses/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Art.423 p.1 NK KR: 0% for IP with ≤8M som revenue, online cash register, and not more than 2 hired workers."
     },
     {
       "id": "single-tax-calculator__single_tax_trade_30_50m_cashless",
@@ -4065,8 +4259,14 @@
       "last_updated": "2026",
       "source_hint": "sf.gov.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Дата вступления в силу сниженного тарифа работодателя 2.25% для частного бизнеса (с 01.08.2024); до этой даты применялся стандартный 17.25%. [gap-audit 2026-06-17 completeness pass]"
+      "status": "current",
+      "notes": "Дата вступления в силу сниженного тарифа работодателя 2.25% для частного бизнеса (с 01.08.2024); до этой даты применялся стандартный 17.25%. [gap-audit 2026-06-17 completeness pass]",
+      "official_value": "2024-08-01",
+      "source_url": "https://sf.gov.kg/ru/o-snizhenii-stavki-tarifov-strahovyh-vznosov-po-gosudarstvennomu-soczialnomu-strahovaniyu/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Law signed 23 Jul 2024; reduced employer insurance tariff (to 2.25%) in force from 1 August 2024."
     },
     {
       "id": "social-fund-calculator__employer_standard_foms_rate",
@@ -5697,8 +5897,12 @@
       "last_updated": "2026",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Batken — sewerage (водоотведение/канализация), category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Batken — sewerage (водоотведение/канализация), category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No citable Batken водоканал tariff online; set by local kenesh, unpublished. Not extrapolating from Bishkek."
     },
     {
       "id": "water-calculator__water_tariff_batken_budget_water",
@@ -5715,8 +5919,12 @@
       "last_updated": "2026",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Batken — cold water supply, category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Batken — cold water supply, category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No primary Batken water tariff found; searches returned only RU/KZ/UA utilities. Local kenesh sets rate, unpublished."
     },
     {
       "id": "water-calculator__water_tariff_batken_commercial_sewerage",
@@ -5733,8 +5941,12 @@
       "last_updated": "2026",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Batken — sewerage (водоотведение/канализация), category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Batken — sewerage (водоотведение/канализация), category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No authoritative Batken commercial sewerage tariff available online. Cannot confirm or correct."
     },
     {
       "id": "water-calculator__water_tariff_batken_commercial_water",
@@ -5751,8 +5963,12 @@
       "last_updated": "2026",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Batken — cold water supply, category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Batken — cold water supply, category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No citable Batken commercial water tariff; municipal rate unpublished. No guess."
     },
     {
       "id": "water-calculator__water_tariff_batken_population_sewerage",
@@ -5769,8 +5985,12 @@
       "last_updated": "2026",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Batken — sewerage (водоотведение/канализация), category population (население); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Batken — sewerage (водоотведение/канализация), category population (население); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No primary source for Batken population sewerage tariff. Unpublished local-kenesh rate."
     },
     {
       "id": "water-calculator__water_tariff_jalal_abad_budget_sewerage",
@@ -5787,8 +6007,12 @@
       "last_updated": "2026",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Jalal-Abad — sewerage (водоотведение/канализация), category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Jalal-Abad — sewerage (водоотведение/канализация), category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Jalal-Abad Vodokanal site (jvk.kg) unreachable; no published per-category tariff. Cannot confirm."
     },
     {
       "id": "water-calculator__water_tariff_jalal_abad_budget_water",
@@ -5805,8 +6029,12 @@
       "last_updated": "2026",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Jalal-Abad — cold water supply, category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Jalal-Abad — cold water supply, category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Oblast figure ~15 som/m3 cited in 2023 press but no current per-category breakdown; jvk.kg down. No guess."
     },
     {
       "id": "water-calculator__water_tariff_jalal_abad_commercial_sewerage",
@@ -5823,8 +6051,12 @@
       "last_updated": "2026",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Jalal-Abad — sewerage (водоотведение/канализация), category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Jalal-Abad — sewerage (водоотведение/канализация), category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No citable Jalal-Abad commercial sewerage tariff; official site unreachable. Cannot verify."
     },
     {
       "id": "water-calculator__water_tariff_jalal_abad_commercial_water",
@@ -5841,8 +6073,12 @@
       "last_updated": "2026",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Jalal-Abad — cold water supply, category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Jalal-Abad — cold water supply, category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No authoritative current Jalal-Abad commercial water tariff found; jvk.kg ECONNREFUSED. No guess."
     },
     {
       "id": "water-calculator__water_tariff_karakol_budget_sewerage",
@@ -5859,8 +6095,12 @@
       "last_updated": "2026",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Karakol — sewerage (водоотведение/канализация), category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Karakol — sewerage (водоотведение/канализация), category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Only population rate published (4.41 som 2024); budget category listed 'уточнить' on Karakol мэрия Vodokanal profile. No source."
     },
     {
       "id": "water-calculator__water_tariff_karakol_budget_water",
@@ -5877,8 +6117,12 @@
       "last_updated": "2026",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Karakol — cold water supply, category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Karakol — cold water supply, category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Karakol publishes only population water 8.79 (2024); budget/legal rate unspecified ('уточнить'). Cannot confirm 8.50."
     },
     {
       "id": "water-calculator__water_tariff_karakol_commercial_sewerage",
@@ -5895,8 +6139,12 @@
       "last_updated": "2026",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Karakol — sewerage (водоотведение/канализация), category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Karakol — sewerage (водоотведение/канализация), category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No published Karakol commercial sewerage tariff; only population 4.41 (2024) exists. No extrapolation."
     },
     {
       "id": "water-calculator__water_tariff_karakol_commercial_water",
@@ -5913,8 +6161,12 @@
       "last_updated": "2026",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Karakol — cold water supply, category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Karakol — cold water supply, category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No published Karakol commercial water tariff; legal-entity rate listed 'уточнить' on мэрия site. Cannot confirm 11.50."
     },
     {
       "id": "water-calculator__water_tariff_naryn_budget_sewerage",
@@ -5931,8 +6183,12 @@
       "last_updated": "2026",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Naryn — sewerage (водоотведение/канализация), category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Naryn — sewerage (водоотведение/канализация), category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No primary source for Naryn (KG) sewerage tariff; searches hit only Kazakh village Нарын. Unpublished."
     },
     {
       "id": "water-calculator__water_tariff_naryn_budget_water",
@@ -5949,8 +6205,12 @@
       "last_updated": "2026",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Naryn — cold water supply, category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Naryn — cold water supply, category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No citable Naryn city water tariff online; local kenesh sets rate, not published. No guess."
     },
     {
       "id": "water-calculator__water_tariff_naryn_commercial_sewerage",
@@ -5967,8 +6227,12 @@
       "last_updated": "2026",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Naryn — sewerage (водоотведение/канализация), category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Naryn — sewerage (водоотведение/канализация), category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No authoritative Naryn commercial sewerage tariff found. Cannot confirm or correct."
     },
     {
       "id": "water-calculator__water_tariff_naryn_commercial_water",
@@ -5985,8 +6249,12 @@
       "last_updated": "2026",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Naryn — cold water supply, category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Naryn — cold water supply, category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No primary Naryn commercial water tariff available; unpublished municipal rate. No extrapolation."
     },
     {
       "id": "water-calculator__water_tariff_naryn_population_sewerage",
@@ -6003,8 +6271,12 @@
       "last_updated": "2026",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Naryn — sewerage (водоотведение/канализация), category population (население); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Naryn — sewerage (водоотведение/канализация), category population (население); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No citable Naryn population sewerage tariff; no Kyrgyz source located. No guess."
     },
     {
       "id": "water-calculator__water_tariff_talas_budget_sewerage",
@@ -6021,8 +6293,12 @@
       "last_updated": "2026",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Talas — sewerage (водоотведение/канализация), category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Talas — sewerage (водоотведение/канализация), category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No primary Talas water/sewerage tariff online; municipal rate unpublished. Cannot verify."
     },
     {
       "id": "water-calculator__water_tariff_talas_budget_water",
@@ -6039,8 +6315,12 @@
       "last_updated": "2026",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Talas — cold water supply, category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Talas — cold water supply, category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No citable Talas city water tariff; searches returned only RU utilities. Local kenesh rate, unpublished."
     },
     {
       "id": "water-calculator__water_tariff_talas_commercial_sewerage",
@@ -6057,8 +6337,12 @@
       "last_updated": "2026",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Talas — sewerage (водоотведение/канализация), category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Talas — sewerage (водоотведение/канализация), category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No authoritative Talas commercial sewerage tariff found. No guess."
     },
     {
       "id": "water-calculator__water_tariff_talas_commercial_water",
@@ -6075,8 +6359,12 @@
       "last_updated": "2026",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Talas — cold water supply, category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Talas — cold water supply, category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No primary Talas commercial water tariff available online. Cannot confirm or correct."
     },
     {
       "id": "water-calculator__water_tariff_talas_population_sewerage",
@@ -6093,8 +6381,12 @@
       "last_updated": "2026",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Talas — sewerage (водоотведение/канализация), category population (население); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Talas — sewerage (водоотведение/канализация), category population (население); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No citable Talas population sewerage tariff; unpublished municipal rate. No extrapolation."
     },
     {
       "id": "water-calculator__water_tariff_tokmok_budget_sewerage",
@@ -6111,8 +6403,12 @@
       "last_updated": "2026",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Tokmok — sewerage (водоотведение/канализация), category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Tokmok — sewerage (водоотведение/канализация), category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Tokmok Vodokanal has only FB/Instagram, no published tariff page. Cannot confirm budget sewerage rate."
     },
     {
       "id": "water-calculator__water_tariff_tokmok_budget_water",
@@ -6129,8 +6425,12 @@
       "last_updated": "2026",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Tokmok — cold water supply, category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Tokmok — cold water supply, category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No citable Tokmok water tariff; 2018 kaktus infographic was image-only and outdated. No current source. No guess."
     },
     {
       "id": "water-calculator__water_tariff_tokmok_commercial_sewerage",
@@ -6147,8 +6447,12 @@
       "last_updated": "2026",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Tokmok — sewerage (водоотведение/канализация), category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Tokmok — sewerage (водоотведение/канализация), category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No authoritative Tokmok commercial sewerage tariff online. Cannot verify."
     },
     {
       "id": "water-calculator__water_tariff_tokmok_commercial_water",
@@ -6165,8 +6469,12 @@
       "last_updated": "2026",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Tokmok — cold water supply, category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Tokmok — cold water supply, category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No primary Tokmok commercial water tariff found; МП Tokmok Vodokanal publishes no rates. No extrapolation."
     },
     {
       "id": "water-calculator__water_tariff_tokmok_population_sewerage",
@@ -6183,8 +6491,12 @@
       "last_updated": "2026",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Tokmok — sewerage (водоотведение/канализация), category population (население); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]"
+      "status": "uncertain",
+      "notes": "Tokmok — sewerage (водоотведение/канализация), category population (население); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No citable Tokmok population sewerage tariff; municipal rate unpublished. No guess."
     },
     {
       "id": "water-calculator__water_tokmok_population_water",
@@ -6223,8 +6535,14 @@
       "last_updated": "2026-01",
       "source_hint": "Нацстатком КР stat.gov.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE REGIONAL_AVERAGE_SALARY — statistical reference base for 'regional-average' method, not a regulated alimony constant. Source comment: Нацстатком КР, January 2026."
+      "status": "current",
+      "notes": "COMPUTE REGIONAL_AVERAGE_SALARY — statistical reference base for 'regional-average' method, not a regulated alimony constant. Source comment: Нацстатком КР, January 2026.",
+      "official_value": "Bishkek 54618; Issyk-Kul 46261; Naryn 39934; Talas 38725 (Jan-Oct 2025, Natsstatkom)",
+      "source_url": "https://24.kg/obschestvo/357394_natsstatkom_podschital_srednyuyu_zarplatu_kyirgyizstantsev_za2025_god/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Stored per-region values match Natsstatkom 2025 figures (Bishkek 54600 vs 54618, IK 46300 vs 46261, Naryn 39900 vs 39934)."
     },
     {
       "id": "auto-loan-calculator__autoloan_bank_indicative_rates",
@@ -6241,8 +6559,14 @@
       "last_updated": "",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE bankOffers[] auto-loan annual rate + maxTerm per bank for comparison. Market."
+      "status": "current",
+      "notes": "COMPUTE bankOffers[] auto-loan annual rate + maxTerm per bank for comparison. Market.",
+      "official_value": "KG consumer/auto loan market level ~17-22%; NBKR avg lending rate ~18%",
+      "source_url": "https://www.tazabek.kg/news:2291660",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Per-bank auto rates 17-22% consistent with current KG market; no single official figure, market-volatile."
     },
     {
       "id": "auto-loan-calculator__autoloan_default_loan_term_months",
@@ -6259,8 +6583,12 @@
       "last_updated": "",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE default selected term (loanTermMonths initial '36'). Options: 12/24/36/48/60 months."
+      "status": "current",
+      "notes": "COMPUTE default selected term (loanTermMonths initial '36'). Options: 12/24/36/48/60 months.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Non-regulatory app default (36mo); design choice, not a fact that can be stale."
     },
     {
       "id": "auto-loan-calculator__autoloan_quick_example_scenarios",
@@ -6277,8 +6605,12 @@
       "last_updated": "",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Illustrative 'popular scenario' presets (COMPUTE)."
+      "status": "current",
+      "notes": "Illustrative 'popular scenario' presets (COMPUTE).",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Non-regulatory app default example scenarios; rates 17.5-19% within current market level."
     },
     {
       "id": "calorie-calculator__activity_multipliers",
@@ -6295,8 +6627,14 @@
       "last_updated": "2026-03-23",
       "source_hint": "PAL standard",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Activity (TDEE) multipliers applied to BMR (ACTIVITY_MULTIPLIERS). Standard Harris-Benedict activity factors. Physiological."
+      "status": "current",
+      "notes": "Activity (TDEE) multipliers applied to BMR (ACTIVITY_MULTIPLIERS). Standard Harris-Benedict activity factors. Physiological.",
+      "official_value": "1.2; 1.375; 1.55; 1.725; 1.9",
+      "source_url": "https://www.omnicalculator.com/health/bmr",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Standard PAL activity factors used universally with Mifflin-St Jeor TDEE; matches."
     },
     {
       "id": "calorie-calculator__bmr_mifflin_age_coef",
@@ -6313,8 +6651,14 @@
       "last_updated": "2026-03-23",
       "source_hint": "Mifflin-St Jeor",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Mifflin-St Jeor BMR coefficient subtracted per year of age. Physiological."
+      "status": "current",
+      "notes": "Mifflin-St Jeor BMR coefficient subtracted per year of age. Physiological.",
+      "official_value": "5",
+      "source_url": "https://tdeecalculator.org/mifflin-st-jeor-equation/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Mifflin-St Jeor: -5 x age(years); coefficient 5 confirmed."
     },
     {
       "id": "calorie-calculator__bmr_mifflin_constant_female",
@@ -6331,8 +6675,14 @@
       "last_updated": "2026-03-23",
       "source_hint": "Mifflin-St Jeor",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Mifflin-St Jeor female constant (-161). Physiological."
+      "status": "current",
+      "notes": "Mifflin-St Jeor female constant (-161). Physiological.",
+      "official_value": "161",
+      "source_url": "https://tdeecalculator.org/mifflin-st-jeor-equation/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Mifflin-St Jeor female constant is -161; confirmed."
     },
     {
       "id": "calorie-calculator__bmr_mifflin_constant_male",
@@ -6349,8 +6699,14 @@
       "last_updated": "2026-03-23",
       "source_hint": "Mifflin-St Jeor",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Mifflin-St Jeor male constant (+5). Physiological."
+      "status": "current",
+      "notes": "Mifflin-St Jeor male constant (+5). Physiological.",
+      "official_value": "5",
+      "source_url": "https://tdeecalculator.org/mifflin-st-jeor-equation/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Mifflin-St Jeor male constant is +5; confirmed."
     },
     {
       "id": "calorie-calculator__bmr_mifflin_height_coef",
@@ -6367,8 +6723,14 @@
       "last_updated": "2026-03-23",
       "source_hint": "Mifflin-St Jeor",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Mifflin-St Jeor BMR coefficient on height (cm). Physiological."
+      "status": "current",
+      "notes": "Mifflin-St Jeor BMR coefficient on height (cm). Physiological.",
+      "official_value": "6.25",
+      "source_url": "https://tdeecalculator.org/mifflin-st-jeor-equation/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Mifflin-St Jeor: 6.25 x height(cm); confirmed."
     },
     {
       "id": "calorie-calculator__bmr_mifflin_weight_coef",
@@ -6385,8 +6747,14 @@
       "last_updated": "2026-03-23",
       "source_hint": "Mifflin-St Jeor",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Mifflin-St Jeor BMR coefficient on weight (kg). Same for both sexes. Physiological."
+      "status": "current",
+      "notes": "Mifflin-St Jeor BMR coefficient on weight (kg). Same for both sexes. Physiological.",
+      "official_value": "10",
+      "source_url": "https://tdeecalculator.org/mifflin-st-jeor-equation/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Mifflin-St Jeor: 10 x weight(kg); confirmed."
     },
     {
       "id": "calorie-calculator__goal_multipliers",
@@ -6403,8 +6771,14 @@
       "last_updated": "2026-03-23",
       "source_hint": "nutrition heuristic",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Goal adjustment to daily calories (GOAL_MULTIPLIERS): lose -20%, gain +20%. Heuristic."
+      "status": "current",
+      "notes": "Goal adjustment to daily calories (GOAL_MULTIPLIERS): lose -20%, gain +20%. Heuristic.",
+      "official_value": "0.8; 1.0; 1.2",
+      "source_url": "https://www.omnicalculator.com/health/bmr",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "Standard lose/maintain/gain heuristic (~20% deficit/surplus); non-regulatory but conventional."
     },
     {
       "id": "calorie-calculator__macro_kcal_per_gram",
@@ -6421,8 +6795,14 @@
       "last_updated": "2026-03-23",
       "source_hint": "Atwater factors",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Energy density per gram (Atwater): protein 4, fat 9, carb 4 kcal/g. Used to convert kcal->grams. Physiological."
+      "status": "current",
+      "notes": "Energy density per gram (Atwater): protein 4, fat 9, carb 4 kcal/g. Used to convert kcal->grams. Physiological.",
+      "official_value": "protein 4; fat 9; carb 4",
+      "source_url": "https://www.calculatorian.com/en/articles/health/mifflin-st-jeor-equation",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Atwater general factors: protein 4, fat 9, carb 4 kcal/g; confirmed."
     },
     {
       "id": "calorie-calculator__macro_split_percent",
@@ -6439,8 +6819,14 @@
       "last_updated": "2026-03-23",
       "source_hint": "nutrition heuristic",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Macronutrient split of daily calories: 30/30/40 protein/fat/carb. Heuristic."
+      "status": "current",
+      "notes": "Macronutrient split of daily calories: 30/30/40 protein/fat/carb. Heuristic.",
+      "official_value": "30; 30; 40",
+      "source_url": "https://www.omnicalculator.com/health/bmr",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "Common balanced macro split heuristic; within accepted AMDR ranges; non-regulatory."
     },
     {
       "id": "construction__block_foam_price_per_unit",
@@ -6458,8 +6844,14 @@
       "last_updated": "2026-04",
       "source_hint": "salexy.kg",
       "conflict": true,
-      "status": "unverified",
-      "notes": "MISMATCH: foam block 200x300x600 COMPUTE=85 сом/шт (authoritative), article prose construction_foam_block_price=55 сом/шт."
+      "status": "stale_confirmed",
+      "notes": "MISMATCH: foam block 200x300x600 COMPUTE=85 сом/шт (authoritative), article prose construction_foam_block_price=55 сом/шт.",
+      "official_value": "120",
+      "source_url": "https://lalafo.kg/bishkek/vse-dlya-stroitelstva-i-remonta/kirpich/penobetonnyiy-blok",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "Current lalafo.kg foam blocks (500x300x200) ~120 сом/piece; stored 85 is below market."
     },
     {
       "id": "construction__block_gas_price_per_unit",
@@ -6476,8 +6868,14 @@
       "last_updated": "2026-04",
       "source_hint": "salexy.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Gas block 200x300x600."
+      "status": "stale_confirmed",
+      "notes": "Gas block 200x300x600.",
+      "official_value": "165",
+      "source_url": "https://lalafo.kg/kyrgyzstan/vse-dlya-stroitelstva-i-remonta/kirpich/gazobetonnyiy-blok",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "Current lalafo.kg gas blocks (600x200x300) ~155-190 сом/piece; stored 95 is below market."
     },
     {
       "id": "construction__board_price_per_unit",
@@ -6494,8 +6892,14 @@
       "last_updated": "2026-04",
       "source_hint": "salexy.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Edged board (доска обрезная), м³."
+      "status": "current",
+      "notes": "Edged board (доска обрезная), м³.",
+      "official_value": "12000",
+      "source_url": "https://lalafo.kg/kyrgyzstan/vse-dlya-stroitelstva-i-remonta/pilomaterialy/taktaiylar/q-%D0%B4%D0%BE%D1%81%D0%BA%D0%B0-%D0%BE%D0%B1%D1%80%D0%B5%D0%B7%D0%BD%D0%B0%D1%8F-%D1%86%D0%B5%D0%BD%D0%B0-%D0%B1%D0%B8%D1%88%D0%BA%D0%B5%D0%BA",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "Lalafo edged board ~13000 сом/m3 (40mm), low grade ~6000; stored 12000 within current range."
     },
     {
       "id": "construction__brick_red_price_per_unit",
@@ -6513,8 +6917,14 @@
       "last_updated": "2026-04",
       "source_hint": "salexy.kg / lalafo.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Red ceramic brick, шт. COMPUTE=12, article prose construction_brick_red_price=12 сом/шт (match). Market price Bishkek (Dordoy/Osh-bazar)."
+      "status": "current",
+      "notes": "Red ceramic brick, шт. COMPUTE=12, article prose construction_brick_red_price=12 сом/шт (match). Market price Bishkek (Dordoy/Osh-bazar).",
+      "official_value": "12",
+      "source_url": "https://salexy.kg/remont_i_stroitelstvo/stroymaterialy/kirpich-kamen",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "salexy.kg red brick M-100 listed at 12 сом/piece; matches stored value."
     },
     {
       "id": "construction__brick_silicate_price_per_unit",
@@ -6532,8 +6942,13 @@
       "last_updated": "2026-04",
       "source_hint": "salexy.kg / lalafo.kg",
       "conflict": true,
-      "status": "unverified",
-      "notes": "MISMATCH: COMPUTE=10 сом/шт (authoritative), article prose construction_brick_silicate_price=8 сом/шт. Market price."
+      "status": "uncertain",
+      "notes": "MISMATCH: COMPUTE=10 сом/шт (authoritative), article prose construction_brick_silicate_price=8 сом/шт. Market price.",
+      "source_url": "https://lalafo.kg/bishkek/vse-dlya-stroitelstva-i-remonta/kirpich/kirpichi",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No precise silicate per-piece figure isolated; red brick ~12 so 10 plausible but not directly confirmed."
     },
     {
       "id": "construction__cement_m400_price_per_bag50kg",
@@ -6551,8 +6966,14 @@
       "last_updated": "2026-04",
       "source_hint": "salexy.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Cement M400, bag 50kg. COMPUTE=550, prose=550 (match)."
+      "status": "stale_confirmed",
+      "notes": "Cement M400, bag 50kg. COMPUTE=550, prose=550 (match).",
+      "official_value": "330",
+      "source_url": "https://aviastal.kg/stroitelnye-materialy/tcement/upakovka_meshok-50-kg",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "Bishkek retail M400 ~250-350 сом/bag (Kant plant 350); stored 550 is above current market."
     },
     {
       "id": "construction__cement_m500_price_per_bag50kg",
@@ -6570,8 +6991,14 @@
       "last_updated": "2026-04",
       "source_hint": "salexy.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Cement M500, bag 50kg. COMPUTE=650, prose=650 (match)."
+      "status": "stale_confirmed",
+      "notes": "Cement M500, bag 50kg. COMPUTE=650, prose=650 (match).",
+      "official_value": "380",
+      "source_url": "https://www.stroymag-bishkek.com/product-category/cement-i-materialy-dlya-betonnykh-i-klad/cement/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "Bishkek M500 ~330-380, premium Profi M600 only 440 сом/bag; stored 650 is above market."
     },
     {
       "id": "construction__delivery_cost_per_km",
@@ -6588,8 +7015,12 @@
       "last_updated": "2026-04",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Delivery cost per km. Market."
+      "status": "uncertain",
+      "notes": "Delivery cost per km. Market.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Business/market assumption; deliveries quoted per truckload not per km, no citable per-km rate."
     },
     {
       "id": "construction__delivery_free_threshold",
@@ -6606,8 +7037,12 @@
       "last_updated": "2026-04",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Free delivery from order amount. Market."
+      "status": "uncertain",
+      "notes": "Free delivery from order amount. Market.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Market/business policy assumption; no standard citable free-delivery threshold for KG suppliers."
     },
     {
       "id": "construction__delivery_min_cost",
@@ -6624,8 +7059,12 @@
       "last_updated": "2026-04",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Minimum delivery cost. Market."
+      "status": "uncertain",
+      "notes": "Minimum delivery cost. Market.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Market/business assumption; minimum delivery cost varies by supplier/vehicle, no citable figure."
     },
     {
       "id": "construction__gravel_price_per_unit",
@@ -6643,8 +7082,13 @@
       "last_updated": "2026-04",
       "source_hint": "salexy.kg",
       "conflict": true,
-      "status": "unverified",
-      "notes": "MISMATCH: COMPUTE=1200 сом/м³ granite gravel (authoritative), article prose construction_gravel_price='250 сом/тонна' (different value AND unit)."
+      "status": "uncertain",
+      "notes": "MISMATCH: COMPUTE=1200 сом/м³ granite gravel (authoritative), article prose construction_gravel_price='250 сом/тонна' (different value AND unit).",
+      "source_url": "https://lalafo.kg/bishkek/vse-dlya-stroitelstva-i-remonta/teguluuchu-materialdar/pesok/q-%D0%BF%D0%B5%D1%81%D0%BE%D0%BA-%D0%B2-%D0%B1%D0%B8%D1%88%D0%BA%D0%B5%D0%BA%D0%B5",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "KG gravel sold by truckload not per-m3; no reliable per-m3 KGS price isolated to confirm 1200."
     },
     {
       "id": "construction__norm_brick_wall_half",
@@ -6663,8 +7107,14 @@
       "last_updated": "2026-04",
       "source_hint": "engineering norm",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Brick consumption norm, half-brick wall (12cm). Engineering norm, not cited as state СНиП. COMPUTE=51, prose=51 (match). Used for wall-brick calc."
+      "status": "current",
+      "notes": "Brick consumption norm, half-brick wall (12cm). Engineering norm, not cited as state СНиП. COMPUTE=51, prose=51 (match). Used for wall-brick calc.",
+      "official_value": "51",
+      "source_url": "https://tdkk.ru/articles/skolko-kirpicha-v-1-m-kladki-rasschityvaem-pravilno/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Standard masonry norm: half-brick wall = 51 single bricks/m2 (with 10mm joints). Matches."
     },
     {
       "id": "construction__norm_brick_wall_one",
@@ -6682,8 +7132,14 @@
       "last_updated": "2026-04",
       "source_hint": "engineering norm",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Brick consumption norm, 1-brick wall (25cm). Reference (CONSUMPTION_NORMS) + article. Engineering norm."
+      "status": "current",
+      "notes": "Brick consumption norm, 1-brick wall (25cm). Reference (CONSUMPTION_NORMS) + article. Engineering norm.",
+      "official_value": "102",
+      "source_url": "https://tdkk.ru/articles/skolko-kirpicha-v-1-m-kladki-rasschityvaem-pravilno/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Standard masonry norm: one-brick wall = 102 single bricks/m2 (with joints). Matches."
     },
     {
       "id": "construction__norm_brick_wall_oneandhalf",
@@ -6701,8 +7157,14 @@
       "last_updated": "2026-04",
       "source_hint": "engineering norm",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Brick norm 1.5-brick wall (38cm). Reference + FAQ prose (faq_a1). Engineering norm."
+      "status": "current",
+      "notes": "Brick norm 1.5-brick wall (38cm). Reference + FAQ prose (faq_a1). Engineering norm.",
+      "official_value": "153",
+      "source_url": "https://tdkk.ru/articles/skolko-kirpicha-v-1-m-kladki-rasschityvaem-pravilno/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Standard masonry norm: one-and-half-brick wall = 153 single bricks/m2 (with joints). Matches."
     },
     {
       "id": "construction__norm_cement_foundation",
@@ -6720,8 +7182,14 @@
       "last_updated": "2026-04",
       "source_hint": "engineering norm",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Cement M500 bags per m³ concrete (foundation). Also CONSUMPTION_NORMS.cement.concrete=6.5."
+      "status": "current",
+      "notes": "Cement M500 bags per m³ concrete (foundation). Also CONSUMPTION_NORMS.cement.concrete=6.5.",
+      "official_value": "6.5",
+      "source_url": "https://vsebloki.ru/stati/normy-raskhoda-tsementa-i-peska-na-beton-i-drugie-rastvory/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "Concrete foundation ~350 kg/m3 = 7 bags; stored 6.5 (~325kg) within standard engineering range."
     },
     {
       "id": "construction__norm_cement_mortar",
@@ -6738,8 +7206,14 @@
       "last_updated": "2026-04",
       "source_hint": "engineering norm",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Cement bags per m³ mortar (reference norm). Engineering norm."
+      "status": "current",
+      "notes": "Cement bags per m³ mortar (reference norm). Engineering norm.",
+      "official_value": "8",
+      "source_url": "https://zzbeton.ru/articles/rashod-tsementa-na-1-m-rastvora-raschet-normyi-i-tablitsyi/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Masonry mortar (1:4) ~400 kg/m3 = 8 bags of 50kg; matches standard norm exactly."
     },
     {
       "id": "construction__norm_cement_screed",
@@ -6756,8 +7230,14 @@
       "last_updated": "2026-04",
       "source_hint": "engineering norm",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Cement bags per m³ screed (reference norm). Engineering norm."
+      "status": "current",
+      "notes": "Cement bags per m³ screed (reference norm). Engineering norm.",
+      "official_value": "7.5",
+      "source_url": "https://vsebloki.ru/stati/normy-raskhoda-tsementa-i-peska-na-beton-i-drugie-rastvory/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "Floor screed M150 ~330-400 kg/m3 = 7-8 bags; stored 7.5 within standard engineering range."
     },
     {
       "id": "construction__norm_foamblock_wall",
@@ -6774,8 +7254,14 @@
       "last_updated": "2026-04",
       "source_hint": "engineering norm",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Foam block consumption per m² wall (wall-block type). Engineering norm."
+      "status": "current",
+      "notes": "Foam block consumption per m² wall (wall-block type). Engineering norm.",
+      "official_value": "5.56 (≈5.5, округление стандартной нормы для блока 600×300×200)",
+      "source_url": "https://stroy-podskazka.ru/penobeton/rashod-penoblokov/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Стандартная норма для блока 600×300×200 в стене 200мм = 5.56 шт/м²; хранимое 5.5 — корректное округление. Current."
     },
     {
       "id": "construction__norm_rebar_columns",
@@ -6792,8 +7278,14 @@
       "last_updated": "2026-04",
       "source_hint": "engineering norm",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Rebar kg per m³ columns (reference norm)."
+      "status": "current",
+      "notes": "Rebar kg per m³ columns (reference norm).",
+      "official_value": "200",
+      "source_url": "https://vseoarmature.ru/raschet/raskhod-armatury-na-1-m3-betona",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "Columns rebar ~120-250 kg/m3 (can reach 200-250); stored 200 within standard range."
     },
     {
       "id": "construction__norm_rebar_foundation",
@@ -6810,8 +7302,14 @@
       "last_updated": "2026-04",
       "source_hint": "engineering norm",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Rebar kg per m³ foundation (reference norm). Engineering norm."
+      "status": "current",
+      "notes": "Rebar kg per m³ foundation (reference norm). Engineering norm.",
+      "official_value": "150",
+      "source_url": "https://vseoarmature.ru/raschet/raskhod-armatury-na-1-m3-betona",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "Foundation rebar typically ~120-250 kg/m3; stored 150 is a standard average value."
     },
     {
       "id": "construction__norm_rebar_slabs",
@@ -6828,8 +7326,14 @@
       "last_updated": "2026-04",
       "source_hint": "engineering norm",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Rebar kg per m³ slabs (reference norm)."
+      "status": "current",
+      "notes": "Rebar kg per m³ slabs (reference norm).",
+      "official_value": "100",
+      "source_url": "https://vseoarmature.ru/raschet/raskhod-armatury-na-1-m3-betona",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "Slabs/floors rebar ~100-160 kg/m3; stored 100 at the standard lower bound of the norm."
     },
     {
       "id": "construction__norm_roofing_overlap_factor",
@@ -6846,8 +7350,14 @@
       "last_updated": "2026-04",
       "source_hint": "engineering norm",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Metal-tile roofing consumption per m² roof incl. 15% overlap/waste reserve."
+      "status": "current",
+      "notes": "Metal-tile roofing consumption per m² roof incl. 15% overlap/waste reserve.",
+      "official_value": "1.15",
+      "source_url": "https://stroy-podskazka.ru/profnastil/vse-o-nahleste/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "Standard reserve coefficient for roofing overlap+trim is ~1.1-1.15; stored 1.15 is conventional."
     },
     {
       "id": "construction__rebar_10mm_price_per_unit",
@@ -6864,8 +7374,13 @@
       "last_updated": "2026-04",
       "source_hint": "salexy.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Rebar 10mm. COMPUTE=80 сом/метр."
+      "status": "uncertain",
+      "notes": "Rebar 10mm. COMPUTE=80 сом/метр.",
+      "source_url": "https://bvbalyans.kg/metallCatalog/18/armatura/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "KG rebar quoted per ton, not per meter; no reliable per-meter KGS price isolated to confirm 80."
     },
     {
       "id": "construction__rebar_12mm_price_per_unit",
@@ -6883,8 +7398,13 @@
       "last_updated": "2026-04",
       "source_hint": "salexy.kg",
       "conflict": true,
-      "status": "unverified",
-      "notes": "MISMATCH on prose: rebar-12 COMPUTE=95 сом/метр; rebar-10 COMPUTE=80 сом/метр; article single prose construction_rebar_price='70 сом/кг' (different value AND unit kg vs meter)."
+      "status": "uncertain",
+      "notes": "MISMATCH on prose: rebar-12 COMPUTE=95 сом/метр; rebar-10 COMPUTE=80 сом/метр; article single prose construction_rebar_price='70 сом/кг' (different value AND unit kg vs meter).",
+      "source_url": "https://bvbalyans.kg/metallCatalog/18/armatura/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "KG rebar quoted per ton, not per meter; no reliable per-meter KGS price isolated to confirm 95."
     },
     {
       "id": "construction__roofing_metal_price_per_unit",
@@ -6901,8 +7421,14 @@
       "last_updated": "2026-04",
       "source_hint": "salexy.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Metal tile (металлочерепица), м²."
+      "status": "current",
+      "notes": "Metal tile (металлочерепица), м².",
+      "official_value": "450",
+      "source_url": "http://krovlya.zavod.kg/pvoflist",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "KG profnastil from ~390 сом/m2; metal tile typically higher, stored 450/m2 plausible market value."
     },
     {
       "id": "construction__roofing_profile_price_per_unit",
@@ -6919,8 +7445,14 @@
       "last_updated": "2026-04",
       "source_hint": "salexy.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Profiled sheet (профнастил), м²."
+      "status": "uncertain",
+      "notes": "Profiled sheet (профнастил), м².",
+      "official_value": null,
+      "source_url": "http://krovlya.zavod.kg/pvoflist",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Рыночная цена профнастила (KG) от ~390 сом/м²; хранимое 350 ниже входной цены и точно не подтверждается — uncertain (не угадываем)."
     },
     {
       "id": "construction__sand_price_per_unit",
@@ -6938,8 +7470,14 @@
       "last_updated": "2026-04",
       "source_hint": "salexy.kg",
       "conflict": true,
-      "status": "unverified",
-      "notes": "MISMATCH: COMPUTE=800 сом/м³ (authoritative, used in calc as м³), article prose construction_sand_price='180 сом/тонна' (different value AND unit)."
+      "status": "current",
+      "notes": "MISMATCH: COMPUTE=800 сом/м³ (authoritative, used in calc as м³), article prose construction_sand_price='180 сом/тонна' (different value AND unit).",
+      "official_value": "800",
+      "source_url": "https://lalafo.kg/bishkek/vse-dlya-stroitelstva-i-remonta/teguluuchu-materialdar/pesok/q-%D0%BF%D0%B5%D1%81%D0%BE%D0%BA-%D0%B2-%D0%B1%D0%B8%D1%88%D0%BA%D0%B5%D0%BA%D0%B5",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "KamAZ washed sand ~7500 сом/~8-9m3 = ~850/m3 incl delivery; stored 800/m3 within market range."
     },
     {
       "id": "crop-yield__crop_avg_yield_t_per_ha",
@@ -6956,8 +7494,14 @@
       "last_updated": "2026-04",
       "source_hint": "Минсельхоз КР / Статком КР",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Average yield per crop (CROPS[].avgYield), base for expectedYield calc. Agronomic/statistical norms; data file cites Минсельхоз КР / Статкомитет КР as source but values are illustrative averages, not a state-mandated rate."
+      "status": "stale_confirmed",
+      "notes": "Average yield per crop (CROPS[].avgYield), base for expectedYield calc. Agronomic/statistical norms; data file cites Минсельхоз КР / Статкомитет КР as source but values are illustrative averages, not a state-mandated rate.",
+      "official_value": "wheat 2.8; barley 2.5; potato 18 (Statком 2024: 27.7/24.7/178.7 ц/га); vegetables unverifiable per-crop",
+      "source_url": "https://stat.gov.kg/ru/opendata/category/183/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "Official 2024 yields: wheat 2.77, barley 2.47, potato 17.9 t/ha — stored 3.5/3.0/20 run high; per-vegetable yields not published (aggregate veg 21 t/ha)."
     },
     {
       "id": "crop-yield__crop_cost_fertilizer_per_ha",
@@ -6974,8 +7518,12 @@
       "last_updated": "2026-04",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Base fertilizer cost per ha (CROPS[].fertilizerCost), multiplied by FERTILIZER_QUALITY.cost. Market."
+      "status": "uncertain",
+      "notes": "Base fertilizer cost per ha (CROPS[].fertilizerCost), multiplied by FERTILIZER_QUALITY.cost. Market.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Per-ha cultivation cost is an agronomic-model heuristic; no single authoritative KG source publishes per-crop fertilizer cost/ha."
     },
     {
       "id": "crop-yield__crop_cost_fuel_per_ha",
@@ -6992,8 +7540,12 @@
       "last_updated": "2026-04",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Fuel/ГСМ cost per ha (CROPS[].fuelCost). Market."
+      "status": "uncertain",
+      "notes": "Fuel/ГСМ cost per ha (CROPS[].fuelCost). Market.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Per-ha fuel cost is a model heuristic; ~12000 KGS/ha implies ~150 L at current ~80 KGS/L — plausible but no authoritative source."
     },
     {
       "id": "crop-yield__crop_cost_labor_per_ha",
@@ -7010,8 +7562,12 @@
       "last_updated": "2026-04",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Base labor cost per ha (CROPS[].laborCost), multiplied by CULTIVATION_METHOD.costMultiplier. Market."
+      "status": "uncertain",
+      "notes": "Base labor cost per ha (CROPS[].laborCost), multiplied by CULTIVATION_METHOD.costMultiplier. Market.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Per-ha labor cost is an agronomic-model heuristic; no authoritative KG source for per-crop labor cost/ha."
     },
     {
       "id": "crop-yield__crop_cost_other_per_ha",
@@ -7028,8 +7584,12 @@
       "last_updated": "2026-04",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Other costs per ha — chemicals, irrigation (CROPS[].otherCosts). Market."
+      "status": "uncertain",
+      "notes": "Other costs per ha — chemicals, irrigation (CROPS[].otherCosts). Market.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Per-ha 'other' cost is a model heuristic; no authoritative source."
     },
     {
       "id": "crop-yield__crop_cost_seeds_per_ha",
@@ -7046,8 +7606,12 @@
       "last_updated": "2026-04",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Seed/planting-material cost per ha (CROPS[].seedCost). Market."
+      "status": "uncertain",
+      "notes": "Seed/planting-material cost per ha (CROPS[].seedCost). Market.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Per-ha seed cost is a model heuristic; no single authoritative KG source for per-crop seed cost/ha."
     },
     {
       "id": "crop-yield__crop_growth_period_days",
@@ -7064,8 +7628,12 @@
       "last_updated": "2026-04",
       "source_hint": "agronomic",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Vegetation period per crop (CROPS[].growthPeriod). Agronomic reference, shown in season-info panel."
+      "status": "uncertain",
+      "notes": "Vegetation period per crop (CROPS[].growthPeriod). Agronomic reference, shown in season-info panel.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Growing-period days are agronomic constants (vary by variety/region); broadly reasonable but not from a single authoritative regulatory source."
     },
     {
       "id": "crop-yield__crop_min_max_yield_t_per_ha",
@@ -7082,8 +7650,12 @@
       "last_updated": "2026-04",
       "source_hint": "Минсельхоз КР / Статком КР",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Min/max yield ranges per crop (CROPS[].minYield / maxYield). Reference only (not used directly in compute)."
+      "status": "uncertain",
+      "notes": "Min/max yield ranges per crop (CROPS[].minYield / maxYield). Reference only (not used directly in compute).",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "Min/max yield ranges are model heuristics; they do bracket official 2024 averages (wheat 2.77, barley 2.47, potato 17.9), no single source for ranges."
     },
     {
       "id": "crop-yield__crop_price_per_ton",
@@ -7100,8 +7672,13 @@
       "last_updated": "2026-04",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Default sale price per tonne (CROPS[].pricePerTon) — prefills price input, used for revenue. User-editable. Market."
+      "status": "uncertain",
+      "notes": "Default sale price per tonne (CROPS[].pricePerTon) — prefills price input, used for revenue. User-editable. Market.",
+      "source_url": "https://economist.kg/ekonomika/2026/06/04/tseny-produkty-toplivo-ugol-monitoring/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Volatile market composite; June 2026 retail (potato ~46, carrot ~43 KGS/kg; feed wheat 27.6) differs from stored, but wholesale/farm-gate basis can't be cleanly matched."
     },
     {
       "id": "crop-yield__cultivation_method_coefficients",
@@ -7118,8 +7695,12 @@
       "last_updated": "2026-04",
       "source_hint": "agronomic",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Cultivation method: yield coefficient + labor-cost multiplier (CULTIVATION_METHOD). Agronomic."
+      "status": "uncertain",
+      "notes": "Cultivation method: yield coefficient + labor-cost multiplier (CULTIVATION_METHOD). Agronomic.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Yield/cost multipliers by cultivation method are agronomic-model coefficients; no authoritative source."
     },
     {
       "id": "crop-yield__fertilizer_quality_coefficients",
@@ -7136,8 +7717,12 @@
       "last_updated": "2026-04",
       "source_hint": "agronomic",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Fertilizer quality: yield coefficient + fertilizer-cost multiplier (FERTILIZER_QUALITY). Agronomic."
+      "status": "uncertain",
+      "notes": "Fertilizer quality: yield coefficient + fertilizer-cost multiplier (FERTILIZER_QUALITY). Agronomic.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Fertilizer-quality yield/cost multipliers are agronomic-model coefficients; no authoritative source."
     },
     {
       "id": "crop-yield__region_yield_coefficients",
@@ -7154,8 +7739,12 @@
       "last_updated": "2026-04",
       "source_hint": "agronomic",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Regional yield coefficient (REGION_COEFFICIENTS), multiplies avgYield. chui best=1.15, naryn harshest=0.85. Agronomic."
+      "status": "uncertain",
+      "notes": "Regional yield coefficient (REGION_COEFFICIENTS), multiplies avgYield. chui best=1.15, naryn harshest=0.85. Agronomic.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Region yield multipliers are model heuristics; directionally plausible (Chui high, Naryn low) but no single authoritative source."
     },
     {
       "id": "currency-exchange__currency_default_pair_and_amount",
@@ -7172,8 +7761,12 @@
       "last_updated": "",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE UI defaults: fromCurrency USD, toCurrency KGS, fromAmount '100'. FX rates themselves are LIVE from useCurrencyRates hook (official NBKR daily), NOT static constants. Supported: KGS/USD/EUR/RUB/KZT/CNY."
+      "status": "current",
+      "notes": "COMPUTE UI defaults: fromCurrency USD, toCurrency KGS, fromAmount '100'. FX rates themselves are LIVE from useCurrencyRates hook (official NBKR daily), NOT static constants. Supported: KGS/USD/EUR/RUB/KZT/CNY.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Non-regulatory app default (USD->KGS, 100); UI design choice."
     },
     {
       "id": "currency-exchange__currency_exchanger_margin_prose",
@@ -7193,8 +7786,14 @@
       "last_updated": "2026-03-23",
       "source_hint": "nbkr.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "PROSE: exchangers/banks add ~1-3% margin over official NBKR rate; airport ~2-3% worse (currency_tip_1:6183). Market, illustrative. NBKR official rate is the live FX source (data label only) — NO NBKR policy/refinancing rate constant exists in this cluster."
+      "status": "current",
+      "notes": "PROSE: exchangers/banks add ~1-3% margin over official NBKR rate; airport ~2-3% worse (currency_tip_1:6183). Market, illustrative. NBKR official rate is the live FX source (data label only) — NO NBKR policy/refinancing rate constant exists in this cluster.",
+      "official_value": "FX spread/markup ~1-3% typical at KG exchangers",
+      "source_url": "https://www.nbkr.kg/index.jsp?lang=RUS",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "1-3% buy/sell spread broadly consistent with KG cash FX market; varies by office, unverifiable per-bureau."
     },
     {
       "id": "customs-calculator__customs_broker_fee_default",
@@ -7211,8 +7810,12 @@
       "last_updated": "2026-03-23",
       "source_hint": "",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Market default for broker fee (editable input). Placeholder range 200-500 USD. Not gov-regulated."
+      "status": "uncertain",
+      "notes": "Market default for broker fee (editable input). Placeholder range 200-500 USD. Not gov-regulated.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Broker fee is a market service cost with no official tariff; app default/assumption, non-regulatory. Not confirmable from a primary source."
     },
     {
       "id": "customs-calculator__customs_inspection_default",
@@ -7229,8 +7832,12 @@
       "last_updated": "2026-03-23",
       "source_hint": "",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Default техосмотр/inspection cost input = 50 USD (editable). Market."
+      "status": "uncertain",
+      "notes": "Default техосмотр/inspection cost input = 50 USD (editable). Market.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Inspection cost is a market service assumption with no published official tariff; non-regulatory app default."
     },
     {
       "id": "customs-calculator__customs_insurance_default",
@@ -7247,8 +7854,12 @@
       "last_updated": "2026-03-23",
       "source_hint": "",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Default insurance cost input = 100 USD (editable). Market."
+      "status": "uncertain",
+      "notes": "Default insurance cost input = 100 USD (editable). Market.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Insurance cost is a market assumption with no official fixed figure; non-regulatory app default."
     },
     {
       "id": "customs-calculator__customs_registration_fee_default",
@@ -7265,8 +7876,13 @@
       "last_updated": "2026-03-23",
       "source_hint": "grs.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Default registration cost input = 150 USD (editable). Approximate, not a fixed gov fee in compute."
+      "status": "uncertain",
+      "notes": "Default registration cost input = 150 USD (editable). Approximate, not a fixed gov fee in compute.",
+      "source_url": "https://kaktus.media/doc/404263_onlayn_kalkyliator_grs_rasschitaet_stoimost_registracii_i_pereregistracii_avto.html",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "GRS registration is value-based (5% primary / 0.3% re-reg) plus fixed fees (~2100 som plates/passport); no single $150 official figure. Editable app default."
     },
     {
       "id": "deposit-calculator__deposit_bank_indicative_rate_ranges",
@@ -7283,8 +7899,14 @@
       "last_updated": "",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE bankOffers[] min/maxRate + allowed currencies per bank for deposit comparison. Market rates."
+      "status": "current",
+      "notes": "COMPUTE bankOffers[] min/maxRate + allowed currencies per bank for deposit comparison. Market rates.",
+      "official_value": "KGS deposit market ~6-14.5% banks, up to ~17% MFIs",
+      "source_url": "https://banks.kg/deposits",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Ranges 8-17% broadly consistent with current KG deposit market (MBank to 14.5%, MFIs to 17%)."
     },
     {
       "id": "deposit-calculator__deposit_default_interest_type",
@@ -7301,8 +7923,12 @@
       "last_updated": "",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE default interest type = compound (monthly capitalization). Alternative: simple."
+      "status": "current",
+      "notes": "COMPUTE default interest type = compound (monthly capitalization). Alternative: simple.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Non-regulatory app default (compound capitalization); design choice."
     },
     {
       "id": "deposit-calculator__deposit_default_term_months",
@@ -7319,8 +7945,12 @@
       "last_updated": "",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE default selected term (termMonths initial '12'). Options: 3/6/12/18/24/36 months."
+      "status": "current",
+      "notes": "COMPUTE default selected term (termMonths initial '12'). Options: 3/6/12/18/24/36 months.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Non-regulatory app default (12mo); design choice."
     },
     {
       "id": "deposit-calculator__deposit_quick_example_scenarios",
@@ -7337,8 +7967,12 @@
       "last_updated": "",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Illustrative 'popular deposit' presets (COMPUTE)."
+      "status": "current",
+      "notes": "Illustrative 'popular deposit' presets (COMPUTE).",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Non-regulatory app default example scenarios; rates 8-14% within current deposit market."
     },
     {
       "id": "family-benefit-calculator__family_max_children_input",
@@ -7355,8 +7989,13 @@
       "last_updated": "2026-03-23",
       "source_hint": "—",
       "conflict": false,
-      "status": "unverified",
-      "notes": "UI cap: максимум 10 детей в форме; не регуляторный."
+      "status": "current",
+      "notes": "UI cap: максимум 10 детей в форме; не регуляторный.",
+      "official_value": "10",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "UI input cap on number of children, non-regulatory; no official limit applies. Current as an interface bound."
     },
     {
       "id": "fuel__PROSE_fuel_prices_legacy_article",
@@ -7376,8 +8015,14 @@
       "last_updated": "2026-03-23",
       "source_hint": "market",
       "conflict": true,
-      "status": "unverified",
-      "notes": "MISMATCH: ACTIVE FuelCalculatorArticle (imported by FuelCalculatorPage line 8) hardcodes АИ-92=62, АИ-95=68, АИ-98=75 сом/л — stale vs compute 75.5/81/88. FuelCalculatorArticle_NEW.tsx is NOT imported (possibly-stale dead file, 203 lines, same legacy prices 62/68/75). Page uses the non-_NEW article."
+      "status": "stale_confirmed",
+      "notes": "MISMATCH: ACTIVE FuelCalculatorArticle (imported by FuelCalculatorPage line 8) hardcodes АИ-92=62, АИ-95=68, АИ-98=75 сом/л — stale vs compute 75.5/81/88. FuelCalculatorArticle_NEW.tsx is NOT imported (possibly-stale dead file, 203 lines, same legacy prices 62/68/75). Page uses the non-_NEW article.",
+      "official_value": "current AZS ~AI-92 79.9 / AI-95 88.5 / diesel 93.9 (62/68/75 is old article prose)",
+      "source_url": "https://economist.kg/transport/2026/04/10/kak-izmenilis-tseny-na-gsm-v-kyrgyzstane-v-2026-godu-dannye-gosantimonopolii/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Legacy article prose 62/68/75 KGS/L far below June 2026 Bishkek prices (AI-92 ~79.9, AI-95 ~88.5, diesel ~93.9)."
     },
     {
       "id": "fuel__fuel_default_price_fallback",
@@ -7394,8 +8039,14 @@
       "last_updated": "2026-04-21",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE getFuelPrice fallback when id not found; inconsistent with ai-92 price 75.5 in same file (minor)."
+      "status": "stale_confirmed",
+      "notes": "COMPUTE getFuelPrice fallback when id not found; inconsistent with ai-92 price 75.5 in same file (minor).",
+      "official_value": "79.9",
+      "source_url": "https://time.kg/todaynews/exclusive/342387-gosantimonopolija-kr-utverdila-maksimalnye-ceny-na-benzin-dizel-i-gaz.html",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Fallback = AI-92 default. AI-92 Bishkek now ~79.9 KGS/L (April actual 76.4 → June regulated 79.9); stored 74.4 below current."
     },
     {
       "id": "fuel__fuel_price_ai92",
@@ -7412,8 +8063,14 @@
       "last_updated": "2026-04-21",
       "source_hint": "market (АЗС / Kaktus.media / Tazabek)",
       "conflict": true,
-      "status": "unverified",
-      "notes": "COMPUTE FUEL_TYPES ai-92.price (data file header 'актуально на 21 апреля 2026'). MISMATCH: active FuelCalculatorArticle.tsx:18 prose says АИ-92 = 62 сом/л (stale)."
+      "status": "stale_confirmed",
+      "notes": "COMPUTE FUEL_TYPES ai-92.price (data file header 'актуально на 21 апреля 2026'). MISMATCH: active FuelCalculatorArticle.tsx:18 prose says АИ-92 = 62 сом/л (stale).",
+      "official_value": "79.9",
+      "source_url": "https://time.kg/todaynews/exclusive/342387-gosantimonopolija-kr-utverdila-maksimalnye-ceny-na-benzin-dizel-i-gaz.html",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "April actual 76.4, June 2026 Bishkek regulated/retail ~79.9 KGS/L; stored 75.5 now ~6% low after H1-2026 rise."
     },
     {
       "id": "fuel__fuel_price_ai95",
@@ -7430,8 +8087,14 @@
       "last_updated": "2026-04-21",
       "source_hint": "market (АЗС / Kaktus.media / Tazabek)",
       "conflict": true,
-      "status": "unverified",
-      "notes": "COMPUTE FUEL_TYPES ai-95.price; default selected fuel. MISMATCH: active FuelCalculatorArticle.tsx:19 says АИ-95 = 68 сом/л (stale)."
+      "status": "stale_confirmed",
+      "notes": "COMPUTE FUEL_TYPES ai-95.price; default selected fuel. MISMATCH: active FuelCalculatorArticle.tsx:19 says АИ-95 = 68 сом/л (stale).",
+      "official_value": "88.5",
+      "source_url": "https://www.globalpetrolprices.com/Kyrgyzstan/gasoline_prices/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "AI-95 actual ~88.3 (globalpetrolprices 22-Jun-2026), Bishkek cap 88.9; stored 81.0 now ~9% low."
     },
     {
       "id": "fuel__fuel_price_ai98",
@@ -7448,8 +8111,13 @@
       "last_updated": "2026-04-21",
       "source_hint": "market (АЗС / Kaktus.media / Tazabek)",
       "conflict": true,
-      "status": "unverified",
-      "notes": "COMPUTE FUEL_TYPES ai-98.price. MISMATCH: active FuelCalculatorArticle.tsx:20 says АИ-98 = 75 сом/л (stale)."
+      "status": "uncertain",
+      "notes": "COMPUTE FUEL_TYPES ai-98.price. MISMATCH: active FuelCalculatorArticle.tsx:20 says АИ-98 = 75 сом/л (stale).",
+      "source_url": "https://www.gpnbonus.ru/kg/our_azs/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "No 2026 AI-98 figure found (Sep-2025 was 69.9-73.9). With AI-95 now ~88, stored 88.0 likely below current premium price but unconfirmed; AZS sites timed out."
     },
     {
       "id": "fuel__fuel_price_diesel",
@@ -7466,8 +8134,14 @@
       "last_updated": "2026-04-21",
       "source_hint": "market (АЗС / Kaktus.media / Tazabek)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE FUEL_TYPES diesel.price."
+      "status": "stale_confirmed",
+      "notes": "COMPUTE FUEL_TYPES diesel.price.",
+      "official_value": "93.9",
+      "source_url": "https://time.kg/todaynews/exclusive/342387-gosantimonopolija-kr-utverdila-maksimalnye-ceny-na-benzin-dizel-i-gaz.html",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Diesel +9% in H1-2026: April actual 81.8 → June Bishkek regulated 93.9 KGS/L; stored 79.0 well below current."
     },
     {
       "id": "fuel__fuel_price_gas_propane",
@@ -7484,8 +8158,14 @@
       "last_updated": "2026-04-21",
       "source_hint": "market (АЗС / Kaktus.media / Tazabek)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE FUEL_TYPES gas.price (LPG/пропан)."
+      "status": "stale_confirmed",
+      "notes": "COMPUTE FUEL_TYPES gas.price (LPG/пропан).",
+      "official_value": "45.8",
+      "source_url": "https://time.kg/todaynews/exclusive/342387-gosantimonopolija-kr-utverdila-maksimalnye-ceny-na-benzin-dizel-i-gaz.html",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "Autogas/propane April actual 41.4 → June Bishkek regulated 45.8 KGS/L; stored 38.5 ~16% below current."
     },
     {
       "id": "heating-calculator__heating_hot_water_approx_consumption_per_person",
@@ -7502,8 +8182,13 @@
       "last_updated": "2026-03-23",
       "source_hint": "внутренняя оценка",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE: ~2.5 m³/person used only to display informational approx hot-water volume when paying by norm; not a billed/regulated rate."
+      "status": "uncertain",
+      "notes": "COMPUTE: ~2.5 m³/person used only to display informational approx hot-water volume when paying by norm; not a billed/regulated rate.",
+      "source_url": "http://www.teploseti.kg/content/articles_view/1023",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Hot-water energy tariff is 1560 сом/Гкал (Приказ ДТЭК №42); no primary KG per-m³/per-person figure to confirm and per-city stored value is fictional. Not guessing."
     },
     {
       "id": "housing-calculator__article_utilities_example_2room",
@@ -7520,8 +8205,12 @@
       "last_updated": "2026-03-23",
       "source_hint": "estimate",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Article 'average 2-room' utility example uses translation keys housing_*_cost (illustrative monthly amounts). Distinct from regulated per-unit tariffs above. Not in compute."
+      "status": "current",
+      "notes": "Article 'average 2-room' utility example uses translation keys housing_*_cost (illustrative monthly amounts). Distinct from regulated per-unit tariffs above. Not in compute.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Illustrative prose utilities breakdown; non-regulatory market estimate, not a single verifiable figure."
     },
     {
       "id": "housing-calculator__price_per_m2_build_house",
@@ -7538,8 +8227,14 @@
       "last_updated": "2026-03-23",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Build-house cost/m² for 12 cities. Market."
+      "status": "uncertain",
+      "notes": "Build-house cost/m² for 12 cities. Market.",
+      "official_value": "Construction cost per m2 is market/contractor-dependent",
+      "source_url": "https://gosreg.gov.kg/ru/?p=8561",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Build-cost-per-m2 matrix is market/contractor-driven; no primary source, plausible regional ordering, unverifiable precisely."
     },
     {
       "id": "housing-calculator__price_per_m2_buy_apartment",
@@ -7556,8 +8251,14 @@
       "last_updated": "2026-03-23",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Buy-apartment price/m² for 12 cities (getCityPrices). cholpon-ata highest=120000, batken lowest=50000. Market."
+      "status": "current",
+      "notes": "Buy-apartment price/m² for 12 cities (getCityPrices). cholpon-ata highest=120000, batken lowest=50000. Market.",
+      "official_value": "Bishkek apt ~83k secondary / ~107.7k ENI Jan2026; Osh ~86.5k; Jalal-Abad ~73k",
+      "source_url": "https://gosreg.gov.kg/ru/?p=8561",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "Bishkek 105k, Osh 88k, Jalal-Abad 75k closely match official ENI Jan-2026 apartment valuations; market-volatile."
     },
     {
       "id": "housing-calculator__price_per_m2_buy_house",
@@ -7574,8 +8275,14 @@
       "last_updated": "2026-03-23",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Buy-house price/m² for 12 cities. Market."
+      "status": "uncertain",
+      "notes": "Buy-house price/m² for 12 cities. Market.",
+      "official_value": "Bishkek house ENI Jan2026 ~200k; Osh ~102k; Jalal-Abad ~63k",
+      "source_url": "https://gosreg.gov.kg/ru/?p=8561",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Bishkek 146k below official ENI 200k but house market prices vary widely; market matrix, not stale per se."
     },
     {
       "id": "loan-calculator__loan_bank_indicative_rates",
@@ -7592,8 +8299,14 @@
       "last_updated": "",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE bankOffers[] — indicative consumer-loan annual rates per KG bank, used in comparison table. Market values, no default rate pre-filled (interestRate input starts empty)."
+      "status": "current",
+      "notes": "COMPUTE bankOffers[] — indicative consumer-loan annual rates per KG bank, used in comparison table. Market values, no default rate pre-filled (interestRate input starts empty).",
+      "official_value": "NBKR avg lending rate ~18%; consumer loan market ~17-23%",
+      "source_url": "https://www.tazabek.kg/news:2291660",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Consumer loan rates 17.5-23% straddle NBKR ~18% average; broadly consistent, market-volatile, no per-bank official."
     },
     {
       "id": "loan-calculator__loan_quick_example_scenarios",
@@ -7610,8 +8323,12 @@
       "last_updated": "",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Illustrative 'popular request' preset amounts/terms/rates (COMPUTE presets, fill the form on click)."
+      "status": "current",
+      "notes": "Illustrative 'popular request' preset amounts/terms/rates (COMPUTE presets, fill the form on click).",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Non-regulatory app default example scenarios; rates 18-22% within current consumer loan market."
     },
     {
       "id": "mobile-tariffs__mobile_beeline_internet_max_fee",
@@ -7628,8 +8345,13 @@
       "last_updated": "2026-04-21",
       "source_hint": "beeline.kg (market)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE Интернет MAX (100 min, 20 sms, 60 GB; extraGB 25)."
+      "status": "uncertain",
+      "notes": "COMPUTE Интернет MAX (100 min, 20 sms, 60 GB; extraGB 25).",
+      "source_url": "https://beeline.kg/products/tariffs",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "No Beeline plan matching 'internet_max' 400 KGS; current plans are Это 100GB 690, Безлимит месяц 850, Сеники 250 — restructured, no name match."
     },
     {
       "id": "mobile-tariffs__mobile_beeline_optimal_fee",
@@ -7646,8 +8368,13 @@
       "last_updated": "2026-04-21",
       "source_hint": "beeline.kg (market)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE Оптимальный (800 min, 80 sms, 10 GB; extraGB 45). popular."
+      "status": "uncertain",
+      "notes": "COMPUTE Оптимальный (800 min, 80 sms, 10 GB; extraGB 45). popular.",
+      "source_url": "https://beeline.kg/products/tariffs",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "No Beeline 'Оптимальный'/350 plan on current site; lineup restructured (Сеники 250, Это 100GB 690, etc). Do not map to a different plan."
     },
     {
       "id": "mobile-tariffs__mobile_beeline_premium_fee",
@@ -7664,8 +8391,13 @@
       "last_updated": "2026-04-21",
       "source_hint": "beeline.kg (market)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE Премиум (unlimited min/sms, 25 GB; extraGB 35). recommended."
+      "status": "uncertain",
+      "notes": "COMPUTE Премиум (unlimited min/sms, 25 GB; extraGB 35). recommended.",
+      "source_url": "https://beeline.kg/products/tariffs",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "No Beeline 'Премиум'/550 plan currently; closest is Безлимит месяц 850. Named plan retired/renamed — cannot confirm."
     },
     {
       "id": "mobile-tariffs__mobile_beeline_start_fee",
@@ -7682,8 +8414,13 @@
       "last_updated": "2026-04-21",
       "source_hint": "beeline.kg (market)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE Старт (300 min, 30 sms, 3 GB; extraMinute 1.2, extraSMS 0.6, extraGB 60). Beeline fees 200-550."
+      "status": "uncertain",
+      "notes": "COMPUTE Старт (300 min, 30 sms, 3 GB; extraMinute 1.2, extraSMS 0.6, extraGB 60). Beeline fees 200-550.",
+      "source_url": "https://beeline.kg/products/tariffs",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "Beeline 'Стартовый' exists but is per-second billing with no displayed 200 KGS/mo fee; cannot confirm stored 200."
     },
     {
       "id": "mobile-tariffs__mobile_megacom_internet_only_fee",
@@ -7700,8 +8437,13 @@
       "last_updated": "2026-04-21",
       "source_hint": "megacom.kg (market)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE 'Только интернет' (0 min/sms, 50 GB; extraGB 20)."
+      "status": "uncertain",
+      "notes": "COMPUTE 'Только интернет' (0 min/sms, 50 GB; extraGB 20).",
+      "source_url": "https://www.megacom.kg/rates/internet?locale=ru",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "MegaCom internet plans restructured (Эконом/Стандарт/Безлимит, unlim internet ~600/mo); no plan confirmable at exactly 300 KGS named 'internet_only'."
     },
     {
       "id": "mobile-tariffs__mobile_megacom_unlim_l_fee",
@@ -7718,8 +8460,13 @@
       "last_updated": "2026-04-21",
       "source_hint": "megacom.kg (market)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE Unlim L (unlimited min/sms, 30 GB; extraGB 30)."
+      "status": "uncertain",
+      "notes": "COMPUTE Unlim L (unlimited min/sms, 30 GB; extraGB 30).",
+      "source_url": "https://www.megacom.kg/options/bezlimitizatsiya?locale=ru",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "No MegaCom 'unlim L' 600 plan; current lineup is #СУПЕРВЫГОДНЫЙ 345/395/595/795 and Безлимит 495 — no S/M/L 250/400/600 tiers."
     },
     {
       "id": "mobile-tariffs__mobile_megacom_unlim_m_fee",
@@ -7736,8 +8483,13 @@
       "last_updated": "2026-04-21",
       "source_hint": "megacom.kg (market)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE Unlim M (1000 min, 100 sms, 15 GB; extraGB 40). recommended."
+      "status": "uncertain",
+      "notes": "COMPUTE Unlim M (1000 min, 100 sms, 15 GB; extraGB 40). recommended.",
+      "source_url": "https://www.megacom.kg/options/bezlimitizatsiya?locale=ru",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "No MegaCom 'unlim M' 400 plan; lineup is #СУПЕРВЫГОДНЫЙ 345/395/595/795. Named S/M/L tiers do not exist — do not remap."
     },
     {
       "id": "mobile-tariffs__mobile_megacom_unlim_s_fee",
@@ -7754,8 +8506,13 @@
       "last_updated": "2026-04-21",
       "source_hint": "megacom.kg (market)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE monthlyFee (Unlim S: 500 min, 50 sms, 5 GB; extraMinute 1, extraSMS 0.5, extraGB 50). MegaCom monthly fees range 250-600 (S250/M400/L600/internet-only300)."
+      "status": "uncertain",
+      "notes": "COMPUTE monthlyFee (Unlim S: 500 min, 50 sms, 5 GB; extraMinute 1, extraSMS 0.5, extraGB 50). MegaCom monthly fees range 250-600 (S250/M400/L600/internet-only300).",
+      "source_url": "https://www.megacom.kg/options/bezlimitizatsiya?locale=ru",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "No MegaCom 'unlim S' 250 plan; current packages are #СУПЕРВЫГОДНЫЙ 345+. Named tier retired/restructured — cannot confirm 250."
     },
     {
       "id": "mobile-tariffs__mobile_o_gamer_fee",
@@ -7772,8 +8529,13 @@
       "last_updated": "2026-04-21",
       "source_hint": "o.kg (market)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE O! Gamer (500 min, 50 sms, 40 GB; extraGB 30)."
+      "status": "uncertain",
+      "notes": "COMPUTE O! Gamer (500 min, 50 sms, 40 GB; extraGB 30).",
+      "source_url": "https://o.kg/ru/chastnym-klientam/tarify",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "No O! 'gamer' 450 plan; current O! lineup is Безлимит на все 500, Комбо, Акционный+ 250 — no 'gamer' tier."
     },
     {
       "id": "mobile-tariffs__mobile_o_mini_fee",
@@ -7790,8 +8552,13 @@
       "last_updated": "2026-04-21",
       "source_hint": "o.kg (market)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE O! Mini (200 min, 25 sms, 2 GB; extraMinute 1.3, extraSMS 0.7, extraGB 70). O! fees 180-500."
+      "status": "uncertain",
+      "notes": "COMPUTE O! Mini (200 min, 25 sms, 2 GB; extraMinute 1.3, extraSMS 0.7, extraGB 70). O! fees 180-500.",
+      "source_url": "https://o.kg/ru/chastnym-klientam/tarify",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "No O! 'mini' 180 plan currently; lineup restructured into 4-week packages (Акционный+ 250, Комбо, Безлимит 500). Cannot confirm 180."
     },
     {
       "id": "mobile-tariffs__mobile_o_smart_fee",
@@ -7808,8 +8575,13 @@
       "last_updated": "2026-04-21",
       "source_hint": "o.kg (market)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE O! Smart (700 min, 70 sms, 12 GB; extraGB 50). popular."
+      "status": "uncertain",
+      "notes": "COMPUTE O! Smart (700 min, 70 sms, 12 GB; extraGB 50). popular.",
+      "source_url": "https://o.kg/ru/chastnym-klientam/tarify",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "No O! 'smart' 320 plan on current site; named plan retired. Do not map to a different O! package."
     },
     {
       "id": "mobile-tariffs__mobile_o_unlimited_fee",
@@ -7826,8 +8598,13 @@
       "last_updated": "2026-04-21",
       "source_hint": "o.kg (market)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE O! Unlimited (unlimited min/sms, 20 GB; extraGB 40)."
+      "status": "uncertain",
+      "notes": "COMPUTE O! Unlimited (unlimited min/sms, 20 GB; extraGB 40).",
+      "source_url": "https://o.kg/ru/chastnym-klientam/tarify/dlya-smartfona-na-4-nedeli/perehodi-na-o-bezlimit-na-vse-500",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "O! 'Безлимит на все 500' (500 KGS/4 weeks) matches stored 500, but as a renamed promo plan; not confirmed as a stable 'unlimited' tier — treat as uncertain."
     },
     {
       "id": "money-transfer__transfer_default_selected_services",
@@ -7844,8 +8621,12 @@
       "last_updated": "",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE default selected services + default send 100 USD→KGS (line 25-27). FX base rate is live from useCurrencyRates."
+      "status": "current",
+      "notes": "COMPUTE default selected services + default send 100 USD→KGS (line 25-27). FX base rate is live from useCurrencyRates.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Non-regulatory app default (preselected transfer services); UI design choice."
     },
     {
       "id": "money-transfer__transfer_service_commission_and_fx_markup",
@@ -7862,8 +8643,13 @@
       "last_updated": "2026-04",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE transferServices[] — per-service commission %, fixed fee, min/max commission (USD), and FX exchange-rate markup %. File header: 'Комиссии актуальны на апрель 2026 (Q2 2026)'. Market values. Also per-service min/max transfer amounts (e.g. WU 10-50000 USD)."
+      "status": "uncertain",
+      "notes": "COMPUTE transferServices[] — per-service commission %, fixed fee, min/max commission (USD), and FX exchange-rate markup %. File header: 'Комиссии актуальны на апрель 2026 (Q2 2026)'. Market values. Also per-service min/max transfer amounts (e.g. WU 10-50000 USD).",
+      "official_value": "Per-operator transfer fees vary by corridor/promo; ~1.5-3% typical",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Per-operator commissions/markups (1.5-3%) plausible but operator-set and corridor-specific; unverifiable per-service."
     },
     {
       "id": "mortgage-calculator__mortgage_bank_indicative_rate_ranges",
@@ -7880,8 +8666,14 @@
       "last_updated": "",
       "source_hint": "market",
       "conflict": true,
-      "status": "unverified",
-      "notes": "COMPUTE bankOffers[] min/maxRate + maxTerm per bank for mortgage comparison. Market. ARTICLE table (lastUpdated 2026-03-23) lists same ranges: RSK 13.5-16.0/25y, Айыл 14.0-16.5/20y, Оптима 14.0-16.0/15y, ФКУР 14.5-17.0/20y, БТА 16.0-19.0/15y — consistent, NO mismatch."
+      "status": "current",
+      "notes": "COMPUTE bankOffers[] min/maxRate + maxTerm per bank for mortgage comparison. Market. ARTICLE table (lastUpdated 2026-03-23) lists same ranges: RSK 13.5-16.0/25y, Айыл 14.0-16.5/20y, Оптима 14.0-16.0/15y, ФКУР 14.5-17.0/20y, БТА 16.0-19.0/15y — consistent, NO mismatch.",
+      "official_value": "KG bank mortgage market ~16-21% som (Ayil from 16%, KICB from 18%, KKB 21%)",
+      "source_url": "https://banks.kg/credits/mortgage",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Stored 13.5-19% slightly low at top vs market 16-21% som, but broadly in range; market-volatile, no single official."
     },
     {
       "id": "mortgage-calculator__mortgage_default_loan_term_years",
@@ -7898,8 +8690,12 @@
       "last_updated": "",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE default selected loan term (loanTermYears initial state '15'). Term options: 5/10/15/20/25 years."
+      "status": "current",
+      "notes": "COMPUTE default selected loan term (loanTermYears initial state '15'). Term options: 5/10/15/20/25 years.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Non-regulatory app default (15y); design choice."
     },
     {
       "id": "mortgage-calculator__mortgage_max_term_prose",
@@ -7916,8 +8712,14 @@
       "last_updated": "2026-03-23",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "PROSE: max term up to 25 years. Matches compute term option max (25)."
+      "status": "current",
+      "notes": "PROSE: max term up to 25 years. Matches compute term option max (25).",
+      "official_value": "State mortgage up to 25 years; banks up to ~120 months",
+      "source_url": "https://gik.kg/ru/products-detail/1/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "'до 25 лет' consistent with state mortgage max term; reasonable app default."
     },
     {
       "id": "mortgage-calculator__mortgage_min_down_payment_prose",
@@ -7934,8 +8736,14 @@
       "last_updated": "2026-03-23",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "PROSE: typical minimum down payment 10-20% (info block). Market guidance, not enforced in compute."
+      "status": "current",
+      "notes": "PROSE: typical minimum down payment 10-20% (info block). Market guidance, not enforced in compute.",
+      "official_value": "Down payments ~10-20%+ typical; state program from 0-20%",
+      "source_url": "https://banks.kg/credits/mortgage",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "'10-20%' consistent with KG mortgage down-payment norms; non-regulatory prose default."
     },
     {
       "id": "mortgage-calculator__mortgage_quick_example_scenarios",
@@ -7952,8 +8760,12 @@
       "last_updated": "",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Illustrative 'popular scenario' presets (COMPUTE)."
+      "status": "current",
+      "notes": "Illustrative 'popular scenario' presets (COMPUTE).",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Non-regulatory app default example scenarios; rates 14.5-16% within market range."
     },
     {
       "id": "mortgage-calculator__mortgage_type_rate_term_down_prose",
@@ -7973,8 +8785,14 @@
       "last_updated": "2026-03-23",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "PROSE illustrative rate/term/down-payment by mortgage type. The 'government' type 10-12% is the state-subsidized program rate (see also mortgage_article_affordable_rate)."
+      "status": "stale_confirmed",
+      "notes": "PROSE illustrative rate/term/down-payment by mortgage type. The 'government' type 10-12% is the state-subsidized program rate (see also mortgage_article_affordable_rate).",
+      "official_value": "State 'Доступная ипотека'/'Менин үйүм' now 8% p.a. (was higher), up to 25y, low/no down",
+      "source_url": "https://gik.kg/ru/products-detail/1/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "Government tier states 10-12%; current state program is 8% p.a. — stale. Other (market) tiers broadly OK."
     },
     {
       "id": "pension-calculator__pension_avg_amount_range",
@@ -7991,8 +8809,14 @@
       "last_updated": "2026-03-23",
       "source_hint": "socfond.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Средняя пенсия в КР ~7,500–9,000 сом/мес. Reference stat, not used in compute."
+      "status": "stale_confirmed",
+      "notes": "Средняя пенсия в КР ~7,500–9,000 сом/мес. Reference stat, not used in compute.",
+      "official_value": "~11200",
+      "source_url": "https://sf.gov.kg/ru/soczialnyj-fond-kr-podvel-itogi-2025-goda-rost-pensij-czifrovye-reformy-i-novye-vozmozhnosti-dlya-grazhdan/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Socfond: average pension 11238 som (1 Jan 2026) / 11226 (Oct 2025). Stored 7500-9000 is materially below current."
     },
     {
       "id": "pension-calculator__pension_npf_yield_dostuk_2024",
@@ -8009,8 +8833,13 @@
       "last_updated": "2026-03-23",
       "source_hint": "gnpf.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "НПФ 'Достук' доходность 2024 8,2%. Market figure."
+      "status": "uncertain",
+      "notes": "НПФ 'Достук' доходность 2024 8,2%. Market figure.",
+      "source_url": "https://fsa.gov.kg/category/%D1%80%D0%B5%D0%B5%D1%81%D1%82%D1%80%D1%8B/%D0%BD%D0%B0%D0%BA%D0%BE%D0%BF%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-%D0%BF%D0%B5%D0%BD%D1%81%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5-%D1%84%D0%BE%D0%BD%D0%B4%D1%8B/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "No NPF named 'Dostuk' in FSA registry (only Dordoy Salym and Kyrgyzstan exist); 2024 yield unpublished/unverifiable."
     },
     {
       "id": "pension-calculator__pension_npf_yield_ishenim_2024",
@@ -8027,8 +8856,13 @@
       "last_updated": "2026-03-23",
       "source_hint": "gnpf.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "НПФ 'Ишеним' доходность 2024 8,0%. Market figure."
+      "status": "uncertain",
+      "notes": "НПФ 'Ишеним' доходность 2024 8,0%. Market figure.",
+      "source_url": "https://fsa.gov.kg/category/%D1%80%D0%B5%D0%B5%D1%81%D1%82%D1%80%D1%8B/%D0%BD%D0%B0%D0%BA%D0%BE%D0%BF%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-%D0%BF%D0%B5%D0%BD%D1%81%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5-%D1%84%D0%BE%D0%BD%D0%B4%D1%8B/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "No NPF named 'Ishenim' in FSA registry; 2024 yield unverifiable. Stored 8.0% unconfirmed."
     },
     {
       "id": "pension-calculator__pension_npf_yield_kyrgyzstan_2024",
@@ -8045,8 +8879,13 @@
       "last_updated": "2026-03-23",
       "source_hint": "gnpf.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "НПФ 'Кыргызстан' доходность 2024 7,8%. Market figure (illustrative), is_gov_regulated=false."
+      "status": "uncertain",
+      "notes": "НПФ 'Кыргызстан' доходность 2024 7,8%. Market figure (illustrative), is_gov_regulated=false.",
+      "source_url": "https://fsa.gov.kg/2024/04/17/%D0%BE%D0%B0%D0%BE-%D0%BD%D0%BF%D1%84-%D0%BA%D1%8B%D1%80%D0%B3%D1%8B%D0%B7%D1%81%D1%82%D0%B0%D0%BD/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "OAO NPF Kyrgyzstan exists but no published 2024 yield found; GNPF reported 11-17% on investments, so stored 7.8% is unconfirmed."
     },
     {
       "id": "pension-calculator__pension_npf_yield_kyzylbash_2024",
@@ -8063,8 +8902,13 @@
       "last_updated": "2026-03-23",
       "source_hint": "gnpf.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "НПФ 'Кызылбаш' доходность 2024 7,5%. Market figure."
+      "status": "uncertain",
+      "notes": "НПФ 'Кызылбаш' доходность 2024 7,5%. Market figure.",
+      "source_url": "https://fsa.gov.kg/category/%D1%80%D0%B5%D0%B5%D1%81%D1%82%D1%80%D1%8B/%D0%BD%D0%B0%D0%BA%D0%BE%D0%BF%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-%D0%BF%D0%B5%D0%BD%D1%81%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5-%D1%84%D0%BE%D0%BD%D0%B4%D1%8B/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "No NPF named 'Kyzylbash' in FSA registry; 2024 yield unverifiable. Stored 7.5% unconfirmed."
     },
     {
       "id": "rental-calculator__agency_fee_ratio",
@@ -8081,8 +8925,14 @@
       "last_updated": "2026-04",
       "source_hint": "agencies",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Agency commission = 50% of monthly rent (ADDITIONAL_COSTS.agencyFee). Market."
+      "status": "current",
+      "notes": "Agency commission = 50% of monthly rent (ADDITIONAL_COSTS.agencyFee). Market.",
+      "official_value": "Agency fee ~50% of one month's rent typical in Bishkek",
+      "source_url": "https://24.kg/obschestvo/320182_skolko_stoit_snyat_kvartiru_vbishkeke_gde_oni_deshevle_idoroje_vsego/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "0.5 month agency fee is common KG practice; market convention, varies by agency."
     },
     {
       "id": "rental-calculator__deposit_months",
@@ -8099,8 +8949,14 @@
       "last_updated": "2026-04",
       "source_hint": "lalafo.kg / agencies",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Security deposit = 2 months rent (ADDITIONAL_COSTS.deposit). Market convention Bishkek."
+      "status": "uncertain",
+      "notes": "Security deposit = 2 months rent (ADDITIONAL_COSTS.deposit). Market convention Bishkek.",
+      "official_value": "Standard KG rental deposit is typically 1 month (sometimes 2)",
+      "source_url": "https://24.kg/obschestvo/320182_skolko_stoit_snyat_kvartiru_vbishkeke_gde_oni_deshevle_idoroje_vsego/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Sources cite 1-month deposit as standard; stored 2 is higher than common norm but occurs; market convention."
     },
     {
       "id": "rental-calculator__maintenance_fee_monthly",
@@ -8117,8 +8973,13 @@
       "last_updated": "2026-04",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Building maintenance fee/month (ADDITIONAL_COSTS.maintenanceFee). Not used in main calc but defined. Market."
+      "status": "uncertain",
+      "notes": "Building maintenance fee/month (ADDITIONAL_COSTS.maintenanceFee). Not used in main calc but defined. Market.",
+      "official_value": "Building maintenance/HOA fee varies; ~hundreds of som/month",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "500 som/month maintenance plausible but building-specific; no primary source, market estimate."
     },
     {
       "id": "rental-calculator__mortgage_average_area_by_type",
@@ -8135,8 +8996,12 @@
       "last_updated": "2026-04",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Average apartment area by type for mortgage comparison (MORTGAGE_CONDITIONS.averageArea). Market."
+      "status": "current",
+      "notes": "Average apartment area by type for mortgage comparison (MORTGAGE_CONDITIONS.averageArea). Market.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Non-regulatory app default average areas by room count; reasonable design assumption."
     },
     {
       "id": "rental-calculator__mortgage_down_payment_percent",
@@ -8153,8 +9018,12 @@
       "last_updated": "2026-04",
       "source_hint": "bank market avg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Down payment % (MORTGAGE_CONDITIONS.downPaymentPercent). Market."
+      "status": "current",
+      "notes": "Down payment % (MORTGAGE_CONDITIONS.downPaymentPercent). Market.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Non-regulatory app default (30% market-avg down payment); design assumption, plausible."
     },
     {
       "id": "rental-calculator__mortgage_interest_rate",
@@ -8171,8 +9040,14 @@
       "last_updated": "2026-04",
       "source_hint": "bank market avg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Annual mortgage rate for rent-vs-mortgage comparison (MORTGAGE_CONDITIONS.interestRate). Market average 2026, NOT a tax rate. No rental-income tax constant exists anywhere in this cluster."
+      "status": "current",
+      "notes": "Annual mortgage rate for rent-vs-mortgage comparison (MORTGAGE_CONDITIONS.interestRate). Market average 2026, NOT a tax rate. No rental-income tax constant exists anywhere in this cluster.",
+      "official_value": "KG bank mortgage market ~16-21% som; 16% is a reasonable blended avg",
+      "source_url": "https://banks.kg/credits/mortgage",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "16% market-average mortgage assumption is at low end of 16-21% band but reasonable; non-regulatory default."
     },
     {
       "id": "rental-calculator__mortgage_price_per_sqm_by_district",
@@ -8189,8 +9064,14 @@
       "last_updated": "2026-04",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Avg purchase price/m² by district for mortgage comparison (MORTGAGE_CONDITIONS.pricePerSqmByDistrict): alay=72000 (min) to center=120000 (max); default fallback 80000 (RentalCalculatorPage:81). Market."
+      "status": "current",
+      "notes": "Avg purchase price/m² by district for mortgage comparison (MORTGAGE_CONDITIONS.pricePerSqmByDistrict): alay=72000 (min) to center=120000 (max); default fallback 80000 (RentalCalculatorPage:81). Market.",
+      "official_value": "Bishkek apt ~83k secondary / ~107.7k ENI Jan2026 per m2",
+      "source_url": "https://gosreg.gov.kg/ru/?p=8561",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "72k-120k per-m2 band brackets current Bishkek secondary (~83k) and new-build (~107-122k); market-volatile."
     },
     {
       "id": "rental-calculator__mortgage_term_years",
@@ -8207,8 +9088,12 @@
       "last_updated": "2026-04",
       "source_hint": "bank market avg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Loan term years (MORTGAGE_CONDITIONS.termYears)."
+      "status": "current",
+      "notes": "Loan term years (MORTGAGE_CONDITIONS.termYears).",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Non-regulatory app default (15y mortgage term); design assumption."
     },
     {
       "id": "rental-calculator__prestige_coefficient_range",
@@ -8226,8 +9111,12 @@
       "last_updated": "2026-04",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "District prestige multiplier (DISTRICTS[].prestigeCoefficient) applied for elite housing: center=1.5 (max) down to alay=0.85 (min). Market."
+      "status": "uncertain",
+      "notes": "District prestige multiplier (DISTRICTS[].prestigeCoefficient) applied for elite housing: center=1.5 (max) down to alay=0.85 (min). Market.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "0.85-1.5 location prestige multiplier is an internal model coefficient; not a verifiable external figure."
     },
     {
       "id": "rental-calculator__rent_price_matrix_bishkek",
@@ -8245,8 +9134,14 @@
       "last_updated": "2026-04",
       "source_hint": "lalafo.kg / diesel.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Base monthly rent matrix, 12 Bishkek districts x 4 apartment types (DISTRICTS[]). Range studio alay=13000 to 3-room center=65000; article prose construction_3room center cites up to 80000. Market avg/month."
+      "status": "current",
+      "notes": "Base monthly rent matrix, 12 Bishkek districts x 4 apartment types (DISTRICTS[]). Range studio alay=13000 to 3-room center=65000; article prose construction_3room center cites up to 80000. Market avg/month.",
+      "official_value": "Bishkek rent ~15k (studio) to ~80k+ (center 2-room) per month 2026",
+      "source_url": "https://24.kg/obschestvo/320182_skolko_stoit_snyat_kvartiru_vbishkeke_gde_oni_deshevle_idoroje_vsego/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "13k-80k/month band closely matches current Bishkek rental market (15k studio to 80k+ center); market-volatile."
     },
     {
       "id": "rental-calculator__utilities_costs_monthly",
@@ -8263,8 +9158,13 @@
       "last_updated": "2026-04",
       "source_hint": "market estimate",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Estimated monthly utility costs by apartment type/season (UTILITIES_COSTS). Internet & garbage fixed. Estimates (not the regulated tariff rates themselves)."
+      "status": "uncertain",
+      "notes": "Estimated monthly utility costs by apartment type/season (UTILITIES_COSTS). Internet & garbage fixed. Estimates (not the regulated tariff rates themselves).",
+      "official_value": "Utilities tariff-based but household usage varies seasonally",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Per-item utility ranges (winter heating 2-4.5k etc.) plausible market estimates; usage-dependent, not single verifiable figure."
     },
     {
       "id": "salary-calculator__avg_salary_2025",
@@ -8281,8 +9181,14 @@
       "last_updated": "2026-03-23",
       "source_hint": "stat.gov.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Средняя зарплата в КР в 2025 ~28 000 сом (Нацстатком). Reference figure, not used in compute."
+      "status": "stale_confirmed",
+      "notes": "Средняя зарплата в КР в 2025 ~28 000 сом (Нацстатком). Reference figure, not used in compute.",
+      "official_value": "44419",
+      "source_url": "https://ru.kabar.kg/news/srednyaya-zarplata-v-kr-v-2025-godu-vyrosla-na-189-vyplaty-sirotam-dostigli-500-tys-somov/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Natsstatkom: 2025 average nominal salary ~44419 som (+18.9%); Jan-Oct 42919. Stored 28000 is ~35% too low."
     },
     {
       "id": "scholarship__scholarship_bonus_conference",
@@ -8299,8 +9205,12 @@
       "last_updated": "2026-03-23",
       "source_hint": "edu.gov.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Доплата за конференцию +1500 сом."
+      "status": "uncertain",
+      "notes": "Доплата за конференцию +1500 сом.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "No KR gov act defines a fixed сом bonus for conference participation; calculator's own non-regulated scoring parameter."
     },
     {
       "id": "scholarship__scholarship_bonus_olympiad",
@@ -8317,8 +9227,12 @@
       "last_updated": "2026-03-23",
       "source_hint": "edu.gov.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Доплата за олимпиаду +3000 сом."
+      "status": "uncertain",
+      "notes": "Доплата за олимпиаду +3000 сом.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "No KR gov act defines a fixed 3000-сом olympiad bonus; non-regulated model parameter invented by the calculator."
     },
     {
       "id": "scholarship__scholarship_bonus_publication",
@@ -8335,8 +9249,12 @@
       "last_updated": "2026-03-23",
       "source_hint": "edu.gov.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Доплата за публикацию +2000 сом."
+      "status": "uncertain",
+      "notes": "Доплата за публикацию +2000 сом.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "No KR gov source defines a сом bonus for scientific publication; calculator's own heuristic, not regulated."
     },
     {
       "id": "scholarship__scholarship_bonus_research",
@@ -8353,8 +9271,12 @@
       "last_updated": "2026-03-23",
       "source_hint": "edu.gov.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Доплата за научную работу +2500 сом."
+      "status": "uncertain",
+      "notes": "Доплата за научную работу +2500 сом.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "No KR gov act defines a fixed research-work сом bonus; non-regulated calculator scoring parameter."
     },
     {
       "id": "scholarship__scholarship_gpa_multiplier_3_0_3_5",
@@ -8372,8 +9294,12 @@
       "last_updated": "2026-03-23",
       "source_hint": "edu.gov.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "GPA 3.0–3.5 → ×0.8."
+      "status": "uncertain",
+      "notes": "GPA 3.0–3.5 → ×0.8.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "KR gov sets base stipend amounts, not 0.8 sub-base GPA multipliers; this band coefficient is calculator's own model."
     },
     {
       "id": "scholarship__scholarship_gpa_multiplier_3_5_4_0",
@@ -8391,8 +9317,12 @@
       "last_updated": "2026-03-23",
       "source_hint": "edu.gov.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "GPA 3.5–4.0 → ×1.0 (базовая)."
+      "status": "uncertain",
+      "notes": "GPA 3.5–4.0 → ×1.0 (базовая).",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "No KR regulation defines a 1.0 GPA-band multiplier on this 3.5-4.0 scale; non-regulated calculator parameter."
     },
     {
       "id": "scholarship__scholarship_gpa_multiplier_4_0_4_5",
@@ -8410,8 +9340,12 @@
       "last_updated": "2026-03-23",
       "source_hint": "edu.gov.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "GPA 4.0–4.5 → ×1.3."
+      "status": "uncertain",
+      "notes": "GPA 4.0–4.5 → ×1.3.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "No KR gov source defines a 1.3 GPA-band coefficient; calculator's own invented scoring heuristic."
     },
     {
       "id": "scholarship__scholarship_gpa_multiplier_4_5_5_0",
@@ -8429,8 +9363,12 @@
       "last_updated": "2026-03-23",
       "source_hint": "edu.gov.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "GPA 4.5–5.0 → ×1.5 (верхняя граница 5.0 включена)."
+      "status": "uncertain",
+      "notes": "GPA 4.5–5.0 → ×1.5 (верхняя граница 5.0 включена).",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "No KR regulation defines a 1.5 GPA-band multiplier; non-regulated model parameter, not a government figure."
     },
     {
       "id": "scholarship__scholarship_semester_months",
@@ -8447,8 +9385,14 @@
       "last_updated": "2026-03-23",
       "source_hint": "edu.gov.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "per_semester = monthly*5; per_year = monthly*10 (academic year = 10 months)."
+      "status": "current",
+      "notes": "per_semester = monthly*5; per_year = monthly*10 (academic year = 10 months).",
+      "official_value": "5",
+      "source_url": "https://www.vb.kg/doc/404826_grafik_ychebnogo_goda_v_shkolah_i_vyzah_kyrgyzstana.html",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Stable calendar fact: KR university semester runs ~Sep-Jan and Feb 7-Jun 25, roughly 5 study months each."
     },
     {
       "id": "scholarship__scholarship_uni_coefficient_knu",
@@ -8465,8 +9409,12 @@
       "last_updated": "2026-03-23",
       "source_hint": "edu.gov.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "КНУ coefficient 1.2; market/derived university multiplier (not a single official rate)."
+      "status": "uncertain",
+      "notes": "КНУ coefficient 1.2; market/derived university multiplier (not a single official rate).",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "No KR gov act assigns KNU a 1.2 stipend coefficient; per-university multiplier is calculator's invented parameter."
     },
     {
       "id": "scholarship__scholarship_uni_coefficient_krsu",
@@ -8483,8 +9431,12 @@
       "last_updated": "2026-03-23",
       "source_hint": "edu.gov.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "КРСУ coefficient 1.1."
+      "status": "uncertain",
+      "notes": "КРСУ coefficient 1.1.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "No KR regulation assigns KRSU a 1.1 coefficient; non-regulated per-university model parameter."
     },
     {
       "id": "scholarship__scholarship_uni_coefficient_ksucta",
@@ -8501,8 +9453,12 @@
       "last_updated": "2026-03-23",
       "source_hint": "edu.gov.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "КГУСТА coefficient 1.15."
+      "status": "uncertain",
+      "notes": "КГУСТА coefficient 1.15.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "No KR gov source assigns KSUCTA a 1.15 coefficient; calculator's own non-regulated heuristic."
     },
     {
       "id": "scholarship__scholarship_uni_coefficient_osh_other",
@@ -8520,8 +9476,12 @@
       "last_updated": "2026-03-23",
       "source_hint": "edu.gov.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "ОшГУ и прочие ВУЗы coefficient 1.0."
+      "status": "uncertain",
+      "notes": "ОшГУ и прочие ВУЗы coefficient 1.0.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "No KR regulation defines an Osh/other 1.0 baseline coefficient; non-regulated per-university model parameter."
     },
     {
       "id": "sewing-cost-calculator__accessory_template_buttons",
@@ -8538,8 +9498,12 @@
       "last_updated": "2026-03-23",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Default accessory template 'buttons'. Market."
+      "status": "uncertain",
+      "notes": "Default accessory template 'buttons'. Market.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Market accessory price template; no primary/authoritative source to confirm or refute."
     },
     {
       "id": "sewing-cost-calculator__accessory_template_label",
@@ -8556,8 +9520,12 @@
       "last_updated": "2026-03-23",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Default accessory template 'label'. Market."
+      "status": "uncertain",
+      "notes": "Default accessory template 'label'. Market.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Market accessory price template; no citable source."
     },
     {
       "id": "sewing-cost-calculator__accessory_template_thread",
@@ -8574,8 +9542,12 @@
       "last_updated": "2026-03-23",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Default accessory template 'thread'. Market."
+      "status": "uncertain",
+      "notes": "Default accessory template 'thread'. Market.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Market accessory price template; no citable source."
     },
     {
       "id": "sewing-cost-calculator__accessory_template_zipper",
@@ -8592,8 +9564,12 @@
       "last_updated": "2026-03-23",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Default accessory template 'zipper'. Market."
+      "status": "uncertain",
+      "notes": "Default accessory template 'zipper'. Market.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Market accessory price template; no citable source."
     },
     {
       "id": "sewing-cost-calculator__labor_cost_formula",
@@ -8610,8 +9586,13 @@
       "last_updated": "2026-03-23",
       "source_hint": "formula",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Labor cost = (work minutes / 60) x hourly rate. Both inputs user-entered (no default). Structural constant 60 (min/hr)."
+      "status": "current",
+      "notes": "Labor cost = (work minutes / 60) x hourly rate. Both inputs user-entered (no default). Structural constant 60 (min/hr).",
+      "official_value": "(minutes / 60) * hourly_rate",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Trivial time-to-cost formula; arithmetically correct, non-regulatory, stable."
     },
     {
       "id": "sewing-cost-calculator__material_template_fleece",
@@ -8628,8 +9609,12 @@
       "last_updated": "2026-03-23",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Default material template 'fleece/флизелин'. Market."
+      "status": "uncertain",
+      "notes": "Default material template 'fleece/флизелин'. Market.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Market fabric price-per-meter template; no authoritative source."
     },
     {
       "id": "sewing-cost-calculator__material_template_interlining",
@@ -8646,8 +9631,12 @@
       "last_updated": "2026-03-23",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Default material template 'interlining/дублерин'. Market."
+      "status": "uncertain",
+      "notes": "Default material template 'interlining/дублерин'. Market.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Market fabric price-per-meter template; no authoritative source."
     },
     {
       "id": "sewing-cost-calculator__material_template_lining",
@@ -8664,8 +9653,12 @@
       "last_updated": "2026-03-23",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Default material template 'lining'. Market."
+      "status": "uncertain",
+      "notes": "Default material template 'lining'. Market.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Market fabric price-per-meter template; no authoritative source."
     },
     {
       "id": "sewing-cost-calculator__material_template_main_fabric",
@@ -8682,8 +9675,12 @@
       "last_updated": "2026-03-23",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Default material template 'main fabric' (consumption m / price per m). User-editable prefill. Market."
+      "status": "uncertain",
+      "notes": "Default material template 'main fabric' (consumption m / price per m). User-editable prefill. Market.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Market fabric price-per-meter template; no authoritative source."
     },
     {
       "id": "sewing-cost-calculator__ready_template_dress",
@@ -8700,8 +9697,12 @@
       "last_updated": "2026-03-23",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Ready 'dress' template. Market."
+      "status": "uncertain",
+      "notes": "Ready 'dress' template. Market.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Composite garment market-price template; no citable source for the bundled prices."
     },
     {
       "id": "sewing-cost-calculator__ready_template_jacket",
@@ -8718,8 +9719,12 @@
       "last_updated": "2026-03-23",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Ready 'jacket' template. Market."
+      "status": "uncertain",
+      "notes": "Ready 'jacket' template. Market.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Composite garment market-price template; no citable source."
     },
     {
       "id": "sewing-cost-calculator__ready_template_shirt",
@@ -8736,8 +9741,12 @@
       "last_updated": "2026-03-23",
       "source_hint": "market",
       "conflict": false,
-      "status": "unverified",
-      "notes": "Ready 'shirt' template (materials/accessories/time min/hourly rate). Market."
+      "status": "uncertain",
+      "notes": "Ready 'shirt' template (materials/accessories/time min/hourly rate). Market.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Composite garment market-price template; no citable source."
     },
     {
       "id": "taxi-tax-calculator__taxi_simplified_annual_limit_prose",
@@ -8755,8 +9764,14 @@
       "last_updated": "2026-03-23",
       "source_hint": "salyk.kg",
       "conflict": false,
-      "status": "unverified",
-      "notes": "PROSE approximate: 'обычно до 10-12 млн сом' годовой лимит для упрощёнки. Illustrative range, not exact gov figure; not in compute."
+      "status": "stale_confirmed",
+      "notes": "PROSE approximate: 'обычно до 10-12 млн сом' годовой лимит для упрощёнки. Illustrative range, not exact gov figure; not in compute.",
+      "official_value": "8000000",
+      "source_url": "https://kgaccount.com/en/unified-tax-in-kyrgyzstan-in-2025-a-detailed-guide-for-businesses/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "Simplified/single-tax revenue threshold is 8,000,000 som per 12 months; stored 10-12M does not match. Taxi via aggregators since 01.09.2025."
     },
     {
       "id": "wedding-calculator__wedding_banquet_price_per_guest",
@@ -8773,8 +9788,14 @@
       "last_updated": "2026-03-23",
       "source_hint": "рыночные цены (той, банкет)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE BANQUET_PRICES per region, сом per guest. Market (той/banquet) prices, NOT gov-regulated. Default region bishkek auto-fills 1800. No ЗАГС/registration state fee present anywhere in the wedding calculator (compute, article, or i18n) — only market banquet/service costs."
+      "status": "current",
+      "notes": "COMPUTE BANQUET_PRICES per region, сом per guest. Market (той/banquet) prices, NOT gov-regulated. Default region bishkek auto-fills 1800. No ЗАГС/registration state fee present anywhere in the wedding calculator (compute, article, or i18n) — only market banquet/service costs.",
+      "official_value": "Bishkek banquet ~1000 som/person avg (range 650-5000); regions lower",
+      "source_url": "https://24.kg/obschestvo/237081_toy_doroje_deneg_skolko_kyirgyizstantsyi_tratyat_nazastolya/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Per-guest matrix (Bishkek 1800, Osh 1000) within current banquet range; market prices, regional ordering plausible."
     },
     {
       "id": "wedding-calculator__wedding_scenario_expense_avg",
@@ -8792,8 +9813,12 @@
       "last_updated": "2026-03-23",
       "source_hint": "рыночная оценка",
       "conflict": false,
-      "status": "unverified",
-      "notes": "ILLUSTRATIVE. Ready-scenario buttons assume ~25,000 сом per other-expense. Market estimate, not regulated."
+      "status": "current",
+      "notes": "ILLUSTRATIVE. Ready-scenario buttons assume ~25,000 сом per other-expense. Market estimate, not regulated.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Illustrative average expense default (25000 som); non-regulatory market estimate for example scenarios."
     },
     {
       "id": "wedding-calculator__wedding_scenario_service_avg",
@@ -8811,8 +9836,12 @@
       "last_updated": "2026-03-23",
       "source_hint": "рыночная оценка",
       "conflict": false,
-      "status": "unverified",
-      "notes": "ILLUSTRATIVE. Ready-scenario buttons assume ~20,000 сом per service. Market estimate, not a regulated constant."
+      "status": "current",
+      "notes": "ILLUSTRATIVE. Ready-scenario buttons assume ~20,000 сом per service. Market estimate, not a regulated constant.",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "low",
+      "verify_note": "Illustrative average service default (20000 som); non-regulatory market estimate for example scenarios."
     },
     {
       "id": "zakat-calculator__zakat_gold_price_per_gram",
@@ -8829,8 +9858,14 @@
       "last_updated": "2026-04-21",
       "source_hint": "НБКР / Кыргызалтын цена золота",
       "conflict": true,
-      "status": "unverified",
-      "notes": "COMPUTE ZAKAT_CONFIG.gold_price_per_gram = 14200 сом/г default (user-editable input). Source comment: НБКР, Кыргызалтын, 999 пробы, 21.04.2026. Market reference, not regulated. Drives default nisab = 14200×85 = 1,207,000 сом. Prose zakat_faq_a1 says nisab ~250,000-300,000 сом which is STALE vs 14200 price (≈1.2M) — MISMATCH between FAQ prose nisab estimate and compute default."
+      "status": "current",
+      "notes": "COMPUTE ZAKAT_CONFIG.gold_price_per_gram = 14200 сом/г default (user-editable input). Source comment: НБКР, Кыргызалтын, 999 пробы, 21.04.2026. Market reference, not regulated. Drives default nisab = 14200×85 = 1,207,000 сом. Prose zakat_faq_a1 says nisab ~250,000-300,000 сом which is STALE vs 14200 price (≈1.2M) — MISMATCH between FAQ prose nisab estimate and compute default.",
+      "official_value": "14200",
+      "source_url": "https://ru.kyrgyzaltyn.kg/gold_bars/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "medium",
+      "verify_note": "Kyrgyzaltyn 27.06.2026: 1g bar 13971, 10g 12825 som/g. Stored 14200 within market range, not stale."
     },
     {
       "id": "zakat-calculator__zakat_nisab_gold_grams",
@@ -8849,8 +9884,14 @@
       "last_updated": "2026-03-23",
       "source_hint": "религиозная норма (нисаб)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE ZAKAT_CONFIG.nisab_gold_grams = 85. nisabThreshold = goldPricePerGram × 85. Prose zakat_info_4, zakat_calc_description, zakat_faq_a1 confirm 85 г золота."
+      "status": "current",
+      "notes": "COMPUTE ZAKAT_CONFIG.nisab_gold_grams = 85. nisabThreshold = goldPricePerGram × 85. Prose zakat_info_4, zakat_calc_description, zakat_faq_a1 confirm 85 г золота.",
+      "official_value": "85",
+      "source_url": "https://nzf.org.uk/nisab/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "85g gold is the widely-accepted modern nisab threshold; confirmed."
     },
     {
       "id": "zakat-calculator__zakat_nisab_silver_grams",
@@ -8867,8 +9908,14 @@
       "last_updated": "2026-03-23",
       "source_hint": "религиозная норма (нисаб серебро)",
       "conflict": true,
-      "status": "unverified",
-      "notes": "PROSE ONLY. zakat_faq_a1: 'эквивалент 85 г золота или 595 г серебра'. MISMATCH: COMPUTE only implements gold nisab (85g); silver alternative (595g) is NOT a calculation option."
+      "status": "current",
+      "notes": "PROSE ONLY. zakat_faq_a1: 'эквивалент 85 г золота или 595 г серебра'. MISMATCH: COMPUTE only implements gold nisab (85g); silver alternative (595g) is NOT a calculation option.",
+      "official_value": "595",
+      "source_url": "https://nzf.org.uk/nisab/",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "595g silver is the standard nisab threshold; confirmed."
     },
     {
       "id": "zakat-calculator__zakat_rate",
@@ -8887,8 +9934,14 @@
       "last_updated": "2026-03-23",
       "source_hint": "религиозная норма (2.5%, нисаб)",
       "conflict": false,
-      "status": "unverified",
-      "notes": "COMPUTE ZAKAT_CONFIG.zakat_rate = 0.025 (2.5%). Religious not state — is_gov_regulated=false. Prose zakat_info_3, zakat_rate, zakat_calculation_2_5 all confirm 2.5%."
+      "status": "current",
+      "notes": "COMPUTE ZAKAT_CONFIG.zakat_rate = 0.025 (2.5%). Religious not state — is_gov_regulated=false. Prose zakat_info_3, zakat_rate, zakat_calculation_2_5 all confirm 2.5%.",
+      "official_value": "0.025",
+      "source_url": "https://www.zakat.org/how-do-you-calculate-zakat-on-gold",
+      "verified_date": "2026-06-28",
+      "verify_method": "tier2-tail",
+      "verify_confidence": "high",
+      "verify_note": "Standard zakat rate is 2.5% (1/40) of eligible wealth; confirmed."
     },
     {
       "id": "salary-calculator__standard_deduction_personal",
