@@ -1123,24 +1123,10 @@ const PensionCalculatorPage = () => {
                 <h4 className="font-medium text-gray-900 mb-2">{t('pension_npf_largest')}</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                   <div className="bg-gray-50 rounded p-3">
+                    <p className="font-medium">{t('pension_npf_salym')}</p>
+                  </div>
+                  <div className="bg-gray-50 rounded p-3">
                     <p className="font-medium">{t('pension_npf_kyrgyzstan')}</p>
-                    <p className="text-xs text-gray-600">{t('pension_npf_yield_2024')} 7,8% {t('pension_npf_yield_percent')}</p>
-                    <p className="text-xs text-gray-600">☎ +996 (312) 62-44-22</p>
-                  </div>
-                  <div className="bg-gray-50 rounded p-3">
-                    <p className="font-medium">{t('pension_npf_dostuk')}</p>
-                    <p className="text-xs text-gray-600">{t('pension_npf_yield_2024')} 8,2% {t('pension_npf_yield_percent')}</p>
-                    <p className="text-xs text-gray-600">☎ +996 (312) 66-11-55</p>
-                  </div>
-                  <div className="bg-gray-50 rounded p-3">
-                    <p className="font-medium">{t('pension_npf_kyzylbash')}</p>
-                    <p className="text-xs text-gray-600">{t('pension_npf_yield_2024')} 7,5% {t('pension_npf_yield_percent')}</p>
-                    <p className="text-xs text-gray-600">☎ +996 (312) 61-00-09</p>
-                  </div>
-                  <div className="bg-gray-50 rounded p-3">
-                    <p className="font-medium">{t('pension_npf_ishenim')}</p>
-                    <p className="text-xs text-gray-600">{t('pension_npf_yield_2024')} 8,0% {t('pension_npf_yield_percent')}</p>
-                    <p className="text-xs text-gray-600">☎ +996 (312) 90-15-15</p>
                   </div>
                 </div>
               </div>
@@ -1148,6 +1134,20 @@ const PensionCalculatorPage = () => {
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                 <p className="text-sm text-gray-700">
                   <strong>{t('pension_npf_check')}</strong> {t('pension_npf_check_text')}
+                </p>
+              </div>
+
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <p className="text-sm text-gray-700">
+                  <strong>{t('pension_npf_registry')}</strong>{' '}
+                  <a
+                    href="https://fsa.gov.kg"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    fsa.gov.kg
+                  </a>
                 </p>
               </div>
             </div>

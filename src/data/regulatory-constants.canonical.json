@@ -31,6 +31,25 @@
         },
         "prose_note": "Worked examples were multi-era stale (heating 1134.76 & 1450 сом/Гкал, ГВС 75.14/340.50; water 8.10/3.25/11.35/13.50/19.30) and contradicted the corrected compute — recomputed in RU+KY so calculator == article. New keys heating_within_norm/heating_above_norm.",
         "surfaces": ["src/pages/HeatingCalculatorPage.tsx", "src/pages/WaterCalculatorPage.tsx", "src/i18n/translations-ru.ts", "src/i18n/translations-ky.ts", "src/i18n/translations.ts (SEO meta description only)"]
+      },
+      {
+        "date": "2026-06-28",
+        "summary": "Site fix for fabricated NON-STATE pension fund (НПФ) reference table in the Pension calculator + verification of the input max retirement age. Verification recorded earlier (tier2-tail); this entry records the applied fix. Removed fictional funds & unsupported yields; kept the two FSA-registered funds and added an official registry link.",
+        "npf_funds": {
+          "change": "Removed 3 fictional funds («Достук», «Ишеним», «Кызылбаш» — absent from the FSA/Финнадзор registry) and ALL displayed per-fund 2024 yields (7.5-8.2%, contradicting the ~11-17% GNPF investment range) plus unverifiable phone numbers. Kept «Кыргызстан»; ADDED «Дордой Салым» — the only two non-state funds actually licensed by Финнадзор. Added a link to the official FSA registry.",
+          "kept_funds": ["НПФ «Кыргызстан» (ОАО)", "НПФ «Дордой Салым» (ЗАО)"],
+          "removed_funds": ["Достук", "Ишеним", "Кызылбаш"],
+          "removed_data": "per-fund 2024 yields (7,8/8,2/7,5/8,0%) + phone numbers — all unsourced/hardcoded in JSX",
+          "retired_keys": ["pension_npf_dostuk", "pension_npf_kyzylbash", "pension_npf_ishenim", "pension_npf_yield_2024", "pension_npf_yield_percent"],
+          "new_keys": ["pension_npf_salym", "pension_npf_registry"],
+          "label_changes": ["pension_npf_largest: «Крупнейшие НПФ (2026)» -> «Лицензированные НПФ»", "pension_npf_desc: corrected to 'two licensed non-state НПФ + state ГНПФ'"],
+          "source": "FSA registry https://fsa.gov.kg (накопительные пенсионные фонды): only «Дордой Салым» (npfd-salym.kg) and «Кыргызстан» (kse.kg/ru/PublicInfo/JSC_NPFKyrgyzstan) are licensed and operating."
+        },
+        "max_retirement_age": {
+          "change": "Verified pension_max_retirement_age=70 is ONLY the number-input max attribute (deferred-retirement modeling), NOT a statutory limit. Compute uses getDefaultRetirementAge()=63 (men)/58 (women); no prose presents 70 as legal. Reclassified is_gov_regulated true->false; status uncertain->current. No code change.",
+          "law": "Statutory retirement ages 63/58 per sf.gov.kg"
+        },
+        "surfaces": ["src/pages/PensionCalculatorPage.tsx", "src/i18n/translations-ru.ts", "src/i18n/translations-ky.ts", "src/i18n/translations.ts (key-master + SEO meta; pension_calc_description unaffected)"]
       }
     ],
     "surfaces_legend": {
@@ -40,14 +59,14 @@
       "article": "src/components/*CalculatorArticle.tsx"
     },
     "total": 430,
-    "gov_regulated": 281,
-    "market_or_other": 147,
+    "gov_regulated": 280,
+    "market_or_other": 148,
     "conflicts_mismatch": 31,
     "status_summary": {
-      "current": 216,
-      "uncertain": 192,
+      "current": 217,
+      "uncertain": 187,
       "stale": 2,
-      "stale_confirmed": 20
+      "stale_confirmed": 24
     },
     "themes": {
       "utility_tariff": 44,
@@ -2892,20 +2911,21 @@
       "unit": "years",
       "law": "Закон КР о государственном пенсионном социальном страховании",
       "theme": "pension",
-      "is_gov_regulated": true,
+      "is_gov_regulated": false,
       "surfaces": [
-        "src/pages/PensionCalculatorPage.tsx:676"
+        "src/pages/PensionCalculatorPage.tsx:676 (input max= attribute — not a legal limit)"
       ],
       "last_updated": "2026",
       "source_hint": "sf.gov.kg",
       "conflict": false,
-      "status": "uncertain",
-      "notes": "Верхняя граница возраста выхода на пенсию, допускаемая в калькуляторе (max атрибут поля 'планируемый возраст'); отложенный выход на пенсию. [gap-audit 2026-06-17 completeness pass]",
+      "status": "current",
+      "notes": "Верхняя граница поля 'планируемый возраст' (max= числового input), позволяет моделировать отложенный выход на пенсию. НЕ нормативное значение — UI-ограничение ввода; нормативный возраст 63 (муж)/58 (жен). [gap-audit 2026-06-17; tail-verify 2026-06-28]",
       "source_url": "https://sf.gov.kg/ru/vozrast-vyhoda-na-pensiyu-i-trebuemyj-stazh/",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
-      "verify_confidence": "medium",
-      "verify_note": "Statutory retirement ages are 63 (men)/58 (women); no legal 70-year max found. Stored 70 is an app input/assumption, not regulatory."
+      "verify_confidence": "high",
+      "verify_note": "Statutory retirement ages are 63 (men)/58 (women); no legal 70-year max exists. Verified surface PensionCalculatorPage.tsx:676 is only the number-input max attribute (deferred-retirement modeling); compute uses getDefaultRetirementAge()=63/58; no prose presents 70 as a legal limit. Reclassified is_gov_regulated true->false.",
+      "fix_note": "verified-ok 2026-06-28 tail: input cap not regulatory; is_gov_regulated true->false, status uncertain->current. No code change needed."
     },
     {
       "id": "pension-calculator__pension_min_experience_months",
@@ -8833,13 +8853,14 @@
       "last_updated": "2026-03-23",
       "source_hint": "gnpf.kg",
       "conflict": false,
-      "status": "uncertain",
-      "notes": "НПФ 'Достук' доходность 2024 8,2%. Market figure.",
+      "status": "stale_confirmed",
+      "notes": "НПФ 'Достук' доходность 2024 8,2%. FICTIONAL — фонд отсутствует в реестре Финнадзора (есть только «Дордой Салым» и «Кыргызстан»). REMOVED from site 2026-06-28.",
       "source_url": "https://fsa.gov.kg/category/%D1%80%D0%B5%D0%B5%D1%81%D1%82%D1%80%D1%8B/%D0%BD%D0%B0%D0%BA%D0%BE%D0%BF%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-%D0%BF%D0%B5%D0%BD%D1%81%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5-%D1%84%D0%BE%D0%BD%D0%B4%D1%8B/",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "medium",
-      "verify_note": "No NPF named 'Dostuk' in FSA registry (only Dordoy Salym and Kyrgyzstan exist); 2024 yield unpublished/unverifiable."
+      "verify_note": "No NPF named 'Dostuk' in FSA registry (only Dordoy Salym and Kyrgyzstan exist); 2024 yield unpublished/unverifiable.",
+      "fix_note": "removed 2026-06-28: fictional fund deleted from PensionCalculatorPage.tsx; i18n keys pension_npf_dostuk + pension_npf_yield_2024/percent removed (RU/KY/master)."
     },
     {
       "id": "pension-calculator__pension_npf_yield_ishenim_2024",
@@ -8856,13 +8877,14 @@
       "last_updated": "2026-03-23",
       "source_hint": "gnpf.kg",
       "conflict": false,
-      "status": "uncertain",
-      "notes": "НПФ 'Ишеним' доходность 2024 8,0%. Market figure.",
+      "status": "stale_confirmed",
+      "notes": "НПФ 'Ишеним' доходность 2024 8,0%. FICTIONAL — фонд отсутствует в реестре Финнадзора. REMOVED from site 2026-06-28.",
       "source_url": "https://fsa.gov.kg/category/%D1%80%D0%B5%D0%B5%D1%81%D1%82%D1%80%D1%8B/%D0%BD%D0%B0%D0%BA%D0%BE%D0%BF%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-%D0%BF%D0%B5%D0%BD%D1%81%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5-%D1%84%D0%BE%D0%BD%D0%B4%D1%8B/",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "medium",
-      "verify_note": "No NPF named 'Ishenim' in FSA registry; 2024 yield unverifiable. Stored 8.0% unconfirmed."
+      "verify_note": "No NPF named 'Ishenim' in FSA registry; 2024 yield unverifiable. Stored 8.0% unconfirmed.",
+      "fix_note": "removed 2026-06-28: fictional fund deleted from PensionCalculatorPage.tsx; i18n key pension_npf_ishenim removed (RU/KY/master)."
     },
     {
       "id": "pension-calculator__pension_npf_yield_kyrgyzstan_2024",
@@ -8879,13 +8901,14 @@
       "last_updated": "2026-03-23",
       "source_hint": "gnpf.kg",
       "conflict": false,
-      "status": "uncertain",
-      "notes": "НПФ 'Кыргызстан' доходность 2024 7,8%. Market figure (illustrative), is_gov_regulated=false.",
+      "status": "stale_confirmed",
+      "notes": "НПФ 'Кыргызстан' доходность 2024 7,8%. Фонд РЕАЛЬНЫЙ (ОАО, лицензия Финнадзора) — оставлен на сайте, но показанная доходность 7,8% недостоверна (противоречит ~11-17% ГНПФ). Доходность REMOVED from site 2026-06-28. is_gov_regulated=false.",
       "source_url": "https://fsa.gov.kg/2024/04/17/%D0%BE%D0%B0%D0%BE-%D0%BD%D0%BF%D1%84-%D0%BA%D1%8B%D1%80%D0%B3%D1%8B%D0%B7%D1%81%D1%82%D0%B0%D0%BD/",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "OAO NPF Kyrgyzstan exists but no published 2024 yield found; GNPF reported 11-17% on investments, so stored 7.8% is unconfirmed."
+      "verify_note": "OAO NPF Kyrgyzstan exists but no published 2024 yield found; GNPF reported 11-17% on investments, so stored 7.8% is unconfirmed.",
+      "fix_note": "fixed 2026-06-28: fund «Кыргызстан» kept (real, FSA-registered), but unsupported 7.8% yield + unverifiable phone removed; no per-fund yield displayed now."
     },
     {
       "id": "pension-calculator__pension_npf_yield_kyzylbash_2024",
@@ -8902,13 +8925,14 @@
       "last_updated": "2026-03-23",
       "source_hint": "gnpf.kg",
       "conflict": false,
-      "status": "uncertain",
-      "notes": "НПФ 'Кызылбаш' доходность 2024 7,5%. Market figure.",
+      "status": "stale_confirmed",
+      "notes": "НПФ 'Кызылбаш' доходность 2024 7,5%. FICTIONAL — фонд отсутствует в реестре Финнадзора. REMOVED from site 2026-06-28.",
       "source_url": "https://fsa.gov.kg/category/%D1%80%D0%B5%D0%B5%D1%81%D1%82%D1%80%D1%8B/%D0%BD%D0%B0%D0%BA%D0%BE%D0%BF%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-%D0%BF%D0%B5%D0%BD%D1%81%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5-%D1%84%D0%BE%D0%BD%D0%B4%D1%8B/",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "medium",
-      "verify_note": "No NPF named 'Kyzylbash' in FSA registry; 2024 yield unverifiable. Stored 7.5% unconfirmed."
+      "verify_note": "No NPF named 'Kyzylbash' in FSA registry; 2024 yield unverifiable. Stored 7.5% unconfirmed.",
+      "fix_note": "removed 2026-06-28: fictional fund deleted from PensionCalculatorPage.tsx; i18n key pension_npf_kyzylbash removed (RU/KY/master)."
     },
     {
       "id": "rental-calculator__agency_fee_ratio",
