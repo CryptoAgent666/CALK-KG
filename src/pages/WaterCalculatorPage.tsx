@@ -15,14 +15,23 @@ import {
 } from '../utils/schemaGenerator';
 import { formatCurrentMonth } from '../utils/dateFormatter';
 
-// Конфигурация тарифов - легко редактируемая структура
-// АКТУАЛЬНО НА: 21 апреля 2026 (тарифы действуют)
-// Бишкек: действуют с 01.06.2023 (Постановление БГК от 30.05.2023), повышение не вводилось
-// Источник: МП «Бишкекводоканал», bishkek.gov.kg
-const WATER_TARIFFS = {
+// Конфигурация тарифов
+// АКТУАЛЬНО НА: 2026 (тарифы действуют)
+// Источник: МП «Бишкекводоканал» (bishkek.gov.kg), МП «Ошский водоканал».
+//
+// ВАЖНО: достоверные опубликованные тарифы на воду/канализацию есть только по
+// Бишкеку и Ошу. Тарифы малых городов (Каракол, Жалал-Абад, Нарын, Талас, Токмок,
+// Баткен) устанавливаются местными кенешами и официально не публикуются — поэтому
+// здесь НЕ приводятся, чтобы калькулятор не выдавал недостоверные значения.
+type ConsumerCategory = 'population' | 'budget' | 'commercial';
+type WaterTariff = { water: number; sewerage: number; nameKey: string };
+type CityWater = { nameKey: string; tariffs: Partial<Record<ConsumerCategory, WaterTariff>> };
+
+const WATER_TARIFFS: Record<string, CityWater> = {
   'bishkek': {
     nameKey: 'region_bishkek',
     tariffs: {
+      // Постановление Бишкекского горкенеша; действуют с 01.06.2023
       'population': { water: 10.45, sewerage: 3.45, nameKey: 'tariff_population' },
       'budget': { water: 12.95, sewerage: 4.50, nameKey: 'tariff_budget' },
       'commercial': { water: 18.50, sewerage: 9.00, nameKey: 'tariff_commercial_enterprises' }
@@ -31,63 +40,14 @@ const WATER_TARIFFS = {
   'osh': {
     nameKey: 'region_osh',
     tariffs: {
-      'population': { water: 12.96, sewerage: 0, nameKey: 'tariff_population' },
-      'budget': { water: 15.50, sewerage: 0, nameKey: 'tariff_budget' },
-      'commercial': { water: 28.50, sewerage: 0, nameKey: 'tariff_commercial_enterprises' }
-    }
-  },
-  'karakol': {
-    nameKey: 'region_karakol',
-    tariffs: {
-      'population': { water: 7.50, sewerage: 2.80, nameKey: 'tariff_population' },
-      'budget': { water: 8.50, sewerage: 3.50, nameKey: 'tariff_budget' },
-      'commercial': { water: 11.50, sewerage: 5.20, nameKey: 'tariff_commercial_enterprises' }
-    }
-  },
-  'jalal-abad': {
-    nameKey: 'region_jalal_abad',
-    tariffs: {
-      'population': { water: 9.20, sewerage: 3.80, nameKey: 'tariff_population' },
-      'budget': { water: 10.50, sewerage: 4.50, nameKey: 'tariff_budget' },
-      'commercial': { water: 15.80, sewerage: 7.20, nameKey: 'tariff_commercial_enterprises' }
-    }
-  },
-  'tokmok': {
-    nameKey: 'region_tokmok',
-    tariffs: {
-      'population': { water: 6.80, sewerage: 2.50, nameKey: 'tariff_population' },
-      'budget': { water: 7.80, sewerage: 3.20, nameKey: 'tariff_budget' },
-      'commercial': { water: 10.50, sewerage: 4.80, nameKey: 'tariff_commercial_enterprises' }
-    }
-  },
-  'naryn': {
-    nameKey: 'region_naryn',
-    tariffs: {
-      'population': { water: 5.90, sewerage: 2.10, nameKey: 'tariff_population' },
-      'budget': { water: 6.90, sewerage: 2.80, nameKey: 'tariff_budget' },
-      'commercial': { water: 9.20, sewerage: 4.10, nameKey: 'tariff_commercial_enterprises' }
-    }
-  },
-  'talas': {
-    nameKey: 'region_talas',
-    tariffs: {
-      'population': { water: 6.50, sewerage: 2.30, nameKey: 'tariff_population' },
-      'budget': { water: 7.50, sewerage: 3.00, nameKey: 'tariff_budget' },
-      'commercial': { water: 10.00, sewerage: 4.50, nameKey: 'tariff_commercial_enterprises' }
-    }
-  },
-  'batken': {
-    nameKey: 'region_batken',
-    tariffs: {
-      'population': { water: 7.20, sewerage: 2.90, nameKey: 'tariff_population' },
-      'budget': { water: 8.20, sewerage: 3.70, nameKey: 'tariff_budget' },
-      'commercial': { water: 11.80, sewerage: 5.50, nameKey: 'tariff_commercial_enterprises' }
+      // МП «Ошский водоканал»: население — вода 6,88 + канализация 4,20 сом/м³.
+      // Тарифы для бюджета/предприятий официально не опубликованы.
+      'population': { water: 6.88, sewerage: 4.20, nameKey: 'tariff_population' }
     }
   }
 };
 
 type City = keyof typeof WATER_TARIFFS;
-type ConsumerCategory = 'population' | 'budget' | 'commercial';
 
 interface WaterResults {
   consumption: number;
@@ -160,8 +120,9 @@ const WaterCalculatorPage = () => {
       };
     }
 
-    const tariff = WATER_TARIFFS[selectedCity].tariffs[selectedCategory];
-    
+    const cityTariffs = WATER_TARIFFS[selectedCity].tariffs;
+    const tariff = cityTariffs[selectedCategory] ?? cityTariffs.population!;
+
     const waterCost = volume * tariff.water;
     const sewerageeCost = volume * tariff.sewerage;
     const totalCost = waterCost + sewerageeCost;
@@ -180,6 +141,15 @@ const WaterCalculatorPage = () => {
   useEffect(() => {
     setResults(calculateWaterBill(consumption, city, category));
   }, [consumption, city, category]);
+
+  // Смена города: если в новом городе нет выбранной категории (напр. в Оше
+  // опубликован только тариф для населения) — вернуться к «населению».
+  const handleCityChange = (newCity: City) => {
+    setCity(newCity);
+    if (!WATER_TARIFFS[newCity].tariffs[category]) {
+      setCategory('population');
+    }
+  };
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('ru-KG', {
@@ -209,7 +179,7 @@ const WaterCalculatorPage = () => {
   );
 
   const currentMonth = formatCurrentMonth(language);
-  const currentTariff = WATER_TARIFFS[city].tariffs[category];
+  const currentTariff = WATER_TARIFFS[city].tariffs[category] ?? WATER_TARIFFS[city].tariffs.population!;
 
   // Расчет процентов для визуализации
   const waterPercentage = results.totalCost > 0 ? (results.waterCost / results.totalCost) * 100 : 0;
@@ -318,7 +288,7 @@ const WaterCalculatorPage = () => {
                 </div>
                 <select
                   value={city}
-                  onChange={(e) => setCity(e.target.value as City)}
+                  onChange={(e) => handleCityChange(e.target.value as City)}
                   className="w-full px-4 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg print:text-base"
                 >
                   {Object.entries(WATER_TARIFFS).map(([key, cityData]) => (
@@ -645,6 +615,7 @@ ${t('water_calculated_on')}`}
                       .filter(([key]) => key !== city)
                       .map(([cityKey, cityData]) => {
                         const otherTariff = cityData.tariffs[category];
+                        if (!otherTariff) return null;
                         const otherResult = calculateWaterBill(consumption, cityKey as City, category);
                         const isCheaper = otherResult.totalCost < results.totalCost;
                         const isMoreExpensive = otherResult.totalCost > results.totalCost;
@@ -811,7 +782,6 @@ ${t('water_calculated_on')}`}
                     <ul className="text-sm text-gray-600 space-y-1">
                       <li>• {t('water_bishkek_example')}</li>
                       <li>• {t('water_osh_example')}</li>
-                      <li>• {t('water_karakol_example')}</li>
                     </ul>
                   </div>
                 </div>
@@ -1113,31 +1083,29 @@ ${t('water_calculated_on')}`}
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {Object.entries(WATER_TARIFFS).map(([cityKey, cityData]) => (
+                  {Object.entries(WATER_TARIFFS).map(([cityKey, cityData]) => {
+                    const pop = cityData.tariffs.population;
+                    const com = cityData.tariffs.commercial;
+                    return (
                     <tr key={cityKey} className={cityKey === city ? 'bg-green-50' : ''}>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                         {t(cityData.nameKey as any)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {formatCurrency(cityData.tariffs.population.water)}
+                        {pop ? formatCurrency(pop.water) : '—'}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {cityData.tariffs.population.sewerage > 0 ?
-                          formatCurrency(cityData.tariffs.population.sewerage) :
-                          t('included')
-                        }
+                        {pop ? (pop.sewerage > 0 ? formatCurrency(pop.sewerage) : t('included')) : '—'}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {formatCurrency(cityData.tariffs.commercial.water)}
+                        {com ? formatCurrency(com.water) : '—'}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {cityData.tariffs.commercial.sewerage > 0 ?
-                          formatCurrency(cityData.tariffs.commercial.sewerage) :
-                          t('included')
-                        }
+                        {com ? (com.sewerage > 0 ? formatCurrency(com.sewerage) : t('included')) : '—'}
                       </td>
                     </tr>
-                  ))}
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

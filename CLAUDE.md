@@ -19,7 +19,13 @@ The site hard-codes hundreds of government-set values. They are inventoried + fr
     `trafficFines.ts`, `scholarshipData.ts`, `constructionData.ts`, …). The real calculator math — fix here first.
   - **PROSE:** `src/i18n/translations-ru.ts` (active RU) + `src/i18n/translations-ky.ts` (active KY).
     Flat `"key": "value"`. Update **both languages** for any displayed value.
-  - 🚫 **`src/i18n/translations.ts` is DEAD legacy (13,778 unused keys) — nothing imports it. Never edit it.**
+  - ⚠️ **`src/i18n/translations.ts`** (nested `{ru:{…},ky:{…}}`, ~13.8k keys) is **not imported at runtime**
+    (the app uses only `translations-ru.ts` + `translations-ky.ts`), so don't edit it for **runtime prose**.
+    BUT it is **NOT fully dead**: `scripts/generate-static-html.js` reads it for the static `<head>` **SEO meta**
+    (`*_calc_title` / `*_calc_description`) and `scripts/check-translation-keys.js` treats it as the **key master**.
+    So when a meta description / supported-city set changes, also update the matching `*_calc_description` here
+    (both `ru:` and `ky:` blocks), and add any brand-new `t()` keys, or the static meta goes stale and the
+    key-checker flags them. (Prerender is shell + meta only — tariff numbers render client-side from the active files.)
 
 ### State as of 2026-06-17 (pilot run from DATA_HUB)
 - **428 constants** = **109 current · 9 stale (deferred) · 102 uncertain · 208 unverified**. 220 gov
