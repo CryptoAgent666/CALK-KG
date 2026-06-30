@@ -14,6 +14,7 @@ build/
 .env.local
 .env.production
 scripts/ota.env
+scripts/deploy.env
 
 # Secrets / signing keys (NEVER commit)
 *.keystore
