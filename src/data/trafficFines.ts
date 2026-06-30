@@ -150,29 +150,29 @@ export const TRAFFIC_FINES: TrafficFine[] = [
     keywords: ['неисправность', 'техническое', 'состояние', 'тормоза', 'свет']
   },
 
-  // Алкогольное опьянение (с 08.03.2023 — лишение прав без штрафа)
+  // Алкогольное опьянение (реформа июнь 2026: штраф + лишение прав на 2 года; отказ — 100 000 сом)
   {
     id: 'alcohol_under_08',
     categoryId: 'alcohol',
-    fine: 0,
+    fine: 30000,
     article: 'Ст. 193 ч. 1',
-    notesId: 'no_discount_license_1y',
+    notesId: 'no_discount_license_2y',
     keywords: ['алкоголь', 'опьянение', 'промилле', '0.8', 'пьяный']
   },
   {
     id: 'alcohol_over_08',
     categoryId: 'alcohol',
-    fine: 0,
+    fine: 30000,
     article: 'Ст. 193 ч. 1',
-    notesId: 'no_discount_license_3y',
+    notesId: 'no_discount_license_2y',
     keywords: ['алкоголь', 'опьянение', 'промилле', '0.8', 'пьяный', 'тяжелое']
   },
   {
     id: 'alcohol_refusal',
     categoryId: 'alcohol',
-    fine: 0,
+    fine: 100000,
     article: 'Ст. 193 ч. 2',
-    notesId: 'no_discount_license_1y',
+    notesId: 'no_discount_license_2y',
     keywords: ['отказ', 'медицинское', 'освидетельствование', 'алкотестер']
   },
 
@@ -234,8 +234,8 @@ export const TRAFFIC_FINES: TrafficFine[] = [
   {
     id: 'fake_plates',
     categoryId: 'plates',
-    fine: 10000,
-    article: 'Ст. 182 ч. 4',
+    fine: 20000,
+    article: 'Ст. 449 ч. 1',
     notesId: 'no_discount_confiscation',
     keywords: ['подложные', 'поддельные', 'измененные', 'номера']
   },

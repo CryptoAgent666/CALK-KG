@@ -17,39 +17,89 @@
           "heat_norm_gcal_per_m2": "0.036 (national)",
           "hot_water_per_m3": "100.30 (= 1560 сом/Гкал энергии × ~0.0643 Гкал/м³; replaced fabricated per-city 108.07/82.25/72.75/78.00/69.13/86.13)",
           "hot_water_per_person": "481.44 (= 4.8 м³/чел норматив ГВС × 100.30; норматив 4.8 м³ per bishkek.gov.kg)",
-          "kept_cities": ["bishkek", "osh"],
-          "retired_cities": ["karakol", "jalal-abad", "tokmok", "naryn"],
-          "retired_keys": ["heating_tariff_per_gcal_{osh,karakol,jalal_abad,tokmok,naryn}", "heating_hot_water_tariff_per_m3_{osh,karakol,jalal_abad,tokmok,naryn}", "heating_hot_water_standard_per_person_{osh,karakol,jalal_abad,tokmok,naryn}", "heating_standard_gcal_per_m2_{karakol,jalal_abad,tokmok,naryn}"],
+          "kept_cities": [
+            "bishkek",
+            "osh"
+          ],
+          "retired_cities": [
+            "karakol",
+            "jalal-abad",
+            "tokmok",
+            "naryn"
+          ],
+          "retired_keys": [
+            "heating_tariff_per_gcal_{osh,karakol,jalal_abad,tokmok,naryn}",
+            "heating_hot_water_tariff_per_m3_{osh,karakol,jalal_abad,tokmok,naryn}",
+            "heating_hot_water_standard_per_person_{osh,karakol,jalal_abad,tokmok,naryn}",
+            "heating_standard_gcal_per_m2_{karakol,jalal_abad,tokmok,naryn}"
+          ],
           "law": "Приказ ДТЭК №42 от 10.03.2026; bishkek.gov.kg/ru/tariffs/2; вице-мэр (tazabek 2229816) подтвердил 5998.17 для >80 м²"
         },
         "water": {
           "change": "Restricted calculator to cities with published tariffs (Bishkek + Osh); removed unverified small-city placeholders set by unpublished local keneshes.",
           "bishkek": "unchanged (correct): население 10.45/3.45, бюджет 12.95/4.50, предприятия 18.50/9.00 сом/м³",
           "osh": "fixed население → 6.88/4.20 сом/м³ (была фикция 12.96/0); бюджет/предприятия не опубликованы → опущены",
-          "retired_cities": ["karakol", "jalal-abad", "tokmok", "naryn", "talas", "batken"],
+          "retired_cities": [
+            "karakol",
+            "jalal-abad",
+            "tokmok",
+            "naryn",
+            "talas",
+            "batken"
+          ],
           "source": "bishkek.gov.kg (Бишкек); МП «Ошский водоканал» (Ош население 6.88/4.20)"
         },
         "prose_note": "Worked examples were multi-era stale (heating 1134.76 & 1450 сом/Гкал, ГВС 75.14/340.50; water 8.10/3.25/11.35/13.50/19.30) and contradicted the corrected compute — recomputed in RU+KY so calculator == article. New keys heating_within_norm/heating_above_norm.",
-        "surfaces": ["src/pages/HeatingCalculatorPage.tsx", "src/pages/WaterCalculatorPage.tsx", "src/i18n/translations-ru.ts", "src/i18n/translations-ky.ts", "src/i18n/translations.ts (SEO meta description only)"]
+        "surfaces": [
+          "src/pages/HeatingCalculatorPage.tsx",
+          "src/pages/WaterCalculatorPage.tsx",
+          "src/i18n/translations-ru.ts",
+          "src/i18n/translations-ky.ts",
+          "src/i18n/translations.ts (SEO meta description only)"
+        ]
       },
       {
         "date": "2026-06-28",
         "summary": "Site fix for fabricated NON-STATE pension fund (НПФ) reference table in the Pension calculator + verification of the input max retirement age. Verification recorded earlier (tier2-tail); this entry records the applied fix. Removed fictional funds & unsupported yields; kept the two FSA-registered funds and added an official registry link.",
         "npf_funds": {
           "change": "Removed 3 fictional funds («Достук», «Ишеним», «Кызылбаш» — absent from the FSA/Финнадзор registry) and ALL displayed per-fund 2024 yields (7.5-8.2%, contradicting the ~11-17% GNPF investment range) plus unverifiable phone numbers. Kept «Кыргызстан»; ADDED «Дордой Салым» — the only two non-state funds actually licensed by Финнадзор. Added a link to the official FSA registry.",
-          "kept_funds": ["НПФ «Кыргызстан» (ОАО)", "НПФ «Дордой Салым» (ЗАО)"],
-          "removed_funds": ["Достук", "Ишеним", "Кызылбаш"],
+          "kept_funds": [
+            "НПФ «Кыргызстан» (ОАО)",
+            "НПФ «Дордой Салым» (ЗАО)"
+          ],
+          "removed_funds": [
+            "Достук",
+            "Ишеним",
+            "Кызылбаш"
+          ],
           "removed_data": "per-fund 2024 yields (7,8/8,2/7,5/8,0%) + phone numbers — all unsourced/hardcoded in JSX",
-          "retired_keys": ["pension_npf_dostuk", "pension_npf_kyzylbash", "pension_npf_ishenim", "pension_npf_yield_2024", "pension_npf_yield_percent"],
-          "new_keys": ["pension_npf_salym", "pension_npf_registry"],
-          "label_changes": ["pension_npf_largest: «Крупнейшие НПФ (2026)» -> «Лицензированные НПФ»", "pension_npf_desc: corrected to 'two licensed non-state НПФ + state ГНПФ'"],
+          "retired_keys": [
+            "pension_npf_dostuk",
+            "pension_npf_kyzylbash",
+            "pension_npf_ishenim",
+            "pension_npf_yield_2024",
+            "pension_npf_yield_percent"
+          ],
+          "new_keys": [
+            "pension_npf_salym",
+            "pension_npf_registry"
+          ],
+          "label_changes": [
+            "pension_npf_largest: «Крупнейшие НПФ (2026)» -> «Лицензированные НПФ»",
+            "pension_npf_desc: corrected to 'two licensed non-state НПФ + state ГНПФ'"
+          ],
           "source": "FSA registry https://fsa.gov.kg (накопительные пенсионные фонды): only «Дордой Салым» (npfd-salym.kg) and «Кыргызстан» (kse.kg/ru/PublicInfo/JSC_NPFKyrgyzstan) are licensed and operating."
         },
         "max_retirement_age": {
           "change": "Verified pension_max_retirement_age=70 is ONLY the number-input max attribute (deferred-retirement modeling), NOT a statutory limit. Compute uses getDefaultRetirementAge()=63 (men)/58 (women); no prose presents 70 as legal. Reclassified is_gov_regulated true->false; status uncertain->current. No code change.",
           "law": "Statutory retirement ages 63/58 per sf.gov.kg"
         },
-        "surfaces": ["src/pages/PensionCalculatorPage.tsx", "src/i18n/translations-ru.ts", "src/i18n/translations-ky.ts", "src/i18n/translations.ts (key-master + SEO meta; pension_calc_description unaffected)"]
+        "surfaces": [
+          "src/pages/PensionCalculatorPage.tsx",
+          "src/i18n/translations-ru.ts",
+          "src/i18n/translations-ky.ts",
+          "src/i18n/translations.ts (key-master + SEO meta; pension_calc_description unaffected)"
+        ]
       }
     ],
     "surfaces_legend": {
@@ -1192,7 +1242,7 @@
       "id": "family-benefit-calculator__family_benefit_birth_amount",
       "calculator": "family-benefit-calculator",
       "key": "family_benefit_birth_amount",
-      "value": "6000",
+      "value": "4000",
       "unit": "KGS_one_time",
       "law": "Кабмин КР — единовременное пособие при рождении ребёнка",
       "theme": "family_benefit",
@@ -1200,15 +1250,15 @@
       "surfaces": [
         "translations-ru.ts:familybenefit_birth_amount"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "cabinet.gov.kg",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Article-only: 6,000 сом при рождении ребёнка. Not used in compute (calculator only handles monthly per-child 1200).",
-      "official_value": null,
+      "official_value": "4000",
       "source_url": "https://kaktus.media/doc/544572_posobiia_v_kyrgyzstane._komy_predostavliautsia_kogda_i_v_kakom_razmere.html",
       "which_surface_correct": "na",
-      "verify_note": "Единовременное пособие при рождении в КР неоднозначно: «Балага сүйүнчү» ~4000 сом по одним источникам; региональное «Бала ырысы» (новое, 2026) — иные суммы; указ о выплатах до 2 млн сом за рождение (региональное стимулирование). Точную единую сумму 6000 сом авторитетно не подтверждаю — article-only, не в compute. Не угадываю."
+      "verify_note": "Сверено 2026-06-30: 6000→4000 сом (балага сүйүнчү, Минтруда/kaktus 544572). Применено в прозе RU+KY и задеплоено."
     },
     {
       "id": "family-benefit-calculator__family_benefit_large_family_amount",
@@ -1328,7 +1378,7 @@
       "id": "gas-calculator__PROSE_gas_bishkek_rate_legacy",
       "calculator": "gas-calculator",
       "key": "PROSE_gas_bishkek_rate_legacy",
-      "value": "9.50",
+      "value": "22.70",
       "unit": "som_per_m3",
       "law": "тариф Газпром КГ (устаревшая проза i18n)",
       "theme": "utility_tariff",
@@ -1339,15 +1389,15 @@
         "src/i18n/translations-ru.ts:gas_example1_tariff_value",
         "src/i18n/translations-ru.ts:gas_heating_tariff"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "ОсОО «Газпром Кыргызстан»",
-      "conflict": true,
-      "status": "stale",
+      "conflict": false,
+      "status": "current",
       "notes": "MISMATCH: i18n prose has Bishkek 9.50, Osh 8.80, other 8.50-9.00, example1 14.50, heating 11.60 сом/м³ — all far below COMPUTE residential 22.70. Prose heavily stale; compute authoritative.",
-      "official_value": "22.7041",
+      "official_value": "22.70",
       "source_url": "https://www.akchabar.kg/news/gaz-dlya-naseleniya-kirgizstana-podorozhal-v-mae-gazprom-obyavil-novij-tarif-fbpyqxkdymmuwnqx",
       "which_surface_correct": "compute",
-      "verify_note": "PROSE (Bishkek 9.50, Osh 8.80, heating 11.60 сом/м³) is heavily stale. Official Газпром Кыргызстан population tariff = 22.7041 сом/м³ (single nationwide rate, recalculated monthly vs USD; 22.7041 since May 2025, stable into 2026). COMPUTE 22.70 is correct.",
+      "verify_note": "Сверено 2026-06-30: газ-prose 9.50/8.80/14.50/11.60→22.70 (Газпром, единый тариф). Worked-examples и нарратив газ↔электр переписаны (RU+KY), задеплоено.",
       "fix_note": "DEFERRED (tranche 3): narrative prose w/ dependent example totals (bilingual content pass)"
     },
     {
@@ -4648,7 +4698,7 @@
       "id": "traffic-fines-calculator__fine_alcohol_over_08",
       "calculator": "traffic-fines-calculator",
       "key": "fine_alcohol_over_08",
-      "value": "0",
+      "value": "30000",
       "unit": "som",
       "law": "Кодекс КР о правонарушениях ст. 189 ч. 2",
       "theme": "traffic_fine",
@@ -4656,21 +4706,21 @@
       "surfaces": [
         "src/data/trafficFines.ts:160-167"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-06-30",
       "source_hint": "Кодекс КР о правонарушениях ст. 189",
       "conflict": false,
       "status": "current",
       "notes": "Опьянение свыше 0.8 промилле — fine=0, лишение прав на 3 года (no_discount_license_3y).",
-      "official_value": "0",
-      "source_url": "https://continent-online.com/Document/?doc_id=36897164",
+      "official_value": "30000",
+      "source_url": "https://rg.ru/2026/06/24/vypil-sel-za-rul-v-tiurmu.html",
       "which_surface_correct": "prose",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "Реформа июнь 2026: 0→30000 сом + лишение прав 2 года."
     },
     {
       "id": "traffic-fines-calculator__fine_alcohol_refusal",
       "calculator": "traffic-fines-calculator",
       "key": "fine_alcohol_refusal",
-      "value": "0",
+      "value": "100000",
       "unit": "som",
       "law": "Кодекс КР о правонарушениях ст. 189 ч. 3",
       "theme": "traffic_fine",
@@ -4678,21 +4728,21 @@
       "surfaces": [
         "src/data/trafficFines.ts:168-175"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-06-30",
       "source_hint": "Кодекс КР о правонарушениях ст. 189",
       "conflict": false,
       "status": "current",
       "notes": "Отказ от медосвидетельствования — fine=0, лишение прав на 1 год (no_discount_license_1y).",
-      "official_value": "0",
-      "source_url": "https://continent-online.com/Document/?doc_id=36897164",
+      "official_value": "100000",
+      "source_url": "https://rg.ru/2026/06/24/vypil-sel-za-rul-v-tiurmu.html",
       "which_surface_correct": "prose",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "Реформа июнь 2026: отказ от освидетельствования 0→100000 сом."
     },
     {
       "id": "traffic-fines-calculator__fine_alcohol_under_08",
       "calculator": "traffic-fines-calculator",
       "key": "fine_alcohol_under_08",
-      "value": "0",
+      "value": "30000",
       "unit": "som",
       "law": "Кодекс КР о правонарушениях ст. 189 ч. 1",
       "theme": "traffic_fine",
@@ -4700,15 +4750,15 @@
       "surfaces": [
         "src/data/trafficFines.ts:152-159"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-06-30",
       "source_hint": "Кодекс КР о правонарушениях ст. 189",
       "conflict": false,
       "status": "current",
       "notes": "Опьянение до 0.8 промилле — fine=0, наказание = лишение прав на 1 год (no_discount_license_1y). С 08.03.2023 лишение прав без штрафа. Promille threshold 0.8 in keywords/notes.",
-      "official_value": "0",
-      "source_url": "https://continent-online.com/Document/?doc_id=36897164",
+      "official_value": "30000",
+      "source_url": "https://rg.ru/2026/06/24/vypil-sel-za-rul-v-tiurmu.html",
       "which_surface_correct": "prose",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "Реформа июнь 2026: 0→30000 сом + лишение прав 2 года (rg.ru 24.06.2026, knews 10.06.2026)."
     },
     {
       "id": "traffic-fines-calculator__fine_cargo_overload_20",
@@ -4802,7 +4852,7 @@
       "id": "traffic-fines-calculator__fine_fake_plates",
       "calculator": "traffic-fines-calculator",
       "key": "fine_fake_plates",
-      "value": "10000",
+      "value": "20000",
       "unit": "som",
       "law": "Кодекс КР о правонарушениях ст. 180 ч. 3",
       "theme": "traffic_fine",
@@ -4810,15 +4860,15 @@
       "surfaces": [
         "src/data/trafficFines.ts:232-239"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-06-30",
       "source_hint": "Кодекс КР о правонарушениях ст. 180",
       "conflict": false,
       "status": "current",
       "notes": "Подложные/изменённые номера. no_discount_confiscation.",
-      "official_value": "10000",
-      "source_url": "https://ru.sputnik.kg/20230308/kyrgyzstan-pdd-narushenie-povyshenie-1073406198.html",
+      "official_value": "20000",
+      "source_url": "https://cbd.minjust.gov.kg/act/view/ru-ru/112306",
       "which_surface_correct": "compute",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "Сверено 2026-06-30: 10000/Ст.182ч4→20000/Ст.449ч1 (Кодекс о правонарушениях)."
     },
     {
       "id": "traffic-fines-calculator__fine_faulty_vehicle",
