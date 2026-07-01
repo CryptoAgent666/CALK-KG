@@ -35,7 +35,6 @@ const PATENT_RATES = {
       'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 3000 },
       'taxi-1': { nameKey: 'activity_taxi_1', cost: 2500 },
       'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 1500 },
-      'market-trade-1': { nameKey: 'activity_market_trade_1', cost: 5000 },
       'car-wash-1': { nameKey: 'activity_car_wash_1', cost: 4000 },
       'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 2200 },
       'photo-services-1': { nameKey: 'activity_photo_services_1', cost: 2800 },
@@ -54,7 +53,6 @@ const PATENT_RATES = {
       'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
       'taxi-1': { nameKey: 'activity_taxi_1', cost: 1800 },
       'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 1000 },
-      'market-trade-1': { nameKey: 'activity_market_trade_1', cost: 3500 },
       'car-wash-1': { nameKey: 'activity_car_wash_1', cost: 2800 },
       'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1800 },
       'photo-services-1': { nameKey: 'activity_photo_services_1', cost: 2000 },
@@ -73,7 +71,6 @@ const PATENT_RATES = {
       'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 1800 },
       'taxi-1': { nameKey: 'activity_taxi_1', cost: 1600 },
       'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 900 },
-      'market-trade-1': { nameKey: 'activity_market_trade_1', cost: 3200 },
       'car-wash-1': { nameKey: 'activity_car_wash_1', cost: 2500 },
       'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1600 },
       'auto-repair-1': { nameKey: 'activity_auto_repair_1', cost: 4200 },
@@ -92,7 +89,6 @@ const PATENT_RATES = {
       'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 1700 },
       'taxi-1': { nameKey: 'activity_taxi_1', cost: 1500 },
       'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 800 },
-      'market-trade-1': { nameKey: 'activity_market_trade_1', cost: 3000 },
       'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1500 },
       'auto-repair-1': { nameKey: 'activity_auto_repair_1', cost: 4000 }
     }
@@ -103,7 +99,6 @@ const PATENT_RATES = {
       'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 1600 },
       'taxi-1': { nameKey: 'activity_taxi_1', cost: 1400 },
       'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 750 },
-      'market-trade-1': { nameKey: 'activity_market_trade_1', cost: 2800 },
       'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1400 }
     }
   },
@@ -113,7 +108,6 @@ const PATENT_RATES = {
       'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 1500 },
       'taxi-1': { nameKey: 'activity_taxi_1', cost: 1300 },
       'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 700 },
-      'market-trade-1': { nameKey: 'activity_market_trade_1', cost: 2500 },
       'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1300 }
     }
   },
@@ -123,7 +117,6 @@ const PATENT_RATES = {
       'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 1400 },
       'taxi-1': { nameKey: 'activity_taxi_1', cost: 1200 },
       'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 650 },
-      'market-trade-1': { nameKey: 'activity_market_trade_1', cost: 2200 },
       'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1200 }
     }
   },
@@ -133,7 +126,6 @@ const PATENT_RATES = {
       'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 1300 },
       'taxi-1': { nameKey: 'activity_taxi_1', cost: 1100 },
       'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 600 },
-      'market-trade-1': { nameKey: 'activity_market_trade_1', cost: 2000 },
       'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1100 }
     }
   },
@@ -142,7 +134,6 @@ const PATENT_RATES = {
     activities: {
       'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 1500 },
       'taxi-1': { nameKey: 'activity_taxi_1', cost: 1400 },
-      'market-trade-1': { nameKey: 'activity_market_trade_1', cost: 2800 },
       'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1300 }
     }
   },
@@ -151,7 +142,6 @@ const PATENT_RATES = {
     activities: {
       'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 1400 },
       'taxi-1': { nameKey: 'activity_taxi_1', cost: 1300 },
-      'market-trade-1': { nameKey: 'activity_market_trade_1', cost: 2600 },
       'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1200 }
     }
   },
@@ -160,7 +150,6 @@ const PATENT_RATES = {
     activities: {
       'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 1600 },
       'taxi-1': { nameKey: 'activity_taxi_1', cost: 1500 },
-      'market-trade-1': { nameKey: 'activity_market_trade_1', cost: 3000 },
       'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1400 }
     }
   },
@@ -169,7 +158,6 @@ const PATENT_RATES = {
     activities: {
       'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 1300 },
       'taxi-1': { nameKey: 'activity_taxi_1', cost: 1200 },
-      'market-trade-1': { nameKey: 'activity_market_trade_1', cost: 2400 },
       'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1100 }
     }
   },
@@ -178,7 +166,6 @@ const PATENT_RATES = {
     activities: {
       'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 1200 },
       'taxi-1': { nameKey: 'activity_taxi_1', cost: 1100 },
-      'market-trade-1': { nameKey: 'activity_market_trade_1', cost: 2200 },
       'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1000 }
     }
   },
@@ -187,7 +174,6 @@ const PATENT_RATES = {
     activities: {
       'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2200 },
       'taxi-1': { nameKey: 'activity_taxi_1', cost: 2000 },
-      'market-trade-1': { nameKey: 'activity_market_trade_1', cost: 4000 },
       'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1800 },
       'cargo-transportation': { nameKey: 'activity_cargo_transportation', cost: 3000 },
       'tutoring': { nameKey: 'activity_tutoring', cost: 1700 },
@@ -206,7 +192,6 @@ const PATENT_RATES = {
     activities: {
       'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 1100 },
       'taxi-1': { nameKey: 'activity_taxi_1', cost: 1000 },
-      'market-trade-1': { nameKey: 'activity_market_trade_1', cost: 1800 },
       'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 900 }
     }
   }
@@ -369,7 +354,7 @@ const PatentCalculatorPage = () => {
   
   // Расчет сравнения с единым налогом
   const calculateComparison = (revenue: number, patentCost: number): ComparisonData => {
-    const singleTaxRate = 0.03; // 3% для ИП в КР
+    const singleTaxRate = 0.02; // услуги 2% (единый налог по видам: 1% торговля/такси, 2% услуги, 3-5% общепит)
     const singleTaxCost = revenue * singleTaxRate;
     const economy = Math.abs(patentCost - singleTaxCost);
     const recommended = patentCost < singleTaxCost ? 'patent' : 'single-tax';
@@ -1195,8 +1180,7 @@ const PatentCalculatorPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
                 { activity: 'hairdresser-1', region: 'bishkek' as Region },
-                { activity: 'taxi-1', region: 'osh' as Region },
-                { activity: 'market-trade-1', region: 'jalal-abad' as Region }
+                { activity: 'taxi-1', region: 'osh' as Region }
               ].map((example, index) => {
                 const regionData = PATENT_RATES[example.region];
                 const activityData = regionData.activities[example.activity as keyof typeof regionData.activities];
