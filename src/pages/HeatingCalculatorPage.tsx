@@ -29,11 +29,10 @@ const HEAT_TARIFF_SOCIAL = 1560.00;     // сом/Гкал — площадь д
 const HEAT_TARIFF_ABOVE_NORM = 5998.17; // сом/Гкал — площадь свыше 80 м²
 const SOCIAL_NORM_AREA = 80;            // м² — граница социальной нормы
 const HEAT_NORM_GCAL_PER_M2 = 0.036;    // Гкал/м² в месяц — норматив потребления тепла
-// ГВС: тепловая энергия 1560 сом/Гкал. Тариф по счётчику МП «Бишкектеплосеть»
-// проиндексирован пропорционально росту энергии 1120→1560 сом/Гкал (72,0 → 100,30 сом/м³).
-const HOT_WATER_TARIFF_PER_M3 = 100.30;     // сом/м³ по счётчику
+// ГВС: официальный тариф МП «Бишкектеплосеть» по счётчику (Приказ Деп. по рег. ТЭК №42 от 10.03.2026).
+const HOT_WATER_TARIFF_PER_M3 = 108.07;     // сом/м³ по счётчику
 const HOT_WATER_NORM_M3_PER_PERSON = 4.8;   // м³/чел в месяц — норматив ГВС (bishkek.gov.kg)
-const HOT_WATER_PER_PERSON = Math.round(HOT_WATER_NORM_M3_PER_PERSON * HOT_WATER_TARIFF_PER_M3 * 100) / 100; // 481,44 сом/чел
+const HOT_WATER_PER_PERSON = Math.round(HOT_WATER_NORM_M3_PER_PERSON * HOT_WATER_TARIFF_PER_M3 * 100) / 100; // 518,74 сом/чел
 
 // Единый национальный набор тарифов (одинаков для всех городов с центральным отоплением)
 const NATIONAL_HEATING_TARIFF = {

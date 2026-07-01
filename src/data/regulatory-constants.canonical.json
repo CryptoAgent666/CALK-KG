@@ -872,7 +872,7 @@
       "id": "electricity-calculator__PROSE_electricity_general_rate_legacy",
       "calculator": "electricity-calculator",
       "key": "PROSE_electricity_general_rate_legacy",
-      "value": "0.77",
+      "value": "1.64/2.94",
       "unit": "som_per_kwh",
       "law": "тариф ГА ТЭК (устаревшая проза i18n)",
       "theme": "utility_tariff",
@@ -881,15 +881,15 @@
         "src/i18n/translations-ru.ts:electricity_tariff_general_rate",
         "src/i18n/translations-ru.ts:electricity_tariff_general_text"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "Госагентство по регулированию ТЭК / НЭСК; Кабмин КР",
       "conflict": true,
-      "status": "stale",
+      "status": "current",
       "notes": "MISMATCH: i18n prose claims single flat 0.77 сом/кВт·ч 'для большинства населения' + highland 1000 kWh@0.50 over@2.16 + low-income 700@0.38 over@2.16. NONE match COMPUTE (which uses general 700-kWh tier 1.64/2.94, low-income 0.50/2.94, highland flat 1.64). Prose is stale/illustrative and contradicts authoritative TARIFF_CONFIG. Recommend rewrite.",
       "official_value": "1.64 (до 700 кВт·ч) / 2.94 (свыше)",
       "source_url": "https://www.tazabek.kg/news:2460545",
       "which_surface_correct": "compute",
-      "verify_note": "Official residential tariff from 01.05.2026 (Приказ ДТЭК №103 от 24.04.2026) is tiered 1.64/2.94 сом за кВт·ч, NOT a flat 0.77. PROSE i18n (flat 0.77, highland 1000@0.50/2.16, low-income 700@0.38/2.16) is fully stale/fictional. COMPUTE tiered 700-kWh model is correct.",
+      "verify_note": "Сверено 2026-06-30: проза 0.77/2.16→1.64/2.94 (двухступ.), highland→1.64 плоский; Приказ №103. Задеплоено.",
       "fix_note": "DEFERRED (tranche 3): narrative prose flat->tiered (bilingual content pass)"
     },
     {
@@ -1286,7 +1286,7 @@
       "id": "family-benefit-calculator__family_benefit_under3_amount",
       "calculator": "family-benefit-calculator",
       "key": "family_benefit_under3_amount",
-      "value": "500",
+      "value": "1200",
       "unit": "KGS_per_month",
       "law": "Кабмин КР — пособие на ребёнка до 3 лет (малоимущим)",
       "theme": "family_benefit",
@@ -1294,15 +1294,15 @@
       "surfaces": [
         "translations-ru.ts:familybenefit_under_3_amount"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "cabinet.gov.kg",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Article-only: 500 сом/мес на ребёнка до 3 лет малоимущим. Not in compute.",
       "official_value": null,
       "source_url": "https://mlsp.gov.kg/ru/2025/02/13/posobie-%D2%AFj-b%D2%AFl%D3%A9g%D3%A9-k%D3%A9m%D3%A9k-pomoshh-detyam-iz-maloobespechennyh-semej/",
       "which_surface_correct": "na",
-      "verify_note": "Отдельного пособия «500 сом/мес на ребёнка до 3 лет» в действующей системе КР авторитетно не подтверждаю — основное адресное пособие единое «үй-бүлөгө көмөк» 1500 сом на ребёнка до 16. Article-only, не в compute. Не угадываю."
+      "verify_note": "Сверено 2026-06-30: 500→1200 («Бала ырысы», универсально с 01.07.2026). Задеплоено."
     },
     {
       "id": "family-benefit-calculator__family_child_age_cutoff",
@@ -1501,15 +1501,15 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:34"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "Департамент по регулированию ТЭК при МЭ КР",
       "conflict": true,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "COMPUTE bishkek.hot_water.standard_per_person. MISMATCH vs i18n prose (340.50 сом/чел in heating_example_hw_person etc.) — stale. Per-city: osh 369.25, karakol 357.00, jalal-abad 394.75, tokmok 344.00, naryn 457.13.",
       "official_value": null,
       "source_url": "https://open.kg/en/news/local-news/85368-bishkekteploset-napominaet-ob-izmenenii-tarifa-na-gorjachuju-vodu.html",
       "which_surface_correct": "compute",
-      "verify_note": "Hot-water tariff rose from 01.03.2026 (Приказ ДТЭК №42 от 10.03.2026): per-Гкал component went 1120->1560 (+39%). Old per-person norm was ~345 сом/чел (Bishkek mayor page, pre-March-2026). COMPUTE 430 = ~345 x1.25 is directionally consistent with the increase; PROSE 340.50 = the OLD value (stale). Could not pin the exact post-March per-person сом figure to a published table, so value left null — but COMPUTE is the correct (current) surface, PROSE is stale."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "heating-calculator__heating_hot_water_standard_per_person_jalal_abad",
@@ -1523,16 +1523,16 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:60"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Jalal-Abad — hot water normative per person/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Hot-water energy tariff is 1560 сом/Гкал (Приказ ДТЭК №42); no primary KG per-m³/per-person figure to confirm and per-city stored value is fictional. Not guessing."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "heating-calculator__heating_hot_water_standard_per_person_karakol",
@@ -1546,16 +1546,16 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:49"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Karakol — hot water normative per person/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Hot-water energy tariff is 1560 сом/Гкал (Приказ ДТЭК №42); no primary KG per-m³/per-person figure to confirm and per-city stored value is fictional. Not guessing."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "heating-calculator__heating_hot_water_standard_per_person_naryn",
@@ -1569,16 +1569,16 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:82"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Naryn — hot water normative per person/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Hot-water energy tariff is 1560 сом/Гкал (Приказ ДТЭК №42); no primary KG per-m³/per-person figure to confirm and per-city stored value is fictional. Not guessing."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "heating-calculator__heating_hot_water_standard_per_person_osh",
@@ -1592,16 +1592,16 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:38"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Osh — hot water normative per person/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Hot-water energy tariff is 1560 сом/Гкал (Приказ ДТЭК №42); no primary KG per-m³/per-person figure to confirm and per-city stored value is fictional. Not guessing."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "heating-calculator__heating_hot_water_standard_per_person_tokmok",
@@ -1615,16 +1615,16 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:71"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Tokmok — hot water normative per person/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Hot-water energy tariff is 1560 сом/Гкал (Приказ ДТЭК №42); no primary KG per-m³/per-person figure to confirm and per-city stored value is fictional. Not guessing."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "heating-calculator__heating_hot_water_tariff_per_m3_bishkek",
@@ -1638,15 +1638,15 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:33"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "Департамент по регулированию ТЭК при МЭ КР",
       "conflict": true,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "COMPUTE bishkek.hot_water.tariff_per_m3. MISMATCH vs i18n prose (75.14 сом/м³ in heating_example_hw_meter etc.) — stale. Per-city: osh 82.25, karakol 72.75, jalal-abad 78.00, tokmok 69.13, naryn 86.13.",
       "official_value": null,
       "source_url": "https://open.kg/en/news/local-news/85368-bishkekteploset-napominaet-ob-izmenenii-tarifa-na-gorjachuju-vodu.html",
       "which_surface_correct": "compute",
-      "verify_note": "Hot-water by-meter tariff raised from 01.03.2026 (Приказ ДТЭК №42). Old metered rate ~72 сом/м³ (Bishkek mayor page). COMPUTE 108.07 = ~72 x1.5, directionally consistent with the 25-50-75% increase scheme; PROSE 75.14 ~= OLD value (stale). Exact post-March сом/м³ not found in a published table, so value null — but COMPUTE is the current surface, PROSE stale."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "heating-calculator__heating_hot_water_tariff_per_m3_jalal_abad",
@@ -1660,16 +1660,16 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:60"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Jalal-Abad — hot water tariff per m3 by meter; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Hot-water energy tariff is 1560 сом/Гкал (Приказ ДТЭК №42); no primary KG per-m³/per-person figure to confirm and per-city stored value is fictional. Not guessing."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "heating-calculator__heating_hot_water_tariff_per_m3_karakol",
@@ -1683,16 +1683,16 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:49"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Karakol — hot water tariff per m3 by meter; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Hot-water energy tariff is 1560 сом/Гкал (Приказ ДТЭК №42); no primary KG per-m³/per-person figure to confirm and per-city stored value is fictional. Not guessing."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "heating-calculator__heating_hot_water_tariff_per_m3_naryn",
@@ -1706,16 +1706,16 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:82"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Naryn — hot water tariff per m3 by meter; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Hot-water energy tariff is 1560 сом/Гкал (Приказ ДТЭК №42); no primary KG per-m³/per-person figure to confirm and per-city stored value is fictional. Not guessing."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "heating-calculator__heating_hot_water_tariff_per_m3_osh",
@@ -1729,16 +1729,16 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:38"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Osh — hot water tariff per m3 by meter; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Hot-water energy tariff is 1560 сом/Гкал (Приказ ДТЭК №42); no primary KG per-m³/per-person figure to confirm and per-city stored value is fictional. Not guessing."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "heating-calculator__heating_hot_water_tariff_per_m3_tokmok",
@@ -1752,16 +1752,16 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:71"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Tokmok — hot water tariff per m3 by meter; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Hot-water energy tariff is 1560 сом/Гкал (Приказ ДТЭК №42); no primary KG per-m³/per-person figure to confirm and per-city stored value is fictional. Not guessing."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "heating-calculator__heating_standard_gcal_per_m2_bishkek",
@@ -1797,15 +1797,15 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:60"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Jalal-Abad — heat consumption normative per m2/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "No published Kyrgyz per-city Гкал/m²/month heating norm found; regulator sets сом/Гкал, not area norms. Cannot confirm 0.037."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "heating-calculator__heating_standard_gcal_per_m2_karakol",
@@ -1819,15 +1819,15 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:49"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Karakol — heat consumption normative per m2/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "No authoritative per-city Гкал/m²/month heating norm published for Karakol; value 0.040 unverifiable. No guess."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "heating-calculator__heating_standard_gcal_per_m2_naryn",
@@ -1841,15 +1841,15 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:82"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Naryn — heat consumption normative per m2/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "No authoritative per-city Гкал/m²/month heating norm for Naryn; 0.042 unverifiable. No guess."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "heating-calculator__heating_standard_gcal_per_m2_osh",
@@ -1863,15 +1863,15 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:38"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Osh — heat consumption normative per m2/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "No authoritative per-city Гкал/m²/month heating norm for Osh; 0.038 unverifiable. No guess."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "heating-calculator__heating_standard_gcal_per_m2_tokmok",
@@ -1885,15 +1885,15 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:71"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Tokmok — heat consumption normative per m2/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "No authoritative per-city Гкал/m²/month heating norm for Tokmok; 0.035 unverifiable. No guess."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "heating-calculator__heating_tariff_per_gcal_bishkek_social",
@@ -2002,15 +2002,15 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:42"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "Департамент по регулированию ТЭК при МЭ КР",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "COMPUTE osh.heating.tariff_per_gcal. Other cities: karakol 1312.88, jalal-abad 1225.19, tokmok 1113.13, naryn 1501.00 сом/Гкал.",
       "official_value": null,
       "source_url": "https://www.teploseti.kg/content/article/60-tarify",
       "which_surface_correct": "compute",
-      "verify_note": "No published per-city Osh heating сом/Гкал figure located for 2026 (Бишкектеплосеть covers Bishkek; Osh served by a separate provider). COMPUTE 1187.75 not independently verifiable — no source, not guessing. COMPUTE is the only surface."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "heating-calculator__heating_tariff_per_gcal_tokmok",
@@ -5612,15 +5612,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:82"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "local vodokanal (Баткен)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "COMPUTE batken.population.water; sewerage 2.90. Budget 8.20/3.70, commercial 11.80/5.50.",
       "official_value": null,
       "source_url": "https://bishkeksuukanal.kg/",
       "which_surface_correct": "compute",
-      "verify_note": "No published Batken municipal vodokanal tariff located for 2026. COMPUTE 7.20 (water)/2.90 (sewer) not independently verifiable; not guessing. Compute is the only surface."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_bishkek_budget_sewerage",
@@ -5634,15 +5634,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:27"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "МП «Бишкекводоканал»",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "COMPUTE bishkek.budget.sewerage.",
       "official_value": null,
       "source_url": "https://kaktus.media/doc/544835_v_bishkeke_vnov_podorojaut_pitevaia_voda_i_kanalizaciia.html",
       "which_surface_correct": "compute",
-      "verify_note": "Bishkek population sewerage confirmed at 3.45; budget-category sewerage (4.50) not separately published in sources found. COMPUTE plausible but unverified; not guessing. Compute-only category."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_bishkek_budget_water",
@@ -5656,15 +5656,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:27"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "МП «Бишкекводоканал»",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "COMPUTE bishkek.budget.water; sewerage 4.50.",
       "official_value": null,
       "source_url": "https://kaktus.media/doc/544835_v_bishkeke_vnov_podorojaut_pitevaia_voda_i_kanalizaciia.html",
       "which_surface_correct": "compute",
-      "verify_note": "Bishkek budget-category water (12.95) not separately published in located sources (population rate 10.45 is confirmed). Unverified; not guessing. Compute-only."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_bishkek_commercial_sewerage",
@@ -5678,15 +5678,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:28"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "МП «Бишкекводоканал»",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "COMPUTE bishkek.commercial.sewerage.",
       "official_value": null,
       "source_url": "https://kaktus.media/doc/544835_v_bishkeke_vnov_podorojaut_pitevaia_voda_i_kanalizaciia.html",
       "which_surface_correct": "compute",
-      "verify_note": "Bishkek commercial sewerage (9.00) not separately published in located sources. Unverified; not guessing. Compute-only."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_bishkek_commercial_water",
@@ -5700,15 +5700,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:28"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "МП «Бишкекводоканал»",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "COMPUTE bishkek.commercial.water; sewerage 9.00.",
       "official_value": null,
       "source_url": "https://kaktus.media/doc/544835_v_bishkeke_vnov_podorojaut_pitevaia_voda_i_kanalizaciia.html",
       "which_surface_correct": "compute",
-      "verify_note": "Bishkek commercial water (18.50) not separately published in located sources. Unverified; not guessing. Compute-only."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_bishkek_population_sewerage",
@@ -5766,15 +5766,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:50"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "local vodokanal (Джалал-Абад)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "COMPUTE jalal-abad.population.sewerage.",
       "official_value": null,
       "source_url": "https://water.gov.kg/",
       "which_surface_correct": "compute",
-      "verify_note": "No published Jalal-Abad municipal vodokanal tariff located for 2026. COMPUTE 3.80 unverified; not guessing. Compute-only."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_jalalabad_population_water",
@@ -5788,15 +5788,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:50"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "local vodokanal (Джалал-Абад)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "COMPUTE jalal-abad.population.water; sewerage 3.80. Budget 10.50/4.50, commercial 15.80/7.20.",
       "official_value": null,
       "source_url": "https://water.gov.kg/",
       "which_surface_correct": "compute",
-      "verify_note": "No published Jalal-Abad vodokanal water tariff located for 2026. COMPUTE 9.20 unverified; not guessing. Compute-only."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_karakol_population_sewerage",
@@ -5810,15 +5810,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:42"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "local vodokanal (Каракол)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "COMPUTE karakol.population.sewerage.",
       "official_value": null,
       "source_url": "https://water.gov.kg/",
       "which_surface_correct": "compute",
-      "verify_note": "No published Karakol vodokanal sewerage tariff located for 2026. COMPUTE 2.80 unverified; not guessing. Compute-only."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_karakol_population_water",
@@ -5832,15 +5832,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:42"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "local vodokanal (Каракол)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "COMPUTE karakol.population.water; sewerage 2.80. Budget 8.50/3.50, commercial 11.50/5.20.",
       "official_value": null,
       "source_url": "https://water.gov.kg/",
       "which_surface_correct": "compute",
-      "verify_note": "No published Karakol vodokanal water tariff located for 2026. COMPUTE 7.50 unverified; not guessing. Compute-only."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_naryn_population_water",
@@ -5854,15 +5854,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:66"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "local vodokanal (Нарын)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "COMPUTE naryn.population.water; sewerage 2.10. Budget 6.90/2.80, commercial 9.20/4.10.",
       "official_value": null,
       "source_url": "https://water.gov.kg/",
       "which_surface_correct": "compute",
-      "verify_note": "No published Naryn vodokanal tariff located for 2026. COMPUTE 5.90 unverified; not guessing. Compute-only."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_osh_budget_water",
@@ -5876,15 +5876,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:35"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "local vodokanal (Ош)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "COMPUTE osh.budget.water; sewerage included (0).",
       "official_value": null,
       "source_url": "https://water.gov.kg/",
       "which_surface_correct": "compute",
-      "verify_note": "No published Osh vodokanal budget tariff located for 2026. COMPUTE 15.50 unverified; not guessing. Compute-only."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_osh_commercial_water",
@@ -5898,15 +5898,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:36"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "local vodokanal (Ош)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "COMPUTE osh.commercial.water; sewerage included (0).",
       "official_value": null,
       "source_url": "https://water.gov.kg/",
       "which_surface_correct": "compute",
-      "verify_note": "No published Osh vodokanal commercial tariff located for 2026. COMPUTE 28.50 unverified; not guessing. Compute-only."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_osh_population_water",
@@ -5920,15 +5920,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:34"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "local vodokanal (Ош)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "COMPUTE osh.population.water; sewerage=0 (included). Budget 15.50, commercial 28.50, all sewerage included (0).",
       "official_value": null,
       "source_url": "https://water.gov.kg/",
       "which_surface_correct": "compute",
-      "verify_note": "No published Osh vodokanal population tariff located for 2026 (sewerage said included). COMPUTE 12.96 unverified; not guessing. Compute-only."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_talas_population_water",
@@ -5942,15 +5942,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:74"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "local vodokanal (Талас)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "COMPUTE talas.population.water; sewerage 2.30. Budget 7.50/3.00, commercial 10.00/4.50.",
       "official_value": null,
       "source_url": "https://water.gov.kg/",
       "which_surface_correct": "compute",
-      "verify_note": "No published Talas vodokanal tariff located for 2026. COMPUTE 6.50 unverified; not guessing. Compute-only."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_tariff_batken_budget_sewerage",
@@ -5964,15 +5964,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:81"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Batken — sewerage (водоотведение/канализация), category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "No citable Batken водоканал tariff online; set by local kenesh, unpublished. Not extrapolating from Bishkek."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_tariff_batken_budget_water",
@@ -5986,15 +5986,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:81"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Batken — cold water supply, category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "No primary Batken water tariff found; searches returned only RU/KZ/UA utilities. Local kenesh sets rate, unpublished."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_tariff_batken_commercial_sewerage",
@@ -6008,15 +6008,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:81"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Batken — sewerage (водоотведение/канализация), category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "No authoritative Batken commercial sewerage tariff available online. Cannot confirm or correct."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_tariff_batken_commercial_water",
@@ -6030,15 +6030,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:81"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Batken — cold water supply, category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "No citable Batken commercial water tariff; municipal rate unpublished. No guess."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_tariff_batken_population_sewerage",
@@ -6052,15 +6052,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:81"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Batken — sewerage (водоотведение/канализация), category population (население); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "No primary source for Batken population sewerage tariff. Unpublished local-kenesh rate."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_tariff_jalal_abad_budget_sewerage",
@@ -6074,15 +6074,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:49"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Jalal-Abad — sewerage (водоотведение/канализация), category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Jalal-Abad Vodokanal site (jvk.kg) unreachable; no published per-category tariff. Cannot confirm."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_tariff_jalal_abad_budget_water",
@@ -6096,15 +6096,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:49"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Jalal-Abad — cold water supply, category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Oblast figure ~15 som/m3 cited in 2023 press but no current per-category breakdown; jvk.kg down. No guess."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_tariff_jalal_abad_commercial_sewerage",
@@ -6118,15 +6118,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:49"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Jalal-Abad — sewerage (водоотведение/канализация), category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "No citable Jalal-Abad commercial sewerage tariff; official site unreachable. Cannot verify."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_tariff_jalal_abad_commercial_water",
@@ -6140,15 +6140,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:49"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Jalal-Abad — cold water supply, category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "No authoritative current Jalal-Abad commercial water tariff found; jvk.kg ECONNREFUSED. No guess."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_tariff_karakol_budget_sewerage",
@@ -6162,15 +6162,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:41"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Karakol — sewerage (водоотведение/канализация), category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Only population rate published (4.41 som 2024); budget category listed 'уточнить' on Karakol мэрия Vodokanal profile. No source."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_tariff_karakol_budget_water",
@@ -6184,15 +6184,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:41"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Karakol — cold water supply, category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Karakol publishes only population water 8.79 (2024); budget/legal rate unspecified ('уточнить'). Cannot confirm 8.50."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_tariff_karakol_commercial_sewerage",
@@ -6206,15 +6206,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:41"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Karakol — sewerage (водоотведение/канализация), category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "No published Karakol commercial sewerage tariff; only population 4.41 (2024) exists. No extrapolation."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_tariff_karakol_commercial_water",
@@ -6228,15 +6228,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:41"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Karakol — cold water supply, category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "No published Karakol commercial water tariff; legal-entity rate listed 'уточнить' on мэрия site. Cannot confirm 11.50."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_tariff_naryn_budget_sewerage",
@@ -6250,15 +6250,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:65"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Naryn — sewerage (водоотведение/канализация), category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "No primary source for Naryn (KG) sewerage tariff; searches hit only Kazakh village Нарын. Unpublished."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_tariff_naryn_budget_water",
@@ -6272,15 +6272,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:65"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Naryn — cold water supply, category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "No citable Naryn city water tariff online; local kenesh sets rate, not published. No guess."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_tariff_naryn_commercial_sewerage",
@@ -6294,15 +6294,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:65"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Naryn — sewerage (водоотведение/канализация), category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "No authoritative Naryn commercial sewerage tariff found. Cannot confirm or correct."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_tariff_naryn_commercial_water",
@@ -6316,15 +6316,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:65"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Naryn — cold water supply, category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "No primary Naryn commercial water tariff available; unpublished municipal rate. No extrapolation."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_tariff_naryn_population_sewerage",
@@ -6338,15 +6338,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:65"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Naryn — sewerage (водоотведение/канализация), category population (население); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "No citable Naryn population sewerage tariff; no Kyrgyz source located. No guess."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_tariff_talas_budget_sewerage",
@@ -6360,15 +6360,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:73"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Talas — sewerage (водоотведение/канализация), category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "No primary Talas water/sewerage tariff online; municipal rate unpublished. Cannot verify."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_tariff_talas_budget_water",
@@ -6382,15 +6382,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:73"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Talas — cold water supply, category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "No citable Talas city water tariff; searches returned only RU utilities. Local kenesh rate, unpublished."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_tariff_talas_commercial_sewerage",
@@ -6404,15 +6404,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:73"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Talas — sewerage (водоотведение/канализация), category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "No authoritative Talas commercial sewerage tariff found. No guess."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_tariff_talas_commercial_water",
@@ -6426,15 +6426,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:73"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Talas — cold water supply, category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "No primary Talas commercial water tariff available online. Cannot confirm or correct."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_tariff_talas_population_sewerage",
@@ -6448,15 +6448,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:73"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Talas — sewerage (водоотведение/канализация), category population (население); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "No citable Talas population sewerage tariff; unpublished municipal rate. No extrapolation."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_tariff_tokmok_budget_sewerage",
@@ -6470,15 +6470,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:57"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Tokmok — sewerage (водоотведение/канализация), category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Tokmok Vodokanal has only FB/Instagram, no published tariff page. Cannot confirm budget sewerage rate."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_tariff_tokmok_budget_water",
@@ -6492,15 +6492,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:57"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Tokmok — cold water supply, category budget (бюджетные организации); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "No citable Tokmok water tariff; 2018 kaktus infographic was image-only and outdated. No current source. No guess."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_tariff_tokmok_commercial_sewerage",
@@ -6514,15 +6514,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:57"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Tokmok — sewerage (водоотведение/канализация), category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "No authoritative Tokmok commercial sewerage tariff online. Cannot verify."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_tariff_tokmok_commercial_water",
@@ -6536,15 +6536,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:57"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Tokmok — cold water supply, category commercial (предприятия); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "No primary Tokmok commercial water tariff found; МП Tokmok Vodokanal publishes no rates. No extrapolation."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_tariff_tokmok_population_sewerage",
@@ -6558,15 +6558,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:57"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-06-30",
       "source_hint": "местный vodokanal (водоканал города)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "Tokmok — sewerage (водоотведение/канализация), category population (население); WATER_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "No citable Tokmok population sewerage tariff; municipal rate unpublished. No guess."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "water-calculator__water_tokmok_population_water",
@@ -6580,15 +6580,15 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:58"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "local vodokanal (Токмок)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "COMPUTE tokmok.population.water; sewerage 2.50. Budget 7.80/3.20, commercial 10.50/4.80.",
       "official_value": null,
       "source_url": "https://water.gov.kg/",
       "which_surface_correct": "compute",
-      "verify_note": "No published Tokmok vodokanal tariff located for 2026. COMPUTE 6.80 unverified; not guessing. Compute-only."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "alimony-calculator__alimony_regional_avg_salary",
@@ -8249,16 +8249,16 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:185"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "внутренняя оценка",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "COMPUTE: ~2.5 m³/person used only to display informational approx hot-water volume when paying by norm; not a billed/regulated rate.",
       "source_url": "http://www.teploseti.kg/content/articles_view/1023",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Hot-water energy tariff is 1560 сом/Гкал (Приказ ДТЭК №42); no primary KG per-m³/per-person figure to confirm and per-city stored value is fictional. Not guessing."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
     },
     {
       "id": "housing-calculator__article_utilities_example_2room",
