@@ -33,7 +33,6 @@ const getSegmentLabel = (segment: string, language: 'ru' | 'ky'): string => {
     zakat: { ru: 'Закят', ky: 'Закят' },
     'taxi-tax': { ru: 'Налог такси', ky: 'Такси салыгы' },
     passport: { ru: 'Паспорт', ky: 'Паспорт' },
-    'tourist-fee': { ru: 'Туристический сбор', ky: 'Туристтик жыйым' },
     calorie: { ru: 'Калории', ky: 'Калория' },
     'sewing-cost': { ru: 'Себестоимость шитья', ky: 'Тигүү өздүк наркы' },
     housing: { ru: 'Жилищный калькулятор', ky: 'Турак жай калькулятору' },

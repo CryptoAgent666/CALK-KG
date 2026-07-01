@@ -65,7 +65,6 @@ const CALCULATOR_SOURCES = {
   'construction': ['stat', 'minfin'],
   'crop-yield': ['stat', 'mlsp'],
   'rental': ['stat', 'toktom'],
-  'tourist-fee': ['minfin', 'toktom'],
   'zakat': ['nbkr', 'stat'],
   'calorie': ['patrol', 'stat'],
   'sewing-cost': ['stat', 'minfin'],
@@ -148,7 +147,6 @@ const slugOverrides = {
   'family-benefit': 'familybenefit',
   'traffic-fines': 'trafficfines',
   'taxi-tax': 'taxitax',
-  'tourist-fee': 'touristfee'
   // Removed: property-tax, single-tax, social-fund — default normalization works for them.
 };
 
@@ -182,7 +180,6 @@ const calculatorCategories = {
   'patent': { ru: 'Финансы', ky: 'Каржы', cat: 'finance' },
   'traffic-fines': { ru: 'Автомобили', ky: 'Автоунаа', cat: 'auto' },
   'zakat': { ru: 'Разное', ky: 'Башка', cat: 'other' },
-  'tourist-fee': { ru: 'Разное', ky: 'Башка', cat: 'other' },
   'calorie': { ru: 'Разное', ky: 'Башка', cat: 'other' },
   'taxi-tax': { ru: 'Финансы', ky: 'Каржы', cat: 'finance' },
   'passport': { ru: 'Разное', ky: 'Башка', cat: 'other' },

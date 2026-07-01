@@ -121,7 +121,6 @@ export const CALCULATOR_SOURCES: Record<string, string[]> = {
   'rental': ['stat', 'toktom'],
 
   // Other
-  'tourist-fee': ['minfin', 'toktom'],
   'zakat': ['nbkr'], // gold price reference
   'calorie': ['patrol'],
   'sewing-cost': ['stat'],

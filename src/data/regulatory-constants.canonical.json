@@ -4484,15 +4484,15 @@
         "translations-ru.ts:tourist_who_must_pay_3:3227",
         "translations-ru.ts:tourist_who_must_pay_1:3225"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "cabinet.gov.kg / местные администрации",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "PROSE: граждане КР освобождены от сбора; платят иностранцы/лица без гражданства; граждане ЕАЭС — по усмотрению города. Exemption rule, not in compute (compute charges flat per person).",
       "official_value": null,
       "source_url": "",
       "which_surface_correct": "na",
-      "verify_note": "No official Кабмин/кенеш decree on a per-night tourist/resort fee (курортный/туристический сбор) could be located for KG. Whether KR citizens are exempt cannot be confirmed against any primary source — uncertain (sparse data; do not guess)."
+      "verify_note": "2026-06-30: калькулятор УДАЛЁН с сайта — фабрикация (в КР нет туристического сбора; НК: местные налоги только имущество+земля). Реальное близкое — эко-сбор Иссык-Куля."
     },
     {
       "id": "tourist-fee-calculator__tourist_fee_rate_bishkek",
@@ -4506,15 +4506,15 @@
       "surfaces": [
         "src/pages/TouristFeeCalculatorPage.tsx:19-23"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "cabinet.gov.kg / местные администрации",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "TOURIST_FEE_RATES['bishkek'].rate = 100 сом/чел/сутки.",
       "official_value": null,
       "source_url": "",
       "which_surface_correct": "na",
-      "verify_note": "No findable official decree setting a per-night tourist fee for Bishkek. 100 сом/чел/сутки unverifiable — uncertain."
+      "verify_note": "2026-06-30: калькулятор УДАЛЁН с сайта — фабрикация (в КР нет туристического сбора; НК: местные налоги только имущество+земля). Реальное близкое — эко-сбор Иссык-Куля."
     },
     {
       "id": "tourist-fee-calculator__tourist_fee_rate_bokonbaevo",
@@ -4528,15 +4528,15 @@
       "surfaces": [
         "src/pages/TouristFeeCalculatorPage.tsx:49-53"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "cabinet.gov.kg / местные администрации",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "TOURIST_FEE_RATES['bokonbaevo'].rate = 130 (южный берег Иссык-Куля).",
       "official_value": null,
       "source_url": "",
       "which_surface_correct": "na",
-      "verify_note": "No official Issyk-Kul (south shore/Боконбаево) tourist-fee decree located. 130 сом unverifiable — uncertain."
+      "verify_note": "2026-06-30: калькулятор УДАЛЁН с сайта — фабрикация (в КР нет туристического сбора; НК: местные налоги только имущество+земля). Реальное близкое — эко-сбор Иссык-Куля."
     },
     {
       "id": "tourist-fee-calculator__tourist_fee_rate_cholpon_ata",
@@ -4550,15 +4550,15 @@
       "surfaces": [
         "src/pages/TouristFeeCalculatorPage.tsx:24-28"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "cabinet.gov.kg / местные администрации",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "TOURIST_FEE_RATES['cholpon-ata'].rate = 150 (highest, курортная зона Иссык-Куль).",
       "official_value": null,
       "source_url": "",
       "which_surface_correct": "na",
-      "verify_note": "No official Чолпон-Ата кенеш tourist-fee decree located despite targeted search. 150 сом unverifiable — uncertain."
+      "verify_note": "2026-06-30: калькулятор УДАЛЁН с сайта — фабрикация (в КР нет туристического сбора; НК: местные налоги только имущество+земля). Реальное близкое — эко-сбор Иссык-Куля."
     },
     {
       "id": "tourist-fee-calculator__tourist_fee_rate_jalal_abad",
@@ -4572,15 +4572,15 @@
       "surfaces": [
         "src/pages/TouristFeeCalculatorPage.tsx:44-48"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "cabinet.gov.kg / местные администрации",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "TOURIST_FEE_RATES['jalal-abad'].rate = 70 (lowest).",
       "official_value": null,
       "source_url": "",
       "which_surface_correct": "na",
-      "verify_note": "No official Джалал-Абад tourist-fee decree located. 70 сом unverifiable — uncertain."
+      "verify_note": "2026-06-30: калькулятор УДАЛЁН с сайта — фабрикация (в КР нет туристического сбора; НК: местные налоги только имущество+земля). Реальное близкое — эко-сбор Иссык-Куля."
     },
     {
       "id": "tourist-fee-calculator__tourist_fee_rate_karakol",
@@ -4594,15 +4594,15 @@
       "surfaces": [
         "src/pages/TouristFeeCalculatorPage.tsx:29-33"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "cabinet.gov.kg / местные администрации",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "TOURIST_FEE_RATES['karakol'].rate = 120.",
       "official_value": null,
       "source_url": "",
       "which_surface_correct": "na",
-      "verify_note": "No official Каракол tourist-fee decree located. 120 сом unverifiable — uncertain."
+      "verify_note": "2026-06-30: калькулятор УДАЛЁН с сайта — фабрикация (в КР нет туристического сбора; НК: местные налоги только имущество+земля). Реальное близкое — эко-сбор Иссык-Куля."
     },
     {
       "id": "tourist-fee-calculator__tourist_fee_rate_kochkor",
@@ -4616,15 +4616,15 @@
       "surfaces": [
         "src/pages/TouristFeeCalculatorPage.tsx:54-58"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "cabinet.gov.kg / местные администрации",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "TOURIST_FEE_RATES['kochkor'].rate = 110.",
       "official_value": null,
       "source_url": "",
       "which_surface_correct": "na",
-      "verify_note": "No official Кочкор tourist-fee decree located. 110 сом unverifiable — uncertain."
+      "verify_note": "2026-06-30: калькулятор УДАЛЁН с сайта — фабрикация (в КР нет туристического сбора; НК: местные налоги только имущество+земля). Реальное близкое — эко-сбор Иссык-Куля."
     },
     {
       "id": "tourist-fee-calculator__tourist_fee_rate_naryn",
@@ -4638,15 +4638,15 @@
       "surfaces": [
         "src/pages/TouristFeeCalculatorPage.tsx:39-43"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "cabinet.gov.kg / местные администрации",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "TOURIST_FEE_RATES['naryn'].rate = 90.",
       "official_value": null,
       "source_url": "",
       "which_surface_correct": "na",
-      "verify_note": "No official Нарын tourist-fee decree located. 90 сом unverifiable — uncertain."
+      "verify_note": "2026-06-30: калькулятор УДАЛЁН с сайта — фабрикация (в КР нет туристического сбора; НК: местные налоги только имущество+земля). Реальное близкое — эко-сбор Иссык-Куля."
     },
     {
       "id": "tourist-fee-calculator__tourist_fee_rate_osh",
@@ -4660,15 +4660,15 @@
       "surfaces": [
         "src/pages/TouristFeeCalculatorPage.tsx:34-38"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-06-30",
       "source_hint": "cabinet.gov.kg / местные администрации",
       "conflict": false,
-      "status": "uncertain",
+      "status": "removed",
       "notes": "TOURIST_FEE_RATES['osh'].rate = 80.",
       "official_value": null,
       "source_url": "",
       "which_surface_correct": "na",
-      "verify_note": "No official Ош tourist-fee decree located. 80 сом unverifiable — uncertain."
+      "verify_note": "2026-06-30: калькулятор УДАЛЁН с сайта — фабрикация (в КР нет туристического сбора; НК: местные налоги только имущество+земля). Реальное близкое — эко-сбор Иссык-Куля."
     },
     {
       "id": "traffic-fines-calculator__discount_rate_within_30_days",

@@ -41,7 +41,6 @@ const calculatorRoutes: Record<string, string> = {
   'zakat-calculator': '/calculator/zakat',
   'taxi-tax-calculator': '/calculator/taxi-tax',
   'passport-calculator': '/calculator/passport',
-  'tourist-fee-calculator': '/calculator/tourist-fee',
   'calorie-calculator': '/calculator/calorie',
   'sewing-cost-calculator': '/calculator/sewing-cost',
   'housing-calculator': '/calculator/housing',

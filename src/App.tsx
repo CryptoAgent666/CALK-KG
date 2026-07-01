@@ -50,7 +50,6 @@ const TrafficFinesCalculatorPage = lazy(() => import('./pages/TrafficFinesCalcul
 const ZakatCalculatorPage = lazy(() => import('./pages/ZakatCalculatorPage'));
 const TaxiTaxCalculatorPage = lazy(() => import('./pages/TaxiTaxCalculatorPage'));
 const PassportCalculatorPage = lazy(() => import('./pages/PassportCalculatorPage'));
-const TouristFeeCalculatorPage = lazy(() => import('./pages/TouristFeeCalculatorPage'));
 const CalorieCalculatorPage = lazy(() => import('./pages/CalorieCalculatorPage'));
 const SewingCostCalculatorPage = lazy(() => import('./pages/SewingCostCalculatorPage'));
 const HousingCalculatorPage = lazy(() => import('./pages/HousingCalculatorPage'));
@@ -221,7 +220,6 @@ function App() {
     { path: 'calculator/zakat', element: <ZakatCalculatorPage /> },
     { path: 'calculator/taxi-tax', element: <TaxiTaxCalculatorPage /> },
     { path: 'calculator/passport', element: <PassportCalculatorPage /> },
-    { path: 'calculator/tourist-fee', element: <TouristFeeCalculatorPage /> },
     { path: 'calculator/calorie', element: <CalorieCalculatorPage /> },
     { path: 'calculator/sewing-cost', element: <SewingCostCalculatorPage /> },
     { path: 'calculator/housing', element: <HousingCalculatorPage /> },
