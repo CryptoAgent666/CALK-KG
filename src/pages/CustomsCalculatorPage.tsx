@@ -52,20 +52,11 @@ const getDutyRate = (
     return { dutyRate: 0, exciseRate: 0 };
   }
 
-  // Гибриды: сниженная ставка 10%
+  // Гибриды: стандартная ставка ЕАЭС 15% (нов.) / 20% (б/у). Спец-ставки «10% на гибриды» нет;
+  // 0% — только чистые EV и последовательные (serial) гибриды (код 8703 80 000 5, квота, с 22.01.2026).
+  // Авто в КР НЕ облагаются акцизом (НК КР ст.334 — нет ТН ВЭД 8703 в перечне подакцизных).
   if (vehicleType === 'hybrid') {
-    if (age <= 3) {
-      if (engineVolume <= 1800) return { dutyRate: 0.10, exciseRate: 0 };
-      if (engineVolume <= 2300) return { dutyRate: 0.10, exciseRate: 0.03 };
-      if (engineVolume <= 3000) return { dutyRate: 0.10, exciseRate: 0.05 };
-      return { dutyRate: 0.10, exciseRate: 0.08 };
-    } else {
-      if (engineVolume <= 1500) return { dutyRate: 0.10, exciseRate: 0 };
-      if (engineVolume <= 1800) return { dutyRate: 0.10, exciseRate: 0.01 };
-      if (engineVolume <= 2300) return { dutyRate: 0.10, exciseRate: 0.04 };
-      if (engineVolume <= 3000) return { dutyRate: 0.10, exciseRate: 0.08 };
-      return { dutyRate: 0.10, exciseRate: 0.12 };
-    }
+    return { dutyRate: age <= 3 ? 0.15 : 0.20, exciseRate: 0 };
   }
 
   // Грузовые автомобили: фиксированная ставка + зависит от веса
@@ -80,8 +71,8 @@ const getDutyRate = (
   if (vehicleType === 'motorcycle') {
     if (engineVolume <= 250) return { dutyRate: 0.10, exciseRate: 0 };
     if (engineVolume <= 500) return { dutyRate: 0.15, exciseRate: 0 };
-    if (engineVolume <= 800) return { dutyRate: 0.15, exciseRate: 0.02 };
-    return { dutyRate: 0.15, exciseRate: 0.05 };
+    if (engineVolume <= 800) return { dutyRate: 0.15, exciseRate: 0 };
+    return { dutyRate: 0.15, exciseRate: 0 };
   }
 
   // Легковые автомобили: стандартные ставки ЕАЭС
@@ -89,19 +80,19 @@ const getDutyRate = (
   if (age <= 3) {
     if (engineVolume <= 1000) return { dutyRate: 0.15, exciseRate: 0 };
     if (engineVolume <= 1500) return { dutyRate: 0.15, exciseRate: 0 };
-    if (engineVolume <= 1800) return { dutyRate: 0.15, exciseRate: 0.01 };
-    if (engineVolume <= 2300) return { dutyRate: 0.15, exciseRate: 0.05 };
-    if (engineVolume <= 3000) return { dutyRate: 0.15, exciseRate: 0.08 };
-    return { dutyRate: 0.15, exciseRate: 0.10 };
+    if (engineVolume <= 1800) return { dutyRate: 0.15, exciseRate: 0 };
+    if (engineVolume <= 2300) return { dutyRate: 0.15, exciseRate: 0 };
+    if (engineVolume <= 3000) return { dutyRate: 0.15, exciseRate: 0 };
+    return { dutyRate: 0.15, exciseRate: 0 };
   }
   // Подержанные автомобили (старше 3 лет)
   else {
     if (engineVolume <= 1000) return { dutyRate: 0.20, exciseRate: 0 };
-    if (engineVolume <= 1500) return { dutyRate: 0.20, exciseRate: 0.01 };
-    if (engineVolume <= 1800) return { dutyRate: 0.20, exciseRate: 0.02 };
-    if (engineVolume <= 2300) return { dutyRate: 0.20, exciseRate: 0.06 };
-    if (engineVolume <= 3000) return { dutyRate: 0.20, exciseRate: 0.10 };
-    return { dutyRate: 0.20, exciseRate: 0.15 };
+    if (engineVolume <= 1500) return { dutyRate: 0.20, exciseRate: 0 };
+    if (engineVolume <= 1800) return { dutyRate: 0.20, exciseRate: 0 };
+    if (engineVolume <= 2300) return { dutyRate: 0.20, exciseRate: 0 };
+    if (engineVolume <= 3000) return { dutyRate: 0.20, exciseRate: 0 };
+    return { dutyRate: 0.20, exciseRate: 0 };
   }
 };
 
@@ -185,11 +176,9 @@ const CustomsCalculatorPage = () => {
       // Для электромобилей: экономия на пошлине (15-20%)
       const standardRate = carYear && (new Date().getFullYear() - carYear) <= 3 ? 0.15 : 0.20;
       benefitAmount = value * standardRate;
-    } else if (type === 'hybrid') {
-      // Для гибридов: экономия 5-10% на пошлине
-      const standardRate = carYear && (new Date().getFullYear() - carYear) <= 3 ? 0.15 : 0.20;
-      benefitAmount = value * (standardRate - 0.10);
     }
+    // Параллельные/смешанные гибриды льготы НЕ имеют (платят полную ставку 15%/20%).
+    // 0% — только чистые EV и последовательные гибриды (отдельная льгота ЕЭК).
 
     return {
       customsStoicostValue: value,
@@ -1038,54 +1027,14 @@ ${t('calculated_on_calk')}`}
                     {t('customs_guide_new_cars_title')}
                   </h3>
                   <p className="text-gray-700 mb-3">{t('customs_guide_new_cars_rate')}</p>
-                  <p className="text-gray-700 font-semibold mb-2">{t('customs_guide_new_cars_excise')}</p>
-                  <ul className="space-y-2 text-gray-700">
-                    <li className="flex items-start">
-                      <span className="text-green-600 font-bold mr-2">•</span>
-                      <span>{t('customs_excise_0')}</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-green-600 font-bold mr-2">•</span>
-                      <span>{t('customs_excise_1')}</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-green-600 font-bold mr-2">•</span>
-                      <span>{t('customs_excise_2')}</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-green-600 font-bold mr-2">•</span>
-                      <span>{t('customs_excise_3')}</span>
-                    </li>
-                  </ul>
+                  <p className="text-gray-700">{t('customs_no_excise_note')}</p>
                 </div>
 
                 {/* Used Cars */}
                 <div className="bg-white rounded-lg p-6 shadow-sm">
                   <h3 className="text-2xl font-bold text-orange-700 mb-4">{t('customs_guide_used_cars_title')}</h3>
                   <p className="text-gray-700 mb-3">{t('customs_guide_used_cars_rate')}</p>
-                  <p className="text-gray-700 font-semibold mb-2">{t('customs_guide_used_cars_excise')}</p>
-                  <ul className="space-y-2 text-gray-700">
-                    <li className="flex items-start">
-                      <span className="text-orange-600 font-bold mr-2">•</span>
-                      <span>{t('customs_used_excise_0')}</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-orange-600 font-bold mr-2">•</span>
-                      <span>{t('customs_used_excise_1')}</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-orange-600 font-bold mr-2">•</span>
-                      <span>{t('customs_used_excise_2')}</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-orange-600 font-bold mr-2">•</span>
-                      <span>{t('customs_used_excise_3')}</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-orange-600 font-bold mr-2">•</span>
-                      <span>{t('customs_used_excise_4')}</span>
-                    </li>
-                  </ul>
+                  <p className="text-gray-700">{t('customs_no_excise_note')}</p>
                 </div>
 
                 {/* Components */}

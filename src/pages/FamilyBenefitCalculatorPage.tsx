@@ -17,8 +17,8 @@ import { FamilyBenefitCalculatorArticle } from '../components/FamilyBenefitCalcu
 
 // Конфигурация пособия - легко обновляемая структура
 const BENEFIT_CONFIG = {
-  benefitAmount: 1500, // сом на ребенка в месяц
-  incomeThreshold: 1500, // сом на человека в месяц (ГМД — гарантированный минимальный доход)
+  benefitAmount: 1200, // сом на ребенка в месяц (үй-бүлөгө көмөк, mlsp.gov.kg)
+  incomeThreshold: 1000, // сом на человека в месяц (ГМД — гарантированный минимальный доход)
   minimumAge: 0, // месяцев (с рождения)
   maximumAge: 16 * 12, // месяцев (до 16 лет включительно)
   applicationPeriod: 'Круглогодично'

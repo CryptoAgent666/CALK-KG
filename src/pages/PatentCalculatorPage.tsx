@@ -32,167 +32,146 @@ const PATENT_RATES = {
   'bishkek': {
     nameKey: 'region_bishkek',
     activities: {
-      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 3000 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 2500 },
-      'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 1500 },
-      'car-wash-1': { nameKey: 'activity_car_wash_1', cost: 4000 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 2200 },
-      'photo-services-1': { nameKey: 'activity_photo_services_1', cost: 2800 },
-      'computer-repair-1': { nameKey: 'activity_computer_repair_1', cost: 3500 },
-      'auto-repair-1': { nameKey: 'activity_auto_repair_1', cost: 6000 },
-      'catering-small': { nameKey: 'activity_catering_small', cost: 8000 },
-      'cargo-transportation': { nameKey: 'activity_cargo_transportation', cost: 3500 },
-      'tutoring': { nameKey: 'activity_tutoring', cost: 2000 },
-      'apartment-rental': { nameKey: 'activity_apartment_rental', cost: 1800 },
-      'electronics-repair': { nameKey: 'activity_electronics_repair', cost: 3200 }
+      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
+      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
+      'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 1000 },
+      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 },
+      'photo-services-1': { nameKey: 'activity_photo_services_1', cost: 3000 },
+      'computer-repair-1': { nameKey: 'activity_computer_repair_1', cost: 3000 },
+      'tutoring': { nameKey: 'activity_tutoring', cost: 600 },
+      'electronics-repair': { nameKey: 'activity_electronics_repair', cost: 2000 }
     }
   },
   'osh': {
     nameKey: 'region_osh',
     activities: {
       'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 1800 },
+      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
       'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 1000 },
-      'car-wash-1': { nameKey: 'activity_car_wash_1', cost: 2800 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1800 },
-      'photo-services-1': { nameKey: 'activity_photo_services_1', cost: 2000 },
-      'auto-repair-1': { nameKey: 'activity_auto_repair_1', cost: 4500 },
-      'catering-small': { nameKey: 'activity_catering_small', cost: 6000 },
-      'cargo-transportation': { nameKey: 'activity_cargo_transportation', cost: 2800 },
-      'tutoring': { nameKey: 'activity_tutoring', cost: 1500 },
-      'apartment-rental': { nameKey: 'activity_apartment_rental', cost: 1400 },
-      'electronics-repair': { nameKey: 'activity_electronics_repair', cost: 2500 },
-      'computer-repair-1': { nameKey: 'activity_computer_repair_1', cost: 2800 }
+      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 },
+      'photo-services-1': { nameKey: 'activity_photo_services_1', cost: 3000 },
+      'tutoring': { nameKey: 'activity_tutoring', cost: 600 },
+      'electronics-repair': { nameKey: 'activity_electronics_repair', cost: 2000 },
+      'computer-repair-1': { nameKey: 'activity_computer_repair_1', cost: 3000 }
     }
   },
   'jalal-abad': {
     nameKey: 'region_jalal_abad',
     activities: {
-      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 1800 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 1600 },
-      'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 900 },
-      'car-wash-1': { nameKey: 'activity_car_wash_1', cost: 2500 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1600 },
-      'auto-repair-1': { nameKey: 'activity_auto_repair_1', cost: 4200 },
-      'cargo-transportation': { nameKey: 'activity_cargo_transportation', cost: 2600 },
-      'tutoring': { nameKey: 'activity_tutoring', cost: 1400 },
-      'apartment-rental': { nameKey: 'activity_apartment_rental', cost: 1300 },
-      'electronics-repair': { nameKey: 'activity_electronics_repair', cost: 2300 },
-      'computer-repair-1': { nameKey: 'activity_computer_repair_1', cost: 2700 },
-      'photo-services-1': { nameKey: 'activity_photo_services_1', cost: 1900 },
-      'catering-small': { nameKey: 'activity_catering_small', cost: 5500 }
+      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
+      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
+      'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 1000 },
+      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 },
+      'tutoring': { nameKey: 'activity_tutoring', cost: 600 },
+      'electronics-repair': { nameKey: 'activity_electronics_repair', cost: 2000 },
+      'computer-repair-1': { nameKey: 'activity_computer_repair_1', cost: 3000 },
+      'photo-services-1': { nameKey: 'activity_photo_services_1', cost: 3000 },
     }
   },
   'karakol': {
     nameKey: 'region_karakol',
     activities: {
-      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 1700 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 1500 },
-      'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 800 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1500 },
-      'auto-repair-1': { nameKey: 'activity_auto_repair_1', cost: 4000 }
+      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
+      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
+      'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 1000 },
+      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 },
     }
   },
   'tokmok': {
     nameKey: 'region_tokmok',
     activities: {
-      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 1600 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 1400 },
-      'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 750 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1400 }
+      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
+      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
+      'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 1000 },
+      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 }
     }
   },
   'naryn': {
     nameKey: 'region_naryn',
     activities: {
-      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 1500 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 1300 },
-      'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 700 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1300 }
+      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
+      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
+      'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 1000 },
+      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 }
     }
   },
   'talas': {
     nameKey: 'region_talas',
     activities: {
-      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 1400 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 1200 },
-      'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 650 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1200 }
+      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
+      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
+      'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 1000 },
+      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 }
     }
   },
   'batken': {
     nameKey: 'region_batken',
     activities: {
-      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 1300 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 1100 },
-      'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 600 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1100 }
+      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
+      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
+      'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 1000 },
+      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 }
     }
   },
   'osh-region': {
     nameKey: 'region_osh_region',
     activities: {
-      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 1500 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 1400 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1300 }
+      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
+      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
+      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 }
     }
   },
   'jalal-abad-region': {
     nameKey: 'region_jalal_abad_region',
     activities: {
-      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 1400 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 1300 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1200 }
+      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
+      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
+      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 }
     }
   },
   'issyk-kul-region': {
     nameKey: 'region_issyk_kul_region',
     activities: {
-      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 1600 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 1500 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1400 }
+      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
+      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
+      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 }
     }
   },
   'naryn-region': {
     nameKey: 'region_naryn_region',
     activities: {
-      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 1300 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 1200 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1100 }
+      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
+      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
+      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 }
     }
   },
   'talas-region': {
     nameKey: 'region_talas_region',
     activities: {
-      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 1200 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 1100 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1000 }
+      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
+      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
+      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 }
     }
   },
   'chui-region': {
     nameKey: 'region_chui_region',
     activities: {
-      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2200 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 2000 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 1800 },
-      'cargo-transportation': { nameKey: 'activity_cargo_transportation', cost: 3000 },
-      'tutoring': { nameKey: 'activity_tutoring', cost: 1700 },
-      'apartment-rental': { nameKey: 'activity_apartment_rental', cost: 1600 },
-      'electronics-repair': { nameKey: 'activity_electronics_repair', cost: 2800 },
-      'computer-repair-1': { nameKey: 'activity_computer_repair_1', cost: 3200 },
-      'car-wash-1': { nameKey: 'activity_car_wash_1', cost: 3500 },
-      'auto-repair-1': { nameKey: 'activity_auto_repair_1', cost: 5500 },
-      'photo-services-1': { nameKey: 'activity_photo_services_1', cost: 2500 },
-      'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 1400 },
-      'catering-small': { nameKey: 'activity_catering_small', cost: 7000 }
+      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
+      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
+      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 },
+      'tutoring': { nameKey: 'activity_tutoring', cost: 600 },
+      'electronics-repair': { nameKey: 'activity_electronics_repair', cost: 2000 },
+      'computer-repair-1': { nameKey: 'activity_computer_repair_1', cost: 3000 },
+      'photo-services-1': { nameKey: 'activity_photo_services_1', cost: 3000 },
+      'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 1000 },
     }
   },
   'batken-region': {
     nameKey: 'region_batken_region',
     activities: {
-      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 1100 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 1000 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 900 }
+      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
+      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
+      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 }
     }
   }
 };

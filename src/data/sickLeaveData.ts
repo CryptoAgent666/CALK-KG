@@ -20,14 +20,14 @@ export const SICK_LEAVE_TYPES: SickLeaveType[] = [
   {
     id: 'illness',
     nameKey: 'sick_type_illness',
-    maxDays: 30, // может продлеваться врачебной комиссией
+    maxDays: 180, // нет статутного лимита: врач продлевает на весь период болезни (при длит. нетрудоспособности — направление на МСЭК, при ТБ — до 180 дн)
     paymentPercent: 0, // зависит от стажа
     dependsOnExperience: true
   },
   {
     id: 'injury',
     nameKey: 'sick_type_injury',
-    maxDays: 60,
+    maxDays: 180, // нет статутного лимита оплачиваемых дней; на весь период до восстановления/МСЭК
     paymentPercent: 0, // зависит от стажа
     dependsOnExperience: true
   },
