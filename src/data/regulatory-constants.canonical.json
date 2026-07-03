@@ -8097,14 +8097,13 @@
       "surfaces": [
         "src/components/FuelCalculatorArticle.tsx:18",
         "src/components/FuelCalculatorArticle.tsx:19",
-        "src/components/FuelCalculatorArticle.tsx:20",
-        "src/components/FuelCalculatorArticle_NEW.tsx:55"
+        "src/components/FuelCalculatorArticle.tsx:20"
       ],
       "last_updated": "2026-07-03",
       "source_hint": "market",
       "conflict": true,
       "status": "current",
-      "notes": "MISMATCH: ACTIVE FuelCalculatorArticle (imported by FuelCalculatorPage line 8) hardcodes АИ-92=62, АИ-95=68, АИ-98=75 сом/л — stale vs compute 75.5/81/88. FuelCalculatorArticle_NEW.tsx is NOT imported (possibly-stale dead file, 203 lines, same legacy prices 62/68/75). Page uses the non-_NEW article. | FIXED 2026-07-03: вся проза статьи пересчитана — буллеты цен (АИ-98 строка УДАЛЕНА: нет верифицируемой цены-2026, compute ai-98 остаётся uncertain), 5 маршрутов, газ-vs-бензин (5115/2803/2312; год 90270/49464/40806), FAQ a1/a2/a5, титулы январь→июль, lastUpdated 2026-07-03; в translations-ru/-ky И legacy translations.ts (generate-static-html.js рендерит из него FAQ JSON-LD + видимый SEO-контент!). FuelCalculatorArticle_NEW.tsx (мёртвый, не импортируется) НЕ тронут — кандидат на удаление.",
+      "notes": "MISMATCH: ACTIVE FuelCalculatorArticle (imported by FuelCalculatorPage line 8) hardcodes АИ-92=62, АИ-95=68, АИ-98=75 сом/л — stale vs compute 75.5/81/88. FuelCalculatorArticle_NEW.tsx is NOT imported (possibly-stale dead file, 203 lines, same legacy prices 62/68/75). Page uses the non-_NEW article. | FIXED 2026-07-03: вся проза статьи пересчитана — буллеты цен (АИ-98 строка УДАЛЕНА: нет верифицируемой цены-2026, compute ai-98 остаётся uncertain), 5 маршрутов, газ-vs-бензин (5115/2803/2312; год 90270/49464/40806), FAQ a1/a2/a5, титулы январь→июль, lastUpdated 2026-07-03; в translations-ru/-ky И legacy translations.ts (generate-static-html.js рендерит из него FAQ JSON-LD + видимый SEO-контент!). FuelCalculatorArticle_NEW.tsx (мёртвый, gitignored по *_NEW.tsx, не импортировался) УДАЛЁН локально 2026-07-03 — из surfaces убран.",
       "official_value": "АИ-92 79.9 / АИ-95 88.5 / ДТ 93.9 / автогаз 45.8 сом/л — потолки Госантимонополии для Бишкека/Чуй, действуют 25.05–30.09.2026",
       "source_url": "https://economist.kg/transport/2026/04/10/kak-izmenilis-tseny-na-gsm-v-kyrgyzstane-v-2026-godu-dannye-gosantimonopolii/",
       "verified_date": "2026-07-03",
