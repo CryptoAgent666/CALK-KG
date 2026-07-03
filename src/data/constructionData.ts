@@ -1,8 +1,9 @@
 // ============================================================================
 // ДАННЫЕ ПО СТРОИТЕЛЬНЫМ МАТЕРИАЛАМ В КЫРГЫЗСТАНЕ
 // ============================================================================
-// АКТУАЛЬНО НА: Апрель 2026 (Q2 2026)
-// ИСТОЧНИКИ: Строительные рынки Бишкека (Дордой, Ош-базар), salexy.kg, lalafo.kg
+// АКТУАЛЬНО НА: Июль 2026 (Q3 2026)
+// ИСТОЧНИКИ: Строительные рынки Бишкека (Дордой, Ош-базар), salexy.kg, lalafo.kg,
+//            aviastal.kg, stroymag-bishkek.com (цемент/блоки — сверка 2026-07)
 //
 // Все цены указаны в сомах
 // Цены актуальны для Бишкека, в регионах могут отличаться на 5-10%
@@ -39,14 +40,14 @@ export const MATERIALS: Material[] = [
     id: 'cement-m400',
     nameKey: 'material_cement_m400',
     unit: 'мешок 50кг',
-    pricePerUnit: 550,
+    pricePerUnit: 330,
     description: 'Цемент М400 (мешок 50кг)'
   },
   {
     id: 'cement-m500',
     nameKey: 'material_cement_m500',
     unit: 'мешок 50кг',
-    pricePerUnit: 650,
+    pricePerUnit: 380,
     description: 'Цемент М500 (мешок 50кг)'
   },
   
@@ -98,14 +99,14 @@ export const MATERIALS: Material[] = [
     id: 'block-foam',
     nameKey: 'material_block_foam',
     unit: 'шт',
-    pricePerUnit: 85,
+    pricePerUnit: 120,
     description: 'Пеноблок 200x300x600'
   },
   {
     id: 'block-gas',
     nameKey: 'material_block_gas',
     unit: 'шт',
-    pricePerUnit: 95,
+    pricePerUnit: 165,
     description: 'Газоблок 200x300x600'
   },
   

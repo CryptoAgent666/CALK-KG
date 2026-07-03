@@ -10,16 +10,15 @@ export const FuelCalculatorArticle: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-      <CalculatorArticle lastUpdated="2026-03-23" slug="fuel">
+      <CalculatorArticle lastUpdated="2026-07-03" slug="fuel">
       {/* Актуальные цены на топливо */}
       <ArticleSection title={t('fuel_article_prices_title')}>
         <p>{t('fuel_article_prices_intro')}</p>
         <ul className="list-disc pl-6 space-y-2">
-          <li><strong>{t('fuel_benzin_92')}</strong> — <strong>62 {t('fuel_som_per_liter')}</strong></li>
-          <li><strong>{t('fuel_benzin_95')}</strong> — <strong>68 {t('fuel_som_per_liter')}</strong></li>
-          <li><strong>{t('fuel_benzin_98')}</strong> — <strong>75 {t('fuel_som_per_liter')}</strong></li>
-          <li><strong>{t('fuel_diesel')}</strong> — <strong>58 {t('fuel_som_per_liter')}</strong></li>
-          <li><strong>{t('fuel_gas')}</strong> — <strong>28 {t('fuel_som_per_liter')}</strong></li>
+          <li><strong>{t('fuel_benzin_92')}</strong> — <strong>79.9 {t('fuel_som_per_liter')}</strong></li>
+          <li><strong>{t('fuel_benzin_95')}</strong> — <strong>88.5 {t('fuel_som_per_liter')}</strong></li>
+          <li><strong>{t('fuel_diesel')}</strong> — <strong>93.9 {t('fuel_som_per_liter')}</strong></li>
+          <li><strong>{t('fuel_gas')}</strong> — <strong>45.8 {t('fuel_som_per_liter')}</strong></li>
         </ul>
         <p className="mt-4">
           <strong>{t('fuel_important')}</strong> {t('fuel_regions_note')}

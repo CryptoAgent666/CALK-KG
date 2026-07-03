@@ -13,7 +13,7 @@ export const PensionCalculatorArticle: React.FC = () => {
       <div className="bg-blue-50 p-4 rounded-lg">
         <p className="text-sm font-semibold mb-2">{t('pension_stats_title')}</p>
         <ul className="text-sm space-y-2">
-          <li>{t('pension_avg_amount')} <strong>7,500-9,000 {t('som_month')}</strong></li>
+          <li>{t('pension_avg_amount')} <strong>11,238 {t('som_month')}</strong></li>
           <li>{t('pension_min_amount')} <strong>3,000 {t('som_month')}</strong></li>
           <li>{t('pension_retirement_age_men')} <strong>63 {t('years')}</strong></li>
           <li>{t('pension_retirement_age_women')} <strong>58 {t('years')}</strong></li>
