@@ -59,20 +59,20 @@ const getDutyRate = (
     return { dutyRate: age <= 3 ? 0.15 : 0.20, exciseRate: 0 };
   }
 
-  // Грузовые автомобили: фиксированная ставка + зависит от веса
+  // Грузовые автомобили (ТН ВЭД 8704): базовая ставка ЕТТ ЕАЭС 10% для всех весовых категорий
   if (vehicleType === 'truck') {
     const weight = truckWeight || 3.5;
-    if (weight <= 5) return { dutyRate: 0.15, exciseRate: 0 };
-    if (weight <= 20) return { dutyRate: 0.15, exciseRate: 0 };
-    return { dutyRate: 0.15, exciseRate: 0 };
+    if (weight <= 5) return { dutyRate: 0.10, exciseRate: 0 };
+    if (weight <= 20) return { dutyRate: 0.10, exciseRate: 0 };
+    return { dutyRate: 0.10, exciseRate: 0 };
   }
 
-  // Мотоциклы: упрощенная схема
+  // Мотоциклы (ТН ВЭД 8711, ЕТТ ЕАЭС): ≤250cc — 14%, 250-800cc — 15%, свыше 800cc — 10%
   if (vehicleType === 'motorcycle') {
-    if (engineVolume <= 250) return { dutyRate: 0.10, exciseRate: 0 };
+    if (engineVolume <= 250) return { dutyRate: 0.14, exciseRate: 0 };
     if (engineVolume <= 500) return { dutyRate: 0.15, exciseRate: 0 };
     if (engineVolume <= 800) return { dutyRate: 0.15, exciseRate: 0 };
-    return { dutyRate: 0.15, exciseRate: 0 };
+    return { dutyRate: 0.10, exciseRate: 0 };
   }
 
   // Легковые автомобили: стандартные ставки ЕАЭС

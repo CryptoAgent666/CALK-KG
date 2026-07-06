@@ -477,7 +477,7 @@
       "id": "customs-calculator__customs_duty_motorcycle_by_cc",
       "calculator": "customs-calculator",
       "key": "customs_duty_motorcycle_by_cc",
-      "value": "<=250cc duty 15% excise 0%? NOTE: <=250cc duty 10%; <=500cc 15%; <=800cc 15%+excise2%; >800cc 15%+excise5%",
+      "value": "14/15/15/10% по cc",
       "unit": "percent",
       "law": "ЕАЭС ЕТТ / ГТС КР",
       "theme": "customs",
@@ -485,15 +485,15 @@
       "surfaces": [
         "src/pages/CustomsCalculatorPage.tsx:80-85"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-07-06",
       "source_hint": "customs.gov.kg / ЕАЭС ЕТТ",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Мотоциклы: <=250cc пошлина 10% акциз 0%; <=500cc 15% 0%; <=800cc 15% excise 2%; >800cc 15% excise 5%.",
       "official_value": null,
       "source_url": "https://calk.kg/calculator/customs/",
       "which_surface_correct": "na",
-      "verify_note": "Motorcycle duty 10-15% and excise 0-5%>800cc are plausible but not confirmed against an authoritative EAEU ETT / GTS KR 2026 table by cc. Motorcycles are not in the KR base excise schedule (see continent-online excise doc), casting doubt on the per-cc excise sub-bands. No authoritative 2026 figure found."
+      "verify_note": "2026-07-06: ЕТТ ЕАЭС 8711 — ≤250cc 14%, 250-800cc 15%, >800cc 10% (было 10/15/15/15). Акциз 0."
     },
     {
       "id": "customs-calculator__customs_duty_passenger_new_le3y",
@@ -543,7 +543,7 @@
       "id": "customs-calculator__customs_duty_truck",
       "calculator": "customs-calculator",
       "key": "customs_duty_truck",
-      "value": "15",
+      "value": "10",
       "unit": "percent",
       "law": "ЕАЭС ЕТТ / ГТС КР",
       "theme": "customs",
@@ -551,15 +551,15 @@
       "surfaces": [
         "src/pages/CustomsCalculatorPage.tsx:72-77"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-07-06",
       "source_hint": "customs.gov.kg / ЕАЭС ЕТТ",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Грузовые: пошлина 15% (фикс для всех весовых категорий <=5т / <=20т / >20т), акциз 0%. truckWeight default 3.5 т.",
       "official_value": null,
       "source_url": "https://calk.kg/calculator/customs/",
       "which_surface_correct": "na",
-      "verify_note": "Flat 15% truck duty is plausible and appears on the calk.kg calc, but EAEU ETT truck duties actually vary by HS code (gross weight, engine, new/used) and a single 15% for all weight classes is not confirmed by an authoritative GTS/EAEU 2026 source. No official replacement value located, so uncertain rather than stale."
+      "verify_note": "2026-07-06: ЕТТ ЕАЭС 8704 базовая 10% (было 15%). Б/у >7 лет — спец 1€/см³ (не реализовано)."
     },
     {
       "id": "customs-calculator__customs_excise_hybrid_new_le3y_gt3000cc",
@@ -5770,7 +5770,7 @@
       "official_value": "10.45",
       "source_url": "https://kaktus.media/doc/544835_v_bishkeke_vnov_podorojaut_pitevaia_voda_i_kanalizaciia.html",
       "which_surface_correct": "compute",
-      "verify_note": "CONFIRMED: Bishkek population cold water (холодная вода) = 10.45 сом/м³ by meter (planned to rise to 15.73). COMPUTE 10.45 correct; PROSE 8.10 stale."
+      "verify_note": "READY (APPROVED_NOT_YET на 06.07.2026, не опубликован): при публикации → население вода 15.73/канал 6.80; коммерция ×2.1=33.03/14.28; водоёмкие ×3=47.19/20.40. Триггер: gorkenesh.kg реестр 28-созыв / bishkeksuukanal.kg покажет 15.73. Сейчас 10.45/3.45."
     },
     {
       "id": "water-calculator__water_jalalabad_population_sewerage",
