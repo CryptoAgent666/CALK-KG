@@ -417,7 +417,7 @@
         "src/pages/CustomsCalculatorPage.tsx:167",
         "translations-ru.ts:customs_fee_percent:1058"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-07-08",
       "source_hint": "customs.gov.kg",
       "conflict": false,
       "status": "current",
@@ -425,7 +425,7 @@
       "official_value": "0.40",
       "source_url": "https://economist.kg/transport/2025/04/03/v-kyrghyzstanie-podorozhala-rastamozhka-avtomobiliei-otviet-tamozhiennoi-sluzhby/",
       "which_surface_correct": "na",
-      "verify_note": "Kyrgyz Customs Service (Таможенная служба) confirms таможенный сбор за оформление = 0.40% от таможенной стоимости. Matches input 0.4%. Corroborated by calk.kg customs calc."
+      "verify_note": "Kyrgyz Customs Service (Таможенная служба) confirms таможенный сбор за оформление = 0.40% от таможенной стоимости. Matches input 0.4%. Corroborated by calk.kg customs calc. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника."
     },
     {
       "id": "customs-calculator__customs_duty_electric_ev",
@@ -463,7 +463,7 @@
         "src/pages/CustomsCalculatorPage.tsx:56-69",
         "translations-ru.ts:customs_faq_a7:1118"
       ],
-      "last_updated": "2026-07-02",
+      "last_updated": "2026-07-08",
       "source_hint": "customs.gov.kg",
       "conflict": false,
       "status": "current",
@@ -471,7 +471,7 @@
       "official_value": "0.15 нов./0.20 б/у",
       "source_url": "https://calk.kg/calculator/customs/",
       "which_surface_correct": "na",
-      "verify_note": "2026-07-02: 10%→15%/20% (спец-ставки 10% нет; customs.gov.kg+ЕЭК №81). 0% только чистые EV+последоват.гибриды."
+      "verify_note": "2026-07-02: 10%→15%/20% (спец-ставки 10% нет; customs.gov.kg+ЕЭК №81). 0% только чистые EV+последоват.гибриды. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника."
     },
     {
       "id": "customs-calculator__customs_duty_motorcycle_by_cc",
@@ -485,7 +485,7 @@
       "surfaces": [
         "src/pages/CustomsCalculatorPage.tsx:80-85"
       ],
-      "last_updated": "2026-07-06",
+      "last_updated": "2026-07-08",
       "source_hint": "customs.gov.kg / ЕАЭС ЕТТ",
       "conflict": false,
       "status": "current",
@@ -493,7 +493,7 @@
       "official_value": null,
       "source_url": "https://calk.kg/calculator/customs/",
       "which_surface_correct": "na",
-      "verify_note": "2026-07-06: ЕТТ ЕАЭС 8711 — ≤250cc 14%, 250-800cc 15%, >800cc 10% (было 10/15/15/15). Акциз 0."
+      "verify_note": "2026-07-06: ЕТТ ЕАЭС 8711 — ≤250cc 14%, 250-800cc 15%, >800cc 10% (было 10/15/15/15). Акциз 0. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника."
     },
     {
       "id": "customs-calculator__customs_duty_passenger_new_le3y",
@@ -507,7 +507,7 @@
       "surfaces": [
         "src/pages/CustomsCalculatorPage.tsx:89-96"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-07-08",
       "source_hint": "customs.gov.kg / ЕАЭС ЕТТ",
       "conflict": false,
       "status": "current",
@@ -515,7 +515,7 @@
       "official_value": "15",
       "source_url": "https://economist.kg/transport/2025/04/03/v-kyrghyzstanie-podorozhala-rastamozhka-avtomobiliei-otviet-tamozhiennoi-sluzhby/",
       "which_surface_correct": "na",
-      "verify_note": "Kyrgyz Customs Service: новые авто (до 3 лет) пошлина 15%, set at EAEU level, uniform across the union. Matches input 15%."
+      "verify_note": "Kyrgyz Customs Service: новые авто (до 3 лет) пошлина 15%, set at EAEU level, uniform across the union. Matches input 15%. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника."
     },
     {
       "id": "customs-calculator__customs_duty_passenger_used_gt3y",
@@ -529,7 +529,7 @@
       "surfaces": [
         "src/pages/CustomsCalculatorPage.tsx:98-105"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-07-08",
       "source_hint": "customs.gov.kg / ЕАЭС ЕТТ",
       "conflict": false,
       "status": "current",
@@ -537,7 +537,7 @@
       "official_value": "20",
       "source_url": "https://economist.kg/transport/2025/04/03/v-kyrghyzstanie-podorozhala-rastamozhka-avtomobiliei-otviet-tamozhiennoi-sluzhby/",
       "which_surface_correct": "na",
-      "verify_note": "Kyrgyz Customs Service: подержанные авто (старше 3 лет) пошлина 20%, EAEU-level uniform rate. Matches input 20%."
+      "verify_note": "Kyrgyz Customs Service: подержанные авто (старше 3 лет) пошлина 20%, EAEU-level uniform rate. Matches input 20%. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника."
     },
     {
       "id": "customs-calculator__customs_duty_truck",
@@ -551,7 +551,7 @@
       "surfaces": [
         "src/pages/CustomsCalculatorPage.tsx:72-77"
       ],
-      "last_updated": "2026-07-06",
+      "last_updated": "2026-07-08",
       "source_hint": "customs.gov.kg / ЕАЭС ЕТТ",
       "conflict": false,
       "status": "current",
@@ -559,7 +559,7 @@
       "official_value": null,
       "source_url": "https://calk.kg/calculator/customs/",
       "which_surface_correct": "na",
-      "verify_note": "2026-07-06: ЕТТ ЕАЭС 8704 базовая 10% (было 15%). Б/у >7 лет — спец 1€/см³ (не реализовано)."
+      "verify_note": "2026-07-06: ЕТТ ЕАЭС 8704 базовая 10% (было 15%). Б/у >7 лет — спец 1€/см³ (не реализовано). | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника."
     },
     {
       "id": "customs-calculator__customs_excise_hybrid_new_le3y_gt3000cc",
@@ -849,7 +849,7 @@
         "src/pages/CustomsCalculatorPage.tsx:177",
         "translations-ru.ts:customs_vat:1064"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-07-08",
       "source_hint": "customs.gov.kg / salyk.kg",
       "conflict": false,
       "status": "current",
@@ -857,7 +857,7 @@
       "official_value": "12",
       "source_url": "https://economist.kg/transport/2025/04/03/v-kyrghyzstanie-podorozhala-rastamozhka-avtomobiliei-otviet-tamozhiennoi-sluzhby/",
       "which_surface_correct": "na",
-      "verify_note": "Import VAT (НДС) = 12%, confirmed by Kyrgyz Customs Service and standard KR VAT rate. Matches input 12%. (Note KZ raised VAT to 16% in 2026 — KG remains 12%.)"
+      "verify_note": "Import VAT (НДС) = 12%, confirmed by Kyrgyz Customs Service and standard KR VAT rate. Matches input 12%. (Note KZ raised VAT to 16% in 2026 — KG remains 12%.) | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника."
     },
     {
       "id": "deposit-calculator__deposit_guarantee_max",
@@ -874,7 +874,7 @@
         "i18n deposit_insurance_per:1477",
         "src/pages/DepositCalculatorPage.tsx:1242-1246"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-07-08",
       "source_hint": "depozit.kg",
       "conflict": false,
       "status": "current",
@@ -882,7 +882,7 @@
       "official_value": "1000000",
       "source_url": "https://www.deposit.kg/glavnaya/",
       "which_surface_correct": "both",
-      "verify_note": "Гарантированная сумма raised 200000 -> 1000000 сом, law signed 23.05.2023, in force 10.06.2023 (5x increase, incl. accrued interest). deposit.kg shows 'Максимальный размер гарантированной компенсации 1 000 000 сом'. Dataset 200000 is STALE. (Payout window per law = within 30 calendar days; dataset prose '30-60' is also loose.)",
+      "verify_note": "Гарантированная сумма raised 200000 -> 1000000 сом, law signed 23.05.2023, in force 10.06.2023 (5x increase, incl. accrued interest). deposit.kg shows 'Максимальный размер гарантированной компенсации 1 000 000 сом'. Dataset 200000 is STALE. (Payout window per law = within 30 calendar days; dataset prose '30-60' is also loose.) | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника.",
       "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)"
     },
     {
@@ -921,7 +921,7 @@
       "surfaces": [
         "src/pages/ElectricityCalculatorPage.tsx:52"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-07-08",
       "source_hint": "Госагентство по регулированию ТЭК / НЭСК; Кабмин КР",
       "conflict": false,
       "status": "current",
@@ -929,7 +929,7 @@
       "official_value": "4.62",
       "source_url": "https://economist.kg/enierghietika/2026/03/28/skolko-budiet-stoit-eliektrichiestvo-v-kyrghyzstanie-s-1-maia-2026-ghoda-tarify/",
       "which_surface_correct": "na",
-      "verify_note": "Official бюджетные = 4.62 сом/кВт·ч from 01.05.2026 (two sources: Tazabek, Economist.kg). COMPUTE has 4.63 — off by 0.01 (rounding). PROSE n/a (compute-only category). Essentially correct, minor 1-tyiyn discrepancy.",
+      "verify_note": "Official бюджетные = 4.62 сом/кВт·ч from 01.05.2026 (two sources: Tazabek, Economist.kg). COMPUTE has 4.63 — off by 0.01 (rounding). PROSE n/a (compute-only category). Essentially correct, minor 1-tyiyn discrepancy. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника.",
       "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)"
     },
     {
@@ -1060,7 +1060,7 @@
         "src/pages/ElectricityCalculatorPage.tsx:72",
         "src/pages/ElectricityCalculatorPage.tsx:527"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-07-08",
       "source_hint": "Госагентство по регулированию ТЭК / НЭСК; Кабмин КР",
       "conflict": false,
       "status": "current",
@@ -1068,7 +1068,7 @@
       "official_value": "700",
       "source_url": "https://economist.kg/enierghietika/2026/03/28/skolko-budiet-stoit-eliektrichiestvo-v-kyrghyzstanie-s-1-maia-2026-ghoda-tarify/",
       "which_surface_correct": "compute",
-      "verify_note": "CONFIRMED: 700 кВт·ч/month is the residential social threshold (rate1 below, rate2 above) for general and low-income tiers per ССТП 2025-2030. Correct."
+      "verify_note": "CONFIRMED: 700 кВт·ч/month is the residential social threshold (rate1 below, rate2 above) for general and low-income tiers per ССТП 2025-2030. Correct. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника."
     },
     {
       "id": "electricity-calculator__electricity_highland_flat",
@@ -1174,7 +1174,7 @@
       "surfaces": [
         "src/pages/ElectricityCalculatorPage.tsx:27"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-07-08",
       "source_hint": "Госагентство по регулированию ТЭК / НЭСК; Кабмин КР",
       "conflict": false,
       "status": "current",
@@ -1182,7 +1182,7 @@
       "official_value": "2026-05-01",
       "source_url": "https://kaktus.media/doc/543901_s_1_maia_povysilis_tarify_na_svet._komy_i_skolko_nado_platit.html",
       "which_surface_correct": "compute",
-      "verify_note": "CONFIRMED: new electricity tariffs took effect 1 May 2026 (Приказ ДТЭК №103 от 24.04.2026; under ССТП 2025-2030, Пост. Кабмина №227 от 24.04.2025). Today 2026-06-20 the NEW set is live. Correct."
+      "verify_note": "CONFIRMED: new electricity tariffs took effect 1 May 2026 (Приказ ДТЭК №103 от 24.04.2026; under ССТП 2025-2030, Пост. Кабмина №227 от 24.04.2025). Today 2026-06-20 the NEW set is live. Correct. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника."
     },
     {
       "id": "electricity-calculator__electricity_population_unlimited_flat",
@@ -1406,7 +1406,7 @@
         "src/i18n/translations-ru.ts:gas_example1_tariff_value",
         "src/i18n/translations-ru.ts:gas_heating_tariff"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-07-08",
       "source_hint": "ОсОО «Газпром Кыргызстан»",
       "conflict": false,
       "status": "current",
@@ -1414,7 +1414,7 @@
       "official_value": "22.70",
       "source_url": "https://www.akchabar.kg/news/gaz-dlya-naseleniya-kirgizstana-podorozhal-v-mae-gazprom-obyavil-novij-tarif-fbpyqxkdymmuwnqx",
       "which_surface_correct": "compute",
-      "verify_note": "Сверено 2026-06-30: газ-prose 9.50/8.80/14.50/11.60→22.70 (Газпром, единый тариф). Worked-examples и нарратив газ↔электр переписаны (RU+KY), задеплоено.",
+      "verify_note": "Сверено 2026-06-30: газ-prose 9.50/8.80/14.50/11.60→22.70 (Газпром, единый тариф). Worked-examples и нарратив газ↔электр переписаны (RU+KY), задеплоено. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника.",
       "fix_note": "DEFERRED (tranche 3): narrative prose w/ dependent example totals (bilingual content pass)"
     },
     {
@@ -1429,7 +1429,7 @@
       "surfaces": [
         "src/pages/GasCalculatorPage.tsx:35"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-07-08",
       "source_hint": "ОсОО «Газпром Кыргызстан»",
       "conflict": false,
       "status": "current",
@@ -1437,7 +1437,7 @@
       "official_value": "24.2504",
       "source_url": "https://www.akchabar.kg/news/gaz-dlya-naseleniya-kirgizstana-podorozhal-v-mae-gazprom-obyavil-novij-tarif-fbpyqxkdymmuwnqx",
       "which_surface_correct": "na",
-      "verify_note": "Газпром КГ non-residential (commercial + industrial) = single 24.2504 сом/м³ (excl. taxes). COMPUTE gas commercial = 28.00 does NOT match official 24.25 — overstated. (COMPUTE industrial 24.25 is the right figure.) Compute-only category.",
+      "verify_note": "Газпром КГ non-residential (commercial + industrial) = single 24.2504 сом/м³ (excl. taxes). COMPUTE gas commercial = 28.00 does NOT match official 24.25 — overstated. (COMPUTE industrial 24.25 is the right figure.) Compute-only category. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника.",
       "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)"
     },
     {
@@ -1452,7 +1452,7 @@
       "surfaces": [
         "src/pages/GasCalculatorPage.tsx:40"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-07-08",
       "source_hint": "ОсОО «Газпром Кыргызстан»",
       "conflict": false,
       "status": "current",
@@ -1460,7 +1460,7 @@
       "official_value": "24.2504",
       "source_url": "https://www.akchabar.kg/news/gaz-dlya-naseleniya-kirgizstana-podorozhal-v-mae-gazprom-obyavil-novij-tarif-fbpyqxkdymmuwnqx",
       "which_surface_correct": "na",
-      "verify_note": "CONFIRMED: Газпром КГ non-population tariff = 24.2504 сом/м³ (excl. taxes). COMPUTE industrial 24.25 matches. Compute-only."
+      "verify_note": "CONFIRMED: Газпром КГ non-population tariff = 24.2504 сом/м³ (excl. taxes). COMPUTE industrial 24.25 matches. Compute-only. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника."
     },
     {
       "id": "gas-calculator__gas_residential_heating_rate",
@@ -3474,7 +3474,7 @@
         "src/pages/SickLeaveCalculatorPage.tsx:68",
         "src/data/sickLeaveData.ts:182"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-08",
       "source_hint": "socfond.kg",
       "conflict": false,
       "status": "current",
@@ -3482,7 +3482,7 @@
       "official_value": "10",
       "source_url": "https://labourmission.org/ru/novosti/%D0%BA%D1%8B%D1%80%D0%B3%D1%8B%D0%B7%D1%81%D1%82%D0%B0%D0%BD-%D0%B2-%D0%B4%D0%B2%D0%B0-%D1%80%D0%B0%D0%B7%D0%B0-%D0%BF%D0%BE%D0%B2%D1%8B%D1%88%D0%B5%D0%BD%D1%8B-%D0%B2%D1%8B%D0%BF%D0%BB%D0%B0%D1%82/",
       "which_surface_correct": "na",
-      "verify_note": "Пост. Кабмина №151 (13.04.2023): работодатель оплачивает первые 10 рабочих дней.",
+      "verify_note": "Пост. Кабмина №151 (13.04.2023): работодатель оплачивает первые 10 рабочих дней. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника.",
       "fix_note": "DEFERRED (tranche 3): structural (3->10 working days)"
     },
     {
@@ -3521,7 +3521,7 @@
         "src/data/sickLeaveData.ts:96",
         "src/data/sickLeaveData.ts:186"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-08",
       "source_hint": "socfond.kg",
       "conflict": false,
       "status": "current",
@@ -3529,7 +3529,7 @@
       "official_value": "10000",
       "source_url": "https://labourmission.org/ru/novosti/%D0%BA%D1%8B%D1%80%D0%B3%D1%8B%D0%B7%D1%81%D1%82%D0%B0%D0%BD-%D0%B2-%D0%B4%D0%B2%D0%B0-%D1%80%D0%B0%D0%B7%D0%B0-%D0%BF%D0%BE%D0%B2%D1%8B%D1%88%D0%B5%D0%BD%D1%8B-%D0%B2%D1%8B%D0%BF%D0%BB%D0%B0%D1%82/",
       "which_surface_correct": "na",
-      "verify_note": "Пост. №151: с 11-го рабочего дня выплата Соцфонда ≤ 100 расчётных показателей = 10 000 сом/мес.",
+      "verify_note": "Пост. №151: с 11-го рабочего дня выплата Соцфонда ≤ 100 расчётных показателей = 10 000 сом/мес. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника.",
       "fix_note": "DEFERRED (tranche 3): structural (cap 50000->10000 from day 11)"
     },
     {
@@ -3863,7 +3863,7 @@
       "surfaces": [
         "src/pages/SingleTaxCalculatorPage.tsx:149-166"
       ],
-      "last_updated": "2026-03-13",
+      "last_updated": "2026-07-08",
       "source_hint": "salyk.kg",
       "conflict": false,
       "status": "current",
@@ -3871,7 +3871,7 @@
       "official_value": "2",
       "source_url": "https://iworld.com/ru/blog/kyrgyzstan-taxes",
       "which_surface_correct": "na",
-      "verify_note": "Электронная торговля — 2% (безналичная по сути). Подтверждено несколькими источниками; cash=null корректно."
+      "verify_note": "Электронная торговля — 2% (безналичная по сути). Подтверждено несколькими источниками; cash=null корректно. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника."
     },
     {
       "id": "single-tax-calculator__single_tax_jewelry",
@@ -4878,7 +4878,7 @@
       "surfaces": [
         "src/data/trafficFines.ts:232-239"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-07-08",
       "source_hint": "Кодекс КР о правонарушениях ст. 180",
       "conflict": false,
       "status": "current",
@@ -4886,7 +4886,7 @@
       "official_value": "20000",
       "source_url": "https://cbd.minjust.gov.kg/act/view/ru-ru/112306",
       "which_surface_correct": "compute",
-      "verify_note": "Сверено 2026-06-30: 10000/Ст.182ч4→20000/Ст.449ч1 (Кодекс о правонарушениях)."
+      "verify_note": "Сверено 2026-06-30: 10000/Ст.182ч4→20000/Ст.449ч1 (Кодекс о правонарушениях). | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника."
     },
     {
       "id": "traffic-fines-calculator__fine_faulty_vehicle",
@@ -5164,7 +5164,7 @@
       "surfaces": [
         "src/data/trafficFines.ts:58-65"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-08",
       "source_hint": "Кодекс КР о правонарушениях ст. 188",
       "conflict": false,
       "status": "current",
@@ -5172,7 +5172,7 @@
       "official_value": "15000",
       "source_url": "https://ru.sputnik.kg/20230308/kyrgyzstan-pdd-narushenie-povyshenie-1073406198.html",
       "which_surface_correct": "compute",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника."
     },
     {
       "id": "traffic-fines-calculator__fine_overtaking_crosswalk",
@@ -5429,7 +5429,7 @@
       "surfaces": [
         "src/data/trafficFines.ts:50-57"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-08",
       "source_hint": "Кодекс КР о правонарушениях ст. 186",
       "conflict": false,
       "status": "current",
@@ -5437,7 +5437,7 @@
       "official_value": "5500",
       "source_url": "https://ru.sputnik.kg/20230308/kyrgyzstan-pdd-narushenie-povyshenie-1073406198.html",
       "which_surface_correct": "compute",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника."
     },
     {
       "id": "traffic-fines-calculator__fine_shoulder_driving",
@@ -5539,7 +5539,7 @@
       "surfaces": [
         "src/data/trafficFines.ts:32-39"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-08",
       "source_hint": "Кодекс КР о правонарушениях ст. 187",
       "conflict": false,
       "status": "current",
@@ -5547,7 +5547,7 @@
       "official_value": "7500",
       "source_url": "https://ru.sputnik.kg/20230308/kyrgyzstan-pdd-narushenie-povyshenie-1073406198.html",
       "which_surface_correct": "both",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника."
     },
     {
       "id": "traffic-fines-calculator__fine_speed_60_plus",
