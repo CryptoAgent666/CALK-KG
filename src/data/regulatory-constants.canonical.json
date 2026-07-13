@@ -1918,13 +1918,13 @@
       "key": "heating_tariff_per_gcal_bishkek_social",
       "value": "1560.00",
       "unit": "som_per_gcal",
-      "law": "Приказ Деп. по рег. ТЭК №105 от 30.05.2025 (социальный тариф до 80 м², +25% с 01.06.2025)",
+      "law": "Приказ Деп. по рег. ТЭК №42 от 10.03.2026 (соц. тариф <=80 м2, в силе с 01.03.2026; предшественник №105 от 30.05.2025 +25% с 01.06.2025)",
       "theme": "utility_tariff",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:27"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-07-08",
       "source_hint": "Департамент по регулированию ТЭК при МЭ КР; ТЭЦ Бишкека",
       "conflict": true,
       "status": "current",
@@ -1932,8 +1932,10 @@
       "official_value": "1560.00",
       "source_url": "https://knews.kg/2025/01/17/v-merii-bishkeka-dali-razyasnenie-otnositelno-nachisleniya-za-otoplenie/",
       "which_surface_correct": "compute",
-      "verify_note": "Official Bishkek social heating tariff (жильё до 80 м²) = 1560 сом/Гкал from 01.03.2026 (Приказ ДТЭК №42 от 10.03.2026; was 1248/1120). Over-80-m² portion billed at ~5998.17 сом/Гкал — confirmed. BOTH surfaces wrong: COMPUTE 1950 too high, PROSE 1450 too low. COMPUTE is the better/intended-current surface but the value should be updated to 1560.",
-      "fix_note": "fixed 2026-06-28: confirmed national social tariff 1560 сом/Гкал; >80 м² portion (5998.17) now modeled via area-proportional split in calculateHeating; prose 1134.76/1450 → 1560 in RU+KY. See _meta.reconciliations[0]. (working tree, not deployed)"
+      "verify_note": "Official Bishkek social heating tariff (жильё до 80 м²) = 1560 сом/Гкал from 01.03.2026 (Приказ ДТЭК №42 от 10.03.2026; was 1248/1120). Over-80-m² portion billed at ~5998.17 сом/Гкал — confirmed. BOTH surfaces wrong: COMPUTE 1950 too high, PROSE 1450 too low. COMPUTE is the better/intended-current surface but the value should be updated to 1560. | RE-VERIFIED 2026-07-08 (workflow regultek): социальный тариф <=80 м2 = 1560 сом/Гкал ПОДТВЕРЖДЁН по приказу №42 от 10.03.2026 — несколько источников цитируют приказ дословно (teplo.com.kg/new-tarifs, kaktus 532974, регультек №105 PDF). ГВС 108.07 сом/м3 тоже подтверждён (совпадает с сайтом). '1950' — ОШИБКА sub-агента (не встречается ни в одном первоисточном описании приказа №42; вероятно спутал с предложенным/отменённым значением). Правку 1560->1950 применил и ОТКАТИЛ (git checkout) до деплоя — сайт не менялся. WATCH: плановый +50% с 01.06.2026 (среднесрочная политика) на 2026-07-08 НЕ введён — доказательство: ГВС остался 108.07 (при +50% был бы ~162), после №42 энергетических приказов нет (только №127 от 25.06.2026 — техобслуживание). Если введут: <=80 м2 -> 2340, ГВС -> ~162.",
+      "fix_note": "fixed 2026-06-28: confirmed national social tariff 1560 сом/Гкал; >80 м² portion (5998.17) now modeled via area-proportional split in calculateHeating; prose 1134.76/1450 → 1560 in RU+KY. See _meta.reconciliations[0]. (working tree, not deployed)",
+      "verified_date": "2026-07-08",
+      "verify_confidence": "high"
     },
     {
       "id": "heating-calculator__heating_tariff_per_gcal_jalal_abad",
@@ -2111,7 +2113,7 @@
       "surfaces": [
         "src/i18n/translations-ru.ts:6032"
       ],
-      "last_updated": "2026-01",
+      "last_updated": "2026-07-08",
       "source_hint": "Бишкектеплосеть",
       "conflict": false,
       "status": "current",
@@ -2119,7 +2121,7 @@
       "official_value": "1560",
       "source_url": "https://knews.kg/2025/01/17/v-merii-bishkeka-dali-razyasnenie-otnositelno-nachisleniya-za-otoplenie/",
       "which_surface_correct": "prose",
-      "verify_note": "PROSE-only housing reference '1450 сом/Гкал' is stale. Official Bishkek social heating = 1560 сом/Гкал from 01.03.2026. Should be updated.",
+      "verify_note": "PROSE housing heating reference = 1560 сом/Гкал — CURRENT (приказ №42 от 10.03.2026, соц. норма <=80 м2). Стар. '1450' уже исправлена в прозе. Re-verified 2026-07-08.",
       "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)"
     },
     {
