@@ -28,7 +28,7 @@ import { formatCurrentMonth } from '../utils/dateFormatter';
 const HEAT_TARIFF_SOCIAL = 1560.00;     // сом/Гкал — площадь до 80 м²
 const HEAT_TARIFF_ABOVE_NORM = 5998.17; // сом/Гкал — площадь свыше 80 м²
 const SOCIAL_NORM_AREA = 80;            // м² — граница социальной нормы
-const HEAT_NORM_GCAL_PER_M2 = 0.036;    // Гкал/м² в месяц — норматив потребления тепла
+const HEAT_NORM_GCAL_PER_M2 = 0.0206;   // Гкал/м² в месяц (сезонная средняя: 3.6 Гкал/сезон ÷ 35 м² ÷ 5 мес — методика Бишкектеплосети)
 // ГВС: официальный тариф МП «Бишкектеплосеть» по счётчику (Приказ Деп. по рег. ТЭК №42 от 10.03.2026).
 const HOT_WATER_TARIFF_PER_M3 = 108.07;     // сом/м³ по счётчику
 const HOT_WATER_NORM_M3_PER_PERSON = 4.8;   // м³/чел в месяц — норматив ГВС (bishkek.gov.kg)

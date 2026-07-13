@@ -1784,23 +1784,25 @@
       "id": "heating-calculator__heating_standard_gcal_per_m2_bishkek",
       "calculator": "heating-calculator",
       "key": "heating_standard_gcal_per_m2_bishkek",
-      "value": "0.036",
+      "value": "0.0206",
       "unit": "gcal_per_m2_month",
-      "law": "Приказ Департамента по регулированию ТЭК при МЭ КР №105 от 30.05.2025",
+      "law": "Методика расчёта Бишкектеплосети (норматив потребления тепла; по-квартирные нормы 3.6/4.93/6.31/8.17 Гкал/сезон для 1/2/3/4-комн, сезон 5 мес ноя–мар)",
       "theme": "utility_tariff",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/pages/HeatingCalculatorPage.tsx:29"
+        "src/pages/HeatingCalculatorPage.tsx:31"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-07-08",
       "source_hint": "Департамент по регулированию ТЭК при МЭ КР",
       "conflict": false,
       "status": "current",
-      "notes": "COMPUTE HEATING_TARIFFS.bishkek.heating.standard_gcal_per_m2 — heat consumption norm per m2/month. Matches i18n prose heating_method_b_formula (0.036). Per-city: osh 0.038, karakol 0.040, jalal-abad 0.037, tokmok 0.035, naryn 0.042.",
-      "official_value": "0.036",
+      "notes": "COMPUTE HEAT_NORM_GCAL_PER_M2 — плоская месячная норма потребления тепла (Гкал/м²/мес). Синхронна с прозой heating_method_b_formula + примерами.",
+      "official_value": "0.0206",
       "source_url": "https://bishkek.gov.kg/ru/tariffs/2",
       "which_surface_correct": "both",
-      "verify_note": "Heat-consumption norm 0.036 Гкал/м²/month for Bishkek is a physical norm (not a price) and matches between COMPUTE and PROSE. Stable; correct."
+      "verify_note": "RE-VERIFIED 2026-07-08 (workflow): прежние 0.036 ЗАВЫШЕНЫ ~в 1.75×. Первоисточник (методика Бишкектеплосети, teplo.com.kg/heating-energy): 1-комн 35 м² = 3.6 Гкал за сезон, сезон 5 мес (ноя 17% / дек 22% / янв 25% / фев 20% / мар 16%). Отсюда плоская сезонная средняя = 3.6 ÷ 35 ÷ 5 = 0.0206 Гкал/м²/мес (диапазон по комнатам 0.019–0.021). Официальная модель — по-квартирная посезонная + помесячные коэффициенты; сайт использует плоское приближение 0.0206 (выбор пользователя, опция «простой фикс», не структурная модель). 0.036 давало месячную переоценку ~+75%.",
+      "verified_date": "2026-07-08",
+      "verify_confidence": "high"
     },
     {
       "id": "heating-calculator__heating_standard_gcal_per_m2_jalal_abad",
