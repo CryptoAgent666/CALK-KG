@@ -48,9 +48,13 @@ The site hard-codes hundreds of government-set values. They are inventoried + fr
 - **Подоходный налог 10%** standard / **5%** for ПВТ (High-Tech Park) residents. НМД (non-taxable
   minimum) **14 970 сом**. Соцфонд **10%** employee (8% ПФ + 2% ГНПФ); employer adds (standard total
   ~27.25%, business 2.25%).
-- **МЗП (min wage) 3 280 сом** from 2026. Patent / single-tax (единый налог) are special regimes;
-  single-tax revenue cap **8 млн сом/yr**, VAT (НДС) registration threshold **30 млн**.
-- Taxi aggregator income tax **1%**. Electric vehicles: **0% customs duty + excise** (ЕЭК №111, in
+- **МЗП (min wage) 3 280 сом** from 2026. Patent / single-tax (единый налог) are special regimes.
+  Единый налог: **NO revenue cap** (ст.418 ч.5/6 НК repealed by Закон №185 от 31.07.2025; ограничения
+  по виду деятельности — ст.419). Trade rates by turnover: **≤50 млн 0,5% flat** (нал+безнал),
+  **>50 млн 4% нал / 2% безнал** (ст.423 ч.1); **ИП 0% ≤15 млн** (ст.423 ч.8). НК has **no numeric
+  VAT-registration threshold** (ст.255 — по признаку общего режима). Verified verbatim 2026-07-20.
+- Taxi aggregator income tax **1%** (ст.197 ч.3 НК, подоходный через агрегатор; до 31.12.2027,
+  потом 2% 2028–29, 5% с 2030). Electric vehicles: **0% customs duty + excise** (ЕЭК №111, in
   force 22.01.2026, quota 15 000 units). Deposit guarantee **1 000 000 сом** (НБКР).
 
 ## ⚠️ Working tree

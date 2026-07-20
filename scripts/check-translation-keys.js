@@ -17,7 +17,7 @@ if (ruStart === -1 || kyStart === -1) {
 const ruSection = translationsText.slice(ruStart, kyStart);
 const kySection = translationsText.slice(kyStart);
 
-const keyRegex = /^\s*([a-zA-Z0-9_]+):\s*'/gm;
+const keyRegex = /^\s*([a-zA-Z0-9_]+):\s*['"]/gm;
 
 function extractKeys(section) {
   const keys = new Set();

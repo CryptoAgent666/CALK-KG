@@ -3841,23 +3841,25 @@
       "id": "single-tax-calculator__single_tax_catering_sauna_billiard",
       "calculator": "single-tax-calculator",
       "key": "single_tax_catering_sauna_billiard",
-      "value": "8",
+      "value": "общепит: Бишкек/Ош 6% нал / 4% безнал, регионы 4% / 2%; сауны/бильярд/бани/лотереи 8%",
       "unit": "percent",
-      "law": "НК КР единый налог",
+      "law": "НК КР ст.423 ч.4 (8% лотереи/сауны/бильярд/бани кроме муниципальных) + ч.5 (общепит)",
       "theme": "single_tax",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/pages/SingleTaxCalculatorPage.tsx:131-148"
+        "src/pages/SingleTaxCalculatorPage.tsx (catering_bishkek_osh/catering_regions/sauna_billiard)"
       ],
-      "last_updated": "2026-03-13",
+      "last_updated": "2026-07-20",
       "source_hint": "salyk.kg",
       "conflict": false,
       "status": "current",
       "notes": "catering (общепит/сауна/бильярд): 8% независимо от формы оплаты (cash & cashless).",
-      "official_value": "8",
+      "official_value": "общепит: Бишкек/Ош 6% нал / 4% безнал, регионы 4% / 2%; сауны/бильярд/бани/лотереи 8%",
       "source_url": "https://sti.gov.kg/section/0/%D1%81%D0%BF%D0%B5%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9_%D0%BD%D0%B0%D0%BB%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9_%D1%80%D0%B5%D0%B6%D0%B8%D0%BC",
       "which_surface_correct": "na",
-      "verify_note": "ГНС: общепит/сауны/бильярд/бани (кроме муниципальных) — 8% независимо от формы оплаты. Подтверждено."
+      "verify_note": "RE-VERIFIED 2026-07-20 (НК вербатим, PDF ГНС): прежние 8% для ОБЩЕПИТА — ОШИБКА. 8% — только лотереи и сауны/бильярд/бани (ч.4). Общепит (ч.5): Бишкек/Ош 6% нал / 4% безнал; остальная территория 4% / 2%. COMPUTE: категория catering разделена на 3. Статейный пример кафе (4% безнал) был верен для Бишкека.",
+      "verified_date": "2026-07-20",
+      "verify_confidence": "high"
     },
     {
       "id": "single-tax-calculator__single_tax_ecommerce_cashless",
@@ -3909,7 +3911,7 @@
       "key": "single_tax_limit_prose_12m",
       "value": "8000000",
       "unit": "som_year",
-      "law": "НК КР единый налог",
+      "law": "НК КР ст.418 (ч.5/6 утратили силу Законом №185 от 31.07.2025), ст.419",
       "theme": "single_tax",
       "is_gov_regulated": true,
       "surfaces": [
@@ -3918,16 +3920,18 @@
         "translations-ru.ts:single_tax_dis_1:1943",
         "translations-ru.ts:single_tax_faq_a2:1970"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-07-20",
       "source_hint": "salyk.kg",
       "conflict": true,
-      "status": "current",
+      "status": "removed",
       "notes": "MISMATCH: legacy single_tax_* PROSE keys state годовой лимит выручки = 12 млн сом, while compute trade_0_percent cap is 8 млн and newer singletax_* prose (l.5568,6284) says 8 млн. Conflicting limits (8M vs 12M) coexist in active translations-ru.ts.",
       "official_value": "8000000",
       "source_url": "https://sti.gov.kg/section/0/%D1%81%D0%BF%D0%B5%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9_%D0%BD%D0%B0%D0%BB%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9_%D1%80%D0%B5%D0%B6%D0%B8%D0%BC",
       "which_surface_correct": "compute",
-      "verify_note": "PROSE '12 млн' неверно. ГНС: порог льготы/0% и эталонный лимит — 8 000 000 сом за 12 мес. Compute (8 млн) и новые singletax_* prose (8 млн) правы; legacy prose 12 млн устарело. (Прежний общий потолок 30 млн для режима единого налога отменён.)",
-      "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)"
+      "verify_note": "RE-VERIFIED 2026-07-20 (НК вербатим): порога выручки для единого налога НЕТ ВООБЩЕ — ст.418 ч.5/6 утратили силу (Закон №185 от 31.07.2025), ограничения только по виду деятельности (ст.419 ч.2). Все прозовые «лимит 8 млн» ключи (info_2, who_can_text, req_2, faq_q2/a2, turnover_limit_value, faq_a1, article_who_eligible, turnover_note, general_vat, limit_exceeded_desc, adv_5, dis_1 + taxi_faq_a2/mistake_4) вычищены 2026-07-20 в RU+KY. CLAUDE.md обновлён.",
+      "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)",
+      "verified_date": "2026-07-20",
+      "verify_confidence": "high"
     },
     {
       "id": "single-tax-calculator__single_tax_other_base",
@@ -3957,21 +3961,23 @@
       "key": "single_tax_pvt_resident_cashless",
       "value": "1",
       "unit": "percent",
-      "law": "НК КР единый налог",
+      "law": "НК КР гл.59 (ст.432-435, режим ПВТ) + ст.423 ч.6 (Парк креативных индустрий)",
       "theme": "single_tax",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/SingleTaxCalculatorPage.tsx:167-184"
       ],
-      "last_updated": "2026-03-13",
+      "last_updated": "2026-07-20",
       "source_hint": "salyk.kg",
       "conflict": false,
-      "status": "current",
+      "status": "removed",
       "notes": "pvt (резиденты ПВТ/Парк высоких технологий): cashless 1%, cash = null.",
       "official_value": "1",
       "source_url": "https://kyrgyzstanbusiness.ru/registraciya-v-pvt-kyrgyzstana/",
       "which_surface_correct": "na",
-      "verify_note": "Резиденты ПВТ — единый/льготный налог 1% (безналичная деятельность IT). cash=null корректно. Льготы ПВТ бессрочны."
+      "verify_note": "RE-VERIFIED 2026-07-20 (НК вербатим): категория «Резиденты ПВТ 1%» в едином налоге — ФИКЦИЯ. Резидент ПВТ ОСВОБОЖДЁН от налога на прибыль, НсП и НДС (ст.434) — тех самых налогов, которые единый налог заменяет (ст.418 ч.1), т.е. ПВТ единый налог не платит вовсе. Реальный 1% — Парк креативных индустрий (ст.423 ч.6): 2023-24 0,5%, 2025-26 1%, с 2027 2%. COMPUTE: pvt заменён на creative_park (1% плоско, 2025-2026). WATCH: с 01.01.2027 поднять до 2%.",
+      "verified_date": "2026-07-20",
+      "verify_confidence": "high"
     },
     {
       "id": "single-tax-calculator__single_tax_threshold_30m",
