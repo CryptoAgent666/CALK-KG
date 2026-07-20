@@ -268,23 +268,25 @@
       "id": "alimony-calculator__alimony_min_amount_1_child",
       "calculator": "alimony-calculator",
       "key": "alimony_min_amount_1_child",
-      "value": "none",
+      "value": "3280",
       "unit": "som_per_month",
-      "law": "норма минимальных алиментов (30% × 2500 МРОТ)",
+      "law": "Семейный кодекс КР от 30.08.2003 №201, ст.86 п.1 (в ред. Закона №135 от 17.08.2020)",
       "theme": "alimony_minimum",
       "is_gov_regulated": true,
       "surfaces": [
         "src/i18n/translations-ru.ts:5669"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-20",
       "source_hint": "Семейный кодекс КР",
       "conflict": false,
       "status": "current",
       "notes": "FIXED 2026-06-20: статутного минимума алиментов нет; ложный floor удалён из прозы.",
-      "official_value": null,
+      "official_value": "3280 (1 МЗП, 2026)",
       "source_url": "https://online.zakon.kz/Document/?doc_id=30286698",
       "which_surface_correct": "prose",
-      "verify_note": "Семейный кодекс КР ст.86 (доли 1/4,1/3,1/2) и ст.88 (твёрдая сумма) НЕ устанавливают минимум, привязанный к МЗП. Подтверждено суб-агентом, источники cbd.minjust.gov.kg."
+      "verify_note": "RE-VERIFIED 2026-07-20: минимум алиментов СУЩЕСТВУЕТ. Прочитан ВЕРБАТИМ ст.86 п.1 СК КР (FAOLEX официальный PDF kyr205216, ред. до Закона №135 от 17.08.2020; ред. кодекса действ. 17.07.2025): «для трудоспособных родителей минимальный размер алиментов… не менее одной МЗП на одного ребёнка, полутора — на двух, двух — на трёх и более, за исключением случаев ст.88». Минимум = 1/1.5/2 МЗП = 3280/4920/6560 (2026). Прежняя запись 2026-06-20 «none/минимума нет» — ОШИБКА (прочитано только 1-е предложение статьи). COMPUTE обновлён: max(доход×доля, N×МЗП).",
+      "verified_date": "2026-07-20",
+      "verify_confidence": "high"
     },
     {
       "id": "alimony-calculator__alimony_min_mrot",
@@ -299,7 +301,7 @@
         "src/i18n/translations-ru.ts:5669",
         "src/i18n/translations-ru.ts:5685"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-07-20",
       "source_hint": "Семейный кодекс КР / МРОТ КР",
       "conflict": true,
       "status": "current",
@@ -307,30 +309,32 @@
       "official_value": "3280",
       "source_url": "https://24.kg/ekonomika/348586_kabmin_opredelil_razmer_minimalnoy_zarplatyi_v2026_godu_3tyisyachi_280_somov_/",
       "which_surface_correct": "prose",
-      "verify_note": "КР minimum wage (МЗП) for 2026 = 3280 сом (Кабмин, eff. Jan 2026; 2027=3608, 2028=3968.8). Dataset's МРОТ base of 2500 is outdated. NB: separately, no minimum-alimony floor exists in Семейный кодекс ст.86-88, so this value's use as an alimony floor is itself unsupported.",
+      "verify_note": "КР minimum wage (МЗП) for 2026 = 3280 сом (Кабмин, eff. Jan 2026; 2027=3608, 2028=3968.8). Dataset's МРОТ base of 2500 is outdated. NB: separately, no minimum-alimony floor exists in Семейный кодекс ст.86-88, so this value's use as an alimony floor is itself unsupported. | Re-confirmed 2026-07-20: МЗП=3280 — база минимума алиментов (ст.86 п.1 СК КР), 1/1.5/2× по числу детей.",
       "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)"
     },
     {
       "id": "alimony-calculator__alimony_min_share_of_mrot",
       "calculator": "alimony-calculator",
       "key": "alimony_min_share_of_mrot",
-      "value": "none",
+      "value": "1.0 / 1.5 / 2.0 (кратность МЗП на 1 / 2 / 3+ детей)",
       "unit": "fraction",
-      "law": "норма минимальных алиментов (30% МРОТ)",
+      "law": "Семейный кодекс КР ст.86 п.1",
       "theme": "alimony_minimum",
       "is_gov_regulated": true,
       "surfaces": [
         "src/i18n/translations-ru.ts:5669"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-20",
       "source_hint": "Семейный кодекс КР",
       "conflict": false,
       "status": "current",
       "notes": "FIXED 2026-06-20: «30% от МЗП» не существует в законе; удалено.",
-      "official_value": null,
+      "official_value": "1 / 1.5 / 2 МЗП",
       "source_url": "https://online.zakon.kz/Document/?doc_id=30286698",
       "which_surface_correct": "prose",
-      "verify_note": "Норма не найдена в Семейном кодексе КР. Удалено из прозы."
+      "verify_note": "RE-VERIFIED 2026-07-20: минимум алиментов СУЩЕСТВУЕТ. Прочитан ВЕРБАТИМ ст.86 п.1 СК КР (FAOLEX официальный PDF kyr205216, ред. до Закона №135 от 17.08.2020; ред. кодекса действ. 17.07.2025): «для трудоспособных родителей минимальный размер алиментов… не менее одной МЗП на одного ребёнка, полутора — на двух, двух — на трёх и более, за исключением случаев ст.88». Минимум = 1/1.5/2 МЗП = 3280/4920/6560 (2026). Прежняя запись 2026-06-20 «none/минимума нет» — ОШИБКА (прочитано только 1-е предложение статьи). COMPUTE обновлён: max(доход×доля, N×МЗП). Это КРАТНОСТЬ МЗП (не доля): 1× / 1.5× / 2×.",
+      "verified_date": "2026-07-20",
+      "verify_confidence": "high"
     },
     {
       "id": "alimony-calculator__alimony_share_1_child",
@@ -3975,21 +3979,23 @@
       "key": "single_tax_threshold_30m",
       "value": "30000000",
       "unit": "som_year",
-      "law": "НК КР единый налог",
+      "law": "НК КР от 18.01.2022 №3, ст.423 (прочитан вербатим из офиц. PDF ГНС sti.gov.kg, ред. 31.12.2025)",
       "theme": "single_tax",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/SingleTaxCalculatorPage.tsx:73,92"
       ],
-      "last_updated": "2026-03-13",
+      "last_updated": "2026-07-20",
       "source_hint": "salyk.kg",
       "conflict": false,
-      "status": "current",
+      "status": "removed",
       "notes": "Trade corridor boundary: up to 30 млн (0.5% cashless) / start of 30-50 млн band.",
       "official_value": "30000000",
       "source_url": "https://zakon.kg/guide/edinyj-nalog-v-kr-chto-eto-takoe-i-mozhet-li-osoo-rabotat-na-etom-rezhime/",
       "which_surface_correct": "na",
-      "verify_note": "Граница торгового коридора: до 30 млн сом — 0,5% (безнал). Подтверждено."
+      "verify_note": "RE-VERIFIED 2026-07-20: порога 30 млн для торговли в НК НЕТ (grep «30000000» по всему кодексу — 0). Торговый порог ставки 0,5% = 50 млн (ст.423 ч.1 п.1«а»). Прежняя запись 13.03 «подтверждено по zakon.kg» — устаревшая вторичка (сам источник с тех пор исправлен). COMPUTE: полоса trade_30m удалена.",
+      "verified_date": "2026-07-20",
+      "verify_confidence": "high"
     },
     {
       "id": "single-tax-calculator__single_tax_threshold_50m",
@@ -3997,13 +4003,13 @@
       "key": "single_tax_threshold_50m",
       "value": "50000000",
       "unit": "som_year",
-      "law": "НК КР единый налог",
+      "law": "НК КР от 18.01.2022 №3, ст.423 (прочитан вербатим из офиц. PDF ГНС sti.gov.kg, ред. 31.12.2025)",
       "theme": "single_tax",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/pages/SingleTaxCalculatorPage.tsx:93"
+        "src/pages/SingleTaxCalculatorPage.tsx (trade_up_to_50m/trade_over_50m)"
       ],
-      "last_updated": "2026-03-13",
+      "last_updated": "2026-07-20",
       "source_hint": "salyk.kg",
       "conflict": false,
       "status": "current",
@@ -4011,30 +4017,33 @@
       "official_value": "50000000",
       "source_url": "https://zakon.kg/guide/edinyj-nalog-v-kr-chto-eto-takoe-i-mozhet-li-osoo-rabotat-na-etom-rezhime/",
       "which_surface_correct": "na",
-      "verify_note": "Верхняя граница коридора 30-50 млн сом — 1% (безнал). Подтверждено."
+      "verify_note": "RE-VERIFIED 2026-07-20: 50 млн — ПОТОЛОК ставки 0,5% для торговли (ст.423 ч.1 п.1«а»): до 50 млн → 0,5% плоско (нал+безнал); свыше → 4% нал/2% безнал (п.1«б»). Не «верх 1%-коридора».",
+      "verified_date": "2026-07-20",
+      "verify_confidence": "high"
     },
     {
       "id": "single-tax-calculator__single_tax_threshold_8m",
       "calculator": "single-tax-calculator",
       "key": "single_tax_threshold_8m",
-      "value": "8000000",
+      "value": "15000000",
       "unit": "som_year",
-      "law": "НК КР единый налог",
+      "law": "НК КР от 18.01.2022 №3, ст.423 (прочитан вербатим из офиц. PDF ГНС sti.gov.kg, ред. 31.12.2025)",
       "theme": "single_tax",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/pages/SingleTaxCalculatorPage.tsx:53",
-        "translations-ru.ts:singletax_turnover_limit_value:5568"
+        "src/pages/SingleTaxCalculatorPage.tsx:53 (trade_0_percent maxAnnualRevenue)"
       ],
-      "last_updated": "2026-03-13",
+      "last_updated": "2026-07-20",
       "source_hint": "salyk.kg",
       "conflict": false,
       "status": "current",
       "notes": "maxAnnualRevenue for 0% ИП-ККМ band = 8 млн сом/год. singletax_* prose also cites 8 млн as the единый-налог eligibility cap.",
-      "official_value": "8000000",
+      "official_value": "15000000",
       "source_url": "https://sti.gov.kg/section/0/%D1%81%D0%BF%D0%B5%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9_%D0%BD%D0%B0%D0%BB%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9_%D1%80%D0%B5%D0%B6%D0%B8%D0%BC",
       "which_surface_correct": "na",
-      "verify_note": "ГНС: 'размер выручки не превышает 8 000 000 сомов за последние 12 месяцев' — порог для 0% ИП-ККМ и эталонный лимит единого налога. Подтверждено."
+      "verify_note": "RE-VERIFIED 2026-07-20: порог ставки 0% для ИП = 15 млн (ст.423 ч.8: ККМ, ≤2 работников, один торг.объект, страх.взносы), было 8 млн. ⚠️ ОТДЕЛЬНО: прозовые ключи (single_tax_info_2/who_can_text/req_2/turnover_limit_value и др.) до сих пор пишут «лимит единого налога 8 млн → общий режим» — это УСТАРЕЛО (ст.418 ч.5/6 утратили силу Законом №185 от 31.07.2025; у единого налога НЕТ порога выручки, исключения по виду деятельности ст.419 ч.2). Требует отдельной правки прозы + CLAUDE.md.",
+      "verified_date": "2026-07-20",
+      "verify_confidence": "high"
     },
     {
       "id": "single-tax-calculator__single_tax_trade_0pct_effective_date",
@@ -4114,21 +4123,23 @@
       "key": "single_tax_trade_30_50m_cashless",
       "value": "1",
       "unit": "percent",
-      "law": "НК КР единый налог",
+      "law": "НК КР от 18.01.2022 №3, ст.423 (прочитан вербатим из офиц. PDF ГНС sti.gov.kg, ред. 31.12.2025)",
       "theme": "single_tax",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/SingleTaxCalculatorPage.tsx:75-94"
       ],
-      "last_updated": "2026-03-13",
+      "last_updated": "2026-07-20",
       "source_hint": "salyk.kg",
       "conflict": false,
-      "status": "current",
+      "status": "removed",
       "notes": "trade_50m: cashless 1%, cash = null; торговый коридор 30-50 млн сом/год.",
       "official_value": "1",
       "source_url": "https://zakon.kg/guide/edinyj-nalog-v-kr-chto-eto-takoe-i-mozhet-li-osoo-rabotat-na-etom-rezhime/",
       "which_surface_correct": "na",
-      "verify_note": "Торговый коридор 30-50 млн сом/год — 1% безналичные, cash=null. Подтверждено."
+      "verify_note": "RE-VERIFIED 2026-07-20: ставки 1% для ТОРГОВЛИ в НК НЕТ. 1% — только резидент Парка креативной индустрии 2025–2026 (ст.423 ч.6), к обороту торговли не относится. Торговля: ≤50 млн=0,5%; >50 млн=4% нал/2% безнал. COMPUTE: полоса trade_50m удалена.",
+      "verified_date": "2026-07-20",
+      "verify_confidence": "high"
     },
     {
       "id": "single-tax-calculator__single_tax_trade_up_to_30m_cashless",
@@ -4136,13 +4147,13 @@
       "key": "single_tax_trade_up_to_30m_cashless",
       "value": "0.5",
       "unit": "percent",
-      "law": "НК КР единый налог",
+      "law": "НК КР от 18.01.2022 №3, ст.423 (прочитан вербатим из офиц. PDF ГНС sti.gov.kg, ред. 31.12.2025)",
       "theme": "single_tax",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/pages/SingleTaxCalculatorPage.tsx:55-74"
+        "src/pages/SingleTaxCalculatorPage.tsx (trade_up_to_50m)"
       ],
-      "last_updated": "2026-03-13",
+      "last_updated": "2026-07-20",
       "source_hint": "salyk.kg",
       "conflict": false,
       "status": "current",
@@ -4150,7 +4161,9 @@
       "official_value": "0.5",
       "source_url": "https://zakon.kg/guide/edinyj-nalog-v-kr-chto-eto-takoe-i-mozhet-li-osoo-rabotat-na-etom-rezhime/",
       "which_surface_correct": "na",
-      "verify_note": "Торговля до 30 млн сом/год — 0,5% безналичные, cash=null. Подтверждено."
+      "verify_note": "RE-VERIFIED 2026-07-20: ставка 0,5% ВЕРНА, но применяется до 50 млн (не 30) и ПЛОСКО — и наличными, и безналичными (ст.423 ч.1 п.1«а»). Прежние «≤30 млн» и «только безнал» — неверны. COMPUTE: rates {cash:0.5, cashless:0.5}.",
+      "verified_date": "2026-07-20",
+      "verify_confidence": "high"
     },
     {
       "id": "social-fund-calculator__employee_gnpf_rate",
@@ -4698,7 +4711,7 @@
       "key": "discount_rate_within_30_days",
       "value": "0.70",
       "unit": "fraction",
-      "law": "Кодекс КР о правонарушениях (скидка 70% при оплате в 30 дней)",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, ст.563 ч.5",
       "theme": "traffic_discount",
       "is_gov_regulated": true,
       "surfaces": [
@@ -4706,15 +4719,17 @@
         "src/i18n/translations-ru.ts:4108",
         "src/i18n/translations-ru.ts:2950"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-07-20",
       "source_hint": "Кодекс КР о правонарушениях",
       "conflict": false,
       "status": "current",
       "notes": "COMPUTE calculateDiscountedFine multiplies by 0.3 (pays 30%), i.e. 70% discount if note contains 'скидка 70%'. Prose traffic_note_discount_70 and traffic_discount_30 confirm '70% при оплате в течение 30 дней'.",
       "official_value": null,
-      "source_url": "https://today.kg/save/shtrafy-pdd-v-kyrgyzstane-kak-proverit-i-oplatit-so-skidkoi-70/",
+      "source_url": "https://cbd.minjust.gov.kg/3-36/edition/2102/ru",
       "which_surface_correct": "both",
-      "verify_note": "70% early-payment discount within 30 calendar days of receiving notification confirmed (today.kg, 16.03.2026). Excluded from discount: DUI, speeding >40/>60, oncoming-lane, red light, tinting/fake plates, no-license. Dataset 0.70 / 30 days correct."
+      "verify_note": "RE-VERIFIED 2026-07-20: 0,70 = СКИДКА 70% (штраф уменьшается на 70%, платится 30%) при оплате в течение 30 календарных дней (ст.563 ч.5 Кодекса КР о правонарушениях №128, гл.21; в ред. Закона №37 от 12.02.2025). Подтверждено по 2 дословным копиям первоисточника (FAOLEX + archive.kg). Значение верно, не менять.",
+      "verified_date": "2026-07-20",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_alcohol_over_08",

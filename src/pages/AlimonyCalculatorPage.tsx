@@ -37,6 +37,13 @@ const ALIMONY_RATES = {
   3: { rate: 0.50, descriptionKey: 'alimony_three_plus_children' }
 };
 
+// МЗП КР с 01.01.2026 (справочно; база минимума алиментов)
+const MIN_WAGE = 3280;
+// Ст. 86 п.1 СК КР: для трудоспособных родителей минимальный размер алиментов
+// в долевом методе — не менее 1 / 1,5 / 2 МЗП на 1 / 2 / 3+ детей
+// (за исключением случаев ст. 88 — твёрдая сумма при нерегулярном доходе).
+const ALIMONY_MIN_MULTIPLE: Record<number, number> = { 1: 1, 2: 1.5, 3: 2 };
+
 type CalculationMethod = 'known-income' | 'regional-average';
 type Region = keyof typeof REGIONAL_AVERAGE_SALARY;
 
@@ -47,6 +54,9 @@ interface AlimonyResults {
   alimonyAmount: number;
   calculationMethod: string;
   regionName?: string;
+  shareAmount?: number;   // алименты по доле (до применения минимума)
+  minAmount?: number;     // статутный минимум (ст.86 п.1 СК КР)
+  minApplied?: boolean;   // сработал ли минимум (доля < минимума)
 }
 
 const AlimonyCalculatorPage = () => {
@@ -134,14 +144,21 @@ const AlimonyCalculatorPage = () => {
       methodDescription = `${t('alimony_method_regional')} (${regionName})`;
     }
 
-    // Расчет алиментов
-    const alimonyAmount = baseAmount * rateInfo.rate;
+    // Расчет алиментов: доля от дохода, но не ниже статутного минимума
+    // (ст. 86 п.1 СК КР — для трудоспособных родителей).
+    const shareAmount = baseAmount * rateInfo.rate;
+    const minAmount = (ALIMONY_MIN_MULTIPLE[rateKey] ?? 0) * MIN_WAGE;
+    const alimonyAmount = Math.max(shareAmount, minAmount);
+    const minApplied = shareAmount < minAmount;
 
     return {
       baseAmount,
       childrenCount: children,
       appliedRate: rateInfo.rate,
       alimonyAmount,
+      shareAmount,
+      minAmount,
+      minApplied,
       calculationMethod: methodDescription,
       regionName
     };
@@ -539,7 +556,14 @@ ${t('calculated_on_site')} Calk.KG`}
                         <span className="text-gray-700 font-medium">{t('alimony_formula')}:</span>
                       </div>
                       <div className="text-lg text-gray-900 font-mono bg-white p-4 rounded border">
-                        {formatCurrency(results.baseAmount)} × {(results.appliedRate * 100)}% = {formatCurrency(results.alimonyAmount)} {t('som')}
+                        {results.minApplied ? (
+                          <>
+                            <div>{formatCurrency(results.baseAmount)} × {(results.appliedRate * 100)}% = {formatCurrency(results.shareAmount ?? 0)} {t('som')}</div>
+                            <div className="text-pink-700 mt-1 text-base">{t('alimony_min_applied')}: {formatCurrency(results.alimonyAmount)} {t('som')}</div>
+                          </>
+                        ) : (
+                          <>{formatCurrency(results.baseAmount)} × {(results.appliedRate * 100)}% = {formatCurrency(results.alimonyAmount)} {t('som')}</>
+                        )}
                       </div>
                     </div>
                   </div>
