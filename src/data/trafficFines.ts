@@ -9,7 +9,11 @@ export interface TrafficFine {
 }
 
 // База данных штрафов ПДД Кыргызстана
-// АКТУАЛЬНО НА: июнь 2026. Номера статей сверены с Кодексом КР о правонарушениях №128 (ред. 23.04.2026), cbd.minjust.gov.kg.
+// АКТУАЛЬНО НА: июль 2026. Номера статей и суммы сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128
+// (машиночитаемая копия ред. до Закона №253 от 06.11.2025): 31/40 позиций совпали автоматически, 9 разобраны вручную.
+// ⚠️ Закон №81 от 05.06.2026 переписал ст.193 (опьянение): суммы 30 000 / 100 000 подтверждены двумя независимыми
+// источниками (rg.ru 24.06.2026, economist.kg 10.06.2026); дословный текст новой ст.193 машинно недоступен —
+// сроки лишения прав (2 года vs 3–10 лет) требуют сверки, когда появится читаемая редакция.
 // ⚠️ Требуют отдельной сверки (статья и/или сумма): parking_disabled, no_child_seat, cargo_overload_20(_plus), overtaking_crosswalk, railway_crossing, illegal_signals, passenger_rules.
 // Суммы и статьи сверены с Кодексом КР о правонарушениях №128 (ред. 23.04.2026): 1 РП = 100 сом.
 // Источник: cbd.minjust.gov.kg (№128), joldo.kg, ЦИК КР. drugs/leave_accident — лишение прав (0 сом).
@@ -152,20 +156,12 @@ export const TRAFFIC_FINES: TrafficFine[] = [
 
   // Алкогольное опьянение (реформа июнь 2026: штраф + лишение прав на 2 года; отказ — 100 000 сом)
   {
-    id: 'alcohol_under_08',
+    id: 'alcohol_driving',
     categoryId: 'alcohol',
     fine: 30000,
     article: 'Ст. 193 ч. 1',
     notesId: 'no_discount_license_2y',
-    keywords: ['алкоголь', 'опьянение', 'промилле', '0.8', 'пьяный']
-  },
-  {
-    id: 'alcohol_over_08',
-    categoryId: 'alcohol',
-    fine: 30000,
-    article: 'Ст. 193 ч. 1',
-    notesId: 'no_discount_license_2y',
-    keywords: ['алкоголь', 'опьянение', 'промилле', '0.8', 'пьяный', 'тяжелое']
+    keywords: ['алкоголь', 'опьянение', 'пьяный', 'нетрезвый', 'выпил']
   },
   {
     id: 'alcohol_refusal',
@@ -265,7 +261,7 @@ export const TRAFFIC_FINES: TrafficFine[] = [
     fine: 20000,
     article: 'Ст. 181 ч. 1',
     notesId: 'discount_70_driving_ban_unload',
-    keywords: ['перегруз', 'масса', 'груз', '20%', 'свыше']
+    keywords: ['перегруз', 'масса', 'груз', 'повторно', 'год']
   },
 
   // Обгон
@@ -330,7 +326,7 @@ export const TRAFFIC_FINES: TrafficFine[] = [
     categoryId: 'accident',
     fine: 0,
     article: 'Ст. 192 ч. 4',
-    notesId: 'no_discount_license_1_1_5y',
+    notesId: 'no_discount_license_6mo',
     keywords: ['ДТП', 'оставление', 'место', 'авария', 'скрылся']
   },
 

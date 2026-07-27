@@ -23,7 +23,7 @@ import { formatCurrentMonth } from '../utils/dateFormatter';
 // Бишкеку и Ошу. Тарифы малых городов (Каракол, Жалал-Абад, Нарын, Талас, Токмок,
 // Баткен) устанавливаются местными кенешами и официально не публикуются — поэтому
 // здесь НЕ приводятся, чтобы калькулятор не выдавал недостоверные значения.
-type ConsumerCategory = 'population' | 'budget' | 'commercial';
+type ConsumerCategory = 'population' | 'commercial' | 'water_intensive';
 type WaterTariff = { water: number; sewerage: number; nameKey: string };
 type CityWater = { nameKey: string; tariffs: Partial<Record<ConsumerCategory, WaterTariff>> };
 
@@ -31,10 +31,13 @@ const WATER_TARIFFS: Record<string, CityWater> = {
   'bishkek': {
     nameKey: 'region_bishkek',
     tariffs: {
-      // Постановление Бишкекского горкенеша; действуют с 01.06.2023
-      'population': { water: 10.45, sewerage: 3.45, nameKey: 'tariff_population' },
-      'budget': { water: 12.95, sewerage: 4.50, nameKey: 'tariff_budget' },
-      'commercial': { water: 18.50, sewerage: 9.00, nameKey: 'tariff_commercial_enterprises' }
+      // Пост. Бишкекского городского кенеша №101 от 30.06.2026 (опубл. 01.07.2026, в силе со дня
+      // опубликования; п.6 отменил пост. №86 от 30.05.2023). Единый тариф: вода 15,73 / канализация 6,80;
+      // повышающие коэффициенты (п.3): ИП и юрлица — 2,1; водоёмкие абоненты — 3.
+      // Категории «бюджетные организации» больше нет — она вошла во 2-ю категорию (юрлица, ×2,1).
+      'population': { water: 15.73, sewerage: 6.80, nameKey: 'tariff_population' },
+      'commercial': { water: 33.03, sewerage: 14.28, nameKey: 'tariff_commercial_enterprises' },
+      'water_intensive': { water: 47.19, sewerage: 20.40, nameKey: 'tariff_water_intensive' }
     }
   },
   'osh': {

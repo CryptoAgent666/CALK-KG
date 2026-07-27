@@ -1239,25 +1239,27 @@
       "id": "family-benefit-calculator__family_benefit_amount_per_child",
       "calculator": "family-benefit-calculator",
       "key": "family_benefit_amount_per_child",
-      "value": "1500",
+      "value": "1200",
       "unit": "KGS_per_month",
-      "law": "Минтруда / Кабмин КР — ежемесячное пособие на ребёнка (үй-бүлөгө көмөк / 'Балага суйунчу')",
+      "law": "Закон КР №163 от 28.07.2017 «О государственных пособиях в КР» (үй-бүлөгө көмөк)",
       "theme": "family_benefit",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/FamilyBenefitCalculatorPage.tsx:20",
         "translations-ru.ts:family_criterion_3"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-07-27",
       "source_hint": "cabinet.gov.kg",
       "conflict": true,
       "status": "current",
       "notes": "BENEFIT_CONFIG.benefitAmount=1200 сом/ребёнок/мес; benefitAmount = eligibleChildren*1200. MISMATCH: article (FamilyBenefitCalculatorArticle) lists entirely different amounts — birth 6,000; до 3 лет 500; многодетным 1,500-3,000; беременность 100%/140д — none equals the 1200 used in compute.",
-      "official_value": "1500",
-      "source_url": "https://24.kg/obschestvo/370241_bolshe_kyirgyizstantsev_smojet_poluchat_posobie_uy-bulogo_komok/",
+      "official_value": "1200",
+      "source_url": "https://mlsp.gov.kg/ru/2025/02/13/posobie-%D2%AFj-b%D2%AFl%D3%A9g%D3%A9-k%D3%A9m%D3%A9k-pomoshh-detyam-iz-maloobespechennyh-semej/",
       "which_surface_correct": "na",
-      "verify_note": "Пособие «үй-бүлөгө көмөк» повышено с 1200 до 1500 сом/ребёнка/мес на 25% с 01.08.2025 (Минтруда/Кабмин). Compute benefitAmount=1200 устарел → 1500. Article 'birth 6000 / до 3 лет 500' — это ДРУГИЕ выплаты (см. ниже), а не это ежемесячное; основной конфликт compute vs prose — компонент prose про разные суммы, тут которая верна для самого пособия: 1500.",
-      "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)"
+      "verify_note": "RE-VERIFIED 2026-07-27 по mlsp.gov.kg (gov): «размер ежемесячного пособия «үй-бүлөгө көмөк» составляет 1200 сомов на каждого ребенка». Прежнее official_value=1500 — ОШИБКА КОНФЛЯЦИИ: 1500 это ГМД (порог дохода) с 01.09.2026, а не размер пособия. COMPUTE (1200) был верен; исправлен леджер.",
+      "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "family-benefit-calculator__family_benefit_birth_amount",
@@ -1271,7 +1273,7 @@
       "surfaces": [
         "translations-ru.ts:familybenefit_birth_amount"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-07-27",
       "source_hint": "cabinet.gov.kg",
       "conflict": false,
       "status": "current",
@@ -1279,7 +1281,8 @@
       "official_value": "4000",
       "source_url": "https://kaktus.media/doc/544572_posobiia_v_kyrgyzstane._komy_predostavliautsia_kogda_i_v_kakom_razmere.html",
       "which_surface_correct": "na",
-      "verify_note": "Сверено 2026-06-30: 6000→4000 сом (балага сүйүнчү, Минтруда/kaktus 544572). Применено в прозе RU+KY и задеплоено."
+      "verify_note": "RE-VERIFIED 2026-07-27 по mlsp.gov.kg (gov): «балага сүйүнчү» = 4000 сом на каждого ребёнка — CURRENT. Порядок: Пост. Правительства №283 от 06.06.2019, Закон №163 от 28.07.2017. Номер акта, устанавливающего саму сумму 4000, машинно не подтверждён, но сумма дословно приведена на mlsp и сходится со статистикой выплат (2026: 271,034 млн / 67 468 детей ≈ 4017 с учётом 50 000 при многоплодных родах). НЕ НА САЙТЕ: при одновременном рождении 3+ детей — 50 000 сом на каждого ребёнка.",
+      "verified_date": "2026-07-27"
     },
     {
       "id": "family-benefit-calculator__family_benefit_large_family_amount",
@@ -1293,15 +1296,16 @@
       "surfaces": [
         "translations-ru.ts:familybenefit_large_family_amount"
       ],
-      "last_updated": "2026-07-02",
+      "last_updated": "2026-07-27",
       "source_hint": "cabinet.gov.kg",
       "conflict": false,
       "status": "current",
       "notes": "Article-only: 1,500–3,000 сом/мес многодетным (3+ детей). Not in compute.",
-      "official_value": null,
+      "official_value": "1200 (үй-бүлөгө көмөк); отдельного ежемесячного пособия многодетным в КР нет",
       "source_url": "https://mlsp.gov.kg/ru/2025/02/13/posobie-%D2%AFj-b%D2%AFl%D3%A9g%D3%A9-k%D3%A9m%D3%A9k-pomoshh-detyam-iz-maloobespechennyh-semej/",
       "which_surface_correct": "na",
-      "verify_note": "2026-07-02: «многодетным 1500-3000» — фабрикация; реально үй-бүлөгө көмөк 1200/ребёнка (ГМД 1000). Проза исправлена."
+      "verify_note": "RE-VERIFIED 2026-07-27 по mlsp.gov.kg (gov): ОТДЕЛЬНОГО ежемесячного пособия многодетным в КР НЕТ — ключ содержит размер «үй-бүлөгө көмөк» (1200 сом/мес на ребёнка малоимущим), и проза сайта уже подписана корректно («Малоимущим семьям «үй-бүлөгө көмөк»»), т.е. legacy только имя ключа. Для многодетных существует «Бала Береке» — ЕДИНОВРЕМЕННАЯ выплата (Указ Президента №370 от 18.12.2024): 4-й ребёнок 100 000, 5-й 600 000, 6-й 800 000, 7-й 1 000 000, 8-й 1 200 000, 9-й 1 500 000, 10-й+ 2 000 000 сом. На сайте не представлена — кандидат на добавление.",
+      "verified_date": "2026-07-27"
     },
     {
       "id": "family-benefit-calculator__family_benefit_under3_amount",
@@ -1309,21 +1313,22 @@
       "key": "family_benefit_under3_amount",
       "value": "1200",
       "unit": "KGS_per_month",
-      "law": "Кабмин КР — пособие на ребёнка до 3 лет (малоимущим)",
+      "law": "Пост. Кабмина КР №421 от 15.06.2026 («Бала ырысы», в силе с 01.07.2026)",
       "theme": "family_benefit",
       "is_gov_regulated": true,
       "surfaces": [
         "translations-ru.ts:familybenefit_under_3_amount"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-07-27",
       "source_hint": "cabinet.gov.kg",
       "conflict": false,
       "status": "current",
       "notes": "Article-only: 500 сом/мес на ребёнка до 3 лет малоимущим. Not in compute.",
-      "official_value": null,
+      "official_value": "1200",
       "source_url": "https://mlsp.gov.kg/ru/2025/02/13/posobie-%D2%AFj-b%D2%AFl%D3%A9g%D3%A9-k%D3%A9m%D3%A9k-pomoshh-detyam-iz-maloobespechennyh-semej/",
       "which_surface_correct": "na",
-      "verify_note": "Сверено 2026-06-30: 500→1200 («Бала ырысы», универсально с 01.07.2026). Задеплоено."
+      "verify_note": "RE-VERIFIED 2026-07-27 по mlsp.gov.kg (gov): 1200 сом/мес — пособие «Бала ырысы» (Пост. Кабмина №421 от 15.06.2026, в силе с 01.07.2026), от рождения до 3 лет, УНИВЕРСАЛЬНОЕ — НЕ только малоимущим (+ районные коэффициенты). Прежняя пометка «малоимущим» неверна; проза сайта («Бала ырысы», всем) уже корректна.",
+      "verified_date": "2026-07-27"
     },
     {
       "id": "family-benefit-calculator__family_child_age_cutoff",
@@ -1353,25 +1358,27 @@
       "id": "family-benefit-calculator__family_income_threshold_gmd",
       "calculator": "family-benefit-calculator",
       "key": "family_income_threshold_gmd",
-      "value": "1500",
+      "value": "1000",
       "unit": "KGS_per_person_per_month",
-      "law": "Кабмин КР — гарантированный минимальный доход (ГМД) для адресной помощи",
+      "law": "Пост. Кабмина КР №242 от 10.04.2026 (ГМД 1000→1500 с 01.09.2026)",
       "theme": "family_benefit",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/FamilyBenefitCalculatorPage.tsx:21",
         "translations-ru.ts:familybenefit_income_threshold_note"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-07-27",
       "source_hint": "cabinet.gov.kg",
       "conflict": false,
       "status": "current",
       "notes": "incomeThreshold=1700; eligible if income/familySize <= 1700. Article note agrees (доход менее 1,700 сом на человека).",
-      "official_value": "1500",
+      "official_value": "1000",
       "source_url": "https://mlsp.gov.kg/ru/2026/04/23/peresmotren-mehanizm-predostavleniya-ezhemesyachnogo-posobiya-uj-bulogo-komok-nuzhdayushhimsya-semyam-imeyushhim-detej-do-16-let/",
       "which_surface_correct": "na",
-      "verify_note": "ГМД (гарантированный минимальный доход) для «үй-бүлөгө көмөк»: был 1000 сом, повышен до 1500 сом Кабмином № 242, вступает в силу 01.09.2026. Compute incomeThreshold=1700 не совпадает ни с 1000, ни с 1500 → stale, официальное значение 1500 (до 01.09.2026 — 1000). NB ранние СМИ упоминали план до 2000 — принят 1500.",
-      "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)"
+      "verify_note": "RE-VERIFIED 2026-07-27 по mlsp.gov.kg (gov): действующий ГМД = 1000 сом; повышение до 1500 сом вступает в силу с 01.09.2026 (Пост. Кабмина №242 от 10.04.2026). На 2026-07-27 применять 1000. COMPUTE incomeThreshold=1000 верен. Проза (1500/1700) исправлена на 1000 с указанием будущего повышения. WATCH: с 01.09.2026 поднять на 1500 в COMPUTE + прозе RU/KY.",
+      "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "family-benefit-calculator__family_pregnancy_benefit",
@@ -4749,15 +4756,16 @@
       "surfaces": [
         "src/data/trafficFines.ts:160-167"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 189",
       "conflict": false,
-      "status": "current",
+      "status": "removed",
       "notes": "Опьянение свыше 0.8 промилле — fine=0, лишение прав на 3 года (no_discount_license_3y).",
       "official_value": "30000",
       "source_url": "https://rg.ru/2026/06/24/vypil-sel-za-rul-v-tiurmu.html",
       "which_surface_correct": "prose",
-      "verify_note": "Реформа июнь 2026: 0→30000 сом + лишение прав 2 года."
+      "verify_note": "RE-VERIFIED 2026-07-27: градации алкогольного опьянения по промилле (до/свыше 0,8) в Кодексе КР о правонарушениях НЕТ — ст.193 не делит ответственность по концентрации (это модель другой юрисдикции). Обе записи были 30 000 сом. Дубль удалён из COMPUTE; осталась одна позиция alcohol_driving.",
+      "verified_date": "2026-07-27"
     },
     {
       "id": "traffic-fines-calculator__fine_alcohol_refusal",
@@ -4765,13 +4773,13 @@
       "key": "fine_alcohol_refusal",
       "value": "100000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 189 ч. 3",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 193 ч. 2",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:168-175"
+        "src/data/trafficFines.ts (alcohol_refusal)"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 189",
       "conflict": false,
       "status": "current",
@@ -4779,21 +4787,23 @@
       "official_value": "100000",
       "source_url": "https://rg.ru/2026/06/24/vypil-sel-za-rul-v-tiurmu.html",
       "which_surface_correct": "prose",
-      "verify_note": "Реформа июнь 2026: отказ от освидетельствования 0→100000 сом."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5. ⚠️ Закон №81 от 05.06.2026 переписал ст.193: суммы 30 000 / 100 000 подтверждены двумя независимыми источниками (rg.ru 24.06.2026, economist.kg 10.06.2026) и совпадают с сайтом; дословный текст новой редакции машинно недоступен (cbd.minjust JS, prg.kz demo, mvd.gov.kg cert/404). Сроки лишения прав (2 года vs 3–10 лет) — РАСХОЖДЕНИЕ вторичных источников, требует сверки по первоисточнику. zakon.kg «80 000» отклонено: 800 РП — это УК ст.312 (вред здоровью), не Кодекс о правонарушениях.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
-      "id": "traffic-fines-calculator__fine_alcohol_under_08",
+      "id": "traffic-fines-calculator__fine_alcohol_driving",
       "calculator": "traffic-fines-calculator",
-      "key": "fine_alcohol_under_08",
+      "key": "fine_alcohol_driving",
       "value": "30000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 189 ч. 1",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 193 ч. 1",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:152-159"
+        "src/data/trafficFines.ts (alcohol_driving)"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 189",
       "conflict": false,
       "status": "current",
@@ -4801,7 +4811,9 @@
       "official_value": "30000",
       "source_url": "https://rg.ru/2026/06/24/vypil-sel-za-rul-v-tiurmu.html",
       "which_surface_correct": "prose",
-      "verify_note": "Реформа июнь 2026: 0→30000 сом + лишение прав 2 года (rg.ru 24.06.2026, knews 10.06.2026)."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5. ⚠️ Закон №81 от 05.06.2026 переписал ст.193: суммы 30 000 / 100 000 подтверждены двумя независимыми источниками (rg.ru 24.06.2026, economist.kg 10.06.2026) и совпадают с сайтом; дословный текст новой редакции машинно недоступен (cbd.minjust JS, prg.kz demo, mvd.gov.kg cert/404). Сроки лишения прав (2 года vs 3–10 лет) — РАСХОЖДЕНИЕ вторичных источников, требует сверки по первоисточнику. zakon.kg «80 000» отклонено: 800 РП — это УК ст.312 (вред здоровью), не Кодекс о правонарушениях.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_cargo_overload_20",
@@ -4809,13 +4821,13 @@
       "key": "fine_cargo_overload_20",
       "value": "17500",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 192 ч. 1",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 181 ч. 1",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:252-259"
+        "src/data/trafficFines.ts (cargo_overload_20)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 192",
       "conflict": false,
       "status": "current",
@@ -4823,7 +4835,9 @@
       "official_value": "17500",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Кодекс №128 ст.181 (весогабаритные нормы): нет градации ≤20%/>20%; перерасчёт 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_cargo_overload_20_plus",
@@ -4831,13 +4845,13 @@
       "key": "fine_cargo_overload_20_plus",
       "value": "20000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 192 ч. 2",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 181 ч. 1",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:260-267"
+        "src/data/trafficFines.ts (cargo_overload_20_plus)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 192",
       "conflict": false,
       "status": "current",
@@ -4845,7 +4859,9 @@
       "official_value": "20000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Кодекс №128 ст.181 (весогабаритные нормы): нет градации ≤20%/>20%; перерасчёт 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5. УТОЧНЕНО: 20 000 сом (200 РП) по ст.181 ч.1 — это ПОВТОРНОЕ нарушение в течение года, а не «перегруз свыше 20%». Проза уже корректна («Повторное превышение»), keywords исправлены.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_drugs",
@@ -4853,13 +4869,13 @@
       "key": "fine_drugs",
       "value": "0",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 189 ч. 4",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 193 ч. 1",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:316-323"
+        "src/data/trafficFines.ts (drugs)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 189",
       "conflict": false,
       "status": "current",
@@ -4867,7 +4883,9 @@
       "official_value": "0",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "prose",
-      "verify_note": "Кодекс №128: лишение прав, не денежный штраф (0 сом). Применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5. ⚠️ Закон №81 от 05.06.2026 переписал ст.193: суммы 30 000 / 100 000 подтверждены двумя независимыми источниками (rg.ru 24.06.2026, economist.kg 10.06.2026) и совпадают с сайтом; дословный текст новой редакции машинно недоступен (cbd.minjust JS, prg.kz demo, mvd.gov.kg cert/404). Сроки лишения прав (2 года vs 3–10 лет) — РАСХОЖДЕНИЕ вторичных источников, требует сверки по первоисточнику. zakon.kg «80 000» отклонено: 800 РП — это УК ст.312 (вред здоровью), не Кодекс о правонарушениях.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_expired_license",
@@ -4875,13 +4893,13 @@
       "key": "fine_expired_license",
       "value": "1000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 179 ч. 2",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 184 ч. 1",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:118-125"
+        "src/data/trafficFines.ts (expired_license)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 179",
       "conflict": false,
       "status": "current",
@@ -4889,7 +4907,9 @@
       "official_value": "1000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_fake_plates",
@@ -4897,13 +4917,13 @@
       "key": "fine_fake_plates",
       "value": "20000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 180 ч. 3",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 449 ч. 1",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:232-239"
+        "src/data/trafficFines.ts (fake_plates)"
       ],
-      "last_updated": "2026-07-08",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 180",
       "conflict": false,
       "status": "current",
@@ -4911,7 +4931,9 @@
       "official_value": "20000",
       "source_url": "https://cbd.minjust.gov.kg/act/view/ru-ru/112306",
       "which_surface_correct": "compute",
-      "verify_note": "Сверено 2026-06-30: 10000/Ст.182ч4→20000/Ст.449ч1 (Кодекс о правонарушениях). | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_faulty_vehicle",
@@ -4919,13 +4941,13 @@
       "key": "fine_faulty_vehicle",
       "value": "5500",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 181 ч. 1",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 182 ч. 1",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:142-149"
+        "src/data/trafficFines.ts (faulty_vehicle)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 181",
       "conflict": false,
       "status": "current",
@@ -4933,7 +4955,9 @@
       "official_value": "5500",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_high_beam_city",
@@ -4941,13 +4965,13 @@
       "key": "fine_high_beam_city",
       "value": "1000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 182 ч. 5",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 188 ч. 1",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:296-303"
+        "src/data/trafficFines.ts (high_beam_city)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 182",
       "conflict": false,
       "status": "current",
@@ -4955,7 +4979,9 @@
       "official_value": "1000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_illegal_signals",
@@ -4963,13 +4989,13 @@
       "key": "fine_illegal_signals",
       "value": "5500",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 194 ч. 1",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 194 ч. 2",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:336-343"
+        "src/data/trafficFines.ts (illegal_signals)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 194",
       "conflict": false,
       "status": "current",
@@ -4977,7 +5003,9 @@
       "official_value": "5500",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_leave_accident",
@@ -4985,13 +5013,13 @@
       "key": "fine_leave_accident",
       "value": "0",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 193 ч. 1",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 192 ч. 4",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:326-333"
+        "src/data/trafficFines.ts (leave_accident)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 193",
       "conflict": false,
       "status": "current",
@@ -4999,7 +5027,9 @@
       "official_value": "0",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Кодекс №128: лишение прав, не денежный штраф (0 сом). Применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5. ИСПРАВЛЕНО 2026-07-27: примечание о лишении прав было «1–1,5 года», кодекс (ст.192 ч.4) прямо устанавливает лишение на 6 месяцев — заменено на no_discount_license_6mo.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_lights_daytime",
@@ -5007,13 +5037,13 @@
       "key": "fine_lights_daytime",
       "value": "1000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 182 ч. 3",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 188 ч. 1",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:288-295"
+        "src/data/trafficFines.ts (lights_daytime)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 182",
       "conflict": false,
       "status": "current",
@@ -5021,7 +5051,9 @@
       "official_value": "1000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_motorcycle_no_helmet",
@@ -5029,13 +5061,13 @@
       "key": "fine_motorcycle_no_helmet",
       "value": "1000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 195 ч. 1",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 182 ч. 6",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:346-353"
+        "src/data/trafficFines.ts (motorcycle_no_helmet)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 195",
       "conflict": false,
       "status": "current",
@@ -5043,7 +5075,9 @@
       "official_value": "1000",
       "source_url": "https://joldo.kg/ru/tablica-shtrafov-kr-2022-god.html",
       "which_surface_correct": "na",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_no_child_seat",
@@ -5051,13 +5085,13 @@
       "key": "fine_no_child_seat",
       "value": "1000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 182 ч. 4",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 182 ч. 6",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:196-203"
+        "src/data/trafficFines.ts (no_child_seat)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 182",
       "conflict": false,
       "status": "current",
@@ -5065,7 +5099,9 @@
       "official_value": "1000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_no_insurance",
@@ -5073,13 +5109,13 @@
       "key": "fine_no_insurance",
       "value": "3000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 184",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 184 ч. 2",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:126-133"
+        "src/data/trafficFines.ts (no_insurance)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 184 (ОГПО ВТС)",
       "conflict": false,
       "status": "current",
@@ -5087,7 +5123,9 @@
       "official_value": "3000",
       "source_url": "https://24.kg/english/342111_New_traffic_rules_License_suspensions_of_up_to_12_years_fines_up_to_200000/",
       "which_surface_correct": "na",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_no_insurance_legal",
@@ -5095,13 +5133,13 @@
       "key": "fine_no_insurance_legal",
       "value": "13000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 184",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 184 ч. 2",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:134-141"
+        "src/data/trafficFines.ts (no_insurance_legal)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 184 (ОГПО ВТС)",
       "conflict": false,
       "status": "current",
@@ -5109,7 +5147,9 @@
       "official_value": "13000",
       "source_url": "https://24.kg/english/342111_New_traffic_rules_License_suspensions_of_up_to_12_years_fines_up_to_200000/",
       "which_surface_correct": "na",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_no_license",
@@ -5117,13 +5157,13 @@
       "key": "fine_no_license",
       "value": "15000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 179 ч. 1",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 184 ч. 3",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:110-117"
+        "src/data/trafficFines.ts (no_license)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 179",
       "conflict": false,
       "status": "current",
@@ -5131,7 +5171,9 @@
       "official_value": "15000",
       "source_url": "https://24.kg/english/342111_New_traffic_rules_License_suspensions_of_up_to_12_years_fines_up_to_200000/",
       "which_surface_correct": "compute",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_no_plates",
@@ -5139,13 +5181,13 @@
       "key": "fine_no_plates",
       "value": "10000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 180 ч. 2",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 182 ч. 4",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:224-231"
+        "src/data/trafficFines.ts (no_plates)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 180",
       "conflict": false,
       "status": "current",
@@ -5153,7 +5195,9 @@
       "official_value": "10000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_no_seatbelt",
@@ -5161,13 +5205,13 @@
       "key": "fine_no_seatbelt",
       "value": "1000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 182 ч. 2",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 182 ч. 6",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:188-195"
+        "src/data/trafficFines.ts (no_seatbelt)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 182",
       "conflict": false,
       "status": "current",
@@ -5175,7 +5219,9 @@
       "official_value": "1000",
       "source_url": "https://joldo.kg/ru/tablica-shtrafov-kr-2022-god.html",
       "which_surface_correct": "na",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_oncoming_lane",
@@ -5183,13 +5229,13 @@
       "key": "fine_oncoming_lane",
       "value": "15000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 188 ч. 3",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 188 ч. 5",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:58-65"
+        "src/data/trafficFines.ts (oncoming_lane)"
       ],
-      "last_updated": "2026-07-08",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 188",
       "conflict": false,
       "status": "current",
@@ -5197,7 +5243,9 @@
       "official_value": "15000",
       "source_url": "https://ru.sputnik.kg/20230308/kyrgyzstan-pdd-narushenie-povyshenie-1073406198.html",
       "which_surface_correct": "compute",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_overtaking_crosswalk",
@@ -5205,13 +5253,13 @@
       "key": "fine_overtaking_crosswalk",
       "value": "15000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 188 ч. 2",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 188 ч. 5",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:278-285"
+        "src/data/trafficFines.ts (overtaking_crosswalk)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 188",
       "conflict": false,
       "status": "current",
@@ -5219,7 +5267,9 @@
       "official_value": "15000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_overtaking_prohibited",
@@ -5227,13 +5277,13 @@
       "key": "fine_overtaking_prohibited",
       "value": "15000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 188 ч. 1",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 188 ч. 5",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:270-277"
+        "src/data/trafficFines.ts (overtaking_prohibited)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 188",
       "conflict": false,
       "status": "current",
@@ -5241,7 +5291,9 @@
       "official_value": "15000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_parking_disabled",
@@ -5249,13 +5301,13 @@
       "key": "fine_parking_disabled",
       "value": "1000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 183 ч. 3",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 188 ч. 1",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:92-99"
+        "src/data/trafficFines.ts (parking_disabled)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 183",
       "conflict": false,
       "status": "current",
@@ -5263,7 +5315,9 @@
       "official_value": "1000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_parking_prohibited",
@@ -5271,13 +5325,13 @@
       "key": "fine_parking_prohibited",
       "value": "1000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 183 ч. 1",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 188 ч. 1",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:84-91"
+        "src/data/trafficFines.ts (parking_prohibited)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 183",
       "conflict": false,
       "status": "current",
@@ -5285,7 +5339,9 @@
       "official_value": "1000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_parking_sidewalk",
@@ -5293,13 +5349,13 @@
       "key": "fine_parking_sidewalk",
       "value": "1000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 183 ч. 2",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 188 ч. 1",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:100-107"
+        "src/data/trafficFines.ts (parking_sidewalk)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 183",
       "conflict": false,
       "status": "current",
@@ -5307,7 +5363,9 @@
       "official_value": "1000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_passenger_rules",
@@ -5315,13 +5373,13 @@
       "key": "fine_passenger_rules",
       "value": "3000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 191 ч. 1",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 199 ч. 7",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:242-249"
+        "src/data/trafficFines.ts (passenger_rules)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 191",
       "conflict": false,
       "status": "current",
@@ -5329,7 +5387,9 @@
       "official_value": "3000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_pedestrian_crossing",
@@ -5337,13 +5397,13 @@
       "key": "fine_pedestrian_crossing",
       "value": "3000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 185 ч. 1",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 188 ч. 2",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:74-81"
+        "src/data/trafficFines.ts (pedestrian_crossing)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 185",
       "conflict": false,
       "status": "current",
@@ -5351,7 +5411,9 @@
       "official_value": "3000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_pedestrian_red_light",
@@ -5359,13 +5421,13 @@
       "key": "fine_pedestrian_red_light",
       "value": "1000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 196 ч. 2",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 190 ч. 1",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:364-371"
+        "src/data/trafficFines.ts (pedestrian_red_light)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 196",
       "conflict": false,
       "status": "current",
@@ -5373,7 +5435,9 @@
       "official_value": "1000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_pedestrian_wrong_place",
@@ -5381,13 +5445,13 @@
       "key": "fine_pedestrian_wrong_place",
       "value": "1000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 196 ч. 1",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 190 ч. 1",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:356-363"
+        "src/data/trafficFines.ts (pedestrian_wrong_place)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 196",
       "conflict": false,
       "status": "current",
@@ -5395,7 +5459,9 @@
       "official_value": "1000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_phone_driving",
@@ -5403,13 +5469,13 @@
       "key": "fine_phone_driving",
       "value": "3000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 182 ч. 1",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 188 ч. 2",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:178-185"
+        "src/data/trafficFines.ts (phone_driving)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 182",
       "conflict": false,
       "status": "current",
@@ -5417,8 +5483,10 @@
       "official_value": "3000",
       "source_url": "https://joldo.kg/ru/tablica-shtrafov-kr-2022-god.html",
       "which_surface_correct": "compute",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20.",
-      "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed) — amount fixed; статья number relabel deferred"
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed) — amount fixed; статья number relabel deferred",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_railway_crossing",
@@ -5426,13 +5494,13 @@
       "key": "fine_railway_crossing",
       "value": "1000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 190 ч. 1",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 188 ч. 1",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:306-313"
+        "src/data/trafficFines.ts (railway_crossing)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 190",
       "conflict": false,
       "status": "current",
@@ -5440,7 +5508,9 @@
       "official_value": "1000",
       "source_url": "https://continent-online.com/Document/?doc_id=36897164",
       "which_surface_correct": "na",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_red_light",
@@ -5448,13 +5518,13 @@
       "key": "fine_red_light",
       "value": "5500",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 186 ч. 1",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 188 ч. 3",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:50-57"
+        "src/data/trafficFines.ts (red_light)"
       ],
-      "last_updated": "2026-07-08",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 186",
       "conflict": false,
       "status": "current",
@@ -5462,7 +5532,9 @@
       "official_value": "5500",
       "source_url": "https://ru.sputnik.kg/20230308/kyrgyzstan-pdd-narushenie-povyshenie-1073406198.html",
       "which_surface_correct": "compute",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_shoulder_driving",
@@ -5470,13 +5542,13 @@
       "key": "fine_shoulder_driving",
       "value": "1000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 184 ч. 3",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 188 ч. 1",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:214-221"
+        "src/data/trafficFines.ts (shoulder_driving)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 184",
       "conflict": false,
       "status": "current",
@@ -5484,7 +5556,9 @@
       "official_value": "1000",
       "source_url": "https://joldo.kg/ru/tablica-shtrafov-kr-2022-god.html",
       "which_surface_correct": "na",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_solid_line",
@@ -5492,13 +5566,13 @@
       "key": "fine_solid_line",
       "value": "1000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 184 ч. 1",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 188 ч. 1",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:206-213"
+        "src/data/trafficFines.ts (solid_line)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 184",
       "conflict": false,
       "status": "current",
@@ -5506,7 +5580,9 @@
       "official_value": "1000",
       "source_url": "https://joldo.kg/ru/tablica-shtrafov-kr-2022-god.html",
       "which_surface_correct": "na",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_speed_10_20",
@@ -5514,13 +5590,13 @@
       "key": "fine_speed_10_20",
       "value": "1000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 187 ч. 1",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 187 ч. 1",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:16-23"
+        "src/data/trafficFines.ts (speed_10_20)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 187",
       "conflict": false,
       "status": "current",
@@ -5528,7 +5604,9 @@
       "official_value": "1000",
       "source_url": "https://joldo.kg/ru/tablica-shtrafov-kr-2022-god.html",
       "which_surface_correct": "both",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_speed_20_40",
@@ -5536,13 +5614,13 @@
       "key": "fine_speed_20_40",
       "value": "3000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 187 ч. 2",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 187 ч. 2",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:24-31"
+        "src/data/trafficFines.ts (speed_20_40)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 187",
       "conflict": false,
       "status": "current",
@@ -5550,7 +5628,9 @@
       "official_value": "3000",
       "source_url": "https://joldo.kg/ru/tablica-shtrafov-kr-2022-god.html",
       "which_surface_correct": "both",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_speed_40_60",
@@ -5558,13 +5638,13 @@
       "key": "fine_speed_40_60",
       "value": "7500",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 187 ч. 3",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 187 ч. 3",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:32-39"
+        "src/data/trafficFines.ts (speed_40_60)"
       ],
-      "last_updated": "2026-07-08",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 187",
       "conflict": false,
       "status": "current",
@@ -5572,7 +5652,9 @@
       "official_value": "7500",
       "source_url": "https://ru.sputnik.kg/20230308/kyrgyzstan-pdd-narushenie-povyshenie-1073406198.html",
       "which_surface_correct": "both",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_speed_60_plus",
@@ -5580,13 +5662,13 @@
       "key": "fine_speed_60_plus",
       "value": "15000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 187 ч. 4",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 187 ч. 4",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:40-47"
+        "src/data/trafficFines.ts (speed_60_plus)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 187",
       "conflict": false,
       "status": "current",
@@ -5594,7 +5676,9 @@
       "official_value": "15000",
       "source_url": "https://ru.sputnik.kg/20230308/kyrgyzstan-pdd-narushenie-povyshenie-1073406198.html",
       "which_surface_correct": "both",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "traffic-fines-calculator__fine_turn_sign_violation",
@@ -5602,13 +5686,13 @@
       "key": "fine_turn_sign_violation",
       "value": "1000",
       "unit": "som",
-      "law": "Кодекс КР о правонарушениях ст. 184 ч. 2",
+      "law": "Кодекс КР о правонарушениях от 28.10.2021 №128, Ст. 188 ч. 1",
       "theme": "traffic_fine",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/trafficFines.ts:66-73"
+        "src/data/trafficFines.ts (turn_sign_violation)"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "Кодекс КР о правонарушениях ст. 184",
       "conflict": false,
       "status": "current",
@@ -5616,7 +5700,9 @@
       "official_value": "1000",
       "source_url": "https://joldo.kg/ru/tablica-shtrafov-kr-2022-god.html",
       "which_surface_correct": "na",
-      "verify_note": "Сверено с Кодексом КР о правонарушениях №128 (1 РП = 100 сом), применено 2026-06-20."
+      "verify_note": "RE-VERIFIED 2026-07-27: суммы и номера статей сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128 (машиночитаемая копия, ред. до Закона №253 от 06.11.2025; 1 РП = 100 сом). Автосверка: 31/40 позиций совпали точно, 9 разобраны вручную (юрлица, «предупреждение или штраф», лишение прав вместо штрафа) — расхождений по СУММАМ нет. Номер статьи в леджере был устаревшим — синхронизирован с COMPUTE (trafficFines.ts), который ранее уже был исправлен. Скидка 70%/30 дней — ст.563 ч.5.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "water-calculator__PROSE_water_bishkek_total_rate_legacy",
@@ -5677,7 +5763,7 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:27"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-07-27",
       "source_hint": "МП «Бишкекводоканал»",
       "conflict": false,
       "status": "removed",
@@ -5685,7 +5771,8 @@
       "official_value": null,
       "source_url": "https://kaktus.media/doc/544835_v_bishkeke_vnov_podorojaut_pitevaia_voda_i_kanalizaciia.html",
       "which_surface_correct": "compute",
-      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
+      "verify_note": "RE-VERIFIED 2026-07-27: прочитан ВЕРБАТИМ текст Постановления Бишкекского городского кенеша №101 от 30.06.2026 (XIV сессия XXIX созыва) на официальном gorkenesh.kg. П.1: единый тариф за 1 м³ — водоснабжение 15,73 сом, водоотведение (канализация) 6,80 сом. П.3: повышающие коэффициенты — ИП и юрлица 2,1; водоёмкие абоненты 3. П.6: постановление №86 от 30.05.2023 (которым были установлены прежние 10,45/3,45) ПРИЗНАНО УТРАТИВШИМ СИЛУ. П.9: вступает в силу со дня официального опубликования; опубликовано 01.07.2026. Категории «бюджетные организации» больше НЕТ — она вошла во 2-ю категорию (юрлица, ×2,1). ENV-грабля: gorkenesh.kg отдаёт 403 на WebFetch, но открывается curl с браузерным User-Agent. Категория «бюджетные организации» УПРАЗДНЕНА постановлением №101: бюджетные учреждения теперь относятся ко 2-й категории (юридические лица, коэффициент 2,1). Удалена из COMPUTE.",
+      "verified_date": "2026-07-27"
     },
     {
       "id": "water-calculator__water_bishkek_budget_water",
@@ -5699,7 +5786,7 @@
       "surfaces": [
         "src/pages/WaterCalculatorPage.tsx:27"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-07-27",
       "source_hint": "МП «Бишкекводоканал»",
       "conflict": false,
       "status": "removed",
@@ -5707,95 +5794,104 @@
       "official_value": null,
       "source_url": "https://kaktus.media/doc/544835_v_bishkeke_vnov_podorojaut_pitevaia_voda_i_kanalizaciia.html",
       "which_surface_correct": "compute",
-      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
+      "verify_note": "RE-VERIFIED 2026-07-27: прочитан ВЕРБАТИМ текст Постановления Бишкекского городского кенеша №101 от 30.06.2026 (XIV сессия XXIX созыва) на официальном gorkenesh.kg. П.1: единый тариф за 1 м³ — водоснабжение 15,73 сом, водоотведение (канализация) 6,80 сом. П.3: повышающие коэффициенты — ИП и юрлица 2,1; водоёмкие абоненты 3. П.6: постановление №86 от 30.05.2023 (которым были установлены прежние 10,45/3,45) ПРИЗНАНО УТРАТИВШИМ СИЛУ. П.9: вступает в силу со дня официального опубликования; опубликовано 01.07.2026. Категории «бюджетные организации» больше НЕТ — она вошла во 2-ю категорию (юрлица, ×2,1). ENV-грабля: gorkenesh.kg отдаёт 403 на WebFetch, но открывается curl с браузерным User-Agent. Категория «бюджетные организации» УПРАЗДНЕНА постановлением №101: бюджетные учреждения теперь относятся ко 2-й категории (юридические лица, коэффициент 2,1). Удалена из COMPUTE.",
+      "verified_date": "2026-07-27"
     },
     {
       "id": "water-calculator__water_bishkek_commercial_sewerage",
       "calculator": "water-calculator",
       "key": "water_bishkek_commercial_sewerage",
-      "value": "9.00",
+      "value": "14.28",
       "unit": "som_per_m3",
-      "law": "тариф МП Бишкекводоканал (коммерция)",
+      "law": "Пост. Бишкекского городского кенеша №101 от 30.06.2026 (в силе с 01.07.2026)",
       "theme": "utility_tariff",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/pages/WaterCalculatorPage.tsx:28"
+        "src/pages/WaterCalculatorPage.tsx (bishkek)"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-07-27",
       "source_hint": "МП «Бишкекводоканал»",
       "conflict": false,
-      "status": "removed",
+      "status": "current",
       "notes": "COMPUTE bishkek.commercial.sewerage.",
-      "official_value": null,
-      "source_url": "https://kaktus.media/doc/544835_v_bishkeke_vnov_podorojaut_pitevaia_voda_i_kanalizaciia.html",
+      "official_value": "14.28",
+      "source_url": "https://gorkenesh.kg/bshknyn-toktomdoru/29-sozyv.html",
       "which_surface_correct": "compute",
-      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
+      "verify_note": "RE-VERIFIED 2026-07-27: прочитан ВЕРБАТИМ текст Постановления Бишкекского городского кенеша №101 от 30.06.2026 (XIV сессия XXIX созыва) на официальном gorkenesh.kg. П.1: единый тариф за 1 м³ — водоснабжение 15,73 сом, водоотведение (канализация) 6,80 сом. П.3: повышающие коэффициенты — ИП и юрлица 2,1; водоёмкие абоненты 3. П.6: постановление №86 от 30.05.2023 (которым были установлены прежние 10,45/3,45) ПРИЗНАНО УТРАТИВШИМ СИЛУ. П.9: вступает в силу со дня официального опубликования; опубликовано 01.07.2026. Категории «бюджетные организации» больше НЕТ — она вошла во 2-ю категорию (юрлица, ×2,1). ENV-грабля: gorkenesh.kg отдаёт 403 на WebFetch, но открывается curl с браузерным User-Agent. Коммерческая ставка = 15,73×2,1 / 6,80×2,1.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "water-calculator__water_bishkek_commercial_water",
       "calculator": "water-calculator",
       "key": "water_bishkek_commercial_water",
-      "value": "18.50",
+      "value": "33.03",
       "unit": "som_per_m3",
-      "law": "тариф МП Бишкекводоканал (коммерция)",
+      "law": "Пост. Бишкекского городского кенеша №101 от 30.06.2026 (в силе с 01.07.2026)",
       "theme": "utility_tariff",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/pages/WaterCalculatorPage.tsx:28"
+        "src/pages/WaterCalculatorPage.tsx (bishkek)"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-07-27",
       "source_hint": "МП «Бишкекводоканал»",
       "conflict": false,
-      "status": "removed",
+      "status": "current",
       "notes": "COMPUTE bishkek.commercial.water; sewerage 9.00.",
-      "official_value": null,
-      "source_url": "https://kaktus.media/doc/544835_v_bishkeke_vnov_podorojaut_pitevaia_voda_i_kanalizaciia.html",
+      "official_value": "33.03",
+      "source_url": "https://gorkenesh.kg/bshknyn-toktomdoru/29-sozyv.html",
       "which_surface_correct": "compute",
-      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
+      "verify_note": "RE-VERIFIED 2026-07-27: прочитан ВЕРБАТИМ текст Постановления Бишкекского городского кенеша №101 от 30.06.2026 (XIV сессия XXIX созыва) на официальном gorkenesh.kg. П.1: единый тариф за 1 м³ — водоснабжение 15,73 сом, водоотведение (канализация) 6,80 сом. П.3: повышающие коэффициенты — ИП и юрлица 2,1; водоёмкие абоненты 3. П.6: постановление №86 от 30.05.2023 (которым были установлены прежние 10,45/3,45) ПРИЗНАНО УТРАТИВШИМ СИЛУ. П.9: вступает в силу со дня официального опубликования; опубликовано 01.07.2026. Категории «бюджетные организации» больше НЕТ — она вошла во 2-ю категорию (юрлица, ×2,1). ENV-грабля: gorkenesh.kg отдаёт 403 на WebFetch, но открывается curl с браузерным User-Agent. Коммерческая ставка = 15,73×2,1 / 6,80×2,1.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "water-calculator__water_bishkek_population_sewerage",
       "calculator": "water-calculator",
       "key": "water_bishkek_population_sewerage",
-      "value": "3.45",
+      "value": "6.80",
       "unit": "som_per_m3",
-      "law": "тариф МП Бишкекводоканал",
+      "law": "Пост. Бишкекского городского кенеша №101 от 30.06.2026 (в силе с 01.07.2026)",
       "theme": "utility_tariff",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/pages/WaterCalculatorPage.tsx:26"
+        "src/pages/WaterCalculatorPage.tsx (bishkek)"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-07-27",
       "source_hint": "МП «Бишкекводоканал»",
       "conflict": true,
       "status": "current",
       "notes": "COMPUTE bishkek.population.sewerage. Prose says 3.25 — MISMATCH.",
-      "official_value": "3.45",
-      "source_url": "https://kaktus.media/doc/544835_v_bishkeke_vnov_podorojaut_pitevaia_voda_i_kanalizaciia.html",
+      "official_value": "6.80",
+      "source_url": "https://gorkenesh.kg/bshknyn-toktomdoru/29-sozyv.html",
       "which_surface_correct": "compute",
-      "verify_note": "CONFIRMED: Bishkek population sewerage (канализация) = 3.45 сом/м³ by meter. Planned-increase notice states 'канализация 6,8 вместо 3,45'. COMPUTE 3.45 correct; PROSE 3.25 stale."
+      "verify_note": "RE-VERIFIED 2026-07-27: прочитан ВЕРБАТИМ текст Постановления Бишкекского городского кенеша №101 от 30.06.2026 (XIV сессия XXIX созыва) на официальном gorkenesh.kg. П.1: единый тариф за 1 м³ — водоснабжение 15,73 сом, водоотведение (канализация) 6,80 сом. П.3: повышающие коэффициенты — ИП и юрлица 2,1; водоёмкие абоненты 3. П.6: постановление №86 от 30.05.2023 (которым были установлены прежние 10,45/3,45) ПРИЗНАНО УТРАТИВШИМ СИЛУ. П.9: вступает в силу со дня официального опубликования; опубликовано 01.07.2026. Категории «бюджетные организации» больше НЕТ — она вошла во 2-ю категорию (юрлица, ×2,1). ENV-грабля: gorkenesh.kg отдаёт 403 на WebFetch, но открывается curl с браузерным User-Agent.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "water-calculator__water_bishkek_population_water",
       "calculator": "water-calculator",
       "key": "water_bishkek_population_water",
-      "value": "10.45",
+      "value": "15.73",
       "unit": "som_per_m3",
-      "law": "тариф МП Бишкекводоканал (Постановление БГК 30.05.2023, дейст. с 01.06.2023)",
+      "law": "Пост. Бишкекского городского кенеша №101 от 30.06.2026 (в силе с 01.07.2026)",
       "theme": "utility_tariff",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/pages/WaterCalculatorPage.tsx:26"
+        "src/pages/WaterCalculatorPage.tsx (bishkek)"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-07-27",
       "source_hint": "МП «Бишкекводоканал» / municipal vodokanal",
       "conflict": true,
       "status": "current",
       "notes": "COMPUTE WATER_TARIFFS.bishkek.population.water. MISMATCH vs i18n prose water_bishkek_example/water_example_meter_cold which say Bishkek cold water = 8.10 + sewerage 3.25 = 11.35 (stale). Compute is authoritative.",
-      "official_value": "10.45",
-      "source_url": "https://kaktus.media/doc/544835_v_bishkeke_vnov_podorojaut_pitevaia_voda_i_kanalizaciia.html",
+      "official_value": "15.73",
+      "source_url": "https://gorkenesh.kg/bshknyn-toktomdoru/29-sozyv.html",
       "which_surface_correct": "compute",
-      "verify_note": "READY (APPROVED_NOT_YET на 06.07.2026, не опубликован): при публикации → население вода 15.73/канал 6.80; коммерция ×2.1=33.03/14.28; водоёмкие ×3=47.19/20.40. Триггер: gorkenesh.kg реестр 28-созыв / bishkeksuukanal.kg покажет 15.73. Сейчас 10.45/3.45."
+      "verify_note": "RE-VERIFIED 2026-07-27: прочитан ВЕРБАТИМ текст Постановления Бишкекского городского кенеша №101 от 30.06.2026 (XIV сессия XXIX созыва) на официальном gorkenesh.kg. П.1: единый тариф за 1 м³ — водоснабжение 15,73 сом, водоотведение (канализация) 6,80 сом. П.3: повышающие коэффициенты — ИП и юрлица 2,1; водоёмкие абоненты 3. П.6: постановление №86 от 30.05.2023 (которым были установлены прежние 10,45/3,45) ПРИЗНАНО УТРАТИВШИМ СИЛУ. П.9: вступает в силу со дня официального опубликования; опубликовано 01.07.2026. Категории «бюджетные организации» больше НЕТ — она вошла во 2-ю категорию (юрлица, ×2,1). ENV-грабля: gorkenesh.kg отдаёт 403 на WebFetch, но открывается curl с браузерным User-Agent.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "water-calculator__water_jalalabad_population_sewerage",
