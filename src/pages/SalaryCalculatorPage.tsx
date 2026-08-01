@@ -26,7 +26,10 @@ const SalaryCalculatorPage = () => {
   }, [t]);
 
   const [grossSalary, setGrossSalary] = useState<string>('');
-  const [taxRate, setTaxRate] = useState<number>(10); // 10% standard, 5% for PVT
+  // Ставки подоходного налога, НК КР ст.197: ч.1 — 10% базовая; ч.2 — 5% (в т.ч. работники
+  // резидентов Парка высоких технологий и Парка креативных индустрий, приграничные н.п.,
+  // инвалидность I/II гр.); ч.2-1 — 1% для швейной и текстильной промышленности до 01.01.2030.
+  const [taxRate, setTaxRate] = useState<number>(10);
   const [dependents, setDependents] = useState<number>(0);
   const [results, setResults] = useState({
     grossAmount: 0,
@@ -51,7 +54,7 @@ const SalaryCalculatorPage = () => {
     // Шаг 3: налоговая база = зарплата − соцфонд − вычеты (не ниже 0)
     const taxableBase = Math.max(0, gross - socialFund - standardDeduction);
 
-    // Шаг 4: подоходный налог (10%, либо 5% для резидентов ПВТ)
+    // Шаг 4: подоходный налог (10% / 5% льготные категории / 1% швейная и текстильная)
     const incomeTax = taxableBase * (rate / 100);
 
     // Шаг 5: зарплата на руки
@@ -312,6 +315,20 @@ const SalaryCalculatorPage = () => {
                     <div>
                       <span className="text-gray-900 font-medium">{t('salary_tax_pvt')}</span>
                       <p className="text-sm text-gray-500">{t('salary_tax_pvt_desc')}</p>
+                    </div>
+                  </label>
+                  <label className="flex items-center space-x-3 cursor-pointer p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                    <input
+                      type="radio"
+                      name="taxRate"
+                      value="1"
+                      checked={taxRate === 1}
+                      onChange={() => setTaxRate(1)}
+                      className="h-4 w-4 text-red-600 focus:ring-red-500"
+                    />
+                    <div>
+                      <span className="text-gray-900 font-medium">{t('salary_tax_textile')}</span>
+                      <p className="text-sm text-gray-500">{t('salary_tax_textile_desc')}</p>
                     </div>
                   </label>
                 </div>

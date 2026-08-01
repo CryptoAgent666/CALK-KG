@@ -10206,6 +10206,30 @@
       "verify_note": "RE-VERIFIED 2026-07-27 (calkcheck): ст.194 НК вербатим — персональный вычет 6,5 РП = 650 сом/мес, на иждивенца 1 РП = 100 сом/мес. ⚠️ CLAUDE.md ошибочно указывал «НМД 14 970 сом» — такого числа в НК НЕТ (grep = 0); COMPUTE/проза/леджер (650/100) были верны, исправлен CLAUDE.md.",
       "verified_date": "2026-07-27",
       "verify_confidence": "high"
+    },
+    {
+      "id": "salary-calculator__income_tax_rate_textile",
+      "calculator": "salary-calculator",
+      "key": "income_tax_rate_textile",
+      "value": "1",
+      "unit": "percent",
+      "law": "НК КР ст.197 ч.2-1 (1% для наёмных работников швейной и текстильной промышленности, до 01.01.2030)",
+      "theme": "income_tax",
+      "is_gov_regulated": true,
+      "surfaces": [
+        "src/pages/SalaryCalculatorPage.tsx (radio 1%)"
+      ],
+      "last_updated": "2026-07-27",
+      "source_hint": "sti.gov.kg",
+      "conflict": false,
+      "status": "current",
+      "notes": "Ставка подоходного налога для наёмных работников производств швейной/текстильной отрасли.",
+      "official_value": "1",
+      "source_url": "https://sti.gov.kg/section/0/%D0%BE%D0%B1%D1%89%D0%B8%D0%B9_%D0%BD%D0%B0%D0%BB%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9_%D1%80%D0%B5%D0%B6%D0%B8%D0%BC",
+      "which_surface_correct": "na",
+      "verify_note": "ДОБАВЛЕНО 2026-07-27 (calkcheck): прочитана вербатим ст.197 ч.2-1 НК КР (офиц. PDF ГНС): «Ставка подоходного налога устанавливается в размере 1 процента для наемных работников организаций и индивидуальных предпринимателей, осуществляющих производственную деятельность в швейной и текстильной промышленности, - до 1 января 2030 года». Ранее на сайте отсутствовала. WATCH: с 01.01.2030 льгота прекращается — вернуть 10%.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     }
   ]
 }
