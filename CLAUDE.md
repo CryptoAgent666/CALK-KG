@@ -45,8 +45,9 @@ The site hard-codes hundreds of government-set values. They are inventoried + fr
   (COMPUTE then RU+KY) → `npm run build` → deploy.
 
 ## Key KG context (2026)
-- **Подоходный налог 10%** standard / **5%** for ПВТ (High-Tech Park) residents. НМД (non-taxable
-  minimum) **14 970 сом**. Соцфонд **10%** employee (8% ПФ + 2% ГНПФ); employer adds (standard total
+- **Подоходный налог 10%** standard / **5%** for ПВТ (High-Tech Park) residents. Стандартные вычеты
+  (НК ст.194, verified verbatim 2026-07-27): персональный **6,5 РП = 650 сом/мес**, на иждивенца
+  **1 РП = 100 сом/мес** (1 расчётный показатель = 100 сом). «НМД 14 970» — в НК такого числа нет. Соцфонд **10%** employee (8% ПФ + 2% ГНПФ); employer adds (standard total
   ~27.25%, business 2.25%).
 - **МЗП (min wage) 3 280 сом** from 2026. Patent / single-tax (единый налог) are special regimes.
   Единый налог: **NO revenue cap** (ст.418 ч.5/6 НК repealed by Закон №185 от 31.07.2025; ограничения

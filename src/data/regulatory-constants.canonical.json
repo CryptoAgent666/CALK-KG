@@ -3202,14 +3202,14 @@
       "key": "income_tax_rate_pvt",
       "value": "5",
       "unit": "percent",
-      "law": "НК КР, льгота для резидентов ПВТ (Парк высоких технологий)",
+      "law": "НК КР ст.197 ч.2 п.3 (5% — ПВТ и Парк креативных индустрий)",
       "theme": "income_tax",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/SalaryCalculatorPage.tsx:277",
         "translations-ru.ts:salary_article_tax_pvt"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-07-27",
       "source_hint": "sti.gov.kg",
       "conflict": false,
       "status": "current",
@@ -3217,7 +3217,9 @@
       "official_value": "5",
       "source_url": "https://sti.gov.kg/section/0/%D0%BE%D0%B1%D1%89%D0%B8%D0%B9_%D0%BD%D0%B0%D0%BB%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9_%D1%80%D0%B5%D0%B6%D0%B8%D0%BC",
       "which_surface_correct": "na",
-      "verify_note": "ГНС (общий режим): 'ставка подоходного налога 5 процентов для наёмных работников резидента и дирекции Парка высоких технологий'. Льгота ПВТ сделана бессрочной (закон 2024). 5% верно."
+      "verify_note": "RE-VERIFIED 2026-07-27 (calkcheck): прочитана ВЕРБАТИМ ст.197 НК КР (офиц. PDF ГНС, ред. 31.12.2025). ч.1 — подоходный налог 10%%. ч.2 — 5%% для наёмных работников: преференциальные приграничные н.п., ст.183 ч.1, резиденты и дирекция Парка высоких технологий И Парка креативных индустрий, лица с инвалидностью I/II гр. и III гр. по слуху. Дополнительно ч.2-1: 1%% для швейной/текстильной промышленности до 01.01.2030 (на сайте не представлено — кандидат на добавление).",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "salary-calculator__income_tax_rate_standard",
@@ -3225,7 +3227,7 @@
       "key": "income_tax_rate_standard",
       "value": "10",
       "unit": "percent",
-      "law": "НК КР, подоходный налог",
+      "law": "НК КР ст.197 ч.1 (10%)",
       "theme": "income_tax",
       "is_gov_regulated": true,
       "surfaces": [
@@ -3233,7 +3235,7 @@
         "src/pages/SalaryCalculatorPage.tsx:46",
         "translations-ru.ts:salary_article_tax_standard"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-07-27",
       "source_hint": "sti.gov.kg",
       "conflict": false,
       "status": "current",
@@ -3241,7 +3243,9 @@
       "official_value": "10",
       "source_url": "https://sti.gov.kg/section/0/%D0%BE%D0%B1%D1%89%D0%B8%D0%B9_%D0%BD%D0%B0%D0%BB%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9_%D1%80%D0%B5%D0%B6%D0%B8%D0%BC",
       "which_surface_correct": "na",
-      "verify_note": "ГНС: 'ставка подоходного налога устанавливается в размере 10 процентов', единая для всех уровней дохода. 10% подтверждено для 2026."
+      "verify_note": "RE-VERIFIED 2026-07-27 (calkcheck): прочитана ВЕРБАТИМ ст.197 НК КР (офиц. PDF ГНС, ред. 31.12.2025). ч.1 — подоходный налог 10%%. ч.2 — 5%% для наёмных работников: преференциальные приграничные н.п., ст.183 ч.1, резиденты и дирекция Парка высоких технологий И Парка креативных индустрий, лица с инвалидностью I/II гр. и III гр. по слуху. Дополнительно ч.2-1: 1%% для швейной/текстильной промышленности до 01.01.2030 (на сайте не представлено — кандидат на добавление).",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "salary-calculator__min_wage_mrot",
@@ -10161,13 +10165,13 @@
       "key": "standard_deduction_personal",
       "value": "650",
       "unit": "som_per_month",
-      "law": "Стандартный вычет на работника (6.5 РП)",
+      "law": "НК КР ст.194 (персональный 6,5 РП; на иждивенца 1 РП; 1 РП = 100 сом)",
       "theme": "income_tax",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/SalaryCalculatorPage.tsx"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "НК КР ст.194",
       "conflict": false,
       "status": "current",
@@ -10175,7 +10179,9 @@
       "official_value": "650",
       "source_url": "https://sti.gov.kg",
       "which_surface_correct": "compute",
-      "verify_note": "НК КР ст.194 «Стандартные вычеты»: 650 сом/мес на самого работника. Подтверждено ГНС + 4 источника."
+      "verify_note": "RE-VERIFIED 2026-07-27 (calkcheck): ст.194 НК вербатим — персональный вычет 6,5 РП = 650 сом/мес, на иждивенца 1 РП = 100 сом/мес. ⚠️ CLAUDE.md ошибочно указывал «НМД 14 970 сом» — такого числа в НК НЕТ (grep = 0); COMPUTE/проза/леджер (650/100) были верны, исправлен CLAUDE.md.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "salary-calculator__standard_deduction_dependent",
@@ -10183,13 +10189,13 @@
       "key": "standard_deduction_dependent",
       "value": "100",
       "unit": "som_per_month_per_dependent",
-      "law": "Стандартный вычет на иждивенца (1 РП)",
+      "law": "НК КР ст.194 (персональный 6,5 РП; на иждивенца 1 РП; 1 РП = 100 сом)",
       "theme": "income_tax",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/SalaryCalculatorPage.tsx"
       ],
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-07-27",
       "source_hint": "НК КР ст.194",
       "conflict": false,
       "status": "current",
@@ -10197,7 +10203,9 @@
       "official_value": "100",
       "source_url": "https://sti.gov.kg",
       "which_surface_correct": "compute",
-      "verify_note": "НК КР ст.194: 100 сом (1 РП) на иждивенца в месяц."
+      "verify_note": "RE-VERIFIED 2026-07-27 (calkcheck): ст.194 НК вербатим — персональный вычет 6,5 РП = 650 сом/мес, на иждивенца 1 РП = 100 сом/мес. ⚠️ CLAUDE.md ошибочно указывал «НМД 14 970 сом» — такого числа в НК НЕТ (grep = 0); COMPUTE/проза/леджер (650/100) были верны, исправлен CLAUDE.md.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     }
   ]
 }
