@@ -1,4 +1,13 @@
 # Apache configuration for Calk.KG
+#
+# ⚠️ ВНИМАНИЕ (проверено 2026-07-27): на текущем хостинге сайт обслуживает
+# nginx/1.30.2 БЕЗ Apache — этот файл сервером НЕ ЧИТАЕТСЯ и ни одно правило
+# отсюда не применяется (проверка: security-заголовки не отдаются; rewrite
+# og-images/*.png → *.svg не срабатывает; apple-app-site-association отдаётся
+# как application/octet-stream вместо application/json).
+# Рабочие директивы для nginx вынесены в deploy/nginx-headers.conf — их нужно
+# добавить в конфигурацию домена на стороне хостинга.
+# Файл оставлен на случай переезда на Apache/LiteSpeed.
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
