@@ -13,6 +13,8 @@ import {
   calculateAverageDailyWage,
   calculateSickLeaveBreakdown,
   MIN_MONTHLY_WAGE,
+  RATE_FROM_DAY11_MONTHLY,
+  MATERNITY_RATE_FROM_DAY11_MONTHLY,
   SICK_LEAVE_EXAMPLES
 } from '../data/sickLeaveData';
 
@@ -21,8 +23,8 @@ interface SickLeaveResults {
   paymentPercent: number;
   totalPayment: number;
   afterTax: number;
-  employerPay: number;
-  fundPay: number;
+  first10Pay: number;
+  fromDay11Pay: number;
 }
 
 const SickLeaveCalculatorPage = () => {
@@ -58,29 +60,29 @@ const SickLeaveCalculatorPage = () => {
       paymentPercent = selectedType?.paymentPercent || 100;
     }
 
-    // Обычный больничный: раздел 10 дней (работодатель) + с 11-го (Соцфонд, лимит).
-    // Декрет / Б&Р (не зависит от стажа): 100% без раздела и лимита.
-    let employerPay: number;
-    let fundPay: number;
-    let totalPayment: number;
-    if (selectedType?.dependsOnExperience) {
-      ({ employerPay, fundPay, total: totalPayment } = calculateSickLeaveBreakdown(avgDailyWage, days, paymentPercent));
-    } else {
-      totalPayment = avgDailyWage * days * (paymentPercent / 100);
-      employerPay = totalPayment;
-      fundPay = 0;
-    }
+    // Плательщик один — работодатель (п.45 Положения). Разбивка по ПЕРИОДАМ:
+    //  • обычный больничный: 10 раб. дней по стажу, далее 100 РП/мес (п.37 подп.2);
+    //  • беременность и роды: 10 раб. дней полностью, далее 20 РП/мес из
+    //    республиканского бюджета (п.63 подп.1).
+    const isMaternity = !selectedType?.dependsOnExperience;
+    const { first10Pay, fromDay11Pay, total: totalPayment } = calculateSickLeaveBreakdown(
+      avgDailyWage,
+      days,
+      paymentPercent,
+      isMaternity ? MATERNITY_RATE_FROM_DAY11_MONTHLY : RATE_FROM_DAY11_MONTHLY
+    );
 
-    // Вычитаем подоходный налог 10%
-    const afterTax = totalPayment * 0.9;
+    // Пособие НЕ облагается подоходным налогом (НК ст.191 ч.3 п.1 и ч.4 п.1),
+    // поэтому «на руки» равно начисленной сумме.
+    const afterTax = totalPayment;
 
     setResults({
       averageDailyWage: avgDailyWage,
       paymentPercent,
       totalPayment,
       afterTax,
-      employerPay: employerPay * 0.9,
-      fundPay: fundPay * 0.9
+      first10Pay,
+      fromDay11Pay
     });
   }, [sickLeaveType, experienceYears, totalEarnings, daysOnLeave, selectedType]);
   
@@ -302,17 +304,17 @@ const SickLeaveCalculatorPage = () => {
                           <div className="flex justify-between items-center mb-2">
                             <span className="text-sm text-gray-700">{t('sick_first_10_days')}</span>
                             <span className="font-medium text-blue-600">
-                              {formatCurrency(results.employerPay)} {t('som')}
+                              {formatCurrency(results.first10Pay)} {t('som')}
                             </span>
                           </div>
                         </div>
 
-                        {results.fundPay > 0 && (
+                        {results.fromDay11Pay > 0 && (
                           <div className="bg-green-50 rounded-lg p-4">
                             <div className="flex justify-between items-center mb-2">
                               <span className="text-sm text-gray-700">{t('sick_after_10_days')}</span>
                               <span className="font-medium text-green-600">
-                                {formatCurrency(results.fundPay)} {t('som')}
+                                {formatCurrency(results.fromDay11Pay)} {t('som')}
                               </span>
                             </div>
                           </div>
