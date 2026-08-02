@@ -55,6 +55,17 @@ const EMPLOYER_CONFIG = {
 
 type EmployerCategory = keyof typeof EMPLOYER_CONFIG;
 
+// Пределы базы начисления — ст.13 Закона КР №8 «О тарифах страховых взносов»
+// (сверено вербатим 2026-08-02 через API cbd.minjust.gov.kg, ред. от 22.07.2026):
+//  п.3 — взносы РАБОТОДАТЕЛЯ не могут быть меньше суммы, исчисленной от 60% СМЗ (ст.2)
+//        или от 100% СМЗ (ст.2-2); не касается бюджетных/государственных организаций,
+//        МОП, сельхозтоваропроизводителей и ТСЖ. Взносы работника — с фактической зарплаты.
+//  п.4 — совокупные взносы за месяц не могут превышать сумму, исчисленную от 20-кратной СМЗ.
+// СМЗ по КР за 2025 год (применяется в 2026) = 36 047 сом — официальный перечень ГНС от 04.11.2025.
+const AVG_MONTHLY_WAGE = 36047;
+const EMPLOYER_MIN_BASE_SHARE: Record<EmployerCategory, number> = { business: 1.0, standard: 0.6 };
+const CONTRIBUTION_CAP_BASE = 20 * AVG_MONTHLY_WAGE; // 720 940 сом
+
 const SocialFundCalculatorPage = () => {
   const { language, t, getLocalizedPath} = useLanguage();
   const getLocalized = (copy: LocalizedCopy) => language === 'ky' ? copy.ky : copy.ru;
@@ -107,20 +118,31 @@ const SocialFundCalculatorPage = () => {
     totalEmployerContributions: 0,
     // Итоговая сводка
     salaryAfterDeductions: 0,
-    totalEmployeeCost: 0
+    totalEmployeeCost: 0,
+    minBaseApplied: false,
+    capApplied: false
   });
 
   const calculateSocialFund = (gross: number, category: EmployerCategory) => {
     const employerRates = EMPLOYER_CONFIG[category];
 
-    const employeePF = gross * EMPLOYEE_RATES.pf;
-    const employeeGNPF = gross * EMPLOYEE_RATES.gnpf;
+    // Потолок (ст.13 п.4): взносы считаются с базы не выше 20 × СМЗ.
+    const cappedBase = Math.min(gross, CONTRIBUTION_CAP_BASE);
+    // Минимум базы работодателя (ст.13 п.3): 100% СМЗ для ст.2-2, 60% СМЗ для ст.2.
+    // Не применяется к бюджетным/государственным организациям (входят в категорию standard).
+    const employerMinBase = AVG_MONTHLY_WAGE * EMPLOYER_MIN_BASE_SHARE[category];
+    const employerBase = Math.min(Math.max(gross, employerMinBase), CONTRIBUTION_CAP_BASE);
+
+    const employeePF = cappedBase * EMPLOYEE_RATES.pf;
+    const employeeGNPF = cappedBase * EMPLOYEE_RATES.gnpf;
     const totalEmployeeDeductions = employeePF + employeeGNPF;
 
-    const employerPF = gross * employerRates.employerPFRate;
-    const employerFOMS = gross * employerRates.employerFOMSRate;
-    const employerFOT = gross * employerRates.employerFOTRate;
+    const employerPF = employerBase * employerRates.employerPFRate;
+    const employerFOMS = employerBase * employerRates.employerFOMSRate;
+    const employerFOT = employerBase * employerRates.employerFOTRate;
     const totalEmployerContributions = employerPF + employerFOMS + employerFOT;
+    const minBaseApplied = category === 'business' && gross > 0 && gross < employerMinBase;
+    const capApplied = gross > CONTRIBUTION_CAP_BASE;
 
     const salaryAfterDeductions = gross - totalEmployeeDeductions;
     const totalEmployeeCost = gross + totalEmployerContributions;
@@ -135,7 +157,9 @@ const SocialFundCalculatorPage = () => {
       employerFOT,
       totalEmployerContributions,
       salaryAfterDeductions,
-      totalEmployeeCost
+      totalEmployeeCost,
+      minBaseApplied,
+      capApplied
     };
   };
 
@@ -533,6 +557,22 @@ const SocialFundCalculatorPage = () => {
                           </span>
                         </div>
                       </div>
+                      {results.minBaseApplied && (
+                        <p className="text-xs text-amber-700 bg-amber-50 rounded-lg p-2 mt-2">
+                          {getLocalized({
+                            ru: 'Применён минимум базы: взносы работодателя исчислены от 100% среднемесячной зарплаты (36 047 сом), т.к. зарплата ниже (ст. 13 ч. 3 Закона о тарифах страховых взносов).',
+                            ky: 'Базанын минимуму колдонулду: жумуш берүүчүнүн төлөмдөрү орточо айлык эмгек акынын 100%унан (36 047 сом) эсептелди, анткени айлык андан төмөн (Камсыздандыруу төлөмдөрүнүн тарифтери жөнүндө Мыйзамдын 13-б. 3-б.).'
+                          })}
+                        </p>
+                      )}
+                      {results.capApplied && (
+                        <p className="text-xs text-amber-700 bg-amber-50 rounded-lg p-2 mt-2">
+                          {getLocalized({
+                            ru: 'Применён потолок: взносы исчислены от 20-кратной среднемесячной зарплаты (720 940 сом) — максимум по ст. 13 ч. 4.',
+                            ky: 'Чек колдонулду: төлөмдөр орточо айлык эмгек акынын 20 эселенген өлчөмүнөн (720 940 сом) эсептелди — 13-берененин 4-бөлүгү боюнча максимум.'
+                          })}
+                        </p>
+                      )}
                     </div>
                   </div>
 
