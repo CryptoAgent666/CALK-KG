@@ -79,11 +79,13 @@ const Header = () => {
           onClick={() => setIsMenuOpen(false)}
         />
 
-        {/* Мобильное меню */}
+        {/* Мобильное меню. Закрытое состояние обязано быть invisible: элемент со сдвигом
+            translate-x-full выходит за правый край и растягивает документ по горизонтали
+            (мобильный горизонтальный скролл — на это жаловался Яндекс.Вебмастер). */}
         <div className={`
           xl:hidden fixed inset-y-0 right-0 w-full max-w-sm bg-white z-50 shadow-2xl
-          transition-transform duration-300 ease-out
-          ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}
+          transition-[transform,visibility] duration-300 ease-out
+          ${isMenuOpen ? 'translate-x-0 visible' : 'translate-x-full invisible'}
         `}>
           {/* Шапка меню */}
           <div className="flex justify-between items-center h-16 px-4 border-b border-gray-100 bg-gradient-to-r from-red-600 to-red-700">

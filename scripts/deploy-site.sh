@@ -30,12 +30,19 @@ done
 echo "→ $DEPLOY_PROTOCOL://$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PORT  →  $DEPLOY_REMOTE_DIR"
 echo "   delete=${DELETE:-no}  dry-run=${DRY:-no}  source=$(du -sh dist | cut -f1)"
 
+# Двухфазная заливка: сначала ассеты (JS/CSS с хешами), затем HTML.
+# Иначе есть окно, когда свежий HTML уже ссылается на бандл, которого на сервере
+# ещё нет → страница отдаётся пустым пререндер-шеллом (404 на assets). Краулеры
+# (Яндекс/Google), попавшие в это окно, видят «пустой» сайт.
 lftp -c "
 set ssl:verify-certificate no;
 set ftp:ssl-allow yes;
 set ftp:passive-mode on;
 set net:max-retries 2; set net:timeout 20;
 open -u '${DEPLOY_USER}','${DEPLOY_PASS}' -p ${DEPLOY_PORT} ${DEPLOY_PROTOCOL}://${DEPLOY_HOST};
+echo '→ Фаза 1/2: ассеты и статика (без HTML)';
+mirror -R --verbose --parallel=4 --exclude-glob .DS_Store --exclude-glob .htaccess --exclude-glob *.html --exclude-glob *.html.br --exclude-glob *.html.gz ${DELETE} ${DRY} dist/ '${DEPLOY_REMOTE_DIR}';
+echo '→ Фаза 2/2: HTML';
 mirror -R --verbose --parallel=4 --exclude-glob .DS_Store --exclude-glob .htaccess ${DELETE} ${DRY} dist/ '${DEPLOY_REMOTE_DIR}';
 bye
 "
