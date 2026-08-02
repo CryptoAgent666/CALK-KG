@@ -1393,7 +1393,7 @@
         "translations-ru.ts:familybenefit_pregnancy_amount"
       ],
       "last_updated": "2026-03-23",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "Article-only: 100% средней зарплаты за 140 дней. Cross-refs sick-leave maternity. Not in compute.",
@@ -2864,7 +2864,7 @@
         "translations-ru.ts:pension_min_amount"
       ],
       "last_updated": "2026-07-27",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": true,
       "status": "current",
       "notes": "basePart=3000 при стаже >=15 лет, иначе 0. Article pension_min_amount also 3,000. MISMATCH: article pension_formula_base_amount='3500-5000 сом (зависит от стажа)' contradicts the flat 3000 used in compute.",
@@ -2890,7 +2890,7 @@
         "src/pages/PensionCalculatorPage.tsx:222"
       ],
       "last_updated": "2026-03-23",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "pastContributions += salary*0.10*months; futureContributions = salary*0.10*12*years. 10% взносы для накопительной части.",
@@ -2912,7 +2912,7 @@
         "translations-ru.ts:pension_total_employer_percent"
       ],
       "last_updated": "2026-03-23",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "Article prose: ~17.25% от ФОТ платит работодатель; работник в пенсионную часть напрямую не платит (pension_employee_pays_none). Consistent with social-fund standard tariff.",
@@ -2935,7 +2935,7 @@
         "src/pages/PensionCalculatorPage.tsx:227"
       ],
       "last_updated": "2026-07-27",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "uncertain",
       "notes": "expectedLifespan=180; insurancePart2 = totalContributions/180 (15 лет дожития).",
@@ -2959,7 +2959,7 @@
         "src/pages/PensionCalculatorPage.tsx:200"
       ],
       "last_updated": "2026-03-23",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "insurancePart1 = avgSalary * 0.01 * min(years,25). 1% за каждый год дореформенного стажа.",
@@ -2981,7 +2981,7 @@
         "src/pages/PensionCalculatorPage.tsx:200"
       ],
       "last_updated": "2026-03-23",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "min(experienceBefore1996.months/12, 25) — стаж до 1996 учитывается максимум 25 лет.",
@@ -3028,7 +3028,7 @@
         "translations-ru.ts:pension_min_experience_years"
       ],
       "last_updated": "2026-07-27",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": true,
       "status": "current",
       "notes": "minRequiredMonths=180 (15 лет) для базовой части. Prose pension_min_experience_years='15 лет страхового стажа' agrees. MISMATCH: article requirements block (pension_req_men_service='минимум 25 лет', pension_req_women_service='минимум 20 лет') contradicts the 15-year compute threshold.",
@@ -3053,7 +3053,7 @@
         "src/pages/PensionCalculatorPage.tsx:209"
       ],
       "last_updated": "2026-03-23",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "cutoffDate = 1996-01-01; стаж до 1996 → страховая часть 1, после → накопительная часть 2.",
@@ -3077,7 +3077,7 @@
         "translations-ru.ts:pension_req_men_age"
       ],
       "last_updated": "2026-03-23",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "getDefaultRetirementAge male=63. Article: 63 года.",
@@ -3101,7 +3101,7 @@
         "translations-ru.ts:pension_req_women_age"
       ],
       "last_updated": "2026-03-23",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "getDefaultRetirementAge female=58. Article: 58 лет.",
@@ -3293,7 +3293,7 @@
         "translations-ku.ts:salary_article_socfund_desc"
       ],
       "last_updated": "2026-03-23",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "socialFund = gross*0.10; удержание работника в Соцфонд (ПФ+ГНПФ суммарно 10%). Tax base = gross - socialFund.",
@@ -3477,7 +3477,7 @@
         "src/data/sickLeaveData.ts:112"
       ],
       "last_updated": "2026-06-20",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "FIXED 2026-06-20: база = заработок за 3 мес ÷ рабочие дни (~66), а не 730 календарных.",
@@ -3500,7 +3500,7 @@
         "src/data/sickLeaveData.ts:182"
       ],
       "last_updated": "2026-07-27",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "FIXED 2026-06-20: первые 10 рабочих дней — работодатель, с 11-го — Соцфонд.",
@@ -3551,7 +3551,7 @@
         "src/data/sickLeaveData.ts:186"
       ],
       "last_updated": "2026-07-27",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "FIXED 2026-06-20: это лимит выплаты Соцфонда с 11-го дня (100 РП), а не общий потолок базы 50000.",
@@ -3576,7 +3576,7 @@
         "src/data/sickLeaveData.ts:36"
       ],
       "last_updated": "2026-03-23",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "Уход за ребёнком maxDays=14.",
@@ -3598,7 +3598,7 @@
         "src/data/sickLeaveData.ts:24"
       ],
       "last_updated": "2026-07-02",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "removed",
       "notes": "Болезнь maxDays=30 (может продлеваться врачебной комиссией).",
@@ -3620,7 +3620,7 @@
         "src/data/sickLeaveData.ts:30"
       ],
       "last_updated": "2026-07-02",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "removed",
       "notes": "Травма maxDays=60.",
@@ -3642,7 +3642,7 @@
         "src/data/sickLeaveData.ts:51"
       ],
       "last_updated": "2026-03-23",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "Осложнённые роды 140 дней.",
@@ -3664,7 +3664,7 @@
         "src/data/sickLeaveData.ts:45"
       ],
       "last_updated": "2026-03-23",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "Обычные роды 126 дней (70 до + 56 после).",
@@ -3686,7 +3686,7 @@
         "src/data/sickLeaveData.ts:57"
       ],
       "last_updated": "2026-07-27",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "Двойня и более 180 дней (84 до + 96 после).",
@@ -3735,7 +3735,7 @@
         "translations-ru.ts(article SickLeaveCalculatorArticle.tsx:57)"
       ],
       "last_updated": "2026-06-20",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "Брекет «до 5 лет = 60%» (Пост. №434, 3 диапазона).",
@@ -3759,7 +3759,7 @@
         "SickLeaveCalculatorArticle.tsx:66"
       ],
       "last_updated": "2026-06-20",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "FIXED 2026-06-20: 3–5 лет теперь 60% (входит в диапазон «до 5 лет»), было ошибочно 80%.",
@@ -3783,7 +3783,7 @@
         "SickLeaveCalculatorArticle.tsx:75"
       ],
       "last_updated": "2026-06-20",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "FIXED 2026-06-20: 5–8 лет = 80% (было ошибочно 100%).",
@@ -3807,7 +3807,7 @@
         "SickLeaveCalculatorArticle.tsx:84"
       ],
       "last_updated": "2026-03-23",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "стаж 8+ лет → 100%. Default fallback also 60% if unset.",
@@ -3831,7 +3831,7 @@
         "src/data/sickLeaveData.ts:59"
       ],
       "last_updated": "2026-03-23",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "Беременность/роды оплачивается 100% независимо от стажа (dependsOnExperience=false).",
@@ -4210,7 +4210,7 @@
         "translations-ru.ts:social_fund_gnpf"
       ],
       "last_updated": "2026-03-23",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "EMPLOYEE_RATES.gnpf = 0.02. Employee total = 8%+2% = 10%.",
@@ -4233,7 +4233,7 @@
         "translations-ru.ts:social_fund_pension_fund"
       ],
       "last_updated": "2026-03-23",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "EMPLOYEE_RATES.pf = 0.08; пенсионный фонд работника.",
@@ -4255,7 +4255,7 @@
         "src/pages/SocialFundCalculatorPage.tsx:581"
       ],
       "last_updated": "2026-03-23",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "Hardcoded display '10%' for total employee deduction (8% ПФ + 2% ГНПФ).",
@@ -4277,7 +4277,7 @@
         "src/pages/SocialFundCalculatorPage.tsx:38"
       ],
       "last_updated": "2026-03-23",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "employerFOMSRate = 0.01 (business category).",
@@ -4300,7 +4300,7 @@
         "translations-ru.ts:social_fund_fot"
       ],
       "last_updated": "2026-03-23",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "employerFOTRate = 0.0025 (business category).",
@@ -4322,7 +4322,7 @@
         "src/pages/SocialFundCalculatorPage.tsx:37"
       ],
       "last_updated": "2026-03-23",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "employerPFRate = 0.01 (business category).",
@@ -4346,7 +4346,7 @@
         "translations-ru.ts:socialfund_reduced_employer_rate"
       ],
       "last_updated": "2026-03-23",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "business category total 2.25% = ПФ 1% + ФОМС 1% + ФОТ 0.25%. Действует с 01.08.2024. Default selected category.",
@@ -4370,7 +4370,7 @@
         "translations-ru.ts:socialfund_standard_employer_rate"
       ],
       "last_updated": "2026-03-23",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "standard category total 17.25% = ПФ 15% + ФОМС 2% + ФОТ 0.25%.",
@@ -4417,7 +4417,7 @@
         "src/pages/SocialFundCalculatorPage.tsx:51"
       ],
       "last_updated": "2026-03-23",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "employerFOMSRate = 0.02 (standard category).",
@@ -4439,7 +4439,7 @@
         "src/pages/SocialFundCalculatorPage.tsx:52"
       ],
       "last_updated": "2026-03-23",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "employerFOTRate = 0.0025 (standard category).",
@@ -4461,7 +4461,7 @@
         "src/pages/SocialFundCalculatorPage.tsx:50"
       ],
       "last_updated": "2026-03-23",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "employerPFRate = 0.15 (standard category).",
@@ -9033,7 +9033,7 @@
         "translations-ru.ts:pension_avg_amount"
       ],
       "last_updated": "2026-07-03",
-      "source_hint": "socfond.kg",
+      "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "Средняя пенсия в КР ~7,500–9,000 сом/мес. Reference stat, not used in compute. | FIXED 2026-07-03: проза 7,500-9,000 → 11,238 сом/мес (PensionCalculatorArticle.tsx:16; sf.gov.kg).",

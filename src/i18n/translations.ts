@@ -2847,7 +2847,7 @@ export const translations = {
 
     social_fund_useful_links: 'Полезные ресурсы',
     social_fund_link_sotsf: 'Социальный фонд КР',
-    social_fund_link_sotsf_desc: 'Официальный сайт: socfond.kg',
+    social_fund_link_sotsf_desc: 'Официальный сайт: sf.gov.kg',
     social_fund_link_cabinet: 'Личный кабинет плательщика',
     social_fund_link_cabinet_desc: 'Для подачи отчетов и оплаты взносов',
     social_fund_link_gnpf: 'ГНПФ — Государственный накопительный пенсионный фонд',
@@ -2864,7 +2864,7 @@ export const translations = {
     social_fund_faq_q3: 'Есть ли максимальная база для взносов?',
     social_fund_faq_a3: 'Да, взносы начисляются с зарплаты до 10-кратного размера средней зарплаты по КР (в 2026 году примерно 300,000 сом). С суммы выше этого порога взносы не начисляются.',
     social_fund_tip_employer: 'Работодатели: платите взносы вовремя - штрафы могут достигать 100% от суммы долга',
-    social_fund_tip_worker: 'Работники: проверяйте, что работодатель перечисляет ваши взносы (личный кабинет socfond.kg)',
+    social_fund_tip_worker: 'Работники: проверяйте, что работодатель перечисляет ваши взносы (личный кабинет sf.gov.kg)',
     social_fund_tip_ip: 'ИП без работников: можете платить добровольные взносы для пенсионного стажа (минимум 1,500 сом/мес)',
     
     // Pension Calculator
@@ -10980,7 +10980,7 @@ export const translations = {
 
     social_fund_useful_links: 'Пайдалуу булактар',
     social_fund_link_sotsf: 'КРнын Социалдык фонду',
-    social_fund_link_sotsf_desc: 'Расмий сайт: socfond.kg',
+    social_fund_link_sotsf_desc: 'Расмий сайт: sf.gov.kg',
     social_fund_link_cabinet: 'Төлөөчүнүн жеке кабинети',
     social_fund_link_cabinet_desc: 'Отчетторду берүү жана салымдарды төлөө үчүн',
     social_fund_link_gnpf: 'МПКФ — Мамлекеттик пенсиялык камсыздандыруу фонду',
@@ -10997,7 +10997,7 @@ export const translations = {
     social_fund_faq_q3: 'Салымдар үчүн максималдуу база барбы?',
     social_fund_faq_a3: 'Ооба, салымдар КР боюнча орточо маянанын 10 эсе өлчөмүнө чейинки маянадан эсептелет (2026-жылы болжол менен 300,000 сом). Бул чектен жогору суммадан салымдар эсептелбейт.',
     social_fund_tip_employer: 'Жумуш берүүчүлөр: салымдарды өз убагында төлөңүз - айып пулдар карыздын суммасынын 100%на жетиши мүмкүн',
-    social_fund_tip_worker: 'Кызматкерлер: жумуш берүүчү сиздин салымдарыңызды которгонун текшериңиз (жеке кабинет socfond.kg)',
+    social_fund_tip_worker: 'Кызматкерлер: жумуш берүүчү сиздин салымдарыңызды которгонун текшериңиз (жеке кабинет sf.gov.kg)',
     social_fund_tip_ip: 'Кызматкерсиз ЖИ: пенсия стажы үчүн ыктыярдуу салымдарды төлөй аласыз (минимум 1,500 сом/ай)',
     
     // Pension Calculator

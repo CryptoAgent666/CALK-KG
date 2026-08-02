@@ -715,7 +715,7 @@ const SocialFundCalculatorPage = () => {
             </h3>
             <div className="space-y-4">
               <a
-                href="https://socfond.kg"
+                href="https://sf.gov.kg"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block p-4 rounded-lg border border-gray-200 hover:border-red-200 hover:bg-red-50 transition-colors group"
@@ -734,7 +734,7 @@ const SocialFundCalculatorPage = () => {
               </a>
 
               <a
-                href="https://lk.socfond.kg"
+                href="https://sf.gov.kg/ru/uslugi/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block p-4 rounded-lg border border-gray-200 hover:border-red-200 hover:bg-red-50 transition-colors group"
@@ -753,7 +753,7 @@ const SocialFundCalculatorPage = () => {
               </a>
 
               <a
-                href="https://gnpf.kg"
+                href="https://sf.gov.kg"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block p-4 rounded-lg border border-gray-200 hover:border-red-200 hover:bg-red-50 transition-colors group"
