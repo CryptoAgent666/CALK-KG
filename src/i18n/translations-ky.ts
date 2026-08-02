@@ -6950,7 +6950,7 @@ export const ky: Record<string, string> = {
   "passport_source_label": "Булак",
   "passport_source_text": "Digital Service расмий прейскуранттары: ID-карта жана 2020-жылкы үлгүдөгү загранпаспорт, жаңыртуу 11.03.2026.",
 
-  "socialfund_rates_title": "Март 2026 боюнча негизги чендер",
+  "socialfund_rates_title": "2026-жылга карата негизги чендер",
   "socialfund_rates_intro": "Кызматкер тарабынан кармоо өзгөргөн жок: Пенсиялык фондго 8% жана Мамлекеттик топтоочу фондго 2%, бардыгы 10%.",
   "socialfund_rates_employer": "Иш берүүчү боюнча эми эки негизги сценарийди өзүнчө караш керек: көпчүлүк жеке компанияларда 2.25%, ал эми бюджеттик жана айрым атайын категорияларда 17.25%.",
   "socialfund_categories_title": "Категориялар боюнча бөлүнүшү",
@@ -6961,7 +6961,7 @@ export const ky: Record<string, string> = {
   "socialfund_standard_mode": "Стандарттык режим",
   "socialfund_standard_employer_rate": "Иш берүүчү: 17.25%",
   "socialfund_standard_breakdown": "ПФ 15%, ФОМС 2%, ФОТ 0.25%",
-  "socialfund_standard_applies": "Бюджеттик жана атайын категориялар үчүн",
+  "socialfund_standard_applies": "Бюджеттик уюмдар, банктар, уюлдук байланыш, интернет-провайдерлер, жер казынасы, энергия менен камсыздоо, алкоголь/тамеки/ГСМ (2-2-берене 3-п.)",
   "socialfund_shows_title": "Бул калькулятор эмнени көрсөтөт",
   "socialfund_shows_1": "Кызматкерден кармалган 10% өзүнчө",
   "socialfund_shows_2": "Иш берүүчүнүн чени категория боюнча",

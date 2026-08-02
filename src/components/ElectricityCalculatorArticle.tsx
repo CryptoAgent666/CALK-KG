@@ -41,11 +41,11 @@ export const ElectricityCalculatorArticle: React.FC = () => {
         <ArticleSubsection title={t('electricity_example_title')}>
           <div className="bg-gray-50 p-4 rounded-lg space-y-2 text-sm">
             <p><strong>{t('electricity_step1_label')}</strong> {t('electricity_step1_text')}</p>
-            <p className="pl-4 font-mono">700 × 1.37 = 959 {t('electricity_som')}</p>
+            <p className="pl-4 font-mono">700 × 1.64 = 1 148 {t('electricity_som')}</p>
             <p><strong>{t('electricity_step2_label')}</strong> {t('electricity_step2_text')}</p>
-            <p className="pl-4 font-mono">150 × 2.60 = 390 {t('electricity_som')}</p>
+            <p className="pl-4 font-mono">150 × 2.94 = 441 {t('electricity_som')}</p>
             <p><strong>{t('electricity_step3_label')}</strong> {t('electricity_step3_text')}</p>
-            <p className="pl-4 font-mono text-lg font-bold text-green-700">959 + 390 = 1,349 {t('electricity_som')}</p>
+            <p className="pl-4 font-mono text-lg font-bold text-green-700">1 148 + 441 = 1 589 {t('electricity_som')}</p>
           </div>
           <p className="text-sm text-gray-600 mt-3">
             {t('electricity_example_note')}

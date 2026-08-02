@@ -6841,7 +6841,7 @@ export const ru: Record<string, string> = {
   "passport_source_label": "Источник",
   "passport_source_text": "Официальные прейскуранты Digital Service по ID-карте и загранпаспорту образца 2020 года, обновление от 11.03.2026.",
 
-  "socialfund_rates_title": "Ключевые ставки на март 2026",
+  "socialfund_rates_title": "Ключевые ставки на 2026 год",
   "socialfund_rates_intro": "Удержания с работника не изменились: 8% в Пенсионный фонд и 2% в ГНПФ, всего 10%.",
   "socialfund_rates_employer": "По работодателю теперь важно различать два сценария: для большинства частных компаний действует 2.25%, а для бюджетных и специальных категорий сохраняется 17.25%.",
   "socialfund_categories_title": "Разбивка по категориям",
@@ -6852,7 +6852,7 @@ export const ru: Record<string, string> = {
   "socialfund_standard_mode": "Стандартный режим",
   "socialfund_standard_employer_rate": "Работодатель: 17.25%",
   "socialfund_standard_breakdown": "ПФ 15%, ФОМС 2%, ФОТ 0.25%",
-  "socialfund_standard_applies": "Применяется для бюджетных и специальных категорий",
+  "socialfund_standard_applies": "Бюджетные организации, банки, сотовая связь, интернет-провайдеры, недропользование, энергоснабжение, алкоголь/табак/ГСМ (ст. 2-2 п. 3)",
   "socialfund_shows_title": "Что показывает калькулятор",
   "socialfund_shows_1": "Отдельно удержания работника 10%",
   "socialfund_shows_2": "Взносы работодателя по выбранной категории",
