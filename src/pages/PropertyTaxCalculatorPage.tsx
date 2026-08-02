@@ -61,7 +61,26 @@ const PropertyTaxCalculatorPage = () => {
     return [calculatorSchema, softwareSchema, breadcrumbSchema];
   };
 
+  // Ставки налога на жилые объекты — НК КР ст.379 ч.1 п.1 (сом/м², сверено вербатим
+  // 2026-08-02 по офиц. PDF ГНС): две колонки по материалу стен.
+  // Необлагаемая площадь — НК ст.409 ч.1 п.1: шкала по численности населения города
+  // (500 тыс.+ → квартира 80 / дом 150; 200–500 тыс. → 110/180; 100–200 тыс. → 140/210;
+  // 50–100 тыс. → 170/240; 20–50 тыс. → 200/270). Группы городов — по данным Нацстаткома.
+  type WallMaterial = 'brick' | 'adobe';
+  const CITY_TAX: Record<string, { brick: number; adobe: number; benApt: number; benHouse: number } | null> = {
+    'bishkek':    { brick: 63,   adobe: 42,   benApt: 80,  benHouse: 150 },
+    'osh':        { brick: 57,   adobe: 38,   benApt: 110, benHouse: 180 },
+    'jalal-abad': { brick: 50.5, adobe: 34,   benApt: 140, benHouse: 210 },
+    'karakol':    { brick: 32,   adobe: 21,   benApt: 170, benHouse: 240 },
+    'tokmok':     { brick: 32,   adobe: 21,   benApt: 170, benHouse: 240 },
+    'naryn':      { brick: 16,   adobe: 10.5, benApt: 200, benHouse: 270 },
+    'talas':      { brick: 21,   adobe: 14,   benApt: 200, benHouse: 270 },
+    'batken':     { brick: 10.5, adobe: 7,    benApt: 200, benHouse: 270 },
+    'other': null
+  };
+
   const [propertyType, setPropertyType] = useState<PropertyType>('apartment');
+  const [wallMaterial, setWallMaterial] = useState<WallMaterial>('brick');
   const [city, setCity] = useState<string>('bishkek');
   const [taxRate, setTaxRate] = useState<string>('');
   const [totalArea, setTotalArea] = useState<string>('');
@@ -93,14 +112,20 @@ const PropertyTaxCalculatorPage = () => {
     type: PropertyType,
     benefit: boolean
   ) => {
+    const cityData = CITY_TAX[city];
     let benefitArea = 0;
     let taxableArea = area;
 
     if (benefit) {
-      benefitArea = type === 'apartment' ? 80 : 150;
+      // НК ст.409: необлагаемая площадь зависит от численности населения города.
+      benefitArea = cityData
+        ? (type === 'apartment' ? cityData.benApt : cityData.benHouse)
+        : (type === 'apartment' ? 80 : 150);
       taxableArea = Math.max(0, area - benefitArea);
     }
 
+    // Формула НК ст.380 без коэффициента инфляции Ки (утверждается ГНС ежегодно;
+    // если не установлен — равен прошлогоднему). Итог — до применения Ки.
     const taxAmount = taxableArea * rate;
 
     return {
@@ -114,7 +139,8 @@ const PropertyTaxCalculatorPage = () => {
 
   useEffect(() => {
     const area = parseFloat(totalArea) || 0;
-    const rate = parseFloat(taxRate) || 0;
+    const cityData = CITY_TAX[city];
+    const rate = cityData ? cityData[wallMaterial] : (parseFloat(taxRate) || 0);
 
     if (area >= 0 && rate >= 0) {
       setResults(calculateTax(area, rate, propertyType, applyBenefit));
@@ -127,7 +153,7 @@ const PropertyTaxCalculatorPage = () => {
         taxAmount: 0
       });
     }
-  }, [totalArea, taxRate, propertyType, applyBenefit]);
+  }, [totalArea, taxRate, propertyType, applyBenefit, city, wallMaterial]);
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('ru-KG', {
@@ -313,22 +339,39 @@ const PropertyTaxCalculatorPage = () => {
               <div className="mb-8">
                 <div className="flex items-center mb-3">
                   <label className="block text-sm font-medium text-gray-700">
-                    {t('property_tax_rate')}
+                    {language === 'ky' ? 'Дубалдын материалы' : 'Материал стен'}
                   </label>
-                  <Tooltip text={t('property_tax_rate_tooltip')}>
-                    <Info className="h-4 w-4 text-gray-400 ml-2 cursor-help" />
-                  </Tooltip>
                 </div>
-                <input
-                  type="text"
-                  value={taxRate}
-                  onChange={handleTaxRateChange}
-                  placeholder={t('property_tax_rate_placeholder')}
+                <select
+                  value={wallMaterial}
+                  onChange={(e) => setWallMaterial(e.target.value as WallMaterial)}
                   className="w-full px-4 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg print:text-base"
-                />
-                <p className="text-sm text-gray-500 mt-2">
-                  {t('property_tax_rate_info')}
-                </p>
+                >
+                  <option value="brick">{language === 'ky' ? 'Кирпич, бетон, темир-бетон, пеноблок' : 'Кирпич, бетон, железобетон, пеноблок'}</option>
+                  <option value="adobe">{language === 'ky' ? 'Саман, шлакоблок, металл, башка материалдар' : 'Саман, шлакоблок, металл, прочие материалы'}</option>
+                </select>
+                {CITY_TAX[city] ? (
+                  <p className="text-sm text-gray-500 mt-2">
+                    {language === 'ky'
+                      ? `Чен: ${CITY_TAX[city]![wallMaterial]} сом/м² (КР СК 379-беренеси). Инфляция коэффициентисиз.`
+                      : `Ставка: ${CITY_TAX[city]![wallMaterial]} сом/м² (НК КР, ст. 379). Без коэффициента инфляции Ки.`}
+                  </p>
+                ) : (
+                  <div className="mt-3">
+                    <input
+                      type="text"
+                      value={taxRate}
+                      onChange={handleTaxRateChange}
+                      placeholder={t('property_tax_rate_placeholder')}
+                      className="w-full px-4 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg print:text-base"
+                    />
+                    <p className="text-sm text-gray-500 mt-2">
+                      {language === 'ky'
+                        ? 'Шаарыңыз үчүн ченди КР СК 379-беренесинен караңыз (мис.: Кара-Балта 32/21, Кант 21/14, Балыкчы 16/10,5 сом/м²).'
+                        : 'Ставку для вашего города смотрите в ст. 379 НК КР (напр.: Кара-Балта 32/21, Кант 21/14, Балыкчы 16/10,5 сом/м²).'}
+                    </p>
+                  </div>
+                )}
               </div>
 
               <div className="mb-8">

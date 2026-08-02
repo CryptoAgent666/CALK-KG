@@ -342,7 +342,7 @@
       "key": "alimony_share_1_child",
       "value": "0.25",
       "unit": "fraction",
-      "law": "Семейный кодекс КР (1/4 дохода на одного ребёнка)",
+      "law": "Семейный кодекс КР ст.86 п.1",
       "theme": "alimony_share",
       "is_gov_regulated": true,
       "surfaces": [
@@ -350,7 +350,7 @@
         "src/i18n/translations-ru.ts:3946",
         "src/i18n/translations-ru.ts:2797"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-08-02",
       "source_hint": "Семейный кодекс КР",
       "conflict": false,
       "status": "current",
@@ -358,7 +358,9 @@
       "official_value": null,
       "source_url": "https://online.zakon.kz/Document/?doc_id=30286698",
       "which_surface_correct": "both",
-      "verify_note": "Семейный кодекс КР ст.86: на одного ребёнка — одну четвёртую (0.25). Confirmed against code text (ed. 17.07.2025)."
+      "verify_note": "Стамп 2026-08-02: доли 1/4, 1/3, 1/2 сверены ВЕРБАТИМ по ст.86 п.1 СК КР (FAOLEX PDF, сессия 2026-07-20).",
+      "verified_date": "2026-08-02",
+      "verify_confidence": "high"
     },
     {
       "id": "alimony-calculator__alimony_share_2_children",
@@ -366,7 +368,7 @@
       "key": "alimony_share_2_children",
       "value": "0.33",
       "unit": "fraction",
-      "law": "Семейный кодекс КР (1/3 дохода на двоих детей)",
+      "law": "Семейный кодекс КР ст.86 п.1",
       "theme": "alimony_share",
       "is_gov_regulated": true,
       "surfaces": [
@@ -374,7 +376,7 @@
         "src/i18n/translations-ru.ts:3946",
         "src/i18n/translations-ru.ts:2797"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-08-02",
       "source_hint": "Семейный кодекс КР",
       "conflict": false,
       "status": "current",
@@ -382,7 +384,9 @@
       "official_value": null,
       "source_url": "https://online.zakon.kz/Document/?doc_id=30286698",
       "which_surface_correct": "both",
-      "verify_note": "Семейный кодекс КР ст.86: на двух детей — одну треть (1/3). Dataset 0.33 is a rounding of 1/3 (0.3333); legal value is the fraction 1/3. Confirmed."
+      "verify_note": "Стамп 2026-08-02: доли 1/4, 1/3, 1/2 сверены ВЕРБАТИМ по ст.86 п.1 СК КР (FAOLEX PDF, сессия 2026-07-20).",
+      "verified_date": "2026-08-02",
+      "verify_confidence": "high"
     },
     {
       "id": "alimony-calculator__alimony_share_3plus_children",
@@ -390,7 +394,7 @@
       "key": "alimony_share_3plus_children",
       "value": "0.50",
       "unit": "fraction",
-      "law": "Семейный кодекс КР (1/2 дохода на троих и более детей)",
+      "law": "Семейный кодекс КР ст.86 п.1",
       "theme": "alimony_share",
       "is_gov_regulated": true,
       "surfaces": [
@@ -398,7 +402,7 @@
         "src/i18n/translations-ru.ts:3946",
         "src/i18n/translations-ru.ts:2797"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-08-02",
       "source_hint": "Семейный кодекс КР",
       "conflict": false,
       "status": "current",
@@ -406,7 +410,9 @@
       "official_value": null,
       "source_url": "https://online.zakon.kz/Document/?doc_id=30286698",
       "which_surface_correct": "both",
-      "verify_note": "Семейный кодекс КР ст.86: на трёх и более детей — половину (0.50). Confirmed against code text."
+      "verify_note": "Стамп 2026-08-02: доли 1/4, 1/3, 1/2 сверены ВЕРБАТИМ по ст.86 п.1 СК КР (FAOLEX PDF, сессия 2026-07-20).",
+      "verified_date": "2026-08-02",
+      "verify_confidence": "high"
     },
     {
       "id": "customs-calculator__customs_clearance_fee_rate",
@@ -444,7 +450,7 @@
         "src/pages/CustomsCalculatorPage.tsx:51-53",
         "translations-ru.ts:customs_faq_a7:1118"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-08-02",
       "source_hint": "customs.gov.kg",
       "conflict": true,
       "status": "current",
@@ -452,7 +458,9 @@
       "official_value": "0",
       "source_url": "https://mineconom.gov.kg/ru/post/9484",
       "which_surface_correct": "both",
-      "verify_note": "EV exemption IN FORCE for 2026: 0% ввозная пошлина within tariff quota. Legal basis = Решение Совета ЕЭК №111 от 5.12.2025; tariff quota for KG = 15 000 units; effective from 22.01.2026. Multiple independent sources state the broader льгота window runs 2024-2027, which matches PROSE customs_faq_a7 (2024-2027). Compute applies 0% unconditionally; since 2026 falls inside the 2024-2027 window the compute result is correct for 2026, so both surfaces are effectively correct. NOTE the practical limit is the 15 000-unit annual quota + buyer-residency conditions (KG residents only; no resale to RU/KZ residents within 3y), not modelled in compute. 3-year ban is on resale, not the exemption expiry."
+      "verify_note": "Стамп 2026-08-02: 0% пошлина+акциз для электромобилей — Решение ЕЭК №111, в силе 22.01.2026, квота 15 000 шт. (verified 2026-01, CLAUDE.md). WATCH: исчерпание квоты.",
+      "verified_date": "2026-08-02",
+      "verify_confidence": "medium"
     },
     {
       "id": "customs-calculator__customs_duty_hybrid",
@@ -1344,7 +1352,7 @@
         "src/pages/FamilyBenefitCalculatorPage.tsx:99",
         "translations-ru.ts:family_age_0_to_16"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-08-02",
       "source_hint": "cabinet.gov.kg",
       "conflict": true,
       "status": "current",
@@ -1352,7 +1360,9 @@
       "official_value": "16",
       "source_url": "https://mlsp.gov.kg/ru/2026/04/23/peresmotren-mehanizm-predostavleniya-ezhemesyachnogo-posobiya-uj-bulogo-komok-nuzhdayushhimsya-semyam-imeyushhim-detej-do-16-let/",
       "which_surface_correct": "compute",
-      "verify_note": "Пособие «үй-бүлөгө көмөк» — для детей до 16 лет (официально, Кабмин № 242 от 10.04.2026). Compute cutoff=16 ВЕРЕН. Article prose «до 18 / до 23 для студентов» относится к иным выплатам и неверен для этого пособия → верна compute-сторона."
+      "verify_note": "Стамп 2026-08-02: «до 16 лет» — фигурирует в официальных материалах Минтруда об «үй-бүлөгө көмөк» (mlsp.gov.kg, сверка 2026-07-27); вербатим текст постановления машинно не прочитан.",
+      "verified_date": "2026-08-02",
+      "verify_confidence": "medium"
     },
     {
       "id": "family-benefit-calculator__family_income_threshold_gmd",
@@ -1384,23 +1394,25 @@
       "id": "family-benefit-calculator__family_pregnancy_benefit",
       "calculator": "family-benefit-calculator",
       "key": "family_pregnancy_benefit",
-      "value": "100",
+      "value": "100% первые 10 раб. дней; далее 20 РП/мес",
       "unit": "percent",
-      "law": "Соцфонд КР — пособие по беременности и родам",
+      "law": "Положение (Прил.1 к ПП №434), п.63",
       "theme": "family_benefit",
       "is_gov_regulated": true,
       "surfaces": [
         "translations-ru.ts:familybenefit_pregnancy_amount"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-08-02",
       "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
       "notes": "Article-only: 100% средней зарплаты за 140 дней. Cross-refs sick-leave maternity. Not in compute.",
-      "official_value": "100",
+      "official_value": "100% первые 10 раб. дней; далее 20 РП/мес",
       "source_url": "https://cbd.minjust.gov.kg/12601/edition/14251/ru",
       "which_surface_correct": "na",
-      "verify_note": "Пособие по беременности и родам — 100% среднего заработка (Положение, Пост. Правительства КР № 434 от 18.09.2018, с 11-го раб. дня — из расчёта 10000 сом). 100% подтверждается. Article-only, не в compute."
+      "verify_note": "RE-VERIFIED 2026-08-02 (Положение №434 п.63, вербатим через API cbd): «100% за весь период» НЕВЕРНО — первые 10 рабочих дней 100% от работодателя, с 11-го дня 20 РП/мес из республиканского бюджета. Проза family-benefit исправлена.",
+      "verified_date": "2026-08-02",
+      "verify_confidence": "high"
     },
     {
       "id": "gas-calculator__PROSE_gas_bishkek_rate_legacy",
@@ -2072,24 +2084,26 @@
       "id": "housing-calculator__tariff_electricity",
       "calculator": "housing-calculator",
       "key": "tariff_electricity",
-      "value": "1.64-2.94",
+      "value": "1.64/2.94 (порог 700)",
       "unit": "KGS_per_kWh",
-      "law": "Постановление о тарифах на электроэнергию (НЭСК/Северэлектро)",
+      "law": "Приказ ДРТЭК №103 от 24.04.2026",
       "theme": "housing_utility_tariff",
       "is_gov_regulated": true,
       "surfaces": [
         "src/i18n/translations-ru.ts:6030"
       ],
-      "last_updated": "2026-01",
+      "last_updated": "2026-08-02",
       "source_hint": "gov.kg / Северэлектро",
       "conflict": false,
       "status": "current",
       "notes": "PROSE only (housing_tariff_electricity). State-regulated tiered electricity tariff Bishkek, range by consumption volume. Not used in compute. Source cited: Северэлектро, актуально на январь 2026.",
-      "official_value": "1.64-2.94",
+      "official_value": "1.64/2.94 (порог 700)",
       "source_url": "https://www.tazabek.kg/news:2460545",
       "which_surface_correct": "prose",
-      "verify_note": "PROSE-only housing reference cites '0.77-2.16 сом/кВт·ч'. Official residential band from 01.05.2026 is 1.64 (до 700) to 2.94 (свыше) сом/кВт·ч. PROSE range is stale and should read 1.64-2.94. (This key is PROSE-only; which_surface=prose marks where the value lives.)",
-      "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)"
+      "verify_note": "Синк 2026-08-02 с electricity-калькулятором (приказ ДРТЭК №103 от 24.04.2026, сверен вербатим): 1,64 до 700 кВт·ч, далее 2,94.",
+      "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)",
+      "verified_date": "2026-08-02",
+      "verify_confidence": "high"
     },
     {
       "id": "housing-calculator__tariff_gas",
@@ -2103,7 +2117,7 @@
       "surfaces": [
         "src/i18n/translations-ru.ts:6033"
       ],
-      "last_updated": "2026-01",
+      "last_updated": "2026-08-02",
       "source_hint": "Газпром Кыргызстан",
       "conflict": false,
       "status": "current",
@@ -2111,8 +2125,10 @@
       "official_value": "22.7041",
       "source_url": "https://kyrgyzstan.gazprom.ru/services/tarif/",
       "which_surface_correct": "prose",
-      "verify_note": "PROSE-only housing reference '9.50 сом/м³' is stale. Official Газпром population tariff = 22.7041 сом/м³ (2026). Should be updated.",
-      "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)"
+      "verify_note": "Стамп 2026-08-02: 22,70 сом/м³ — значение сверено в сессии 2026-06/07 (Газпром Кыргызстан, май-2026); без изменений.",
+      "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)",
+      "verified_date": "2026-08-02",
+      "verify_confidence": "medium"
     },
     {
       "id": "housing-calculator__tariff_heating",
@@ -2141,24 +2157,26 @@
       "id": "housing-calculator__tariff_water",
       "calculator": "housing-calculator",
       "key": "tariff_water",
-      "value": "13.90 (10.45 вода + 3.45 канализация)",
+      "value": "22.53 (15.73 вода + 6.80 канализация)",
       "unit": "KGS_per_m3",
-      "law": "Тарифы Бишкекводоканал",
+      "law": "Пост. Бишкекского горкенеша №101 от 30.06.2026",
       "theme": "housing_utility_tariff",
       "is_gov_regulated": true,
       "surfaces": [
         "src/i18n/translations-ru.ts:6031"
       ],
-      "last_updated": "2026-01",
+      "last_updated": "2026-08-02",
       "source_hint": "Бишкекводоканал",
       "conflict": false,
       "status": "current",
       "notes": "PROSE only (housing_tariff_water). State-regulated cold water + sewerage tariff Bishkek. Source: Бишкекводоканал, январь 2026.",
-      "official_value": "13.90 (10.45 вода + 3.45 канализация)",
+      "official_value": "22.53 (15.73 вода + 6.80 канализация)",
       "source_url": "https://kaktus.media/doc/544835_v_bishkeke_vnov_podorojaut_pitevaia_voda_i_kanalizaciia.html",
       "which_surface_correct": "prose",
-      "verify_note": "PROSE-only housing reference '19.30 сом/м³' overstates. Current Bishkek population tariff = 10.45 (вода) + 3.45 (канализация) = 13.90 сом/м³ by meter. PROSE should be 13.90, not 19.30.",
-      "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)"
+      "verify_note": "Синк 2026-08-02: вода Бишкека по пост. БГК №101 от 30.06.2026 — 15,73+6,80=22,53 сом/м³ (проза housing_tariff_water уже обновлена ранее).",
+      "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)",
+      "verified_date": "2026-08-02",
+      "verify_confidence": "high"
     },
     {
       "id": "mortgage-calculator__mortgage_state_subsidized_affordable_rate",
@@ -3114,45 +3132,49 @@
       "id": "property-tax-calculator__property_benefit_area_apartment",
       "calculator": "property-tax-calculator",
       "key": "property_benefit_area_apartment",
-      "value": "80",
+      "value": "80 (Бишкек 500 тыс.+); шкала до 290",
       "unit": "sqm",
-      "law": "НК КР налог на имущество",
+      "law": "НК КР ст.409 ч.1 п.1 (шкала по численности населения)",
       "theme": "property_tax",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/PropertyTaxCalculatorPage.tsx:100"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-08-02",
       "source_hint": "salyk.kg",
       "conflict": false,
       "status": "current",
       "notes": "Необлагаемый вычет площади для квартиры = 80 м² (benefit). taxableArea = max(0, area-80).",
-      "official_value": "80",
+      "official_value": "80 (Бишкек 500 тыс.+); шкала до 290",
       "source_url": "https://sti.gov.kg/news/details/65ccc57b-0ab5-454c-800a-3e24c6475963",
       "which_surface_correct": "na",
-      "verify_note": "ГНС: налог на жилье считается по облагаемой площади (Н=НБ×С); льготная (необлагаемая) площадь квартиры = 80 м². Модель 'taxableArea = area-80' верна для 2026."
+      "verify_note": "RE-VERIFIED 2026-08-02 (НК ст.409 ч.1 п.1 вербатим): необлагаемая площадь квартиры зависит от численности населения города — 80 м² только для городов 500 тыс.+ (Бишкек); Ош (200–500 тыс.) — 110; Джалал-Абад — 140; Каракол/Токмок — 170; Нарын/Талас/Баткен — 200; до 290 в сёлах. COMPUTE переведён на шкалу по городам.",
+      "verified_date": "2026-08-02",
+      "verify_confidence": "high"
     },
     {
       "id": "property-tax-calculator__property_benefit_area_house",
       "calculator": "property-tax-calculator",
       "key": "property_benefit_area_house",
-      "value": "150",
+      "value": "150 (Бишкек); шкала до 360",
       "unit": "sqm",
-      "law": "НК КР налог на имущество",
+      "law": "НК КР ст.409 ч.1 п.1",
       "theme": "property_tax",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/PropertyTaxCalculatorPage.tsx:100"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-08-02",
       "source_hint": "salyk.kg",
       "conflict": false,
       "status": "current",
       "notes": "Необлагаемый вычет площади для жилого дома = 150 м² (benefit).",
-      "official_value": "150",
+      "official_value": "150 (Бишкек); шкала до 360",
       "source_url": "https://sti.gov.kg/news/details/65ccc57b-0ab5-454c-800a-3e24c6475963",
       "which_surface_correct": "na",
-      "verify_note": "Официальный пример ГНС: дом 200 м² минус льготная площадь 150 м² = 50 м² облагается. Вычет для жилого дома = 150 м² подтверждён, действует в 2026."
+      "verify_note": "RE-VERIFIED 2026-08-02 (НК ст.409): дом — 150 м² только для 500 тыс.+; Ош 180; Джалал-Абад 210; Каракол/Токмок 240; Нарын/Талас/Баткен 270; до 360. COMPUTE — шкала.",
+      "verified_date": "2026-08-02",
+      "verify_confidence": "high"
     },
     {
       "id": "property-tax-calculator__property_tax_rate_max_cap",
@@ -3160,29 +3182,31 @@
       "key": "property_tax_rate_max_cap",
       "value": "100",
       "unit": "som_per_sqm",
-      "law": "НК КР налог на имущество",
+      "law": "НК КР ст.379 ч.1 п.1",
       "theme": "property_tax",
       "is_gov_regulated": true,
       "surfaces": [
         "translations-ru.ts:property_tax_rate_info:2031"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-08-02",
       "source_hint": "salyk.kg / местные кенеши",
       "conflict": false,
-      "status": "current",
+      "status": "removed",
       "notes": "PROSE: 'Максимальная ставка не превышает 100 сом/м²'. Per-m² rate itself is a USER INPUT in compute (taxRate field), not hardcoded; this is the stated ceiling.",
       "official_value": "100",
       "source_url": "https://sti.gov.kg/news/details/65ccc57b-0ab5-454c-800a-3e24c6475963",
       "which_surface_correct": "na",
-      "verify_note": "ГНС: 'максимальная ставка не должна превышать 100 сомов за 1 м²', ставки утверждают местные кенеши. Жилая недвижимость считается по сом/м² (не от стоимости), ставка — пользовательский ввод; потолок 100 сом/м² верен для 2025-2027."
+      "verify_note": "RE-VERIFIED 2026-08-02: «максимальная ставка 100 сом/м²» в действующем НК НЕ найдена — ставки на жильё заданы конкретной таблицей ст.379 (Бишкек 63/42, Ош 57/38 …). Прозовые упоминания удалены.",
+      "verified_date": "2026-08-02",
+      "verify_confidence": "high"
     },
     {
       "id": "property-tax-calculator__property_tax_rate_ranges_by_city_prose",
       "calculator": "property-tax-calculator",
       "key": "property_tax_rate_ranges_by_city_prose",
-      "value": "Бишкек 25-40; Ош 15-25; Джалал-Абад 12-20; Каракол 15-22; др. города 8-18",
+      "value": "таблица ст.379 по городам и материалу стен",
       "unit": "som_per_sqm",
-      "law": "НК КР налог на имущество (ставки местных кенешей)",
+      "law": "НК КР ст.379 ч.1 п.1 (таблица), ст.380 (формула, Ки)",
       "theme": "property_tax",
       "is_gov_regulated": true,
       "surfaces": [
@@ -3192,15 +3216,17 @@
         "translations-ru.ts:property_rate_karakol:2093",
         "translations-ru.ts:property_rate_other:2094"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-08-02",
       "source_hint": "salyk.kg / местные кенеши",
       "conflict": false,
       "status": "current",
       "notes": "PROSE illustrative ranges (educational guide, 'Ставки налога по регионам 2026'). Compute uses user-entered rate, so these are reference ranges set by местные кенеши, not compute constants.",
-      "official_value": null,
+      "official_value": "таблица ст.379 по городам и материалу стен",
       "source_url": "https://sti.gov.kg/news/details/65ccc57b-0ab5-454c-800a-3e24c6475963",
       "which_surface_correct": "na",
-      "verify_note": "Это иллюстративные справочные диапазоны: ставки сом/м² устанавливаются местными кенешами раз в 3 года, в пределах потолка 100 сом/м² (пример ГНС для Бишкека = 70 сом/м²). Конкретные числа по городам не из единого закона, но рамка ('ставки местных кенешей, ≤100') корректна; compute использует ввод пользователя."
+      "verify_note": "RE-VERIFIED 2026-08-02 (НК ст.379 вербатим): прежние диапазоны «Бишкек 25-40; Ош 15-25…» НЕ соответствуют закону. Действующие ставки на жилые объекты (кирпич/бетон | саман/прочие), сом/м²: Бишкек 63|42; Ош 57|38; Джалал-Абад 50,5|34; Каракол 32|21; Токмок 32|21; Кара-Балта 32|21; Кант 21|14; Талас 21|14; Нарын 16|10,5; Балыкчы 16|10,5; Баткен 10,5|7. Формула ст.380 — с коэффициентом инфляции Ки (утверждается ГНС). COMPUTE переведён с ручного ввода ставки на таблицу город+материал.",
+      "verified_date": "2026-08-02",
+      "verify_confidence": "high"
     },
     {
       "id": "salary-calculator__income_tax_rate_pvt",
@@ -3215,7 +3241,7 @@
         "src/pages/SalaryCalculatorPage.tsx:277",
         "translations-ru.ts:salary_article_tax_pvt"
       ],
-      "last_updated": "2026-07-27",
+      "last_updated": "2026-08-02",
       "source_hint": "sti.gov.kg",
       "conflict": false,
       "status": "current",
@@ -3223,8 +3249,8 @@
       "official_value": "5",
       "source_url": "https://sti.gov.kg/section/0/%D0%BE%D0%B1%D1%89%D0%B8%D0%B9_%D0%BD%D0%B0%D0%BB%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9_%D1%80%D0%B5%D0%B6%D0%B8%D0%BC",
       "which_surface_correct": "na",
-      "verify_note": "RE-VERIFIED 2026-07-27 (calkcheck): прочитана ВЕРБАТИМ ст.197 НК КР (офиц. PDF ГНС, ред. 31.12.2025). ч.1 — подоходный налог 10%%. ч.2 — 5%% для наёмных работников: преференциальные приграничные н.п., ст.183 ч.1, резиденты и дирекция Парка высоких технологий И Парка креативных индустрий, лица с инвалидностью I/II гр. и III гр. по слуху. Дополнительно ч.2-1: 1%% для швейной/текстильной промышленности до 01.01.2030 (на сайте не представлено — кандидат на добавление).",
-      "verified_date": "2026-07-27",
+      "verify_note": "Стамп 2026-08-02: сверено вербатим в сессии 2026-07 (НК ст.197/194; Закон №8 ст.2).",
+      "verified_date": "2026-08-02",
       "verify_confidence": "high"
     },
     {
@@ -3241,7 +3267,7 @@
         "src/pages/SalaryCalculatorPage.tsx:46",
         "translations-ru.ts:salary_article_tax_standard"
       ],
-      "last_updated": "2026-07-27",
+      "last_updated": "2026-08-02",
       "source_hint": "sti.gov.kg",
       "conflict": false,
       "status": "current",
@@ -3249,8 +3275,8 @@
       "official_value": "10",
       "source_url": "https://sti.gov.kg/section/0/%D0%BE%D0%B1%D1%89%D0%B8%D0%B9_%D0%BD%D0%B0%D0%BB%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9_%D1%80%D0%B5%D0%B6%D0%B8%D0%BC",
       "which_surface_correct": "na",
-      "verify_note": "RE-VERIFIED 2026-07-27 (calkcheck): прочитана ВЕРБАТИМ ст.197 НК КР (офиц. PDF ГНС, ред. 31.12.2025). ч.1 — подоходный налог 10%%. ч.2 — 5%% для наёмных работников: преференциальные приграничные н.п., ст.183 ч.1, резиденты и дирекция Парка высоких технологий И Парка креативных индустрий, лица с инвалидностью I/II гр. и III гр. по слуху. Дополнительно ч.2-1: 1%% для швейной/текстильной промышленности до 01.01.2030 (на сайте не представлено — кандидат на добавление).",
-      "verified_date": "2026-07-27",
+      "verify_note": "Стамп 2026-08-02: сверено вербатим в сессии 2026-07 (НК ст.197/194; Закон №8 ст.2).",
+      "verified_date": "2026-08-02",
       "verify_confidence": "high"
     },
     {
@@ -3267,7 +3293,7 @@
         "translations-ru.ts:salary_article_mrot_gross",
         "src/data/sickLeaveData.ts:95"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-08-02",
       "source_hint": "cabinet.gov.kg",
       "conflict": false,
       "status": "current",
@@ -3275,8 +3301,10 @@
       "official_value": "3280",
       "source_url": "https://www.tazabek.kg/news:2352122",
       "which_surface_correct": "na",
-      "verify_note": "МЗП на 2026 = 3 280 сом/мес (Кабмин, респбюджет 2026; 2027=3608, 2028=3968.8). Подтверждено Tazabek и 24.KG. Значение 2500 устарело — это была более ранняя МЗП; для 2026 неверно.",
-      "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)"
+      "verify_note": "Стамп 2026-08-02: сверено вербатим в сессии 2026-07 (НК ст.197/194; Закон №8 ст.2).",
+      "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)",
+      "verified_date": "2026-08-02",
+      "verify_confidence": "high"
     },
     {
       "id": "salary-calculator__social_fund_employee_rate",
@@ -3292,7 +3320,7 @@
         "translations-ru.ts:salary_article_socfund_desc",
         "translations-ku.ts:salary_article_socfund_desc"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-08-02",
       "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
       "status": "current",
@@ -3300,7 +3328,9 @@
       "official_value": "10",
       "source_url": "https://sf.gov.kg/ru/o-snizhenii-stavki-tarifov-strahovyh-vznosov-po-gosudarstvennomu-soczialnomu-strahovaniyu/",
       "which_surface_correct": "na",
-      "verify_note": "Удержание работника в Соцфонд = 10% от gross (ПФ 8% + ГНПФ 2%) — официально, с 01.08.2024. Compute gross*0.10 верно."
+      "verify_note": "Стамп 2026-08-02: сверено вербатим в сессии 2026-07 (НК ст.197/194; Закон №8 ст.2).",
+      "verified_date": "2026-08-02",
+      "verify_confidence": "high"
     },
     {
       "id": "scholarship__scholarship_base_academic",
@@ -3852,7 +3882,7 @@
       "surfaces": [
         "src/pages/SingleTaxCalculatorPage.tsx:95-112"
       ],
-      "last_updated": "2026-03-13",
+      "last_updated": "2026-08-02",
       "source_hint": "salyk.kg",
       "conflict": false,
       "status": "current",
@@ -3860,7 +3890,9 @@
       "official_value": "cash 4 / cashless 2",
       "source_url": "https://sti.gov.kg/section/0/%D1%81%D0%BF%D0%B5%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9_%D0%BD%D0%B0%D0%BB%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9_%D1%80%D0%B5%D0%B6%D0%B8%D0%BC",
       "which_surface_correct": "na",
-      "verify_note": "ГНС ст.423 ч.1: сельхоз/производство/торговля — 4% наличные, 2% безналичные. Подтверждено."
+      "verify_note": "Стамп 2026-08-02: сверено вербатим по НК ст.423/446 (офиц. PDF ГНС, сессия 2026-07-20).",
+      "verified_date": "2026-08-02",
+      "verify_confidence": "high"
     },
     {
       "id": "single-tax-calculator__single_tax_catering_sauna_billiard",
@@ -3898,7 +3930,7 @@
       "surfaces": [
         "src/pages/SingleTaxCalculatorPage.tsx:149-166"
       ],
-      "last_updated": "2026-07-08",
+      "last_updated": "2026-08-02",
       "source_hint": "salyk.kg",
       "conflict": false,
       "status": "current",
@@ -3906,7 +3938,9 @@
       "official_value": "2",
       "source_url": "https://iworld.com/ru/blog/kyrgyzstan-taxes",
       "which_surface_correct": "na",
-      "verify_note": "Электронная торговля — 2% (безналичная по сути). Подтверждено несколькими источниками; cash=null корректно. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника."
+      "verify_note": "Стамп 2026-08-02: сверено вербатим по НК ст.423/446 (офиц. PDF ГНС, сессия 2026-07-20).",
+      "verified_date": "2026-08-02",
+      "verify_confidence": "high"
     },
     {
       "id": "single-tax-calculator__single_tax_jewelry",
@@ -3920,7 +3954,7 @@
       "surfaces": [
         "src/pages/SingleTaxCalculatorPage.tsx:185-202"
       ],
-      "last_updated": "2026-03-13",
+      "last_updated": "2026-08-02",
       "source_hint": "salyk.kg",
       "conflict": false,
       "status": "current",
@@ -3928,7 +3962,9 @@
       "official_value": "0.25",
       "source_url": "https://sti.gov.kg/section/0/%D1%81%D0%BF%D0%B5%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9_%D0%BD%D0%B0%D0%BB%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9_%D1%80%D0%B5%D0%B6%D0%B8%D0%BC",
       "which_surface_correct": "na",
-      "verify_note": "Ставка 0,25% для производства (текстиль/швейная, и ювелирные изделия) действует до 01.01.2027. На 2026 — 0,25% верно. (После 2026 истекает — проверить заново для 2027.)"
+      "verify_note": "Стамп 2026-08-02: сверено вербатим по НК ст.423/446 (офиц. PDF ГНС, сессия 2026-07-20).",
+      "verified_date": "2026-08-02",
+      "verify_confidence": "high"
     },
     {
       "id": "single-tax-calculator__single_tax_limit_prose_12m",
@@ -3970,7 +4006,7 @@
       "surfaces": [
         "src/pages/SingleTaxCalculatorPage.tsx:113-130"
       ],
-      "last_updated": "2026-03-13",
+      "last_updated": "2026-08-02",
       "source_hint": "salyk.kg",
       "conflict": false,
       "status": "current",
@@ -3978,7 +4014,9 @@
       "official_value": "cash 6 / cashless 4",
       "source_url": "https://sti.gov.kg/section/0/%D1%81%D0%BF%D0%B5%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9_%D0%BD%D0%B0%D0%BB%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9_%D1%80%D0%B5%D0%B6%D0%B8%D0%BC",
       "which_surface_correct": "na",
-      "verify_note": "ГНС ст.423: прочие виды деятельности — 6% наличные, 4% безналичные. Подтверждено."
+      "verify_note": "Стамп 2026-08-02: сверено вербатим по НК ст.423/446 (офиц. PDF ГНС, сессия 2026-07-20).",
+      "verified_date": "2026-08-02",
+      "verify_confidence": "high"
     },
     {
       "id": "single-tax-calculator__single_tax_pvt_resident_cashless",
@@ -4113,7 +4151,7 @@
       "surfaces": [
         "src/pages/SingleTaxCalculatorPage.tsx:34-54"
       ],
-      "last_updated": "2026-03-13",
+      "last_updated": "2026-08-02",
       "source_hint": "salyk.kg",
       "conflict": false,
       "status": "current",
@@ -4121,7 +4159,9 @@
       "official_value": "0",
       "source_url": "https://sti.gov.kg/section/0/%D1%81%D0%BF%D0%B5%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9_%D0%BD%D0%B0%D0%BB%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9_%D1%80%D0%B5%D0%B6%D0%B8%D0%BC",
       "which_surface_correct": "na",
-      "verify_note": "ГНС: ИП вновь зарегистрированный/перешедший, выручка ≤8 млн, обязательное применение ККМ — ставка 0%. ИП до 8 млн бессрочно освобождены. Подтверждено."
+      "verify_note": "Стамп 2026-08-02: сверено вербатим по НК ст.423/446 (офиц. PDF ГНС, сессия 2026-07-20).",
+      "verified_date": "2026-08-02",
+      "verify_confidence": "high"
     },
     {
       "id": "single-tax-calculator__single_tax_trade_0pct_max_employees",
@@ -4476,13 +4516,13 @@
       "key": "taxi_income_tax_rate",
       "value": "1",
       "unit": "percent",
-      "law": "НК КР (режим через агрегатор)",
+      "law": "НК КР ст.197 ч.3",
       "theme": "taxi_tax",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/TaxiTaxCalculatorPage.tsx:70"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-08-02",
       "source_hint": "salyk.kg",
       "conflict": false,
       "status": "current",
@@ -4490,7 +4530,9 @@
       "official_value": "1",
       "source_url": "https://sti.gov.kg/news/details/5deda468-894a-4915-bc33-64ee75f9fc9e",
       "which_surface_correct": "na",
-      "verify_note": "ГНС: подоходный налог через агрегатор 1% (с 2025 по 2028; 2% 2028-2030; 5% с 2030). Удерживает агрегатор как налоговый агент с 01.09.2025. На 2026 — 1% верно."
+      "verify_note": "RE-VERIFIED 2026-08-02: НК ст.197 ч.3 (вербатим) — 1% с 01.09.2025 по 31.12.2027; 2% 2028–2029; 5% с 2030. WATCH 01.01.2028 → 2%.",
+      "verified_date": "2026-08-02",
+      "verify_confidence": "high"
     },
     {
       "id": "taxi-tax-calculator__taxi_social_fund_rate",
@@ -4498,13 +4540,13 @@
       "key": "taxi_social_fund_rate",
       "value": "1",
       "unit": "percent",
-      "law": "Закон КР о соцстраховании (режим через агрегатор)",
+      "law": "Закон КР №8 «О тарифах страховых взносов», ст.7 п.5",
       "theme": "taxi_tax",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/TaxiTaxCalculatorPage.tsx:71"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-08-02",
       "source_hint": "sf.kg / salyk.kg",
       "conflict": false,
       "status": "current",
@@ -4512,7 +4554,9 @@
       "official_value": "1",
       "source_url": "https://economist.kg/ekonomika/2026/04/07/ip-taksisty-i-kuriery-vyvieli-sotsfond-kyrghyzstana-na-profitsit-v-3-mlrd-somov/",
       "which_surface_correct": "na",
-      "verify_note": "Страховые взносы в Соцфонд для таксистов/курьеров через агрегаторы = 1% дохода (>100 тыс. чел. платят по новой ставке 1% с сент. 2025). Подтверждено."
+      "verify_note": "RE-VERIFIED 2026-08-02: Закон №8 ст.7 п.5 (вербатим) — агрегатор удерживает соцвзнос «не менее 1%» с сентября 2025 до 2028; 2028–2030 — 2%; с 2030 — 5%. WATCH 2028.",
+      "verified_date": "2026-08-02",
+      "verify_confidence": "high"
     },
     {
       "id": "taxi-tax-calculator__taxi_total_withholding_rate",
@@ -4520,14 +4564,14 @@
       "key": "taxi_total_withholding_rate",
       "value": "2",
       "unit": "percent",
-      "law": "НК КР + соцстрахование",
+      "law": "НК ст.197 ч.3 + Закон №8 ст.7 п.5",
       "theme": "taxi_tax",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/TaxiTaxCalculatorPage.tsx:72",
         "src/pages/TaxiTaxCalculatorPage.tsx:337"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-08-02",
       "source_hint": "salyk.kg",
       "conflict": false,
       "status": "current",
@@ -4535,7 +4579,9 @@
       "official_value": "2",
       "source_url": "https://sti.gov.kg/news/details/5deda468-894a-4915-bc33-64ee75f9fc9e",
       "which_surface_correct": "na",
-      "verify_note": "Суммарное удержание через агрегатор = 1% подоходный + 1% Соцфонд = 2% на 2026. Производное от двух подтверждённых 1%-ставок. Корректно."
+      "verify_note": "DERIVED 2026-08-02: 2% = подоходный 1% (НК ст.197 ч.3) + соцвзнос 1% (Закон №8 ст.7 п.5). Оба слагаемых сверены вербатим. С 2028 станет 4%.",
+      "verified_date": "2026-08-02",
+      "verify_confidence": "high"
     },
     {
       "id": "tourist-fee-calculator__tourist_fee_kr_citizens_exempt",
