@@ -2856,14 +2856,14 @@
       "key": "pension_base_part_amount",
       "value": "3170",
       "unit": "KGS_per_month",
-      "law": "Соцфонд КР — базовая (гарантированная) часть пенсии",
+      "law": "Пост. Кабмина КР №504 от 09.09.2022, п.1 (базовая часть пенсии, с 01.10.2022)",
       "theme": "pension",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/PensionCalculatorPage.tsx:197",
         "translations-ru.ts:pension_min_amount"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-07-27",
       "source_hint": "socfond.kg",
       "conflict": true,
       "status": "current",
@@ -2871,8 +2871,10 @@
       "official_value": "3170",
       "source_url": "https://24.kg/obschestvo/295119_povyishenie_pensiy_kak_pravilno_poschitat_naskolko_ona_uvas_uvelichitsya/",
       "which_surface_correct": "na",
-      "verify_note": "Базовая часть пенсии в КР = 3170 сом (установлена с 2022, доведена до этой ставки с 01.07.2024, действует через 2025–2026; в январе 2026 изменений не было, след. повышение — осень 2026). Compute basePart=3000 устарел → 3170. Article prose '3500–5000 сом' тоже неверен. Базовая часть — ФЛАТ 3170 при полном стаже, уменьшается пропорционально при неполном (~126.8 сом/год муж, 158.5 жен).",
-      "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)"
+      "verify_note": "RE-VERIFIED 2026-07-27 (API cbd.minjust.gov.kg): 3 170 сом — действует, фиксированная, ОТ СТАЖА НЕ ЗАВИСИТ. COMPUTE был верен; проза врала в трёх местах («3500-4000», «3500-5000 сом (зависит от стажа)», пример «4 000») — исправлено.",
+      "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "pension-calculator__pension_contribution_rate",
@@ -2925,22 +2927,24 @@
       "key": "pension_expected_lifespan_months",
       "value": "180",
       "unit": "months",
-      "law": "Соцфонд КР — ожидаемый период выплаты (дожитие)",
+      "law": "Закон КР №57 ст.22 п.3«б» (СП2 = В × К, К — актуарный коэффициент Соцфонда)",
       "theme": "pension",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/PensionCalculatorPage.tsx:226",
         "src/pages/PensionCalculatorPage.tsx:227"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-07-27",
       "source_hint": "socfond.kg",
       "conflict": false,
-      "status": "current",
+      "status": "uncertain",
       "notes": "expectedLifespan=180; insurancePart2 = totalContributions/180 (15 лет дожития).",
       "official_value": "180",
       "source_url": "https://cbd.minjust.gov.kg/act/view/ru-ru/838?cl=ru-ru",
       "which_surface_correct": "na",
-      "verify_note": "Ожидаемый период выплаты (T) для накопительной/страховой части по второй формуле = 180 мес (Закон КР «О гос. пенсионном соц. страховании»). Compute expectedLifespan=180 верно."
+      "verify_note": "RE-VERIFIED 2026-07-27: ФИКСИРОВАННОГО периода дожития в законодательстве КР НЕТ. Ст.22 п.3«б»: накопительная часть = В × К, где К — актуарный коэффициент, устанавливаемый ежегодно Наблюдательным советом Соцфонда и публично НЕ публикуемый. COMPUTE использует 180 мес как оценку; проза противоречиво говорила «228 месяцев» — приведена к 180 с явной пометкой «оценка».",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "low"
     },
     {
       "id": "pension-calculator__pension_insurance1_accrual_rate",
@@ -3014,24 +3018,26 @@
       "id": "pension-calculator__pension_min_experience_months",
       "calculator": "pension-calculator",
       "key": "pension_min_experience_months",
-      "value": "180",
+      "value": "6 лет (2026); шкала по годам до 20 лет с 2045",
       "unit": "months",
-      "law": "Закон КР о пенсионном обеспечении — минимальный страховой стаж",
+      "law": "Закон КР от 21.07.1997 №57, ст.9 п.1 (в ред. Закона от 10.05.2024 №84)",
       "theme": "pension",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/PensionCalculatorPage.tsx:196",
         "translations-ru.ts:pension_min_experience_years"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-07-27",
       "source_hint": "socfond.kg",
       "conflict": true,
       "status": "current",
       "notes": "minRequiredMonths=180 (15 лет) для базовой части. Prose pension_min_experience_years='15 лет страхового стажа' agrees. MISMATCH: article requirements block (pension_req_men_service='минимум 25 лет', pension_req_women_service='минимум 20 лет') contradicts the 15-year compute threshold.",
-      "official_value": "180",
+      "official_value": "6 (2026)",
       "source_url": "https://24.kg/obschestvo/295119_povyishenie_pensiy_kak_pravilno_poschitat_naskolko_ona_uvas_uvelichitsya/",
       "which_surface_correct": "compute",
-      "verify_note": "Полный страховой стаж для полной базовой части = 15 лет (180 мес) в общем правиле; ВРЕМЕННО до 31.12.2025 снижен до 5 лет, далее поэтапно растёт до 20 лет к 2040. Compute minRequiredMonths=180 соответствует общей норме (верна compute-сторона). Article '25 лет мужчины' — это устаревшее/иное (полный трудовой стаж), не минимум для базовой части."
+      "verify_note": "RE-VERIFIED 2026-07-27 (ст.9 п.1 вербатим): минимальный страховой стаж растёт по годам — 2024-2025: 5 лет; 2026: 6; 2027: 7; 2028: 8; 2029: 9; 2030: 10; 2031: 11; 2032: 12; 2033: 13; 2034: 14; 2035-2036: 15; 2037-2038: 16; 2039-2040: 17; 2041-2042: 18; 2043-2044: 19; с 2045: 20 лет. На сайте было жёстко 15 лет — калькулятор отказывал в базовой части тем, у кого 6-14 лет стажа. COMPUTE: реализована шкала MIN_SERVICE_YEARS_BY_YEAR. ⚠️ Повышается только СТАЖ — пенсионный возраст (63 муж / 58 жен) законом НЕ повышается; проза «с 2028 будет 65/63» была ВЫДУМКОЙ, удалена.",
+      "verified_date": "2026-07-27",
+      "verify_confidence": "high"
     },
     {
       "id": "pension-calculator__pension_reform_cutoff_year",

@@ -35,6 +35,36 @@ interface PensionResults {
   totalContributions: number;
 }
 
+// Базовая часть пенсии — 3 170 сом (ПКМ КР №504 от 09.09.2022, п.1; действует).
+const BASE_PENSION_PART = 3170;
+
+// Минимальный страховой стаж для права на пенсию по возрасту.
+// Закон КР от 21.07.1997 №57, ст.9 п.1 (в ред. Закона от 10.05.2024 №84): шкала по годам.
+// ⚠️ Повышается только СТАЖ; пенсионный возраст (63 муж / 58 жен) законом не меняется.
+const MIN_SERVICE_YEARS_BY_YEAR: { from: number; years: number }[] = [
+  { from: 2045, years: 20 },
+  { from: 2043, years: 19 },
+  { from: 2041, years: 18 },
+  { from: 2039, years: 17 },
+  { from: 2037, years: 16 },
+  { from: 2035, years: 15 },
+  { from: 2034, years: 14 },
+  { from: 2033, years: 13 },
+  { from: 2032, years: 12 },
+  { from: 2031, years: 11 },
+  { from: 2030, years: 10 },
+  { from: 2029, years: 9 },
+  { from: 2028, years: 8 },
+  { from: 2027, years: 7 },
+  { from: 2026, years: 6 },
+  { from: 2024, years: 5 }
+];
+
+const getMinRequiredYears = (year: number = new Date().getFullYear()): number =>
+  MIN_SERVICE_YEARS_BY_YEAR.find(r => year >= r.from)?.years ?? 5;
+
+const getMinRequiredMonths = (year?: number): number => getMinRequiredYears(year) * 12;
+
 const PensionCalculatorPage = () => {
   const { language, t, getLocalizedPath} = useLanguage();
 
@@ -192,9 +222,13 @@ const PensionCalculatorPage = () => {
     const experienceBefore1996 = getExperienceBefore1996();
     const salary = parseFloat(currentSalary) || 0;
 
-    // Базовая часть (фиксированная сумма при минимальном стаже)
-    const minRequiredMonths = 180; // 15 лет
-    const basePart = totalExperienceMonths >= minRequiredMonths ? 3170 : 0;
+    // Базовая часть (фиксированная сумма при минимальном страховом стаже).
+    // Закон КР «О государственном пенсионном социальном страховании» от 21.07.1997 №57,
+    // ст.9 п.1 (в ред. Закона от 10.05.2024 №84) — минимальный стаж растёт по годам:
+    // 2024–2025 — 5 лет; 2026 — 6; 2027 — 7; … 2035–2036 — 15; с 2045 — 20 лет.
+    const minRequiredMonths = getMinRequiredMonths();
+    // Размер базовой части — 3 170 сом (ПКМ КР №504 от 09.09.2022, действует).
+    const basePart = totalExperienceMonths >= minRequiredMonths ? BASE_PENSION_PART : 0;
 
     // Страховая часть 1 (за стаж до 1996)
     const insurancePart1 = experienceBefore1996.months > 0 ? 
@@ -766,7 +800,7 @@ const PensionCalculatorPage = () => {
                       ></div>
                     </div>
                     <p className="text-sm text-gray-500 mt-2">
-                      {getTotalExperienceMonths() >= 180 ?
+                      {getTotalExperienceMonths() >= getMinRequiredMonths() ?
                         t('pension_base_part_desc') :
                         t('pension_base_part_no')
                       }
@@ -844,7 +878,7 @@ const PensionCalculatorPage = () => {
                     </div>
                     <div className="flex justify-between">
                       <span>{t('pension_info_min_experience')}</span>
-                      <span>{getTotalExperienceMonths() >= 180 ? t('pension_info_completed') : t('pension_info_not_completed')}</span>
+                      <span>{getTotalExperienceMonths() >= getMinRequiredMonths() ? t('pension_info_completed') : t('pension_info_not_completed')}</span>
                     </div>
                   </div>
                 </div>
@@ -884,12 +918,12 @@ const PensionCalculatorPage = () => {
                     <strong>{t('pension_disclaimer_recommendation')}:</strong> {t('pension_disclaimer_recommendation_text')}
                     {' '}
                     <a 
-                      href="https://socfond.kg" 
+                      href="https://sf.gov.kg" 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="text-red-600 hover:text-red-700 underline font-medium"
                     >
-                      socfond.kg →
+                      sf.gov.kg →
                     </a>
                   </p>
                 </div>
