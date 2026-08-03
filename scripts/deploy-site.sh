@@ -39,6 +39,11 @@ set ssl:verify-certificate no;
 set ftp:ssl-allow yes;
 set ftp:passive-mode on;
 set net:max-retries 2; set net:timeout 20;
+# КРИТИЧНО: без clobber lftp обновляет файл как DELETE + PUT — в промежутке файл
+# отдаёт 404. За один деплой так перезаписывается 350-470 файлов; краулер, попавший
+# в это окно, видит пропавшие robots.txt/ассеты (жалобы Яндекс.Вебмастера 08.2026).
+# clobber=on перезаписывает файл на месте, без предварительного удаления.
+set xfer:clobber on;
 open -u '${DEPLOY_USER}','${DEPLOY_PASS}' -p ${DEPLOY_PORT} ${DEPLOY_PROTOCOL}://${DEPLOY_HOST};
 echo '→ Фаза 1/2: ассеты и статика (без HTML)';
 mirror -R --verbose --parallel=4 --exclude-glob .DS_Store --exclude-glob .htaccess --exclude-glob *.html --exclude-glob *.html.br --exclude-glob *.html.gz ${DELETE} ${DRY} dist/ '${DEPLOY_REMOTE_DIR}';
@@ -46,4 +51,22 @@ echo '→ Фаза 2/2: HTML';
 mirror -R --verbose --parallel=4 --exclude-glob .DS_Store --exclude-glob .htaccess ${DELETE} ${DRY} dist/ '${DEPLOY_REMOTE_DIR}';
 bye
 "
+
+# Критичные для краулеров файлы дозаливаем атомарно: put во временное имя + rename.
+# Даже при clobber=on это гарантирует, что robots.txt / sitemap.xml НИ В ОДИН момент
+# не отдают 404 и не читаются наполовину записанными.
+if [ -z "$DRY" ]; then
+  for f in robots.txt sitemap.xml; do
+    [ -f "dist/$f" ] || continue
+    lftp -c "
+    set ssl:verify-certificate no; set ftp:ssl-allow yes; set ftp:passive-mode on;
+    set net:max-retries 2; set net:timeout 20; set xfer:clobber on;
+    open -u '${DEPLOY_USER}','${DEPLOY_PASS}' -p ${DEPLOY_PORT} ${DEPLOY_PROTOCOL}://${DEPLOY_HOST};
+    cd '${DEPLOY_REMOTE_DIR}';
+    put -O . 'dist/$f' -o '$f.tmp';
+    mv '$f.tmp' '$f';
+    bye
+    " >/dev/null 2>&1 && echo "   ✓ $f обновлён атомарно" || echo "   ⚠ $f: атомарная замена не удалась (файл уже залит обычным mirror)"
+  done
+fi
 echo "✓ Заливка завершена. CDN/Cloudflare не используется — изменения видны сразу (при необходимости очисти кэш браузера)."
