@@ -1541,7 +1541,7 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:34"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-08-03",
       "source_hint": "Департамент по регулированию ТЭК при МЭ КР",
       "conflict": true,
       "status": "removed",
@@ -1549,7 +1549,8 @@
       "official_value": null,
       "source_url": "https://open.kg/en/news/local-news/85368-bishkekteploset-napominaet-ob-izmenenii-tarifa-na-gorjachuju-vodu.html",
       "which_surface_correct": "compute",
-      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга. | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется.",
+      "verified_date": "2026-08-03"
     },
     {
       "id": "heating-calculator__heating_hot_water_standard_per_person_jalal_abad",
@@ -1563,16 +1564,16 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:60"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-08-03",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
       "status": "removed",
       "notes": "Jalal-Abad — hot water normative per person/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
-      "verified_date": "2026-06-28",
+      "verified_date": "2026-08-03",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга. | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется."
     },
     {
       "id": "heating-calculator__heating_hot_water_standard_per_person_karakol",
@@ -1586,16 +1587,16 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:49"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-08-03",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
       "status": "removed",
       "notes": "Karakol — hot water normative per person/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
-      "verified_date": "2026-06-28",
+      "verified_date": "2026-08-03",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга. | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется."
     },
     {
       "id": "heating-calculator__heating_hot_water_standard_per_person_naryn",
@@ -1609,16 +1610,16 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:82"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-08-03",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
       "status": "removed",
       "notes": "Naryn — hot water normative per person/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
-      "verified_date": "2026-06-28",
+      "verified_date": "2026-08-03",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга. | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется."
     },
     {
       "id": "heating-calculator__heating_hot_water_standard_per_person_osh",
@@ -1632,16 +1633,16 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:38"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-08-03",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
       "status": "removed",
       "notes": "Osh — hot water normative per person/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
-      "verified_date": "2026-06-28",
+      "verified_date": "2026-08-03",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга. | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется."
     },
     {
       "id": "heating-calculator__heating_hot_water_standard_per_person_tokmok",
@@ -1655,16 +1656,16 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:71"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-08-03",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
       "status": "removed",
       "notes": "Tokmok — hot water normative per person/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
-      "verified_date": "2026-06-28",
+      "verified_date": "2026-08-03",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга. | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется."
     },
     {
       "id": "heating-calculator__heating_hot_water_tariff_per_m3_bishkek",
@@ -1678,7 +1679,7 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:33"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-08-03",
       "source_hint": "Департамент по регулированию ТЭК при МЭ КР",
       "conflict": true,
       "status": "removed",
@@ -1686,7 +1687,8 @@
       "official_value": null,
       "source_url": "https://open.kg/en/news/local-news/85368-bishkekteploset-napominaet-ob-izmenenii-tarifa-na-gorjachuju-vodu.html",
       "which_surface_correct": "compute",
-      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга. | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется.",
+      "verified_date": "2026-08-03"
     },
     {
       "id": "heating-calculator__heating_hot_water_tariff_per_m3_jalal_abad",
@@ -1700,16 +1702,16 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:60"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-08-03",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
       "status": "removed",
       "notes": "Jalal-Abad — hot water tariff per m3 by meter; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
-      "verified_date": "2026-06-28",
+      "verified_date": "2026-08-03",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга. | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется."
     },
     {
       "id": "heating-calculator__heating_hot_water_tariff_per_m3_karakol",
@@ -1723,16 +1725,16 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:49"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-08-03",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
       "status": "removed",
       "notes": "Karakol — hot water tariff per m3 by meter; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
-      "verified_date": "2026-06-28",
+      "verified_date": "2026-08-03",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга. | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется."
     },
     {
       "id": "heating-calculator__heating_hot_water_tariff_per_m3_naryn",
@@ -1746,16 +1748,16 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:82"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-08-03",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
       "status": "removed",
       "notes": "Naryn — hot water tariff per m3 by meter; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
-      "verified_date": "2026-06-28",
+      "verified_date": "2026-08-03",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга. | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется."
     },
     {
       "id": "heating-calculator__heating_hot_water_tariff_per_m3_osh",
@@ -1769,16 +1771,16 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:38"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-08-03",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
       "status": "removed",
       "notes": "Osh — hot water tariff per m3 by meter; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
-      "verified_date": "2026-06-28",
+      "verified_date": "2026-08-03",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга. | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется."
     },
     {
       "id": "heating-calculator__heating_hot_water_tariff_per_m3_tokmok",
@@ -1792,16 +1794,16 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:71"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-08-03",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
       "status": "removed",
       "notes": "Tokmok — hot water tariff per m3 by meter; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
       "source_url": "https://www.tazabek.kg/news:2281941?from=rss",
-      "verified_date": "2026-06-28",
+      "verified_date": "2026-08-03",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга. | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется."
     },
     {
       "id": "heating-calculator__heating_standard_gcal_per_m2_bishkek",
@@ -1815,7 +1817,7 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:31"
       ],
-      "last_updated": "2026-07-08",
+      "last_updated": "2026-08-03",
       "source_hint": "Департамент по регулированию ТЭК при МЭ КР",
       "conflict": false,
       "status": "current",
@@ -1823,8 +1825,8 @@
       "official_value": "0.0206",
       "source_url": "https://bishkek.gov.kg/ru/tariffs/2",
       "which_surface_correct": "both",
-      "verify_note": "RE-VERIFIED 2026-07-08 (workflow): прежние 0.036 ЗАВЫШЕНЫ ~в 1.75×. Первоисточник (методика Бишкектеплосети, teplo.com.kg/heating-energy): 1-комн 35 м² = 3.6 Гкал за сезон, сезон 5 мес (ноя 17% / дек 22% / янв 25% / фев 20% / мар 16%). Отсюда плоская сезонная средняя = 3.6 ÷ 35 ÷ 5 = 0.0206 Гкал/м²/мес (диапазон по комнатам 0.019–0.021). Официальная модель — по-квартирная посезонная + помесячные коэффициенты; сайт использует плоское приближение 0.0206 (выбор пользователя, опция «простой фикс», не структурная модель). 0.036 давало месячную переоценку ~+75%.",
-      "verified_date": "2026-07-08",
+      "verify_note": "RE-VERIFIED 2026-07-08 (workflow): прежние 0.036 ЗАВЫШЕНЫ ~в 1.75×. Первоисточник (методика Бишкектеплосети, teplo.com.kg/heating-energy): 1-комн 35 м² = 3.6 Гкал за сезон, сезон 5 мес (ноя 17% / дек 22% / янв 25% / фев 20% / мар 16%). Отсюда плоская сезонная средняя = 3.6 ÷ 35 ÷ 5 = 0.0206 Гкал/м²/мес (диапазон по комнатам 0.019–0.021). Официальная модель — по-квартирная посезонная + помесячные коэффициенты; сайт использует плоское приближение 0.0206 (выбор пользователя, опция «простой фикс», не структурная модель). 0.036 давало месячную переоценку ~+75%. | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется.",
+      "verified_date": "2026-08-03",
       "verify_confidence": "high"
     },
     {
@@ -1839,15 +1841,15 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:60"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-08-03",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
       "status": "removed",
       "notes": "Jalal-Abad — heat consumption normative per m2/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
-      "verified_date": "2026-06-28",
+      "verified_date": "2026-08-03",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга. | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется."
     },
     {
       "id": "heating-calculator__heating_standard_gcal_per_m2_karakol",
@@ -1861,15 +1863,15 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:49"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-08-03",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
       "status": "removed",
       "notes": "Karakol — heat consumption normative per m2/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
-      "verified_date": "2026-06-28",
+      "verified_date": "2026-08-03",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга. | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется."
     },
     {
       "id": "heating-calculator__heating_standard_gcal_per_m2_naryn",
@@ -1883,15 +1885,15 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:82"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-08-03",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
       "status": "removed",
       "notes": "Naryn — heat consumption normative per m2/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
-      "verified_date": "2026-06-28",
+      "verified_date": "2026-08-03",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга. | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется."
     },
     {
       "id": "heating-calculator__heating_standard_gcal_per_m2_osh",
@@ -1905,15 +1907,15 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:38"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-08-03",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
       "status": "removed",
       "notes": "Osh — heat consumption normative per m2/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
-      "verified_date": "2026-06-28",
+      "verified_date": "2026-08-03",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга. | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется."
     },
     {
       "id": "heating-calculator__heating_standard_gcal_per_m2_tokmok",
@@ -1927,15 +1929,15 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:71"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-08-03",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
       "status": "removed",
       "notes": "Tokmok — heat consumption normative per m2/month; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass]",
-      "verified_date": "2026-06-28",
+      "verified_date": "2026-08-03",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга. | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется."
     },
     {
       "id": "heating-calculator__heating_tariff_per_gcal_bishkek_social",
@@ -1949,7 +1951,7 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:27"
       ],
-      "last_updated": "2026-07-08",
+      "last_updated": "2026-08-03",
       "source_hint": "Департамент по регулированию ТЭК при МЭ КР; ТЭЦ Бишкека",
       "conflict": true,
       "status": "current",
@@ -1957,9 +1959,9 @@
       "official_value": "1560.00",
       "source_url": "https://knews.kg/2025/01/17/v-merii-bishkeka-dali-razyasnenie-otnositelno-nachisleniya-za-otoplenie/",
       "which_surface_correct": "compute",
-      "verify_note": "Official Bishkek social heating tariff (жильё до 80 м²) = 1560 сом/Гкал from 01.03.2026 (Приказ ДТЭК №42 от 10.03.2026; was 1248/1120). Over-80-m² portion billed at ~5998.17 сом/Гкал — confirmed. BOTH surfaces wrong: COMPUTE 1950 too high, PROSE 1450 too low. COMPUTE is the better/intended-current surface but the value should be updated to 1560. | RE-VERIFIED 2026-07-08 (workflow regultek): социальный тариф <=80 м2 = 1560 сом/Гкал ПОДТВЕРЖДЁН по приказу №42 от 10.03.2026 — несколько источников цитируют приказ дословно (teplo.com.kg/new-tarifs, kaktus 532974, регультек №105 PDF). ГВС 108.07 сом/м3 тоже подтверждён (совпадает с сайтом). '1950' — ОШИБКА sub-агента (не встречается ни в одном первоисточном описании приказа №42; вероятно спутал с предложенным/отменённым значением). Правку 1560->1950 применил и ОТКАТИЛ (git checkout) до деплоя — сайт не менялся. WATCH: плановый +50% с 01.06.2026 (среднесрочная политика) на 2026-07-08 НЕ введён — доказательство: ГВС остался 108.07 (при +50% был бы ~162), после №42 энергетических приказов нет (только №127 от 25.06.2026 — техобслуживание). Если введут: <=80 м2 -> 2340, ГВС -> ~162.",
+      "verify_note": "Official Bishkek social heating tariff (жильё до 80 м²) = 1560 сом/Гкал from 01.03.2026 (Приказ ДТЭК №42 от 10.03.2026; was 1248/1120). Over-80-m² portion billed at ~5998.17 сом/Гкал — confirmed. BOTH surfaces wrong: COMPUTE 1950 too high, PROSE 1450 too low. COMPUTE is the better/intended-current surface but the value should be updated to 1560. | RE-VERIFIED 2026-07-08 (workflow regultek): социальный тариф <=80 м2 = 1560 сом/Гкал ПОДТВЕРЖДЁН по приказу №42 от 10.03.2026 — несколько источников цитируют приказ дословно (teplo.com.kg/new-tarifs, kaktus 532974, регультек №105 PDF). ГВС 108.07 сом/м3 тоже подтверждён (совпадает с сайтом). '1950' — ОШИБКА sub-агента (не встречается ни в одном первоисточном описании приказа №42; вероятно спутал с предложенным/отменённым значением). Правку 1560->1950 применил и ОТКАТИЛ (git checkout) до деплоя — сайт не менялся. WATCH: плановый +50% с 01.06.2026 (среднесрочная политика) на 2026-07-08 НЕ введён — доказательство: ГВС остался 108.07 (при +50% был бы ~162), после №42 энергетических приказов нет (только №127 от 25.06.2026 — техобслуживание). Если введут: <=80 м2 -> 2340, ГВС -> ~162. | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется.",
       "fix_note": "fixed 2026-06-28: confirmed national social tariff 1560 сом/Гкал; >80 м² portion (5998.17) now modeled via area-proportional split in calculateHeating; prose 1134.76/1450 → 1560 in RU+KY. See _meta.reconciliations[0]. (working tree, not deployed)",
-      "verified_date": "2026-07-08",
+      "verified_date": "2026-08-03",
       "verify_confidence": "high"
     },
     {
@@ -1974,17 +1976,17 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:60"
       ],
-      "last_updated": "2026-07-03",
+      "last_updated": "2026-08-03",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
       "status": "removed",
       "notes": "Jalal-Abad — heating tariff per Gcal; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass] | CLOSED 2026-07-03: город retired на сайте 2026-06-28 (нац. модель 1560.00/5998.17 сом/Гкал, центральное отопление только Бишкек/Ош); фиктивный per-city тариф удалён из кода, реестр закрыт phase-4 reconcile.",
       "official_value": "1560 сом/Гкал (нац. соцнорма ≤80 м²)",
       "source_url": "https://bishkek.gov.kg/ru/tariffs/2",
-      "verified_date": "2026-07-03",
+      "verified_date": "2026-08-03",
       "verify_method": "tier2-tail",
       "verify_confidence": "high",
-      "verify_note": "KG heating social-norm tariff=1560 сом/Гкал (Приказ ДТЭК №42 от 10.03.2026, ≤80 м²); KG has NO per-city heating tariff — stored per-city value is fictional. (b2 agent 1950 was the superseded value.)"
+      "verify_note": "KG heating social-norm tariff=1560 сом/Гкал (Приказ ДТЭК №42 от 10.03.2026, ≤80 м²); KG has NO per-city heating tariff — stored per-city value is fictional. (b2 agent 1950 was the superseded value.) | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется."
     },
     {
       "id": "heating-calculator__heating_tariff_per_gcal_karakol",
@@ -1998,17 +2000,17 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:49"
       ],
-      "last_updated": "2026-07-03",
+      "last_updated": "2026-08-03",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
       "status": "removed",
       "notes": "Karakol — heating tariff per Gcal; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass] | CLOSED 2026-07-03: город retired на сайте 2026-06-28 (нац. модель 1560.00/5998.17 сом/Гкал, центральное отопление только Бишкек/Ош); фиктивный per-city тариф удалён из кода, реестр закрыт phase-4 reconcile.",
       "official_value": "1560 сом/Гкал (нац. соцнорма ≤80 м²)",
       "source_url": "https://bishkek.gov.kg/ru/tariffs/2",
-      "verified_date": "2026-07-03",
+      "verified_date": "2026-08-03",
       "verify_method": "tier2-tail",
       "verify_confidence": "high",
-      "verify_note": "KG heating social-norm tariff=1560 сом/Гкал (Приказ ДТЭК №42 от 10.03.2026, ≤80 м²); KG has NO per-city heating tariff — stored per-city value is fictional. (b2 agent 1950 was the superseded value.)"
+      "verify_note": "KG heating social-norm tariff=1560 сом/Гкал (Приказ ДТЭК №42 от 10.03.2026, ≤80 м²); KG has NO per-city heating tariff — stored per-city value is fictional. (b2 agent 1950 was the superseded value.) | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется."
     },
     {
       "id": "heating-calculator__heating_tariff_per_gcal_naryn",
@@ -2022,17 +2024,17 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:82"
       ],
-      "last_updated": "2026-07-03",
+      "last_updated": "2026-08-03",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
       "status": "removed",
       "notes": "Naryn — heating tariff per Gcal; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass] | CLOSED 2026-07-03: город retired на сайте 2026-06-28 (нац. модель 1560.00/5998.17 сом/Гкал, центральное отопление только Бишкек/Ош); фиктивный per-city тариф удалён из кода, реестр закрыт phase-4 reconcile.",
       "official_value": "1560 сом/Гкал (нац. соцнорма ≤80 м²)",
       "source_url": "https://bishkek.gov.kg/ru/tariffs/2",
-      "verified_date": "2026-07-03",
+      "verified_date": "2026-08-03",
       "verify_method": "tier2-tail",
       "verify_confidence": "high",
-      "verify_note": "KG heating social-norm tariff=1560 сом/Гкал (Приказ ДТЭК №42 от 10.03.2026, ≤80 м²); KG has NO per-city heating tariff — stored per-city value is fictional. (b2 agent 1950 was the superseded value.)"
+      "verify_note": "KG heating social-norm tariff=1560 сом/Гкал (Приказ ДТЭК №42 от 10.03.2026, ≤80 м²); KG has NO per-city heating tariff — stored per-city value is fictional. (b2 agent 1950 was the superseded value.) | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется."
     },
     {
       "id": "heating-calculator__heating_tariff_per_gcal_osh",
@@ -2046,7 +2048,7 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:42"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-08-03",
       "source_hint": "Департамент по регулированию ТЭК при МЭ КР",
       "conflict": false,
       "status": "removed",
@@ -2054,7 +2056,8 @@
       "official_value": null,
       "source_url": "https://www.teploseti.kg/content/article/60-tarify",
       "which_surface_correct": "compute",
-      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга. | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется.",
+      "verified_date": "2026-08-03"
     },
     {
       "id": "heating-calculator__heating_tariff_per_gcal_tokmok",
@@ -2068,17 +2071,17 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:71"
       ],
-      "last_updated": "2026-07-03",
+      "last_updated": "2026-08-03",
       "source_hint": "ГА ТЭК / regultek.gov.kg (Департамент по регулированию ТЭК при МЭ КР)",
       "conflict": false,
       "status": "removed",
       "notes": "Tokmok — heating tariff per Gcal; HEATING_TARIFFS inline table [gap-audit 2026-06-17 completeness pass] | CLOSED 2026-07-03: город retired на сайте 2026-06-28 (нац. модель 1560.00/5998.17 сом/Гкал, центральное отопление только Бишкек/Ош); фиктивный per-city тариф удалён из кода, реестр закрыт phase-4 reconcile.",
       "official_value": "1560 сом/Гкал (нац. соцнорма ≤80 м²)",
       "source_url": "https://bishkek.gov.kg/ru/tariffs/2",
-      "verified_date": "2026-07-03",
+      "verified_date": "2026-08-03",
       "verify_method": "tier2-tail",
       "verify_confidence": "high",
-      "verify_note": "KG heating social-norm tariff=1560 сом/Гкал (Приказ ДТЭК №42 от 10.03.2026, ≤80 м²); KG has NO per-city heating tariff — stored per-city value is fictional. (b2 agent 1950 was the superseded value.)"
+      "verify_note": "KG heating social-norm tariff=1560 сом/Гкал (Приказ ДТЭК №42 от 10.03.2026, ≤80 м²); KG has NO per-city heating tariff — stored per-city value is fictional. (b2 agent 1950 was the superseded value.) | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется."
     },
     {
       "id": "housing-calculator__tariff_electricity",
@@ -8451,16 +8454,16 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:185"
       ],
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-08-03",
       "source_hint": "внутренняя оценка",
       "conflict": false,
       "status": "removed",
       "notes": "COMPUTE: ~2.5 m³/person used only to display informational approx hot-water volume when paying by norm; not a billed/regulated rate.",
       "source_url": "http://www.teploseti.kg/content/articles_view/1023",
-      "verified_date": "2026-06-28",
+      "verified_date": "2026-08-03",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга."
+      "verify_note": "2026-06-30: удалено с сайта (коммит 73b6596 — единый нац.модель + Бишкек/Ош). Мёртвая surface-ссылка, снято с мониторинга. | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется."
     },
     {
       "id": "housing-calculator__article_utilities_example_2room",
