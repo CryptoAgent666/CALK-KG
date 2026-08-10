@@ -15,29 +15,36 @@ import {
 import { formatCurrentMonth } from '../utils/dateFormatter';
 import { GasCalculatorArticle } from '../components/GasCalculatorArticle';
 
-// Актуальные тарифы на природный газ в Кыргызстане (май 2026)
-// Источник: ОсОО «Газпром Кыргызстан», Департамент по регулированию ТЭК при МЭ КР
-// Тарифы пересчитываются ежемесячно в зависимости от курса доллара
-// Последнее обновление: май 2026 (стабильные с марта 2026)
+// Тарифы на природный газ в Кыргызстане. АКТУАЛЬНО НА: август 2026.
+// Базовый акт: приказ Департамента по регулированию ТЭК при МЭ КР №113 от 24.07.2024 —
+// тариф для населения 21 485,39 сом за 1000 м³ (без налогов) при курсе НБКР 84,60.
+// П.3 приказа: ОсОО «Газпром Кыргызстан» ЕЖЕМЕСЯЧНО пересчитывает тариф в части покупной
+// стоимости и нормативных потерь по курсу НБКР на ПЕРВЫЙ ДЕНЬ МЕСЯЦА — значение меняется
+// каждый месяц, это не статичная константа.
+// Значения ниже — из API поставщика (api.gazprom.kg, запись от 04.08.2026) при курсе 87,45:
+//   население 25,6418 сом/м³ (налоги уже включены, fizNds=0/fizNsp=0);
+//   юрлица     27,6653 сом/м³ БЕЗ налогов (сверху НДС 12% + налог с продаж 4%).
+// ⚠️ Сайт gazprom.kg показывает устаревшие цифры мая-2025 (захардкожены в его бандле);
+// сверять нужно по API, а не по веб-странице.
 const TARIFF_CONFIG = {
   'residential': {
     nameKey: 'tariff_population',
-    rate: 22.70,
+    rate: 25.6418,
     descriptionKey: 'gas_desc_residential'
   },
   'residential_heating': {
     nameKey: 'tariff_population_heating',
-    rate: 22.70,
+    rate: 25.6418,
     descriptionKey: 'gas_desc_residential_heating'
   },
   'commercial': {
     nameKey: 'tariff_commercial',
-    rate: 24.2504,
+    rate: 27.6653,
     descriptionKey: 'gas_desc_commercial'
   },
   'industrial': {
     nameKey: 'tariff_industrial',
-    rate: 24.25,
+    rate: 27.6653,
     descriptionKey: 'gas_desc_industrial'
   }
 };
