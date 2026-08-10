@@ -927,13 +927,13 @@
       "key": "electricity_budget_flat",
       "value": "4.62",
       "unit": "som_per_kwh",
-      "law": "тариф ГА ТЭК (бюджетные учреждения)",
+      "law": "Приказ ДРТЭК №103 от 24.04.2026, п.6",
       "theme": "utility_tariff",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/ElectricityCalculatorPage.tsx:52"
       ],
-      "last_updated": "2026-07-08",
+      "last_updated": "2026-08-03",
       "source_hint": "Госагентство по регулированию ТЭК / НЭСК; Кабмин КР",
       "conflict": false,
       "status": "current",
@@ -941,8 +941,10 @@
       "official_value": "4.62",
       "source_url": "https://economist.kg/enierghietika/2026/03/28/skolko-budiet-stoit-eliektrichiestvo-v-kyrghyzstanie-s-1-maia-2026-ghoda-tarify/",
       "which_surface_correct": "na",
-      "verify_note": "Official бюджетные = 4.62 сом/кВт·ч from 01.05.2026 (two sources: Tazabek, Economist.kg). COMPUTE has 4.63 — off by 0.01 (rounding). PROSE n/a (compute-only category). Essentially correct, minor 1-tyiyn discrepancy. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника.",
-      "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)"
+      "verify_note": "RE-VERIFIED 2026-08-03: приказ №103 — бюджетные организации 4,62 сом/кВт·ч.",
+      "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)",
+      "verified_date": "2026-08-03",
+      "verify_confidence": "high"
     },
     {
       "id": "electricity-calculator__electricity_charging_stations_flat",
@@ -1065,14 +1067,14 @@
       "key": "electricity_general_tier1_social_limit_kwh",
       "value": "700",
       "unit": "kwh",
-      "law": "Постановление Кабинета Министров КР; ССТП 2025-2030; тариф ГА ТЭК/НЭСК",
+      "law": "Приказ ДРТЭК №103 от 24.04.2026, п.1.1/1.2",
       "theme": "utility_tariff",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/ElectricityCalculatorPage.tsx:72",
         "src/pages/ElectricityCalculatorPage.tsx:527"
       ],
-      "last_updated": "2026-07-08",
+      "last_updated": "2026-08-03",
       "source_hint": "Госагентство по регулированию ТЭК / НЭСК; Кабмин КР",
       "conflict": false,
       "status": "current",
@@ -1080,7 +1082,9 @@
       "official_value": "700",
       "source_url": "https://economist.kg/enierghietika/2026/03/28/skolko-budiet-stoit-eliektrichiestvo-v-kyrghyzstanie-s-1-maia-2026-ghoda-tarify/",
       "which_surface_correct": "compute",
-      "verify_note": "CONFIRMED: 700 кВт·ч/month is the residential social threshold (rate1 below, rate2 above) for general and low-income tiers per ССТП 2025-2030. Correct. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника."
+      "verify_note": "RE-VERIFIED 2026-08-03: приказ №103 — социальный порог 700 кВт·ч в месяц, далее 2,94 сом/кВт·ч.",
+      "verified_date": "2026-08-03",
+      "verify_confidence": "high"
     },
     {
       "id": "electricity-calculator__electricity_highland_flat",
@@ -1134,14 +1138,14 @@
       "key": "electricity_lowincome_rate1_within_limit",
       "value": "0.50",
       "unit": "som_per_kwh",
-      "law": "тариф ГА ТЭК (льготный, үй-бүлөгө көмөк)",
+      "law": "Приказ ДРТЭК №103 от 24.04.2026, п.1.4",
       "theme": "utility_tariff",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/ElectricityCalculatorPage.tsx:47",
         "src/pages/ElectricityCalculatorPage.tsx:87"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-08-03",
       "source_hint": "Госагентство по регулированию ТЭК / НЭСК; Кабмин КР",
       "conflict": false,
       "status": "current",
@@ -1149,7 +1153,9 @@
       "official_value": "0.50",
       "source_url": "https://economist.kg/enierghietika/2026/02/24/tarify-na-eliektroenierghiiu-v-kyrghyzstanie-vyrastut-na-27-tyiynov-s-1-maia-2026-ghoda/",
       "which_surface_correct": "compute",
-      "verify_note": "CONFIRMED: малообеспеченные семьи (үй-бүлөгө көмөк) up to 700 кВт·ч = 0.50 сом/кВт·ч, held flat through 2030 per ССТП. COMPUTE correct (same OLD and NEW)."
+      "verify_note": "RE-VERIFIED 2026-08-03: приказ №103 сверен по тексту (машиночитаемый PDF) — льготный тариф для получателей «үй-бүлөгө көмөк» 0,50 сом/кВт·ч до 700 кВт·ч; по среднесрочной политике заморожен на 0,50 до 2030 года.",
+      "verified_date": "2026-08-03",
+      "verify_confidence": "high"
     },
     {
       "id": "electricity-calculator__electricity_lowincome_rate2_over_limit",
@@ -1180,13 +1186,13 @@
       "key": "electricity_new_tariffs_start_date",
       "value": "2026-05-01",
       "unit": "date",
-      "law": "Постановление Кабинета Министров КР (новые тарифы с 01.05.2026)",
+      "law": "Приказ ДРТЭК №103 от 24.04.2026, п.1",
       "theme": "utility_tariff",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/ElectricityCalculatorPage.tsx:27"
       ],
-      "last_updated": "2026-07-08",
+      "last_updated": "2026-08-03",
       "source_hint": "Госагентство по регулированию ТЭК / НЭСК; Кабмин КР",
       "conflict": false,
       "status": "current",
@@ -1194,7 +1200,9 @@
       "official_value": "2026-05-01",
       "source_url": "https://kaktus.media/doc/543901_s_1_maia_povysilis_tarify_na_svet._komy_i_skolko_nado_platit.html",
       "which_surface_correct": "compute",
-      "verify_note": "CONFIRMED: new electricity tariffs took effect 1 May 2026 (Приказ ДТЭК №103 от 24.04.2026; under ССТП 2025-2030, Пост. Кабмина №227 от 24.04.2025). Today 2026-06-20 the NEW set is live. Correct. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника."
+      "verify_note": "RE-VERIFIED 2026-08-03: «С 1 мая 2026 года установить тарифы…» — дата верна; более свежего приказа по электроэнергии нет (проверено на regultek 2026-08-03, последняя публикация 02.07.2026).",
+      "verified_date": "2026-08-03",
+      "verify_confidence": "high"
     },
     {
       "id": "electricity-calculator__electricity_population_unlimited_flat",
@@ -1420,7 +1428,7 @@
       "key": "PROSE_gas_bishkek_rate_legacy",
       "value": "22.70",
       "unit": "som_per_m3",
-      "law": "тариф Газпром КГ (устаревшая проза i18n)",
+      "law": "Приказы Департамента по регулированию ТЭК при МЭ КР (ежемесячный перерасчёт по курсу USD); тариф устанавливает ОсОО «Газпром Кыргызстан»",
       "theme": "utility_tariff",
       "is_gov_regulated": true,
       "surfaces": [
@@ -1429,16 +1437,19 @@
         "src/i18n/translations-ru.ts:gas_example1_tariff_value",
         "src/i18n/translations-ru.ts:gas_heating_tariff"
       ],
-      "last_updated": "2026-07-08",
+      "last_updated": "2026-08-03",
       "source_hint": "ОсОО «Газпром Кыргызстан»",
       "conflict": false,
-      "status": "current",
+      "status": "stale",
       "notes": "MISMATCH: i18n prose has Bishkek 9.50, Osh 8.80, other 8.50-9.00, example1 14.50, heating 11.60 сом/м³ — all far below COMPUTE residential 22.70. Prose heavily stale; compute authoritative.",
       "official_value": "22.70",
       "source_url": "https://www.akchabar.kg/news/gaz-dlya-naseleniya-kirgizstana-podorozhal-v-mae-gazprom-obyavil-novij-tarif-fbpyqxkdymmuwnqx",
       "which_surface_correct": "compute",
-      "verify_note": "Сверено 2026-06-30: газ-prose 9.50/8.80/14.50/11.60→22.70 (Газпром, единый тариф). Worked-examples и нарратив газ↔электр переписаны (RU+KY), задеплоено. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника.",
-      "fix_note": "DEFERRED (tranche 3): narrative prose w/ dependent example totals (bilingual content pass)"
+      "verify_note": "Сверено 2026-06-30: газ-prose 9.50/8.80/14.50/11.60→22.70 (Газпром, единый тариф). Worked-examples и нарратив газ↔электр переписаны (RU+KY), задеплоено. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника. | ⚠️ RE-CHECK 2026-08-03: значение УСТАРЕЛО. Подтверждено (akchabar.kg, 02.05.2025): 22,7041 сом/м³ население и 24,2504 коммерция — это тариф МАЯ 2025 года (в апреле-2025 было 21,9209). КЛЮЧЕВОЕ: по приказам Департамента по регулированию ТЭК ОсОО «Газпром Кыргызстан» обязано ЕЖЕМЕСЯЧНО пересчитывать тариф с учётом официального курса доллара к сому — то есть значение меняется каждый месяц и не может быть статичной константой. На сайте стоят майские-2025 цифры, т.е. отставание ~15 месяцев. Официальный первоисточник kyrgyzstan.gazprom.ru/services/tarif/ с нашей сети недоступен (ECONNREFUSED). ОСТОРОЖНО: в поисковой выдаче всплывает «16 сом 10 тыйын» — это тариф 2014 года (vb.kg), не подставлять. Требуется: найти актуальный месячный тариф и перевести константу в режим ежемесячного мониторинга.",
+      "fix_note": "DEFERRED (tranche 3): narrative prose w/ dependent example totals (bilingual content pass)",
+      "verified_date": "2026-08-03",
+      "verify_confidence": "high",
+      "changes_next_fy": "ЕЖЕМЕСЯЧНО (перерасчёт по курсу доллара)"
     },
     {
       "id": "gas-calculator__gas_commercial_rate",
@@ -1446,22 +1457,25 @@
       "key": "gas_commercial_rate",
       "value": "24.2504",
       "unit": "som_per_m3",
-      "law": "тариф ОсОО «Газпром Кыргызстан» (коммерция)",
+      "law": "Приказы Департамента по регулированию ТЭК при МЭ КР (ежемесячный перерасчёт по курсу USD); тариф устанавливает ОсОО «Газпром Кыргызстан»",
       "theme": "utility_tariff",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/GasCalculatorPage.tsx:35"
       ],
-      "last_updated": "2026-07-08",
+      "last_updated": "2026-08-03",
       "source_hint": "ОсОО «Газпром Кыргызстан»",
       "conflict": false,
-      "status": "current",
+      "status": "stale",
       "notes": "COMPUTE commercial.rate.",
       "official_value": "24.2504",
       "source_url": "https://www.akchabar.kg/news/gaz-dlya-naseleniya-kirgizstana-podorozhal-v-mae-gazprom-obyavil-novij-tarif-fbpyqxkdymmuwnqx",
       "which_surface_correct": "na",
-      "verify_note": "Газпром КГ non-residential (commercial + industrial) = single 24.2504 сом/м³ (excl. taxes). COMPUTE gas commercial = 28.00 does NOT match official 24.25 — overstated. (COMPUTE industrial 24.25 is the right figure.) Compute-only category. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника.",
-      "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)"
+      "verify_note": "Газпром КГ non-residential (commercial + industrial) = single 24.2504 сом/м³ (excl. taxes). COMPUTE gas commercial = 28.00 does NOT match official 24.25 — overstated. (COMPUTE industrial 24.25 is the right figure.) Compute-only category. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника. | ⚠️ RE-CHECK 2026-08-03: значение УСТАРЕЛО. Подтверждено (akchabar.kg, 02.05.2025): 22,7041 сом/м³ население и 24,2504 коммерция — это тариф МАЯ 2025 года (в апреле-2025 было 21,9209). КЛЮЧЕВОЕ: по приказам Департамента по регулированию ТЭК ОсОО «Газпром Кыргызстан» обязано ЕЖЕМЕСЯЧНО пересчитывать тариф с учётом официального курса доллара к сому — то есть значение меняется каждый месяц и не может быть статичной константой. На сайте стоят майские-2025 цифры, т.е. отставание ~15 месяцев. Официальный первоисточник kyrgyzstan.gazprom.ru/services/tarif/ с нашей сети недоступен (ECONNREFUSED). ОСТОРОЖНО: в поисковой выдаче всплывает «16 сом 10 тыйын» — это тариф 2014 года (vb.kg), не подставлять. Требуется: найти актуальный месячный тариф и перевести константу в режим ежемесячного мониторинга.",
+      "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)",
+      "verified_date": "2026-08-03",
+      "verify_confidence": "high",
+      "changes_next_fy": "ЕЖЕМЕСЯЧНО (перерасчёт по курсу доллара)"
     },
     {
       "id": "gas-calculator__gas_industrial_rate",
@@ -1469,21 +1483,24 @@
       "key": "gas_industrial_rate",
       "value": "24.25",
       "unit": "som_per_m3",
-      "law": "тариф ОсОО «Газпром Кыргызстан» (промышленность)",
+      "law": "Приказы Департамента по регулированию ТЭК при МЭ КР (ежемесячный перерасчёт по курсу USD); тариф устанавливает ОсОО «Газпром Кыргызстан»",
       "theme": "utility_tariff",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/GasCalculatorPage.tsx:40"
       ],
-      "last_updated": "2026-07-08",
+      "last_updated": "2026-08-03",
       "source_hint": "ОсОО «Газпром Кыргызстан»",
       "conflict": false,
-      "status": "current",
+      "status": "stale",
       "notes": "COMPUTE industrial.rate.",
       "official_value": "24.2504",
       "source_url": "https://www.akchabar.kg/news/gaz-dlya-naseleniya-kirgizstana-podorozhal-v-mae-gazprom-obyavil-novij-tarif-fbpyqxkdymmuwnqx",
       "which_surface_correct": "na",
-      "verify_note": "CONFIRMED: Газпром КГ non-population tariff = 24.2504 сом/м³ (excl. taxes). COMPUTE industrial 24.25 matches. Compute-only. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника."
+      "verify_note": "CONFIRMED: Газпром КГ non-population tariff = 24.2504 сом/м³ (excl. taxes). COMPUTE industrial 24.25 matches. Compute-only. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника. | ⚠️ RE-CHECK 2026-08-03: значение УСТАРЕЛО. Подтверждено (akchabar.kg, 02.05.2025): 22,7041 сом/м³ население и 24,2504 коммерция — это тариф МАЯ 2025 года (в апреле-2025 было 21,9209). КЛЮЧЕВОЕ: по приказам Департамента по регулированию ТЭК ОсОО «Газпром Кыргызстан» обязано ЕЖЕМЕСЯЧНО пересчитывать тариф с учётом официального курса доллара к сому — то есть значение меняется каждый месяц и не может быть статичной константой. На сайте стоят майские-2025 цифры, т.е. отставание ~15 месяцев. Официальный первоисточник kyrgyzstan.gazprom.ru/services/tarif/ с нашей сети недоступен (ECONNREFUSED). ОСТОРОЖНО: в поисковой выдаче всплывает «16 сом 10 тыйын» — это тариф 2014 года (vb.kg), не подставлять. Требуется: найти актуальный месячный тариф и перевести константу в режим ежемесячного мониторинга.",
+      "verified_date": "2026-08-03",
+      "verify_confidence": "high",
+      "changes_next_fy": "ЕЖЕМЕСЯЧНО (перерасчёт по курсу доллара)"
     },
     {
       "id": "gas-calculator__gas_residential_heating_rate",
@@ -1491,21 +1508,24 @@
       "key": "gas_residential_heating_rate",
       "value": "22.70",
       "unit": "som_per_m3",
-      "law": "тариф ОсОО «Газпром Кыргызстан»",
+      "law": "Приказы Департамента по регулированию ТЭК при МЭ КР (ежемесячный перерасчёт по курсу USD); тариф устанавливает ОсОО «Газпром Кыргызстан»",
       "theme": "utility_tariff",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/GasCalculatorPage.tsx:30"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-08-03",
       "source_hint": "ОсОО «Газпром Кыргызстан»",
       "conflict": false,
-      "status": "current",
+      "status": "stale",
       "notes": "COMPUTE residential_heating.rate (население + отопление). Same as residential 22.70.",
       "official_value": "22.7041",
       "source_url": "https://kyrgyzstan.gazprom.ru/services/tarif/",
       "which_surface_correct": "compute",
-      "verify_note": "CONFIRMED: same single population natural-gas tariff (22.7041 сом/м³) applies whether used for cooking or heating — Газпром КГ has one residential rate. COMPUTE 22.70 correct."
+      "verify_note": "CONFIRMED: same single population natural-gas tariff (22.7041 сом/м³) applies whether used for cooking or heating — Газпром КГ has one residential rate. COMPUTE 22.70 correct. | ⚠️ RE-CHECK 2026-08-03: значение УСТАРЕЛО. Подтверждено (akchabar.kg, 02.05.2025): 22,7041 сом/м³ население и 24,2504 коммерция — это тариф МАЯ 2025 года (в апреле-2025 было 21,9209). КЛЮЧЕВОЕ: по приказам Департамента по регулированию ТЭК ОсОО «Газпром Кыргызстан» обязано ЕЖЕМЕСЯЧНО пересчитывать тариф с учётом официального курса доллара к сому — то есть значение меняется каждый месяц и не может быть статичной константой. На сайте стоят майские-2025 цифры, т.е. отставание ~15 месяцев. Официальный первоисточник kyrgyzstan.gazprom.ru/services/tarif/ с нашей сети недоступен (ECONNREFUSED). ОСТОРОЖНО: в поисковой выдаче всплывает «16 сом 10 тыйын» — это тариф 2014 года (vb.kg), не подставлять. Требуется: найти актуальный месячный тариф и перевести константу в режим ежемесячного мониторинга.",
+      "verified_date": "2026-08-03",
+      "verify_confidence": "high",
+      "changes_next_fy": "ЕЖЕМЕСЯЧНО (перерасчёт по курсу доллара)"
     },
     {
       "id": "gas-calculator__gas_residential_rate",
@@ -1513,21 +1533,24 @@
       "key": "gas_residential_rate",
       "value": "22.70",
       "unit": "som_per_m3",
-      "law": "тариф ОсОО «Газпром Кыргызстан» / Департамент по регулированию ТЭК при МЭ КР",
+      "law": "Приказы Департамента по регулированию ТЭК при МЭ КР (ежемесячный перерасчёт по курсу USD); тариф устанавливает ОсОО «Газпром Кыргызстан»",
       "theme": "utility_tariff",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/GasCalculatorPage.tsx:25"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-08-03",
       "source_hint": "ОсОО «Газпром Кыргызстан»",
       "conflict": true,
-      "status": "current",
+      "status": "stale",
       "notes": "COMPUTE TARIFF_CONFIG.residential.rate (population, natural gas). residential_heating uses same 22.70. Tariffs recalculated monthly with USD; stable since March 2026 per code comment. MISMATCH vs i18n prose (gas_bishkek_rate 9.50, gas_example1_tariff_value 14.50, gas_heating_tariff 11.60) which are stale/illustrative.",
       "official_value": "22.7041",
       "source_url": "https://economist.kg/enierghietika/2025/05/01/na-skolko-podorozhal-ghaz-dlia-kyrghyzstantsiev-s-1-maia-aktualnyie-tarify-gazproma/",
       "which_surface_correct": "compute",
-      "verify_note": "CONFIRMED: население natural gas = 22.7041 сом/м³ (Газпром Кыргызстан; recalculated monthly vs USD per Приказы ДТЭК №232/№233 от 21.12.2022). Held 22.7041 since May 2025, stable into 2026. COMPUTE 22.70 correct; PROSE 9.50 stale."
+      "verify_note": "CONFIRMED: население natural gas = 22.7041 сом/м³ (Газпром Кыргызстан; recalculated monthly vs USD per Приказы ДТЭК №232/№233 от 21.12.2022). Held 22.7041 since May 2025, stable into 2026. COMPUTE 22.70 correct; PROSE 9.50 stale. | ⚠️ RE-CHECK 2026-08-03: значение УСТАРЕЛО. Подтверждено (akchabar.kg, 02.05.2025): 22,7041 сом/м³ население и 24,2504 коммерция — это тариф МАЯ 2025 года (в апреле-2025 было 21,9209). КЛЮЧЕВОЕ: по приказам Департамента по регулированию ТЭК ОсОО «Газпром Кыргызстан» обязано ЕЖЕМЕСЯЧНО пересчитывать тариф с учётом официального курса доллара к сому — то есть значение меняется каждый месяц и не может быть статичной константой. На сайте стоят майские-2025 цифры, т.е. отставание ~15 месяцев. Официальный первоисточник kyrgyzstan.gazprom.ru/services/tarif/ с нашей сети недоступен (ECONNREFUSED). ОСТОРОЖНО: в поисковой выдаче всплывает «16 сом 10 тыйын» — это тариф 2014 года (vb.kg), не подставлять. Требуется: найти актуальный месячный тариф и перевести константу в режим ежемесячного мониторинга.",
+      "verified_date": "2026-08-03",
+      "verify_confidence": "high",
+      "changes_next_fy": "ЕЖЕМЕСЯЧНО (перерасчёт по курсу доллара)"
     },
     {
       "id": "heating-calculator__heating_hot_water_standard_per_person_bishkek",
@@ -2114,24 +2137,25 @@
       "key": "tariff_gas",
       "value": "22.7041",
       "unit": "KGS_per_m3",
-      "law": "Тарифы природный газ (Газпром Кыргызстан)",
+      "law": "Приказы Департамента по регулированию ТЭК при МЭ КР (ежемесячный перерасчёт по курсу USD); тариф устанавливает ОсОО «Газпром Кыргызстан»",
       "theme": "housing_utility_tariff",
       "is_gov_regulated": true,
       "surfaces": [
         "src/i18n/translations-ru.ts:6033"
       ],
-      "last_updated": "2026-08-02",
+      "last_updated": "2026-08-03",
       "source_hint": "Газпром Кыргызстан",
       "conflict": false,
-      "status": "current",
+      "status": "stale",
       "notes": "PROSE only (housing_tariff_gas). Regulated natural gas tariff Bishkek. Source cited январь 2026.",
       "official_value": "22.7041",
       "source_url": "https://kyrgyzstan.gazprom.ru/services/tarif/",
       "which_surface_correct": "prose",
-      "verify_note": "Стамп 2026-08-02: 22,70 сом/м³ — значение сверено в сессии 2026-06/07 (Газпром Кыргызстан, май-2026); без изменений.",
+      "verify_note": "Стамп 2026-08-02: 22,70 сом/м³ — значение сверено в сессии 2026-06/07 (Газпром Кыргызстан, май-2026); без изменений. | ⚠️ RE-CHECK 2026-08-03: значение УСТАРЕЛО. Подтверждено (akchabar.kg, 02.05.2025): 22,7041 сом/м³ население и 24,2504 коммерция — это тариф МАЯ 2025 года (в апреле-2025 было 21,9209). КЛЮЧЕВОЕ: по приказам Департамента по регулированию ТЭК ОсОО «Газпром Кыргызстан» обязано ЕЖЕМЕСЯЧНО пересчитывать тариф с учётом официального курса доллара к сому — то есть значение меняется каждый месяц и не может быть статичной константой. На сайте стоят майские-2025 цифры, т.е. отставание ~15 месяцев. Официальный первоисточник kyrgyzstan.gazprom.ru/services/tarif/ с нашей сети недоступен (ECONNREFUSED). ОСТОРОЖНО: в поисковой выдаче всплывает «16 сом 10 тыйын» — это тариф 2014 года (vb.kg), не подставлять. Требуется: найти актуальный месячный тариф и перевести константу в режим ежемесячного мониторинга.",
       "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)",
-      "verified_date": "2026-08-02",
-      "verify_confidence": "medium"
+      "verified_date": "2026-08-03",
+      "verify_confidence": "high",
+      "changes_next_fy": "ЕЖЕМЕСЯЧНО (перерасчёт по курсу доллара)"
     },
     {
       "id": "housing-calculator__tariff_heating",
@@ -3017,22 +3041,22 @@
       "key": "pension_max_retirement_age",
       "value": "70",
       "unit": "years",
-      "law": "Закон КР о государственном пенсионном социальном страховании",
+      "law": "Закон КР от 21.07.1997 №57, ст.9 п.1",
       "theme": "pension",
       "is_gov_regulated": false,
       "surfaces": [
         "src/pages/PensionCalculatorPage.tsx:676 (input max= attribute — not a legal limit)"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-08-03",
       "source_hint": "sf.gov.kg",
       "conflict": false,
       "status": "current",
       "notes": "Верхняя граница поля 'планируемый возраст' (max= числового input), позволяет моделировать отложенный выход на пенсию. НЕ нормативное значение — UI-ограничение ввода; нормативный возраст 63 (муж)/58 (жен). [gap-audit 2026-06-17; tail-verify 2026-06-28]",
       "source_url": "https://sf.gov.kg/ru/vozrast-vyhoda-na-pensiyu-i-trebuemyj-stazh/",
-      "verified_date": "2026-06-28",
+      "verified_date": "2026-08-03",
       "verify_method": "tier2-tail",
       "verify_confidence": "high",
-      "verify_note": "Statutory retirement ages are 63 (men)/58 (women); no legal 70-year max exists. Verified surface PensionCalculatorPage.tsx:676 is only the number-input max attribute (deferred-retirement modeling); compute uses getDefaultRetirementAge()=63/58; no prose presents 70 as a legal limit. Reclassified is_gov_regulated true->false.",
+      "verify_note": "RE-VERIFIED 2026-08-03: ст.9 п.1 прочитана вербатим (API cbd.minjust.gov.kg) — «мужчины, достигшие возраста 63 лет, женщины - 58 лет». Повышения возраста закон НЕ содержит; растёт только требуемый стаж.",
       "fix_note": "verified-ok 2026-06-28 tail: input cap not regulatory; is_gov_regulated true->false, status uncertain->current. No code change needed."
     },
     {
@@ -4123,24 +4147,24 @@
       "key": "single_tax_trade_0pct_effective_date",
       "value": "01.01.2025",
       "unit": "date",
-      "law": "НК КР единый налог",
+      "law": "НК КР ст.423 ч.8",
       "theme": "single_tax",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/SingleTaxCalculatorPage.tsx:41",
         "src/pages/SingleTaxCalculatorPage.tsx:42"
       ],
-      "last_updated": "2026-07-03",
+      "last_updated": "2026-08-03",
       "source_hint": "salyk.kg",
       "conflict": false,
       "status": "current",
       "notes": "Effective date of the 0% single-tax trade rate for ИП with ККМ ('действует с 01.04.2025'). Gates the 0% regime; not in ledger. [gap-audit 2026-06-17 completeness pass] | FIXED 2026-07-03: дата вступления 0% исправлена 01.04.2025→01.01.2025 (ст.423 п.1 НК КР, cbd.minjust.gov.kg); 01.04.2025 — это отмена рыночных ставок 0.1%/1%. ru+ky в SingleTaxCalculatorPage.tsx.",
       "official_value": "01.01.2025",
       "source_url": "https://cbd.minjust.gov.kg/3-39/edition/1286442/ru",
-      "verified_date": "2026-07-03",
+      "verified_date": "2026-08-03",
       "verify_method": "tier2-tail",
-      "verify_confidence": "medium",
-      "verify_note": "0% trade rate (Art.423 p.1 NK, ≤8M som, ≤2 employees) took effect 01.01.2025; 01.04.2025 is when 0.1%/1% market rates were abolished."
+      "verify_confidence": "high",
+      "verify_note": "RE-VERIFIED 2026-08-03: ст.423 ч.8 прочитана вербатим (офиц. PDF ГНС) — ставка 0% для ИП при выручке ≤15 млн сом, ККМ, ≤2 наёмных работников, один торговый объект, уплата страховых взносов."
     },
     {
       "id": "single-tax-calculator__single_tax_trade_0pct_ip_kkm",
@@ -4172,24 +4196,24 @@
       "key": "single_tax_trade_0pct_max_employees",
       "value": "2",
       "unit": "persons",
-      "law": "НК КР единый налог",
+      "law": "НК КР ст.423 ч.8 п.2 подп.«б»",
       "theme": "single_tax",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/SingleTaxCalculatorPage.tsx:41",
         "src/pages/SingleTaxCalculatorPage.tsx:42"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-08-03",
       "source_hint": "salyk.kg",
       "conflict": false,
       "status": "current",
       "notes": "Max hired workers (не более 2 наёмных работников) condition to qualify for the 0% single-tax trade regime for ИП with ККМ, no export/import. Eligibility constant not in ledger. [gap-audit 2026-06-17 completeness pass]",
       "official_value": "2",
       "source_url": "https://kgaccount.com/en/unified-tax-in-kyrgyzstan-in-2025-a-detailed-guide-for-businesses/",
-      "verified_date": "2026-06-28",
+      "verified_date": "2026-08-03",
       "verify_method": "tier2-tail",
       "verify_confidence": "high",
-      "verify_note": "Art.423 p.1 NK KR: 0% for IP with ≤8M som revenue, online cash register, and not more than 2 hired workers."
+      "verify_note": "RE-VERIFIED 2026-08-03: ст.423 ч.8 вербатим — «без найма работников, за исключением субъектов торговли, осуществляющих свою деятельность с привлечением не более двух наемных работников»."
     },
     {
       "id": "single-tax-calculator__single_tax_trade_30_50m_cashless",
@@ -4428,24 +4452,24 @@
       "key": "employer_reduced_tariff_effective_date",
       "value": "2024-08-01",
       "unit": "date",
-      "law": "Закон КР о тарифах страховых взносов по государственному социальному страхованию",
+      "law": "Закон КР №8, ст.2-2 (в ред. Закона №136 от 23.07.2024)",
       "theme": "social_insurance",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/SocialFundCalculatorPage.tsx:34",
         "src/pages/SocialFundCalculatorPage.tsx:47"
       ],
-      "last_updated": "2026",
+      "last_updated": "2026-08-03",
       "source_hint": "sf.gov.kg",
       "conflict": false,
       "status": "current",
       "notes": "Дата вступления в силу сниженного тарифа работодателя 2.25% для частного бизнеса (с 01.08.2024); до этой даты применялся стандартный 17.25%. [gap-audit 2026-06-17 completeness pass]",
       "official_value": "2024-08-01",
       "source_url": "https://sf.gov.kg/ru/o-snizhenii-stavki-tarifov-strahovyh-vznosov-po-gosudarstvennomu-soczialnomu-strahovaniyu/",
-      "verified_date": "2026-06-28",
+      "verified_date": "2026-08-03",
       "verify_method": "tier2-tail",
       "verify_confidence": "high",
-      "verify_note": "Law signed 23 Jul 2024; reduced employer insurance tariff (to 2.25%) in force from 1 August 2024."
+      "verify_note": "RE-VERIFIED 2026-08-03: сниженный тариф работодателя 2,25% действует с 01.08.2024 (ст.2-2 Закона о тарифах страховых взносов, ред. от 22.07.2026 прочитана вербатим через API cbd)."
     },
     {
       "id": "social-fund-calculator__employer_standard_foms_rate",
