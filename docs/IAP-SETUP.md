@@ -46,6 +46,30 @@
 
 ## 2. Google Play Console (Android)
 
+### 2.0. СНАЧАЛА залить сборку с BILLING (иначе продукт не создать)
+
+Play показывает «To add one-time products, you need to add the BILLING permission
+to your APK» и блокирует раздел, пока среди загруженных сборок нет ни одной с
+разрешением `com.android.vending.BILLING`. Прописывать его вручную не нужно:
+плагин RevenueCat тянет Play Billing Library, и разрешение приходит при слиянии
+манифестов.
+
+- Готовый файл: `android-app/CalkKG-release-v1.1.1-billing.aab`
+  (versionCode 11; наличие BILLING проверено распаковкой манифеста).
+- Залить в **Test and release → Internal testing** (продакшн не нужен) → раздел
+  One-time products разблокируется.
+
+⚠️ **Сборка приложения — только `npm run sync:android`** (внутри `build:app`),
+НЕ `npm run build`. Веб-сборка кладёт рядом с HTML предсжатые `.gz`/`.br`, и
+`mergeReleaseAssets` падает с `Duplicate resources` (278 таких пар). Плюс
+`build:app` выставляет `VITE_CALK_PLATFORM=app` — это вырезает из приложения
+AdSense и cookie-баннер.
+
+⚠️ **Java**: в PATH её может не быть. Собирать с JDK от Android Studio:
+`export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"`.
+
+### 2.1. Создать продукт
+
 1. **Продукты → Контент для продажи → создать**: ID **`removeads_KG`**,
    одноразовый (one-time), цена.
 2. У purchase option поставить галку **«Backwards compatible»** — без неё
