@@ -5,7 +5,7 @@ import { Capacitor } from '@capacitor/core';
  * Портировано с calk.kz (проверено там end-to-end в июле 2026, sandbox iOS+Android).
  *
  * Модель: в дашборде RevenueCat entitlement `ad_free` привязан к продукту
- * `removeads` (App Store non-consumable + Google Play one-time durable, у КАЖДОЙ
+ * `removeads_KG` (App Store non-consumable + Google Play one-time durable, у КАЖДОЙ
  * платформы своя запись продукта, обе привязаны к entitlement). Покупка одна,
  * навсегда, привязана к Apple ID / Google-аккаунту → переживает переустановку
  * и работает на всех устройствах пользователя (через restore).
@@ -20,8 +20,30 @@ import { Capacitor } from '@capacitor/core';
  */
 
 const ENTITLEMENT_ID = 'ad_free';
-const REMOVE_ADS_PRODUCT_ID = 'removeads';
 const CACHE_KEY = 'calk_ad_free';
+
+/**
+ * Product ID «Убрать рекламу» — СВОЙ ДЛЯ КАЖДОЙ ПЛАТФОРМЫ.
+ *
+ * ⚠️ В App Store Connect product ID уникален в пределах всего аккаунта
+ * разработчика: `removeads` уже занят приложением calk.kz, поэтому для KG
+ * заведён `removeads_KG`. В Google Play уникальность в пределах приложения,
+ * поэтому там можно оставить короткий `removeads` — но если заводите с
+ * суффиксом, поменяйте значение здесь.
+ *
+ * Значение ДОЛЖНО совпадать с product ID в консоли соответствующей платформы
+ * и с записью продукта в RevenueCat (Product catalog → две записи, обе
+ * привязаны к entitlement `ad_free`). Несовпадение = стор возвращает пустой
+ * список → цена null → оффер скрыт, покупка невозможна.
+ */
+const PRODUCT_IDS = {
+  ios: 'removeads_KG',
+  android: 'removeads_KG',
+} as const;
+
+function removeAdsProductId(): string {
+  return Capacitor.getPlatform() === 'ios' ? PRODUCT_IDS.ios : PRODUCT_IDS.android;
+}
 
 /**
  * Покупки доступны только когда в БИНАРЕ зарегистрирован нативный модуль
@@ -137,7 +159,7 @@ const NON_SUBSCRIPTION = 'NON_SUBSCRIPTION' as ProductCategory;
 /** Единая точка запроса продукта — и для цены, и для покупки (тип не разъедется). */
 async function fetchRemoveAdsProduct(Purchases: PurchasesSdk) {
   const { products } = await Purchases.getProducts({
-    productIdentifiers: [REMOVE_ADS_PRODUCT_ID],
+    productIdentifiers: [removeAdsProductId()],
     type: NON_SUBSCRIPTION,
   });
   return products[0] ?? null;

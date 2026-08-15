@@ -2,8 +2,20 @@
 
 Код уже в репозитории (порт с calk.kz, где схема проверена end-to-end в июле 2026):
 `src/lib/purchases.ts` (RevenueCat), гейт рекламы в `src/lib/admob.ts`, кнопка
-`src/components/RemoveAdsButton.tsx` в мобильном меню. Жёстко зашито:
-**entitlement `ad_free` ↔ product `removeads`** — в консолях создавать именно эти ID.
+`src/components/RemoveAdsButton.tsx` в мобильном меню.
+
+**ID, зашитые в коде** (`src/lib/purchases.ts`) — в консолях создавать ровно их:
+
+| Что | Значение |
+|---|---|
+| Entitlement (RevenueCat) | `ad_free` |
+| Product ID — iOS | `removeads_KG` |
+| Product ID — Android | `removeads_KG` (менять в `PRODUCT_IDS`, если завели иначе) |
+
+⚠️ Почему не короткий `removeads`, как на KZ: в App Store Connect product ID
+уникален **в пределах всего аккаунта разработчика**, а `removeads` уже занят
+приложением calk.kz. В Google Play уникальность — в пределах приложения, там
+короткий ID был бы возможен, но для единообразия заведён тот же `removeads_KG`.
 
 Ничего из этого файла нельзя сделать из кода — только руками в консолях.
 Порядок важен. Источник схемы: `~/.claude/projects/-Users-konstantin-Projects-KZ-CALK/memory/revenuecat-iap-wiring.md`.
@@ -13,9 +25,18 @@
 ## 1. App Store Connect (iOS)
 
 1. **Монетизация → Покупки в приложении → создать**:
-   - тип **Non-Consumable**, Product ID **`removeads`**,
+   - тип **Non-Consumable**, Product ID **`removeads_KG`**, Reference Name — любое (напр. `removeads`),
    - цена (на calk.kz — 999 ₸; для KG задать свою, напр. уровень ≈199 сом),
-   - локализации RU/KY, скриншот для ревью.
+   - **Localizations**: добавить RU (и KY, если доступен) — Display Name
+     «Без рекламы» / «Жарнамасыз», Description «Отключает рекламу в приложении
+     навсегда. Разовая покупка, действует на всех ваших устройствах».
+   - **Review Information → Screenshot**: обязателен. Снять экран приложения с
+     кнопкой «Убрать рекламу навсегда» (мобильное меню) — симулятор подойдёт.
+     Скрин без кнопки = отклонение «не смогли найти покупку».
+   - **Review Notes**: указать путь к кнопке, например:
+     «Открыть приложение → значок меню в правом верхнем углу → блок
+      "Убрать рекламу навсегда". Кнопка "Восстановить покупку" — там же.
+      Покупка отключает рекламный баннер AdMob навсегда, разовая, non-consumable.»
 2. **Integrations → In-App Purchase → сгенерировать ключ** → скачается
    `SubscriptionKey_XXXXXXXXXX.p8`.
    ⚠️ Это НЕ тот же ключ, что «App Store Connect API» (`AuthKey_*.p8`) — со
@@ -25,7 +46,7 @@
 
 ## 2. Google Play Console (Android)
 
-1. **Продукты → Контент для продажи → создать**: ID **`removeads`**,
+1. **Продукты → Контент для продажи → создать**: ID **`removeads_KG`**,
    одноразовый (one-time), цена.
 2. У purchase option поставить галку **«Backwards compatible»** — без неё
    биллинг по базовому product ID покупку не видит.
@@ -44,7 +65,7 @@
    - **Play Store**: package name = **applicationId из `android/app/build.gradle`**
      (⚠️ НЕ appId капаситора, если они различаются — на KZ это была грабля:
      `calk.kz` vs `kz.calk.app`); загрузить JSON сервис-аккаунта.
-2. **Product catalog** → создать **ДВЕ записи продукта** `removeads`
+2. **Product catalog** → создать **ДВЕ записи продукта** `removeads_KG`
    (одна для App Store, одна для Play) — по записи на платформу.
 3. **Entitlements** → создать **`ad_free`** → привязать **ОБА** продукта.
    ⚠️ Симптом забытой привязки: стор покупку проводит, деньги списываются,
