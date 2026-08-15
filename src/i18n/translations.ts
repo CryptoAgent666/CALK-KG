@@ -10,6 +10,13 @@ export const translations = {
     nav_construction: 'Строительство',
     nav_utilities: 'Коммунальные',
     nav_other: 'Разное',
+    removeads_pitch: '35 калькуляторов навсегда без рекламы — по цене пары чашек кофе ☕',
+    removeads_forever: 'Убрать рекламу навсегда',
+    removeads_one_time: 'Разовая покупка — навсегда, на всех ваших устройствах',
+    removeads_processing: 'Обработка…',
+    removeads_restore: 'Восстановить покупку',
+    removeads_restoring: 'Восстановление…',
+    removeads_disabled: '✓ Реклама отключена',
     nav_about: 'О нас',
     
     // Hero section
@@ -7529,6 +7536,13 @@ export const translations = {
     nav_construction: 'Курулуш',
     nav_utilities: 'Коммуналдык',
     nav_other: 'Башка',
+    removeads_pitch: '35 калькулятор биротоло жарнамасыз — эки чыны кофенин баасына ☕',
+    removeads_forever: 'Жарнаманы биротоло алып салуу',
+    removeads_one_time: 'Бир жолку сатып алуу — биротоло, бардык түзмөктөрүңүздө',
+    removeads_processing: 'Иштетилүүдө…',
+    removeads_restore: 'Сатып алууну калыбына келтирүү',
+    removeads_restoring: 'Калыбына келтирилүүдө…',
+    removeads_disabled: '✓ Жарнама өчүрүлдү',
     nav_about: 'Биз жөнүндө',
     
     // Hero section

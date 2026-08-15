@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Calculator, Menu, X, Home, Info, DollarSign, Car, Building2, Zap, MoreHorizontal, Wallet, Lightbulb, FileText } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { RemoveAdsButton } from './RemoveAdsButton';
 import LanguageSelector from './LanguageSelector';
 import { categories } from '../data/categories';
 
@@ -138,6 +139,11 @@ const Header = () => {
                 <span>{t('nav_about')}</span>
               </Link>
             </nav>
+
+            {/* «Убрать рекламу» — рендерится только в нативном приложении */}
+            <div className="mt-4">
+              <RemoveAdsButton />
+            </div>
 
             {/* Разделитель */}
             <div className="my-6 border-t border-gray-200" />

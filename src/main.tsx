@@ -7,6 +7,7 @@ import App from './App.tsx';
 import { initWebAds } from './lib/webAds';
 import { initNativeAds } from './lib/admob';
 import { initNativeUI } from './lib/nativeUI';
+import { initPurchases } from './lib/purchases';
 import './index.css';
 
 const container = document.getElementById('root')!;
@@ -36,6 +37,9 @@ createRoot(container).render(AppWrapper);
 
 // Native shell setup (status bar safe-area) + ads.
 initNativeUI();
+// Покупки RevenueCat (entitlement ad_free). Инициализируем ДО рекламы, чтобы
+// у купивших баннер не мелькал (isAdFree() читает кэш синхронно).
+initPurchases();
 // Ads: AdSense on web (stripped from app builds), native AdMob inside the apps.
 initWebAds();
 initNativeAds();

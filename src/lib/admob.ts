@@ -2,6 +2,7 @@
 // On the web Capacitor.isNativePlatform() is false, so this is a no-op there.
 // Plugin is dynamically imported so it never bloats the web bundle.
 import { Capacitor } from '@capacitor/core';
+import { isAdFree, onAdFreeChange } from './purchases';
 
 // Google's official TEST ad units (safe during development — never click real ads).
 const TEST_BANNER = {
@@ -14,8 +15,23 @@ const PROD_BANNER = {
   android: 'ca-app-pub-4859241862365215/2108777250',
 };
 
+/** Скрыть и убрать баннер (после покупки «Убрать рекламу» посреди сессии). */
+async function hideBanner(): Promise<void> {
+  try {
+    const { AdMob } = await import('@capacitor-community/admob');
+    await AdMob.hideBanner();
+    await AdMob.removeBanner();
+  } catch {
+    /* ignore */
+  }
+}
+
 export async function initNativeAds(): Promise<void> {
   if (!Capacitor.isNativePlatform()) return;
+  // Пользователь купил «Убрать рекламу» → не грузим и не показываем ничего.
+  // isAdFree() читает localStorage-кэш синхронно, поэтому у купивших баннер
+  // не мелькает даже до ответа RevenueCat (initPurchases стартует раньше в main.tsx).
+  if (isAdFree()) return;
   try {
     const { AdMob, BannerAdSize, BannerAdPosition } = await import('@capacitor-community/admob');
     await AdMob.initialize();
@@ -31,6 +47,9 @@ export async function initNativeAds(): Promise<void> {
       position: BannerAdPosition.BOTTOM_CENTER,
       margin: 0,
     });
+
+    // Если пользователь купит «Убрать рекламу» во время сессии — убрать баннер сразу.
+    onAdFreeChange((adFree) => { if (adFree) void hideBanner(); });
   } catch (err) {
     // Never let an ad failure break the app.
     console.warn('[admob] init/banner failed:', err);

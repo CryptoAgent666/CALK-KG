@@ -1,0 +1,88 @@
+# IAP «Убрать рекламу» — настройка консолей (calk.kg)
+
+Код уже в репозитории (порт с calk.kz, где схема проверена end-to-end в июле 2026):
+`src/lib/purchases.ts` (RevenueCat), гейт рекламы в `src/lib/admob.ts`, кнопка
+`src/components/RemoveAdsButton.tsx` в мобильном меню. Жёстко зашито:
+**entitlement `ad_free` ↔ product `removeads`** — в консолях создавать именно эти ID.
+
+Ничего из этого файла нельзя сделать из кода — только руками в консолях.
+Порядок важен. Источник схемы: `~/.claude/projects/-Users-konstantin-Projects-KZ-CALK/memory/revenuecat-iap-wiring.md`.
+
+---
+
+## 1. App Store Connect (iOS)
+
+1. **Монетизация → Покупки в приложении → создать**:
+   - тип **Non-Consumable**, Product ID **`removeads`**,
+   - цена (на calk.kz — 999 ₸; для KG задать свою, напр. уровень ≈199 сом),
+   - локализации RU/KY, скриншот для ревью.
+2. **Integrations → In-App Purchase → сгенерировать ключ** → скачается
+   `SubscriptionKey_XXXXXXXXXX.p8`.
+   ⚠️ Это НЕ тот же ключ, что «App Store Connect API» (`AuthKey_*.p8`) — со
+   StoreKit 2 без In-App Purchase Key транзакции **не записываются вовсе**
+   (кнопка есть, тап пустой). Нужны ОБА, но критичен именно IAP-ключ.
+3. `.p8`-файлы хранить вне git (на KZ они лежали в корне репо untracked — не повторять).
+
+## 2. Google Play Console (Android)
+
+1. **Продукты → Контент для продажи → создать**: ID **`removeads`**,
+   одноразовый (one-time), цена.
+2. У purchase option поставить галку **«Backwards compatible»** — без неё
+   биллинг по базовому product ID покупку не видит.
+3. **Google Cloud** (любой проект) → создать **service account** → JSON-ключ.
+4. **Play Console → Users and permissions** → пригласить e-mail сервис-аккаунта
+   с правами: View app info, View financial data, **Manage orders**.
+   ⚠️ Права применяются до **24–36 часов** — закладывать в срок.
+
+## 3. RevenueCat (dashboard.revenuecat.com)
+
+1. Создать проект **calk-kg**, в нём два приложения:
+   - **App Store**: bundle ID из iOS-проекта; загрузить `SubscriptionKey_*.p8`,
+     **Key ID = ровно 10 символов из имени файла** (`SubscriptionKey_7FM864FBHQ.p8`
+     → `7FM864FBHQ`; на KZ вписали 8 символов и получили «Credentials need attention»);
+     Issuer ID — из ASC → Integrations.
+   - **Play Store**: package name = **applicationId из `android/app/build.gradle`**
+     (⚠️ НЕ appId капаситора, если они различаются — на KZ это была грабля:
+     `calk.kz` vs `kz.calk.app`); загрузить JSON сервис-аккаунта.
+2. **Product catalog** → создать **ДВЕ записи продукта** `removeads`
+   (одна для App Store, одна для Play) — по записи на платформу.
+3. **Entitlements** → создать **`ad_free`** → привязать **ОБА** продукта.
+   ⚠️ Симптом забытой привязки: стор покупку проводит, деньги списываются,
+   а `entitlements.active` пуст → UI не реагирует.
+4. **Project Settings → API keys** → скопировать публичные ключи платформ:
+   - `appl_…` → в `.env` как `VITE_RC_IOS_KEY`
+   - `goog_…` → в `.env` как `VITE_RC_ANDROID_KEY`
+   (это НЕ секретные `sk_`-ключи, в клиенте им можно жить; но `.env` в gitignore).
+
+## 4. Пересборка и релиз
+
+RevenueCat — **нативный** плагин: доезжает до пользователей ТОЛЬКО новой
+сборкой в сторы (НЕ через Capgo OTA). `npx cap sync` уже выполнен, плагин
+в обеих платформах зарегистрирован.
+
+- Поднять версии (Android versionCode, iOS build), собрать `.aab` + архив iOS,
+  залить в Play Console (internal testing) и TestFlight.
+- В старых бинарях (1.0.8 и ниже) OTA-бандл кнопку НЕ покажет —
+  `purchasesAvailable()` проверяет наличие нативного модуля. Это ожидаемо.
+
+## 5. Тестирование
+
+- **iOS**: TestFlight + sandbox Apple ID. Цена показывается в валюте страны
+  sandbox-аккаунта — это нормально.
+- **Android**: Internal testing; Play Console → Settings → Licence testing →
+  добавить свой gmail → метод «Test card, always approves».
+- Купить → баннер исчезает сразу; переустановить → «Восстановить покупку» →
+  статус возвращается. Восстановление также лечит рассинхрон после починки
+  конфига без переустановки.
+
+## Известные грабли (уже учтены в коде, не сломать при правках)
+
+- `getProducts` вызывается с `type: 'NON_SUBSCRIPTION'` — обязательный параметр:
+  Android-плагин иначе спрашивает у Play несуществующую ПОДПИСКУ `removeads` →
+  пустой список → цена null → тап в тупик. На iOS параметр игнорируется, поэтому
+  баг выглядит как «на айфоне работает, на андроиде нет».
+- `initPurchases()` в `main.tsx` вызывается ДО `initNativeAds()` — у купивших
+  баннер не мелькает (isAdFree читает localStorage синхронно).
+- Кнопка «Восстановить покупку» обязательна для Apple (Guideline 3.1.1) — не удалять.
+- Fallback-цена в `purchases.ts` (`REMOVE_ADS_FALLBACK_PRICE`) — держать в
+  синхроне с ценой в сторах; живая цена всегда приходит из стора.
