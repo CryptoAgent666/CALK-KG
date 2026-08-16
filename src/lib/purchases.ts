@@ -75,6 +75,37 @@ const RC_API_KEYS = {
   android: import.meta.env.VITE_RC_ANDROID_KEY ?? 'goog_XXXXXXXXXXXXXXXXXXXXXXXX',
 };
 
+/**
+ * Диагностика проблем со стором.
+ *
+ * Для пользователя молчаливый провал — правильное поведение (оффер прячется,
+ * тупиковых кнопок нет). Но при отладке он неотличим: «продукт ещё не разъехался
+ * по трекам Play», «приложение поставлено не из стора», «аккаунт не в
+ * тестировщиках», «собрано с плейсхолдером ключа» дают одну и ту же пустоту.
+ * Поэтому причину пишем в консоль.
+ *
+ * Смотреть: Android — `adb logcat -s Capacitor/Console:*`, либо chrome://inspect;
+ * iOS — Safari → Разработка → устройство → консоль.
+ */
+function keyHint(): string {
+  const platform = Capacitor.getPlatform();
+  const key = platform === 'ios' ? RC_API_KEYS.ios : RC_API_KEYS.android;
+  // 9 символов хватает, чтобы отличить настоящий ключ от плейсхолдера XXXX.
+  return `${platform}, ключ ${key.slice(0, 9)}…`;
+}
+
+function logStoreIssue(what: string, e?: unknown): void {
+  let detail = '';
+  if (e instanceof Error) {
+    // У ошибок RevenueCat полезное (code, underlyingErrorMessage) лежит в
+    // неперечисляемых свойствах — обычный JSON.stringify их теряет.
+    detail = `: ${JSON.stringify(e, Object.getOwnPropertyNames(e))}`;
+  } else if (e !== undefined) {
+    detail = `: ${String(e)}`;
+  }
+  console.error(`[purchases] ${what} (${keyHint()})${detail}`);
+}
+
 function readCache(): boolean {
   try { return localStorage.getItem(CACHE_KEY) === '1'; } catch { return false; }
 }
@@ -119,7 +150,8 @@ export async function initPurchases(): Promise<void> {
   let Purchases: typeof import('@revenuecat/purchases-capacitor').Purchases;
   try {
     ({ Purchases } = await loadSdk());
-  } catch {
+  } catch (e) {
+    logStoreIssue('SDK не загрузился', e);
     return;
   }
 
@@ -137,11 +169,14 @@ export async function initPurchases(): Promise<void> {
     try {
       const { customerInfo } = await Purchases.getCustomerInfo();
       setAdFree(hasEntitlement(customerInfo));
-    } catch {
-      /* офлайн — остаёмся на закэшированном значении */
+    } catch (e) {
+      // Офлайн — остаёмся на закэшированном значении. Но сюда же прилетает
+      // 401 при неверном ключе RevenueCat, поэтому молчать нельзя.
+      logStoreIssue('статус покупок не получен', e);
     }
-  } catch {
-    /* конфиг не удался → безопасный дефолт: реклама показывается */
+  } catch (e) {
+    // Конфиг не удался → безопасный дефолт: реклама показывается.
+    logStoreIssue('configure не прошёл', e);
   }
 }
 
@@ -178,8 +213,15 @@ export async function getRemoveAdsPrice(): Promise<string | null> {
   try {
     const { Purchases } = await loadSdk();
     const product = await fetchRemoveAdsProduct(Purchases);
+    if (!product) {
+      // Не ошибка, а пустой список: стор не знает такого продукта ДЛЯ ЭТОЙ
+      // установки. Обычно — приложение поставлено не из стора, аккаунт не в
+      // тестировщиках трека, или продукт ещё не разъехался после создания.
+      logStoreIssue(`стор вернул пустой список для «${removeAdsProductId()}»`);
+    }
     return product?.priceString ?? null;
-  } catch {
+  } catch (e) {
+    logStoreIssue('запрос продукта не прошёл', e);
     return null;
   }
 }
@@ -196,7 +238,10 @@ export async function buyRemoveAds(): Promise<BuyResult> {
   try {
     const { Purchases } = await loadSdk();
     const product = await fetchRemoveAdsProduct(Purchases);
-    if (!product) return 'unavailable';
+    if (!product) {
+      logStoreIssue(`покупка невозможна — стор не отдал «${removeAdsProductId()}»`);
+      return 'unavailable';
+    }
     const { customerInfo } = await Purchases.purchaseStoreProduct({ product });
     const ok = hasEntitlement(customerInfo);
     setAdFree(ok);
@@ -204,6 +249,7 @@ export async function buyRemoveAds(): Promise<BuyResult> {
   } catch (e) {
     // Отмена пользователем — не ошибка.
     const cancelled = !!(e as { userCancelled?: boolean })?.userCancelled;
+    if (!cancelled) logStoreIssue('покупка не прошла', e);
     return cancelled ? 'cancelled' : 'failed';
   }
 }
@@ -217,7 +263,8 @@ export async function restorePurchases(): Promise<boolean> {
     const ok = hasEntitlement(customerInfo);
     setAdFree(ok);
     return ok;
-  } catch {
+  } catch (e) {
+    logStoreIssue('восстановление не прошло', e);
     return false;
   }
 }

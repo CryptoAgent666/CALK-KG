@@ -15,6 +15,7 @@ export const ky: Record<string, string> = {
   "removeads_restore": "Сатып алууну калыбына келтирүү",
   "removeads_restoring": "Калыбына келтирилүүдө…",
   "removeads_disabled": "✓ Жарнама өчүрүлдү",
+  "removeads_unavailable": "Сатып алуу азырынча жеткиликсиз. Мурда сатып алган болсоңуз — төмөндөн калыбына келтириңиз.",
   "nav_about": "Биз жөнүндө",
   "hero_title": "Онлайн калькуляторлор",
   "hero_subtitle": "Кыргызстан үчүн",

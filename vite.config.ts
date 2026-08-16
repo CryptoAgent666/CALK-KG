@@ -5192,7 +5192,12 @@ export default defineConfig({
     minify: 'terser',
     terserOptions: {
       compress: {
-        drop_console: true, // Remove console.log in production
+        // Убираем шум (log/debug/info), но НЕ error и warn.
+        // Было drop_console: true — вырезало ВСЮ консоль, включая console.error.
+        // Из-за этого диагностика покупок (src/lib/purchases.ts) в релизных
+        // сборках не существовала: Google Play не отдавал товар, а в логе
+        // приложения не было ни строчки о причине.
+        pure_funcs: ['console.log', 'console.debug', 'console.info'],
         drop_debugger: true,
       },
     },

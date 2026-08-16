@@ -73,6 +73,12 @@ export function RemoveAdsButton() {
           <p className="mt-2 text-center text-xs text-gray-500">{t('removeads_one_time')}</p>
         </>
       )}
+      {/* Стор не отдал продукт. Без этой строки остаётся рамка с одинокой кнопкой
+          «Восстановить покупку» — предложение восстановить то, что даже не
+          предлагали купить. Саму кнопку убирать нельзя: Apple 3.1.1. */}
+      {price === null && (
+        <p className="text-center text-xs text-gray-500">{t('removeads_unavailable')}</p>
+      )}
       <button
         onClick={restore}
         disabled={busy !== null}
