@@ -20,6 +20,10 @@ export const translations = {
     removeads_unavailable: 'Покупка сейчас недоступна. Если вы уже покупали — восстановите ниже.',
     removeads_tired: 'Надоела реклама?',
     removeads_remove_for: 'Убрать навсегда за',
+    removeads_watch: 'Ролик — {h} часов без рекламы',
+    removeads_watch_loading: 'Загрузка ролика…',
+    removeads_watch_failed: 'Ролик не загрузился, попробуйте позже',
+    removeads_temp_until: 'Реклама отключена до {time}',
     nav_about: 'О нас',
     
     // Hero section
@@ -7549,6 +7553,10 @@ export const translations = {
     removeads_unavailable: 'Сатып алуу азырынча жеткиликсиз. Мурда сатып алган болсоңуз — төмөндөн калыбына келтириңиз.',
     removeads_tired: 'Жарнама тажаттыбы?',
     removeads_remove_for: 'Биротоло алып салуу —',
+    removeads_watch: 'Ролик көрүү — {h} саат жарнамасыз',
+    removeads_watch_loading: 'Ролик жүктөлүүдө…',
+    removeads_watch_failed: 'Ролик жүктөлгөн жок, кийинчерээк аракет кылыңыз',
+    removeads_temp_until: 'Жарнама {time} чейин өчүк',
     nav_about: 'Биз жөнүндө',
     
     // Hero section

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, PlayCircle } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import {
   isAdFree,
@@ -10,6 +10,13 @@ import {
   getRemoveAdsPrice,
   REMOVE_ADS_FALLBACK_PRICE,
 } from '../lib/purchases';
+import {
+  rewardedAvailable,
+  watchAdForTempAdFree,
+  tempAdFreeActive,
+  tempAdFreeUntil,
+  TEMP_AD_FREE_HOURS,
+} from '../lib/admob';
 
 /**
  * Блок «Убрать рекламу навсегда» + «Восстановить покупку».
@@ -22,7 +29,10 @@ import {
 export function RemoveAdsButton() {
   const { t } = useLanguage();
   const [adFree, setAdFree] = useState(isAdFree());
-  const [busy, setBusy] = useState<'buy' | 'restore' | null>(null);
+  const [busy, setBusy] = useState<'buy' | 'restore' | 'watch' | null>(null);
+  // tick — перечитать tempAdFreeActive() после награды/истечения при рендере.
+  const [, setTick] = useState(0);
+  const [watchFailed, setWatchFailed] = useState(false);
   // Цена: 'loading' — показываем запасную, тап разрешён; null после загрузки —
   // стор ничего не отдал, оффер прячем (иначе тап ведёт в тупик).
   const [price, setPrice] = useState<string | null>(REMOVE_ADS_FALLBACK_PRICE);
@@ -54,6 +64,22 @@ export function RemoveAdsButton() {
     setBusy('restore');
     try { await restorePurchases(); } finally { setBusy(null); }
   };
+  const watch = async () => {
+    setBusy('watch');
+    setWatchFailed(false);
+    try {
+      const result = await watchAdForTempAdFree();
+      if (result === 'failed' || result === 'unavailable') setWatchFailed(true);
+    } finally {
+      setBusy(null);
+      setTick((n) => n + 1); // перечитать tempAdFreeActive()
+    }
+  };
+
+  const tempActive = tempAdFreeActive();
+  const tempUntilLabel = tempActive
+    ? new Date(tempAdFreeUntil()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    : '';
 
   return (
     <div className="rounded-xl border border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50 p-4">
@@ -71,6 +97,28 @@ export function RemoveAdsButton() {
             {busy === 'buy' ? t('removeads_processing') : `${t('removeads_forever')} — ${price}`}
           </button>
           <p className="mt-2 text-center text-xs text-gray-500">{t('removeads_one_time')}</p>
+          {/* Бесплатная альтернатива: ролик = TEMP_AD_FREE_HOURS часов без рекламы.
+              Даёт распробовать тишину и подводит к покупке навсегда. Пока идёт
+              выданный период — вместо кнопки показываем «до какого часа». */}
+          {rewardedAvailable() && (tempActive ? (
+            <p className="mt-2 text-center text-xs font-medium text-green-700">
+              {t('removeads_temp_until').replace('{time}', tempUntilLabel)}
+            </p>
+          ) : (
+            <button
+              onClick={watch}
+              disabled={busy !== null}
+              className="mt-2 flex w-full items-center justify-center gap-2 rounded-lg border border-blue-300 bg-white px-4 py-2.5 text-sm font-medium text-blue-700 transition-colors hover:bg-blue-50 disabled:opacity-60"
+            >
+              <PlayCircle className="h-4 w-4" />
+              {busy === 'watch'
+                ? t('removeads_watch_loading')
+                : t('removeads_watch').replace('{h}', String(TEMP_AD_FREE_HOURS))}
+            </button>
+          ))}
+          {watchFailed && (
+            <p className="mt-1 text-center text-xs text-red-600">{t('removeads_watch_failed')}</p>
+          )}
         </>
       )}
       {/* Стор не отдал продукт. Без этой строки остаётся рамка с одинокой кнопкой
