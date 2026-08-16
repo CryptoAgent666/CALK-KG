@@ -18,6 +18,8 @@ export const translations = {
     removeads_restoring: 'Восстановление…',
     removeads_disabled: '✓ Реклама отключена',
     removeads_unavailable: 'Покупка сейчас недоступна. Если вы уже покупали — восстановите ниже.',
+    removeads_tired: 'Надоела реклама?',
+    removeads_remove_for: 'Убрать навсегда за',
     nav_about: 'О нас',
     
     // Hero section
@@ -7545,6 +7547,8 @@ export const translations = {
     removeads_restoring: 'Калыбына келтирилүүдө…',
     removeads_disabled: '✓ Жарнама өчүрүлдү',
     removeads_unavailable: 'Сатып алуу азырынча жеткиликсиз. Мурда сатып алган болсоңуз — төмөндөн калыбына келтириңиз.',
+    removeads_tired: 'Жарнама тажаттыбы?',
+    removeads_remove_for: 'Биротоло алып салуу —',
     nav_about: 'Биз жөнүндө',
     
     // Hero section

@@ -15,6 +15,8 @@ import CalculatorGrid from './components/CalculatorGrid';
 import ContentBlock from './components/ContentBlock';
 import Footer from './components/Footer';
 import CookieConsentBanner from './components/CookieConsentBanner';
+import { RemoveAdsToast } from './components/RemoveAdsToast';
+import { maybeShowInterstitial } from './lib/admob';
 import VisualBreadcrumbs from './components/VisualBreadcrumbs';
 import { calculators } from './data/calculators';
 
@@ -189,6 +191,12 @@ function App() {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
+  // Интерстишал AdMob при навигации — native-only no-op на вебе,
+  // частотные лимиты внутри (схема calk.kz: с 3-й навигации, раз в 3 минуты).
+  useEffect(() => {
+    void maybeShowInterstitial();
+  }, [location.pathname]);
+
   const calculatorRoutes = [
     { path: 'calculator/currency-exchange', element: <CurrencyExchangePage /> },
     { path: 'calculator/money-transfer', element: <MoneyTransferCalculatorPage /> },
@@ -272,6 +280,9 @@ function App() {
       {/* Cookie consent is for the website (AdSense/GA). Native apps strip AdSense and
           handle ad consent via ATT/UMP, so it's omitted there (VITE_CALK_PLATFORM=app). */}
       {import.meta.env.VITE_CALK_PLATFORM !== 'app' && <CookieConsentBanner />}
+      {/* Тост «убрать рекламу» после каждого 3-го интерстишела — сам по себе
+          рендерится только в приложении с модулем покупок (purchasesAvailable). */}
+      <RemoveAdsToast />
     </div>
   );
 }

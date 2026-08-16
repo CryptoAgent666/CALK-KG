@@ -16,6 +16,8 @@ export const ru: Record<string, string> = {
   "removeads_restoring": "Восстановление…",
   "removeads_disabled": "✓ Реклама отключена",
   "removeads_unavailable": "Покупка сейчас недоступна. Если вы уже покупали — восстановите ниже.",
+  "removeads_tired": "Надоела реклама?",
+  "removeads_remove_for": "Убрать навсегда за",
   "nav_about": "О нас",
   "hero_title": "Онлайн калькуляторы",
   "hero_subtitle": "для Кыргызстана",
