@@ -29,7 +29,8 @@
 
 1. **Монетизация → Покупки в приложении → создать**:
    - тип **Non-Consumable**, Product ID **`removeads_KG`**, Reference Name — любое (напр. `removeads`),
-   - цена (на calk.kz — 999 ₸; для KG задать свою, напр. уровень ≈199 сом),
+   - цена **1,99 USD** (кыргызского сома нет в списке валют Play — стор сам
+     конвертирует покупателю; в ASC цена задана тем же уровнем),
    - **Localizations**: добавить RU (и KY, если доступен) — Display Name
      «Без рекламы» / «Жарнамасыз», Description «Отключает рекламу в приложении
      навсегда. Разовая покупка, действует на всех ваших устройствах».
@@ -88,9 +89,33 @@ AdSense и cookie-баннер.
    с правами: View app info, View financial data, **Manage orders**.
    ⚠️ Права применяются до **24–36 часов** — закладывать в срок.
 
-## 3. RevenueCat (dashboard.revenuecat.com)
+## 3. RevenueCat (dashboard.revenuecat.com) — ✅ НАСТРОЕНО 16.08.2026
 
-**Данные проекта calk.kg** (проверены в репозитории, копировать как есть):
+Проект **Calk.kg** заведён, обе платформы подключены, entitlement собран:
+
+| Что | Значение |
+|---|---|
+| App Store app | `app861453175c` · bundle `kg.calk.ios` |
+| Play Store app | `appc07dccdc93` · package `kg.calk.app` |
+| Entitlement | `ad_free` (REST id `entl5e4578f417`) → привязаны ОБА продукта |
+| Статус продукта Play | Published ✅ |
+| Статус продукта App Store | ⚠️ **Missing Metadata** — доделать в ASC (см. ниже) |
+
+Публичные SDK-ключи лежат в `.env` (`VITE_RC_IOS_KEY` / `VITE_RC_ANDROID_KEY`),
+оба проверены живым запросом `GET api.revenuecat.com/v1/subscribers/...` → HTTP 201/200.
+
+**Offerings не нужны:** `default` пустой, и это нормально — код запрашивает продукт
+напрямую через `getProducts({ productIdentifiers, type })`, минуя каталог offerings.
+Заводить Package/Offering не требуется.
+
+**«Missing Metadata» — это статус САМОГО продукта в App Store Connect**, RevenueCat лишь
+его показывает (то есть связка ASC ↔ RC работает). Снимается в ASC: Localizations +
+Review Screenshot + Review Notes. Пока статус не станет «Ready to Submit», покупка
+на iOS в проде работать не будет.
+
+---
+
+**Исходные данные проекта** (для справки / пересоздания):
 
 | Что | Значение |
 |---|---|
@@ -115,7 +140,7 @@ calk.kz (там были разные — `calk.kz` vs `kz.calk.app`) в это�
 `gen-lang-client-*.json`, `*service-account*.json`, `*.p8`). GitHub push protection
 блокирует пуш при попытке закоммитить такой ключ — проверено 16.08.2026.
 
-### Шаги
+### Шаги (выполнены 16.08.2026 — оставлены для воспроизведения)
 
 1. **New project** → назвать `calk-kg` (проекты в RC не связаны между собой,
    отдельный проект на приложение — норма).
