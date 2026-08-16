@@ -24,6 +24,13 @@ const Footer = () => {
             <p className="text-gray-400 leading-relaxed mb-4">
               {t('footer_description')}
             </p>
+            {/* Бейджи сторов — ТОЛЬКО на сайте. В нативных сборках блок вырезается
+                статически (VITE_CALK_PLATFORM=app): внутри приложения бейджи — мёртвый UI,
+                а бейдж Google Play в iOS-бинаре — реджект 2.3.10 (класс CRYPTOCALK:
+                Review Suspended за бейдж в футере на каждой странице). Условие обязано
+                оставаться статическим import.meta.env-сравнением — тогда terser выкидывает
+                и разметку, и сам URL play.google.com из бандла. */}
+            {import.meta.env.VITE_CALK_PLATFORM !== 'app' && (
             <div className="flex flex-wrap items-center gap-3">
               <a
                 href="https://apps.apple.com/app/id6771220038"
@@ -59,6 +66,7 @@ const Footer = () => {
                 </svg>
               </a>
             </div>
+            )}
           </div>
 
           <div>
