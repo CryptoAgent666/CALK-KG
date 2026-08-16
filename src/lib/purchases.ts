@@ -60,9 +60,12 @@ export function purchasesAvailable(): boolean {
 }
 
 /** Запасная цена для UI, пока RevenueCat не вернул локализованную (getRemoveAdsPrice).
- *  Держать в синхроне с ценой продукта в App Store Connect / Google Play.
- *  Живая цена приходит из стора автоматически — это только на миг загрузки/оффлайн. */
-export const REMOVE_ADS_FALLBACK_PRICE = '199 сом';
+ *  Живая цена приходит из стора автоматически и уже локализована — это значение
+ *  видно лишь на миг загрузки и офлайн.
+ *  ⚠️ Цена продукта задана в USD (1,99): кыргызского сома нет в списке валют
+ *  Google Play, стор сам конвертирует для покупателя. Держать в синхроне с
+ *  консолями: App Store Connect и Play → purchase option `removeads-kg`. */
+export const REMOVE_ADS_FALLBACK_PRICE = '$1.99';
 
 // Публичные SDK-ключи RevenueCat (Project Settings → API keys, по одному на
 // платформу). Их МОЖНО держать в клиенте — это НЕ секретные `sk_`-ключи.

@@ -90,24 +90,53 @@ AdSense и cookie-баннер.
 
 ## 3. RevenueCat (dashboard.revenuecat.com)
 
-1. Создать проект **calk-kg**, в нём два приложения:
-   - **App Store**: bundle ID из iOS-проекта; загрузить `SubscriptionKey_*.p8`,
-     **Key ID = ровно 10 символов из имени файла** (`SubscriptionKey_7FM864FBHQ.p8`
-     → `7FM864FBHQ`; на KZ вписали 8 символов и получили «Credentials need attention»);
-     Issuer ID — из ASC → Integrations.
-   - **Play Store**: package name = **applicationId из `android/app/build.gradle`**
-     (⚠️ НЕ appId капаситора, если они различаются — на KZ это была грабля:
-     `calk.kz` vs `kz.calk.app`); загрузить JSON сервис-аккаунта.
-2. **Product catalog** → создать **ДВЕ записи продукта**: `removeads_KG`
-   для App Store и `removeads_kg` для Play — по записи на платформу,
-   с точным регистром каждой консоли.
-3. **Entitlements** → создать **`ad_free`** → привязать **ОБА** продукта.
-   ⚠️ Симптом забытой привязки: стор покупку проводит, деньги списываются,
-   а `entitlements.active` пуст → UI не реагирует.
-4. **Project Settings → API keys** → скопировать публичные ключи платформ:
-   - `appl_…` → в `.env` как `VITE_RC_IOS_KEY`
-   - `goog_…` → в `.env` как `VITE_RC_ANDROID_KEY`
-   (это НЕ секретные `sk_`-ключи, в клиенте им можно жить; но `.env` в gitignore).
+**Данные проекта calk.kg** (проверены в репозитории, копировать как есть):
+
+| Что | Значение |
+|---|---|
+| iOS bundle ID | `kg.calk.ios` |
+| Android package name | `kg.calk.app` (= applicationId из `android/app/build.gradle`) |
+| Product ID iOS | `removeads_KG` |
+| Product ID Android | `removeads_kg` |
+| Entitlement | `ad_free` |
+
+Здесь appId Capacitor и applicationId совпадают (`kg.calk.app`), так что грабли
+calk.kz (там были разные — `calk.kz` vs `kz.calk.app`) в этом проекте нет.
+
+**Ключи и сервис-аккаунт — переиспользуются с calk.kz**, если приложения в том же
+аккаунте разработчика (Apple Developer / Google Play):
+- **Android:** JSON сервис-аккаунта `revenuecat-play@…` (тот же, что для calk.kz).
+  Права на приложение Calk.kg выданы 16.08.2026.
+- **iOS:** In-App Purchase Key (`SubscriptionKey_*.p8`) выдаётся на уровне
+  АККАУНТА разработчика, а не приложения, поэтому файл от calk.kz подходит и для KG.
+  Key ID — 10 символов из имени файла; Issuer ID — в ASC → Integrations.
+
+⚠️ Сами файлы ключей в репозитории НЕ хранить (в `.gitignore` закрыты шаблоны
+`gen-lang-client-*.json`, `*service-account*.json`, `*.p8`). GitHub push protection
+блокирует пуш при попытке закоммитить такой ключ — проверено 16.08.2026.
+
+### Шаги
+
+1. **New project** → назвать `calk-kg` (проекты в RC не связаны между собой,
+   отдельный проект на приложение — норма).
+2. **Apps → App Store**: bundle ID `kg.calk.ios`; загрузить `SubscriptionKey_*.p8`,
+   Key ID `7FM864FBHQ` (ровно 10 символов — на KZ вписали 8 и получили
+   «Credentials need attention»), Issuer ID из ASC → Integrations.
+3. **Apps → Play Store**: package name `kg.calk.app`; загрузить JSON сервис-аккаунта.
+   ⚠️ Если права выданы меньше суток назад, RC может ругаться на доступ — это
+   нормально, повторить позже (применяются до 24–36 ч).
+4. **Product catalog → + New**: создать ДВЕ записи:
+   - App Store → `removeads_KG`
+   - Play Store → `removeads_kg`
+   (регистр разный — так заведено в консолях, см. раздел выше).
+5. **Entitlements → + New** → идентификатор **`ad_free`** → **Attach products** →
+   привязать ОБА продукта.
+   ⚠️ Симптом забытой привязки: стор проводит покупку и списывает деньги, а
+   `entitlements.active` пуст → UI не реагирует, «купил и ничего не изменилось».
+6. **Project Settings → API keys** → скопировать публичные ключи платформ в `.env`:
+   - `appl_…` → `VITE_RC_IOS_KEY`
+   - `goog_…` → `VITE_RC_ANDROID_KEY`
+   Это НЕ секретные `sk_`-ключи, в клиенте им можно жить; `.env` в gitignore.
 
 ## 4. Пересборка и релиз
 

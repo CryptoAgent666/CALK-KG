@@ -87,3 +87,11 @@ README_FINAL.md
 /*.png
 apple-verification.zip
 .playwright-mcp/
+
+# Приватные ключи — НИКОГДА не коммитить.
+# Google Cloud service account (Play Billing / RevenueCat)
+gen-lang-client-*.json
+*service-account*.json
+*-service-account.json
+# Apple: In-App Purchase Key / App Store Connect API Key
+*.p8
