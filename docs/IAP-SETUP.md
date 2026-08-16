@@ -9,13 +9,16 @@
 | Что | Значение |
 |---|---|
 | Entitlement (RevenueCat) | `ad_free` |
-| Product ID — iOS | `removeads_KG` |
-| Product ID — Android | `removeads_KG` (менять в `PRODUCT_IDS`, если завели иначе) |
+| Product ID — iOS | `removeads_KG` (с заглавными) |
+| Product ID — Android | `removeads_kg` (**строчными**) |
 
-⚠️ Почему не короткий `removeads`, как на KZ: в App Store Connect product ID
-уникален **в пределах всего аккаунта разработчика**, а `removeads` уже занят
-приложением calk.kz. В Google Play уникальность — в пределах приложения, там
-короткий ID был бы возможен, но для единообразия заведён тот же `removeads_KG`.
+⚠️ **Регистр на платформах разный, это не опечатка.**
+- iOS: короткий `removeads` занят приложением calk.kz — в App Store Connect ID
+  уникален в пределах всего аккаунта разработчика, отсюда суффикс `_KG`.
+- Android: Google Play **не принимает заглавные буквы** — «Must start with a
+  number or lowercase letter. Can contain numbers, lowercase letters,
+  underscores and full stops», поэтому `removeads_kg`.
+- Play не даёт изменить или переиспользовать ID после создания продукта.
 
 Ничего из этого файла нельзя сделать из кода — только руками в консолях.
 Порядок важен. Источник схемы: `~/.claude/projects/-Users-konstantin-Projects-KZ-CALK/memory/revenuecat-iap-wiring.md`.
@@ -70,8 +73,14 @@ AdSense и cookie-баннер.
 
 ### 2.1. Создать продукт
 
-1. **Продукты → Контент для продажи → создать**: ID **`removeads_KG`**,
+1. **Продукты → Контент для продажи → создать**: ID **`removeads_kg`** (строчными!),
    одноразовый (one-time), цена.
+   - **Name** (виден в корзине, до 55 симв.): «Убрать рекламу навсегда»
+   - **Description** (обязательное, до 200 симв.): «Отключает рекламу в
+     приложении навсегда. Разовая покупка — работает на всех устройствах с
+     вашим аккаунтом Google.»
+   - **Icon** — необязателен. Если добавлять: PNG 32-бит, 1:1, сторона
+     512–1080 px, без текста и брендинга.
 2. У purchase option поставить галку **«Backwards compatible»** — без неё
    биллинг по базовому product ID покупку не видит.
 3. **Google Cloud** (любой проект) → создать **service account** → JSON-ключ.
@@ -89,8 +98,9 @@ AdSense и cookie-баннер.
    - **Play Store**: package name = **applicationId из `android/app/build.gradle`**
      (⚠️ НЕ appId капаситора, если они различаются — на KZ это была грабля:
      `calk.kz` vs `kz.calk.app`); загрузить JSON сервис-аккаунта.
-2. **Product catalog** → создать **ДВЕ записи продукта** `removeads_KG`
-   (одна для App Store, одна для Play) — по записи на платформу.
+2. **Product catalog** → создать **ДВЕ записи продукта**: `removeads_KG`
+   для App Store и `removeads_kg` для Play — по записи на платформу,
+   с точным регистром каждой консоли.
 3. **Entitlements** → создать **`ad_free`** → привязать **ОБА** продукта.
    ⚠️ Симптом забытой привязки: стор покупку проводит, деньги списываются,
    а `entitlements.active` пуст → UI не реагирует.

@@ -23,22 +23,26 @@ const ENTITLEMENT_ID = 'ad_free';
 const CACHE_KEY = 'calk_ad_free';
 
 /**
- * Product ID «Убрать рекламу» — СВОЙ ДЛЯ КАЖДОЙ ПЛАТФОРМЫ.
+ * Product ID «Убрать рекламу» — РАЗНЫЙ НА ПЛАТФОРМАХ, регистр отличается.
  *
- * ⚠️ В App Store Connect product ID уникален в пределах всего аккаунта
- * разработчика: `removeads` уже занят приложением calk.kz, поэтому для KG
- * заведён `removeads_KG`. В Google Play уникальность в пределах приложения,
- * поэтому там можно оставить короткий `removeads` — но если заводите с
- * суффиксом, поменяйте значение здесь.
+ * ⚠️ iOS: `removeads_KG`. В App Store Connect product ID уникален в пределах
+ * ВСЕГО аккаунта разработчика, а короткий `removeads` уже занят приложением
+ * calk.kz — отсюда суффикс.
  *
- * Значение ДОЛЖНО совпадать с product ID в консоли соответствующей платформы
- * и с записью продукта в RevenueCat (Product catalog → две записи, обе
+ * ⚠️ Android: `removeads_kg` — строчными. Google Play не принимает заглавные
+ * буквы в ID: «Must start with a number or lowercase letter. Can contain
+ * numbers, lowercase letters, underscores and full stops.»
+ *
+ * ⚠️ Product ID в Play нельзя изменить или переиспользовать после создания.
+ *
+ * Значения ДОЛЖНЫ совпадать с product ID в консоли соответствующей платформы
+ * и с записями продукта в RevenueCat (Product catalog → две записи, обе
  * привязаны к entitlement `ad_free`). Несовпадение = стор возвращает пустой
- * список → цена null → оффер скрыт, покупка невозможна.
+ * список → цена null → оффер скрыт, покупка невозможна (молчаливый отказ).
  */
 const PRODUCT_IDS = {
   ios: 'removeads_KG',
-  android: 'removeads_KG',
+  android: 'removeads_kg',
 } as const;
 
 function removeAdsProductId(): string {
