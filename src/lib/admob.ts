@@ -27,7 +27,7 @@ const PROD_BANNER = {
 // App ID сверены с проектом: Android ~7373228174 = AndroidManifest,
 // iOS ~2728637081 = Info.plist GADApplicationIdentifier.
 const PROD_INTERSTITIAL = {
-  ios: '', // юнита в iOS-приложении AdMob пока нет — создать Interstitial и вписать
+  ios: 'ca-app-pub-4859241862365215/9899903297', // INTER_KG
   android: 'ca-app-pub-4859241862365215/9795695589', // INTER_KG_ANDR
 };
 const PROD_REWARDED = {
