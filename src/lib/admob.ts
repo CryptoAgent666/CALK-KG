@@ -22,17 +22,17 @@ const PROD_BANNER = {
   ios: 'ca-app-pub-4859241862365215/5907853241',
   android: 'ca-app-pub-4859241862365215/2108777250',
 };
-// ⚠️ Пусто = интерстишал выключен (prepare пропускается, баннер работает как раньше).
-// Заполнить ID из AdMob: приложение Calk.KG (iOS/Android) → Ad units → Interstitial.
+// ⚠️ Пустая строка = формат выключен на этой платформе (prepare пропускается,
+// баннер работает как раньше). ID — из AdMob → приложение Calk.KG → Ad units.
+// App ID сверены с проектом: Android ~7373228174 = AndroidManifest,
+// iOS ~2728637081 = Info.plist GADApplicationIdentifier.
 const PROD_INTERSTITIAL = {
-  ios: '',
-  android: '',
+  ios: '', // юнита в iOS-приложении AdMob пока нет — создать Interstitial и вписать
+  android: 'ca-app-pub-4859241862365215/9795695589', // INTER_KG_ANDR
 };
-// ⚠️ Пусто = rewarded выключен (кнопка «12 часов без рекламы» не показывается).
-// Заполнить ID из AdMob: приложение Calk.KG (iOS/Android) → Ad units → Rewarded.
 const PROD_REWARDED = {
-  ios: '',
-  android: '',
+  ios: 'ca-app-pub-4859241862365215/2606031313',
+  android: 'ca-app-pub-4859241862365215/1428681011', // REWARDED_A
 };
 
 // ── Временное отключение рекламы за просмотр rewarded-ролика ─────────────────
