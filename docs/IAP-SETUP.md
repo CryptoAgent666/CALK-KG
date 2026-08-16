@@ -174,6 +174,40 @@ RevenueCat — **нативный** плагин: доезжает до поль
 - В старых бинарях (1.0.8 и ниже) OTA-бандл кнопку НЕ покажет —
   `purchasesAvailable()` проверяет наличие нативного модуля. Это ожидаемо.
 
+### 4.1. Сборка iOS (Capacitor-проект `ios/App`, НЕ легаси `ios-app/`)
+
+```
+npm run sync:ios
+xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Release \
+  -destination 'generic/platform=iOS' -archivePath build/CalkKG-1.1.2.xcarchive archive
+xcodebuild -exportArchive -archivePath build/CalkKG-1.1.2.xcarchive \
+  -exportOptionsPlist scripts/ios-export-options.plist -exportPath build/export-1.1.2
+```
+
+Подпись manual: сертификат Apple Distribution + профиль «Calk KG App Store»
+(`kg.calk.ios`, действует до 19.05.2027, лежит в
+`~/Library/Developer/Xcode/UserData/Provisioning Profiles/` — Xcode 16+ читает
+именно её, а не старую `~/Library/MobileDevice/Provisioning Profiles/`).
+
+⚠️ **`manageAppVersionAndBuildNumber` держать `false`.** С `true` Xcode на
+экспорте сам переписывает версию и билд, сверяясь с App Store Connect: 22.06.2026
+проект говорил `1.0 / 1`, а в IPA уехало `1.0.1 / 11`. Номера задаются только
+`MARKETING_VERSION` / `CURRENT_PROJECT_VERSION` в `project.pbxproj`.
+
+⚠️ **RevenueCat НЕ появляется в `Payload/App.app/Frameworks/`** — SPM линкует его
+статически в исполняемый файл (в отличие от GoogleMobileAds, который приходит
+готовым XCFramework). Проверять наличие плагина только по символам:
+
+```
+strings Payload/App.app/App | grep -c "RevenueCat\|PurchasesHybridCommon"
+```
+
+Рабочая сборка 1.1.2 — 604 совпадения, сборка без плагина (1.0.1) — 0.
+
+⚠️ **Покупку нельзя отправлять на ревью раньше сборки с ней.** Ревьюер идёт по
+Review Notes и ищет кнопку в том бинаре, что доступен ему. Порядок: залить билд →
+на странице версии приложения прикрепить IAP → отправить вместе.
+
 ## 5. Тестирование
 
 - **iOS**: TestFlight + sandbox Apple ID. Цена показывается в валюте страны
