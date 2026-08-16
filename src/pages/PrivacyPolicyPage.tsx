@@ -202,6 +202,21 @@ const PrivacyPolicyPage = () => {
             </div>
           </div>
 
+          {/* Мобильное приложение: AdMob, разовая покупка, rewarded-ролик, OTA.
+              Формулировки сознательно без «Google Play» — страница входит и в бандл
+              iOS-приложения, где упоминания чужого стора = реджект 2.3.10. */}
+          <div className="mb-12">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('pp_app_title')}</h2>
+            <p className="text-gray-600 leading-relaxed mb-4">{t('pp_app_intro')}</p>
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+              <ul className="list-disc list-inside space-y-2 text-blue-800">
+                {[1, 2, 3, 4].map(i => (
+                  <li key={i}>{t(`pp_app_${i}` as TranslationKey)}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('pp_rights_title')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
