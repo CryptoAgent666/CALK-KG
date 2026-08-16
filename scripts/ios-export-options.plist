@@ -17,6 +17,12 @@
 	</dict>
 	<key>signingCertificate</key>
 	<string>Apple Distribution</string>
+	<!-- false: иначе Xcode на экспорте сам переписывает версию/билд, сверяясь с App Store
+	     Connect (в июне 2026 проект говорил 1.0/1, а в IPA уехало 1.0.1/11 — числа
+	     в pbxproj переставали что-либо значить). Нам нужны ровно MARKETING_VERSION
+	     и CURRENT_PROJECT_VERSION из проекта. -->
+	<key>manageAppVersionAndBuildNumber</key>
+	<false/>
 	<key>uploadSymbols</key>
 	<true/>
 	<key>stripSwiftSymbols</key>
