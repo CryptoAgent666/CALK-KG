@@ -12,7 +12,7 @@ import {
   generateBreadcrumbSchema,
   generateSoftwareApplicationSchema
 } from '../utils/schemaGenerator';
-import { formatCurrentMonth } from '../utils/dateFormatter';
+import { formatVerifiedMonth } from '../utils/dateFormatter';
 import { WeddingCalculatorArticle } from '../components/WeddingCalculatorArticle';
 
 // Конфигурация региональных цен на банкет - актуализированные цены 2026
@@ -231,7 +231,7 @@ const WeddingCalculatorPage = () => {
     </div>
   );
 
-  const currentMonth = formatCurrentMonth(language);
+  const currentMonth = formatVerifiedMonth(language, 'wedding');
   const currentRegionData = BANQUET_PRICES[selectedRegion];
 
   // Расчет процентов для визуализации

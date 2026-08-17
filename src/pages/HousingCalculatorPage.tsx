@@ -11,7 +11,7 @@ import {
   generateCalculatorSchema,
   generateBreadcrumbSchema
 } from '../utils/schemaGenerator';
-import { formatCurrentMonth } from '../utils/dateFormatter';
+import { formatVerifiedMonth } from '../utils/dateFormatter';
 import { HousingCalculatorArticle } from '../components/HousingCalculatorArticle';
 
 const getCityPrices = (t: (key: string) => string) => ({
@@ -266,7 +266,7 @@ const HousingCalculatorPage = () => {
     </div>
   );
 
-  const currentMonth = formatCurrentMonth(language);
+  const currentMonth = formatVerifiedMonth(language, 'housing');
   const currentCityData = HOUSING_PRICES[selectedCity];
 
   return (

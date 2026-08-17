@@ -12,7 +12,7 @@ import {
   generateBreadcrumbSchema,
   generateSoftwareApplicationSchema
 } from '../utils/schemaGenerator';
-import { formatCurrentMonth } from '../utils/dateFormatter';
+import { formatVerifiedMonth } from '../utils/dateFormatter';
 import { PassportCalculatorArticle } from '../components/PassportCalculatorArticle';
 
 type LocalizedCopy = {
@@ -342,7 +342,7 @@ const PassportCalculatorPage = () => {
     </div>
   );
 
-  const currentMonth = formatCurrentMonth(language);
+  const currentMonth = formatVerifiedMonth(language, 'passport');
   // Получение доступных вариантов срочности для выбранной комбинации
   const getAvailableUrgencyOptions = () => {
     if (!documentType || !causeType) return [];

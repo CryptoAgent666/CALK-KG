@@ -13,7 +13,7 @@ import {
   generateBreadcrumbSchema,
   generateSoftwareApplicationSchema
 } from '../utils/schemaGenerator';
-import { formatCurrentMonth } from '../utils/dateFormatter';
+import { formatVerifiedMonth } from '../utils/dateFormatter';
 
 type LocalizedCopy = {
   ru: string;
@@ -334,7 +334,7 @@ const ElectricityCalculatorPage = () => {
   );
 
   const currentTariff = TARIFF_CONFIG[category];
-  const currentMonth = formatCurrentMonth(language);
+  const currentMonth = formatVerifiedMonth(language, 'electricity');
 
   // Расчет процентов для визуализации
   const withinLimitPercentage = results.totalCost > 0 ? (results.withinLimitCost / results.totalCost) * 100 : 0;

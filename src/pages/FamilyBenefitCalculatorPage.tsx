@@ -12,7 +12,7 @@ import {
   generateBreadcrumbSchema,
   generateSoftwareApplicationSchema
 } from '../utils/schemaGenerator';
-import { formatCurrentMonth } from '../utils/dateFormatter';
+import { formatVerifiedMonth } from '../utils/dateFormatter';
 import { FamilyBenefitCalculatorArticle } from '../components/FamilyBenefitCalculatorArticle';
 
 // Конфигурация пособия - легко обновляемая структура
@@ -182,7 +182,7 @@ const FamilyBenefitCalculatorPage = () => {
     </div>
   );
 
-  const currentMonth = formatCurrentMonth(language);
+  const currentMonth = formatVerifiedMonth(language, 'family-benefit');
 
   return (
     <div className="min-h-screen bg-gray-50">

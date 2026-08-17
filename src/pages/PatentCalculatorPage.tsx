@@ -13,7 +13,7 @@ import {
   generateBreadcrumbSchema,
   generateSoftwareApplicationSchema
 } from '../utils/schemaGenerator';
-import { formatCurrentMonth } from '../utils/dateFormatter';
+import { formatVerifiedMonth } from '../utils/dateFormatter';
 
 // ============================================================================
 // КОНФИГУРАЦИЯ ТАРИФОВ НА ПАТЕНТЫ ДЛЯ ИП В КЫРГЫЗСТАНЕ
@@ -440,7 +440,7 @@ const PatentCalculatorPage = () => {
     </div>
   );
 
-  const currentMonth = formatCurrentMonth(language);
+  const currentMonth = formatVerifiedMonth(language, 'patent');
   const filteredActivities = getFilteredActivities();
 
   return (

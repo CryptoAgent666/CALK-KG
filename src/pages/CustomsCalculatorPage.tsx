@@ -13,7 +13,7 @@ import {
   generateBreadcrumbSchema,
   generateSoftwareApplicationSchema
 } from '../utils/schemaGenerator';
-import { formatCurrentMonth } from '../utils/dateFormatter';
+import { formatVerifiedMonth } from '../utils/dateFormatter';
 
 type VehicleType = 'passenger' | 'electric' | 'hybrid' | 'truck' | 'motorcycle';
 
@@ -305,7 +305,7 @@ const CustomsCalculatorPage = () => {
   );
 
   const currentYear = new Date().getFullYear();
-  const currentMonth = formatCurrentMonth(language);
+  const currentMonth = formatVerifiedMonth(language, 'customs');
   
   // Генерация списка лет
   const generateYearOptions = () => {

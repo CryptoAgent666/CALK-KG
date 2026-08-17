@@ -12,7 +12,7 @@ import {
   generateBreadcrumbSchema,
   generateSoftwareApplicationSchema
 } from '../utils/schemaGenerator';
-import { formatCurrentMonth } from '../utils/dateFormatter';
+import { formatVerifiedMonth } from '../utils/dateFormatter';
 import { AlimonyCalculatorArticle } from '../components/AlimonyCalculatorArticle';
 
 // Конфигурация средних зарплат по регионам КР
@@ -223,7 +223,7 @@ const AlimonyCalculatorPage = () => {
     </div>
   );
 
-  const currentMonth = formatCurrentMonth(language);
+  const currentMonth = formatVerifiedMonth(language, 'alimony');
 
   // Получение ставки для текущего количества детей
   const currentRateInfo = ALIMONY_RATES[childrenCount > 3 ? 3 : childrenCount as keyof typeof ALIMONY_RATES];

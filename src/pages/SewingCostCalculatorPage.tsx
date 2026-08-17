@@ -11,7 +11,7 @@ import {
   generateCalculatorSchema,
   generateBreadcrumbSchema
 } from '../utils/schemaGenerator';
-import { formatCurrentMonth } from '../utils/dateFormatter';
+import { formatVerifiedMonth } from '../utils/dateFormatter';
 import { SewingCostCalculatorArticle } from '../components/SewingCostCalculatorArticle';
 
 interface Material {
@@ -210,7 +210,7 @@ const SewingCostCalculatorPage = () => {
     </div>
   );
 
-  const currentMonth = formatCurrentMonth(language);
+  const currentMonth = formatVerifiedMonth(language, 'sewing-cost');
 
   return (
     <div className="min-h-screen bg-gray-50">

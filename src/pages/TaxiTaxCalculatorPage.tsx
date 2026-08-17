@@ -11,7 +11,7 @@ import {
   generateCalculatorSchema,
   generateBreadcrumbSchema
 } from '../utils/schemaGenerator';
-import { formatCurrentMonth } from '../utils/dateFormatter';
+import { formatVerifiedMonth } from '../utils/dateFormatter';
 
 interface TaxiTaxResults {
   income: number;
@@ -108,7 +108,7 @@ const TaxiTaxCalculatorPage = () => {
     </div>
   );
 
-  const currentMonth = formatCurrentMonth(language);
+  const currentMonth = formatVerifiedMonth(language, 'taxi-tax');
   const hasData = results.income > 0;
 
   return (

@@ -12,7 +12,7 @@ import {
   generateCalculatorSchema,
   generateBreadcrumbSchema
 } from '../utils/schemaGenerator';
-import { formatCurrentMonth } from '../utils/dateFormatter';
+import { formatVerifiedMonth } from '../utils/dateFormatter';
 
 // Конфигурация тарифов - легко редактируемая структура
 // АКТУАЛЬНО НА: Отопительный сезон 2025–2026 (тарифы с 01.03.2026)
@@ -226,7 +226,7 @@ const HeatingCalculatorPage = () => {
     </div>
   );
 
-  const currentMonth = formatCurrentMonth(language);
+  const currentMonth = formatVerifiedMonth(language, 'heating');
   const currentTariff = HEATING_TARIFFS[city];
 
   // Расчет процентов для визуализации

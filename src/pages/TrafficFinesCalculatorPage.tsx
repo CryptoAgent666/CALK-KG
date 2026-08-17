@@ -12,7 +12,7 @@ import {
   generateBreadcrumbSchema,
   generateSoftwareApplicationSchema
 } from '../utils/schemaGenerator';
-import { formatCurrentMonth } from '../utils/dateFormatter';
+import { formatVerifiedMonth } from '../utils/dateFormatter';
 import { TRAFFIC_FINES, TrafficFine as TrafficFineData } from '../data/trafficFines';
 import { TrafficFinesCalculatorArticle } from '../components/TrafficFinesCalculatorArticle';
 
@@ -149,7 +149,7 @@ const TrafficFinesCalculatorPage = () => {
     </div>
   );
 
-  const currentMonth = formatCurrentMonth(language);
+  const currentMonth = formatVerifiedMonth(language, 'traffic-fines');
   const groupedFines = getGroupedFines();
 
   return (

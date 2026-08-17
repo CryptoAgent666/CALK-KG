@@ -12,7 +12,7 @@ import {
   generateBreadcrumbSchema,
   generateSoftwareApplicationSchema
 } from '../utils/schemaGenerator';
-import { formatCurrentMonth } from '../utils/dateFormatter';
+import { formatVerifiedMonth } from '../utils/dateFormatter';
 import { GasCalculatorArticle } from '../components/GasCalculatorArticle';
 
 // Тарифы на природный газ в Кыргызстане. АКТУАЛЬНО НА: август 2026.
@@ -162,7 +162,7 @@ const GasCalculatorPage = () => {
   );
 
   const currentTariff = TARIFF_CONFIG[category];
-  const currentMonth = formatCurrentMonth(language);
+  const currentMonth = formatVerifiedMonth(language, 'gas');
 
   return (
     <div className="min-h-screen bg-gray-50">

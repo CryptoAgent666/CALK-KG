@@ -13,7 +13,7 @@ import {
   generateBreadcrumbSchema,
   generateSoftwareApplicationSchema
 } from '../utils/schemaGenerator';
-import { formatCurrentMonth } from '../utils/dateFormatter';
+import { formatVerifiedMonth } from '../utils/dateFormatter';
 
 // Конфигурация тарифов
 // АКТУАЛЬНО НА: 2026 (тарифы действуют)
@@ -181,7 +181,7 @@ const WaterCalculatorPage = () => {
     </div>
   );
 
-  const currentMonth = formatCurrentMonth(language);
+  const currentMonth = formatVerifiedMonth(language, 'water');
   const currentTariff = WATER_TARIFFS[city].tariffs[category] ?? WATER_TARIFFS[city].tariffs.population!;
 
   // Расчет процентов для визуализации

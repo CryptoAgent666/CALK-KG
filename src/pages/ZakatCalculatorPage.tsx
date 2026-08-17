@@ -10,7 +10,7 @@ import {
   generateCalculatorSchema,
   generateBreadcrumbSchema
 } from '../utils/schemaGenerator';
-import { formatCurrentMonth } from '../utils/dateFormatter';
+import { formatVerifiedMonth } from '../utils/dateFormatter';
 import { ZakatCalculatorArticle } from '../components/ZakatCalculatorArticle';
 
 // Конфигурация закята - легко редактируемая
@@ -174,7 +174,7 @@ const ZakatCalculatorPage = () => {
     </div>
   );
 
-  const currentMonth = formatCurrentMonth(language);
+  const currentMonth = formatVerifiedMonth(language, 'zakat');
 
   // Процентные расчеты для визуализации
   const assetsPercentage = results.netAssets > 0 ? (results.totalAssets / (results.totalAssets + results.totalObligations)) * 100 : 0;
