@@ -195,7 +195,6 @@ export const SingleTaxCalculatorArticle: React.FC = () => {
 
     <div className="mt-8 p-6 bg-gradient-to-r from-red-50 to-red-100 rounded-lg border border-red-200">
       <p className="text-sm text-gray-600 mb-2">{t('singletax_sources_label')}</p>
-      <p className="text-xs text-gray-500">{t('singletax_updated')}</p>
     </div>
   </CalculatorArticle>
   );
