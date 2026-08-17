@@ -15,10 +15,10 @@ export const FuelCalculatorArticle: React.FC = () => {
       <ArticleSection title={t('fuel_article_prices_title')}>
         <p>{t('fuel_article_prices_intro')}</p>
         <ul className="list-disc pl-6 space-y-2">
-          <li><strong>{t('fuel_benzin_92')}</strong> — <strong>79.9 {t('fuel_som_per_liter')}</strong></li>
-          <li><strong>{t('fuel_benzin_95')}</strong> — <strong>88.5 {t('fuel_som_per_liter')}</strong></li>
-          <li><strong>{t('fuel_diesel')}</strong> — <strong>93.9 {t('fuel_som_per_liter')}</strong></li>
-          <li><strong>{t('fuel_gas')}</strong> — <strong>45.8 {t('fuel_som_per_liter')}</strong></li>
+          <li><strong>{t('fuel_benzin_92')}</strong> — <strong>87.0 {t('fuel_som_per_liter')}</strong></li>
+          <li><strong>{t('fuel_benzin_95')}</strong> — <strong>109.9 {t('fuel_som_per_liter')}</strong></li>
+          <li><strong>{t('fuel_diesel')}</strong> — <strong>99.9 {t('fuel_som_per_liter')}</strong></li>
+          <li><strong>{t('fuel_gas')}</strong> — <strong>48.2 {t('fuel_som_per_liter')}</strong></li>
         </ul>
         <p className="mt-4">
           <strong>{t('fuel_important')}</strong> {t('fuel_regions_note')}
