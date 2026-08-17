@@ -838,7 +838,7 @@
       "surfaces": [
         "translations-ru.ts:customs_tip_8:1162"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-08-17",
       "source_hint": "grs.kg",
       "conflict": false,
       "status": "current",
@@ -846,7 +846,7 @@
       "official_value": "10",
       "source_url": "https://e.srs.kg/ru/service/page/8/drtsvs_npa/265-pravila-registratsii-avtomototransportnyih-sredstv",
       "which_surface_correct": "na",
-      "verify_note": "Law 'О дорожном движении в КР' + ГРС registration rules: vehicle must be registered within 10 working days (10 рабочих дней) of acquisition/customs clearance. Day-count value 10 matches; official wording specifies working days (input says '10 days')."
+      "verify_note": "Law 'О дорожном движении в КР' + ГРС registration rules: vehicle must be registered within 10 working days (10 рабочих дней) of acquisition/customs clearance. Day-count value 10 matches; official wording specifies working days (input says '10 days'). | ✅ RE-VERIFIED 2026-08-17 (tier2, воркфлоу по первоисточникам). 10 рабочих дней подтверждено. ⚠️ source_url в реестре (e.srs.kg/...265-pravila-registratsii) МЁРТВ: портал ГРС перестроен на Angular-SPA, маршрут редиректит на главную — заменить источник."
     },
     {
       "id": "customs-calculator__customs_vat_rate",
@@ -933,7 +933,7 @@
       "surfaces": [
         "src/pages/ElectricityCalculatorPage.tsx:52"
       ],
-      "last_updated": "2026-08-03",
+      "last_updated": "2026-08-17",
       "source_hint": "Госагентство по регулированию ТЭК / НЭСК; Кабмин КР",
       "conflict": false,
       "status": "current",
@@ -941,7 +941,7 @@
       "official_value": "4.62",
       "source_url": "https://economist.kg/enierghietika/2026/03/28/skolko-budiet-stoit-eliektrichiestvo-v-kyrghyzstanie-s-1-maia-2026-ghoda-tarify/",
       "which_surface_correct": "na",
-      "verify_note": "RE-VERIFIED 2026-08-03: приказ №103 — бюджетные организации 4,62 сом/кВт·ч.",
+      "verify_note": "RE-VERIFIED 2026-08-03: приказ №103 — бюджетные организации 4,62 сом/кВт·ч. | ✅ RE-VERIFIED 2026-08-17 (tier2, воркфлоу по первоисточникам). 4,62 сом/кВт·ч, приказ ДРТЭК №103 от 24.04.2026 действующий; более нового тарифного приказа на 17.08.2026 нет.",
       "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)",
       "verified_date": "2026-08-03",
       "verify_confidence": "high"
@@ -1074,7 +1074,7 @@
         "src/pages/ElectricityCalculatorPage.tsx:72",
         "src/pages/ElectricityCalculatorPage.tsx:527"
       ],
-      "last_updated": "2026-08-03",
+      "last_updated": "2026-08-17",
       "source_hint": "Госагентство по регулированию ТЭК / НЭСК; Кабмин КР",
       "conflict": false,
       "status": "current",
@@ -1082,7 +1082,7 @@
       "official_value": "700",
       "source_url": "https://economist.kg/enierghietika/2026/03/28/skolko-budiet-stoit-eliektrichiestvo-v-kyrghyzstanie-s-1-maia-2026-ghoda-tarify/",
       "which_surface_correct": "compute",
-      "verify_note": "RE-VERIFIED 2026-08-03: приказ №103 — социальный порог 700 кВт·ч в месяц, далее 2,94 сом/кВт·ч.",
+      "verify_note": "RE-VERIFIED 2026-08-03: приказ №103 — социальный порог 700 кВт·ч в месяц, далее 2,94 сом/кВт·ч. | ✅ RE-VERIFIED 2026-08-17 (tier2, воркфлоу по первоисточникам). 700 кВт·ч/мес, приказ №103 действующий. Числа «11.1%» и «8800» из алерта монитора — артефакт: «11,1 млрд сомов» это расходы потребителей за 2023 г. из уведомления №192 от 24.07.2024, к тарифу отношения не имеет.",
       "verified_date": "2026-08-03",
       "verify_confidence": "high"
     },
@@ -1312,7 +1312,7 @@
       "surfaces": [
         "translations-ru.ts:familybenefit_large_family_amount"
       ],
-      "last_updated": "2026-07-27",
+      "last_updated": "2026-08-17",
       "source_hint": "cabinet.gov.kg",
       "conflict": false,
       "status": "current",
@@ -1320,7 +1320,7 @@
       "official_value": "1200 (үй-бүлөгө көмөк); отдельного ежемесячного пособия многодетным в КР нет",
       "source_url": "https://mlsp.gov.kg/ru/2025/02/13/posobie-%D2%AFj-b%D2%AFl%D3%A9g%D3%A9-k%D3%A9m%D3%A9k-pomoshh-detyam-iz-maloobespechennyh-semej/",
       "which_surface_correct": "na",
-      "verify_note": "RE-VERIFIED 2026-07-27 по mlsp.gov.kg (gov): ОТДЕЛЬНОГО ежемесячного пособия многодетным в КР НЕТ — ключ содержит размер «үй-бүлөгө көмөк» (1200 сом/мес на ребёнка малоимущим), и проза сайта уже подписана корректно («Малоимущим семьям «үй-бүлөгө көмөк»»), т.е. legacy только имя ключа. Для многодетных существует «Бала Береке» — ЕДИНОВРЕМЕННАЯ выплата (Указ Президента №370 от 18.12.2024): 4-й ребёнок 100 000, 5-й 600 000, 6-й 800 000, 7-й 1 000 000, 8-й 1 200 000, 9-й 1 500 000, 10-й+ 2 000 000 сом. На сайте не представлена — кандидат на добавление.",
+      "verify_note": "RE-VERIFIED 2026-07-27 по mlsp.gov.kg (gov): ОТДЕЛЬНОГО ежемесячного пособия многодетным в КР НЕТ — ключ содержит размер «үй-бүлөгө көмөк» (1200 сом/мес на ребёнка малоимущим), и проза сайта уже подписана корректно («Малоимущим семьям «үй-бүлөгө көмөк»»), т.е. legacy только имя ключа. Для многодетных существует «Бала Береке» — ЕДИНОВРЕМЕННАЯ выплата (Указ Президента №370 от 18.12.2024): 4-й ребёнок 100 000, 5-й 600 000, 6-й 800 000, 7-й 1 000 000, 8-й 1 200 000, 9-й 1 500 000, 10-й+ 2 000 000 сом. На сайте не представлена — кандидат на добавление. | ✅ RE-VERIFIED 2026-08-17 (tier2, воркфлоу по первоисточникам). 1200 сом; отдельного пособия многодетным в КР по-прежнему нет.",
       "verified_date": "2026-07-27"
     },
     {
@@ -1335,7 +1335,7 @@
       "surfaces": [
         "translations-ru.ts:familybenefit_under_3_amount"
       ],
-      "last_updated": "2026-07-27",
+      "last_updated": "2026-08-17",
       "source_hint": "cabinet.gov.kg",
       "conflict": false,
       "status": "current",
@@ -1343,7 +1343,7 @@
       "official_value": "1200",
       "source_url": "https://mlsp.gov.kg/ru/2025/02/13/posobie-%D2%AFj-b%D2%AFl%D3%A9g%D3%A9-k%D3%A9m%D3%A9k-pomoshh-detyam-iz-maloobespechennyh-semej/",
       "which_surface_correct": "na",
-      "verify_note": "RE-VERIFIED 2026-07-27 по mlsp.gov.kg (gov): 1200 сом/мес — пособие «Бала ырысы» (Пост. Кабмина №421 от 15.06.2026, в силе с 01.07.2026), от рождения до 3 лет, УНИВЕРСАЛЬНОЕ — НЕ только малоимущим (+ районные коэффициенты). Прежняя пометка «малоимущим» неверна; проза сайта («Бала ырысы», всем) уже корректна.",
+      "verify_note": "RE-VERIFIED 2026-07-27 по mlsp.gov.kg (gov): 1200 сом/мес — пособие «Бала ырысы» (Пост. Кабмина №421 от 15.06.2026, в силе с 01.07.2026), от рождения до 3 лет, УНИВЕРСАЛЬНОЕ — НЕ только малоимущим (+ районные коэффициенты). Прежняя пометка «малоимущим» неверна; проза сайта («Бала ырысы», всем) уже корректна. | ✅ RE-VERIFIED 2026-08-17 (tier2, воркфлоу по первоисточникам). 1200 сом «Бала ырысы». Подтверждено свежайшим актом: Приказ МТСОМ КР №187 от 10.08.2026 (PDF с mlsp.gov.kg) — размер 1200 дословно + вербатим подтверждает реквизиты Пост. Кабмина №421 от 15.06.2026. Универсальность подтверждена.",
       "verified_date": "2026-07-27"
     },
     {
@@ -1360,7 +1360,7 @@
         "src/pages/FamilyBenefitCalculatorPage.tsx:99",
         "translations-ru.ts:family_age_0_to_16"
       ],
-      "last_updated": "2026-08-02",
+      "last_updated": "2026-08-17",
       "source_hint": "cabinet.gov.kg",
       "conflict": true,
       "status": "current",
@@ -1368,7 +1368,7 @@
       "official_value": "16",
       "source_url": "https://mlsp.gov.kg/ru/2026/04/23/peresmotren-mehanizm-predostavleniya-ezhemesyachnogo-posobiya-uj-bulogo-komok-nuzhdayushhimsya-semyam-imeyushhim-detej-do-16-let/",
       "which_surface_correct": "compute",
-      "verify_note": "Стамп 2026-08-02: «до 16 лет» — фигурирует в официальных материалах Минтруда об «үй-бүлөгө көмөк» (mlsp.gov.kg, сверка 2026-07-27); вербатим текст постановления машинно не прочитан.",
+      "verify_note": "Стамп 2026-08-02: «до 16 лет» — фигурирует в официальных материалах Минтруда об «үй-бүлөгө көмөк» (mlsp.gov.kg, сверка 2026-07-27); вербатим текст постановления машинно не прочитан. | ✅ RE-VERIFIED 2026-08-17 (tier2, воркфлоу по первоисточникам). 16 лет — ВЕРБАТИМ из ПП КР №307 от 29.06.2018 п.2 пп.2: «имеющим детей до 16 лет». Прежний пробел (текст постановления не был прочитан машинно) закрыт.",
       "verified_date": "2026-08-02",
       "verify_confidence": "medium"
     },
@@ -1385,7 +1385,7 @@
         "src/pages/FamilyBenefitCalculatorPage.tsx:21",
         "translations-ru.ts:familybenefit_income_threshold_note"
       ],
-      "last_updated": "2026-07-27",
+      "last_updated": "2026-08-17",
       "source_hint": "cabinet.gov.kg",
       "conflict": false,
       "status": "current",
@@ -1393,7 +1393,7 @@
       "official_value": "1000",
       "source_url": "https://mlsp.gov.kg/ru/2026/04/23/peresmotren-mehanizm-predostavleniya-ezhemesyachnogo-posobiya-uj-bulogo-komok-nuzhdayushhimsya-semyam-imeyushhim-detej-do-16-let/",
       "which_surface_correct": "na",
-      "verify_note": "RE-VERIFIED 2026-07-27 по mlsp.gov.kg (gov): действующий ГМД = 1000 сом; повышение до 1500 сом вступает в силу с 01.09.2026 (Пост. Кабмина №242 от 10.04.2026). На 2026-07-27 применять 1000. COMPUTE incomeThreshold=1000 верен. Проза (1500/1700) исправлена на 1000 с указанием будущего повышения. WATCH: с 01.09.2026 поднять на 1500 в COMPUTE + прозе RU/KY.",
+      "verify_note": "RE-VERIFIED 2026-07-27 по mlsp.gov.kg (gov): действующий ГМД = 1000 сом; повышение до 1500 сом вступает в силу с 01.09.2026 (Пост. Кабмина №242 от 10.04.2026). На 2026-07-27 применять 1000. COMPUTE incomeThreshold=1000 верен. Проза (1500/1700) исправлена на 1000 с указанием будущего повышения. WATCH: с 01.09.2026 поднять на 1500 в COMPUTE + прозе RU/KY. | ✅ RE-VERIFIED 2026-08-17 (tier2, воркфлоу по первоисточникам). ГМД = 1000 сом ПРЯМО СЕЙЧАС. Вербатим ПП КР №307 от 29.06.2018 п.2 пп.2 (.doc с mlsp.gov.kg): «в сумме 1000 (одна тысяча) сомов». Повышение до 1500 — Пост. Кабмина №242 от 10.04.2026, вступает 01.09.2026 (через 2 недели). Актов, переносящих дату, нет.",
       "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)",
       "verified_date": "2026-07-27",
       "verify_confidence": "high"
@@ -1840,15 +1840,15 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:31"
       ],
-      "last_updated": "2026-08-03",
+      "last_updated": "2026-08-17",
       "source_hint": "Департамент по регулированию ТЭК при МЭ КР",
       "conflict": false,
-      "status": "current",
+      "status": "uncertain",
       "notes": "COMPUTE HEAT_NORM_GCAL_PER_M2 — плоская месячная норма потребления тепла (Гкал/м²/мес). Синхронна с прозой heating_method_b_formula + примерами.",
       "official_value": "0.0206",
       "source_url": "https://bishkek.gov.kg/ru/tariffs/2",
       "which_surface_correct": "both",
-      "verify_note": "RE-VERIFIED 2026-07-08 (workflow): прежние 0.036 ЗАВЫШЕНЫ ~в 1.75×. Первоисточник (методика Бишкектеплосети, teplo.com.kg/heating-energy): 1-комн 35 м² = 3.6 Гкал за сезон, сезон 5 мес (ноя 17% / дек 22% / янв 25% / фев 20% / мар 16%). Отсюда плоская сезонная средняя = 3.6 ÷ 35 ÷ 5 = 0.0206 Гкал/м²/мес (диапазон по комнатам 0.019–0.021). Официальная модель — по-квартирная посезонная + помесячные коэффициенты; сайт использует плоское приближение 0.0206 (выбор пользователя, опция «простой фикс», не структурная модель). 0.036 давало месячную переоценку ~+75%. | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется.",
+      "verify_note": "RE-VERIFIED 2026-07-08 (workflow): прежние 0.036 ЗАВЫШЕНЫ ~в 1.75×. Первоисточник (методика Бишкектеплосети, teplo.com.kg/heating-energy): 1-комн 35 м² = 3.6 Гкал за сезон, сезон 5 мес (ноя 17% / дек 22% / янв 25% / фев 20% / мар 16%). Отсюда плоская сезонная средняя = 3.6 ÷ 35 ÷ 5 = 0.0206 Гкал/м²/мес (диапазон по комнатам 0.019–0.021). Официальная модель — по-квартирная посезонная + помесячные коэффициенты; сайт использует плоское приближение 0.0206 (выбор пользователя, опция «простой фикс», не структурная модель). 0.036 давало месячную переоценку ~+75%. | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется. | ⚠️ UNCERTAIN 2026-08-17 (tier2). Плоский норматив 0,0206 Гкал/м²/мес первоисточником НЕ подтверждается. Ссылка в реестре ошибочна: teplo.com.kg — не Бишкектеплосеть, а частный продавец теплосчётчиков «Пульс»; страница /heating-energy — перепечатка статьи Kaktus.media. По самой Бишкектеплосети (teploseti.kg, FAQ + калькулятор) расход без прибора учёта считается по Методике №151 от 24.09.2002 для конкретного здания с поправкой на фактическую среднемесячную температуру, сезон ноябрь–март. Плоского общегородского Гкал/м² в первоисточниках нет. Значение НЕ трогать до отдельной проработки модели — менять формулу калькулятора рискованно.",
       "verified_date": "2026-08-03",
       "verify_confidence": "high"
     },
@@ -1974,15 +1974,15 @@
       "surfaces": [
         "src/pages/HeatingCalculatorPage.tsx:27"
       ],
-      "last_updated": "2026-08-03",
+      "last_updated": "2026-08-17",
       "source_hint": "Департамент по регулированию ТЭК при МЭ КР; ТЭЦ Бишкека",
       "conflict": true,
-      "status": "current",
+      "status": "stale_confirmed",
       "notes": "COMPUTE bishkek.heating.tariff_per_gcal — Bishkek social tariff (up to 80 m²); over 80 m² by cost ~5998 сом/Гкал per code comment (not modeled). MISMATCH vs i18n prose heating_example_gcal/heating_faq_a6_item1 which use 1134.76 сом/Гкал, and heating_central_rate=1450 — both stale; compute authoritative.",
-      "official_value": "1560.00",
+      "official_value": "1950.00",
       "source_url": "https://knews.kg/2025/01/17/v-merii-bishkeka-dali-razyasnenie-otnositelno-nachisleniya-za-otoplenie/",
       "which_surface_correct": "compute",
-      "verify_note": "Official Bishkek social heating tariff (жильё до 80 м²) = 1560 сом/Гкал from 01.03.2026 (Приказ ДТЭК №42 от 10.03.2026; was 1248/1120). Over-80-m² portion billed at ~5998.17 сом/Гкал — confirmed. BOTH surfaces wrong: COMPUTE 1950 too high, PROSE 1450 too low. COMPUTE is the better/intended-current surface but the value should be updated to 1560. | RE-VERIFIED 2026-07-08 (workflow regultek): социальный тариф <=80 м2 = 1560 сом/Гкал ПОДТВЕРЖДЁН по приказу №42 от 10.03.2026 — несколько источников цитируют приказ дословно (teplo.com.kg/new-tarifs, kaktus 532974, регультек №105 PDF). ГВС 108.07 сом/м3 тоже подтверждён (совпадает с сайтом). '1950' — ОШИБКА sub-агента (не встречается ни в одном первоисточном описании приказа №42; вероятно спутал с предложенным/отменённым значением). Правку 1560->1950 применил и ОТКАТИЛ (git checkout) до деплоя — сайт не менялся. WATCH: плановый +50% с 01.06.2026 (среднесрочная политика) на 2026-07-08 НЕ введён — доказательство: ГВС остался 108.07 (при +50% был бы ~162), после №42 энергетических приказов нет (только №127 от 25.06.2026 — техобслуживание). Если введут: <=80 м2 -> 2340, ГВС -> ~162. | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется.",
+      "verify_note": "Official Bishkek social heating tariff (жильё до 80 м²) = 1560 сом/Гкал from 01.03.2026 (Приказ ДТЭК №42 от 10.03.2026; was 1248/1120). Over-80-m² portion billed at ~5998.17 сом/Гкал — confirmed. BOTH surfaces wrong: COMPUTE 1950 too high, PROSE 1450 too low. COMPUTE is the better/intended-current surface but the value should be updated to 1560. | RE-VERIFIED 2026-07-08 (workflow regultek): социальный тариф <=80 м2 = 1560 сом/Гкал ПОДТВЕРЖДЁН по приказу №42 от 10.03.2026 — несколько источников цитируют приказ дословно (teplo.com.kg/new-tarifs, kaktus 532974, регультек №105 PDF). ГВС 108.07 сом/м3 тоже подтверждён (совпадает с сайтом). '1950' — ОШИБКА sub-агента (не встречается ни в одном первоисточном описании приказа №42; вероятно спутал с предложенным/отменённым значением). Правку 1560->1950 применил и ОТКАТИЛ (git checkout) до деплоя — сайт не менялся. WATCH: плановый +50% с 01.06.2026 (среднесрочная политика) на 2026-07-08 НЕ введён — доказательство: ГВС остался 108.07 (при +50% был бы ~162), после №42 энергетических приказов нет (только №127 от 25.06.2026 — техобслуживание). Если введут: <=80 м2 -> 2340, ГВС -> ~162. | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется. | 🔴 STALE_CONFIRMED 2026-08-17 (tier2). Действующий соц. тариф ≤80 м² = 1950,00 сом/Гкал, НЕ 1560. Два независимых ПЕРВОИСТОЧНИКА прочитаны вербатим: (1) PDF приказа ДРТЭК №105 от 30.05.2025 с сайта регулятора regultek.gov.kg — приложение, строка «1.1. до 80 м2 в месяц | сом/Гкал | 1 950,0»; п.4 того же приказа ПРЯМО признаёт утратившим силу приказ №85 от 31.05.2024 (где и было 1560). (2) Официальная таблица МП «Бишкектеплосеть» (teploseti.kg) по действующему приказу №42 от 10.03.2026, с 01.03.2026: 1950,00. Цепочка: 1248 (01.06.2023) → 1560 (приказ №85, 01.06.2024) → 1950 (приказ №105, 01.06.2025) → 1950 (приказ №42, 01.03.2026). ⚠️ ОТМЕНЯЕТ ПРЕЖНИЙ ЗАПРЕТ: verify_note от 2026-07-08 объявлял 1950 «ошибкой суб-агента» и зафиксировал откат правки — ЭТО БЫЛО НЕВЕРНО. Прежний вывод опирался на teplo.com.kg, а это НЕ Бишкектеплосеть, а частный продавец теплосчётчиков «Пульс» (перепечатка Kaktus.media), и на «совпадает с сайтом» — то есть на сам аудируемый сайт (круговая проверка). Собственное поле law реестра при этом само говорило «№105 +25% с 01.06.2025», а 1560×1,25 = 1950 — противоречие внутри записи. НЕ откатывать снова.",
       "fix_note": "fixed 2026-06-28: confirmed national social tariff 1560 сом/Гкал; >80 м² portion (5998.17) now modeled via area-proportional split in calculateHeating; prose 1134.76/1450 → 1560 in RU+KY. See _meta.reconciliations[0]. (working tree, not deployed)",
       "verified_date": "2026-08-03",
       "verify_confidence": "high"
@@ -4154,17 +4154,17 @@
         "src/pages/SingleTaxCalculatorPage.tsx:41",
         "src/pages/SingleTaxCalculatorPage.tsx:42"
       ],
-      "last_updated": "2026-08-03",
+      "last_updated": "2026-08-17",
       "source_hint": "salyk.kg",
       "conflict": false,
-      "status": "current",
+      "status": "uncertain",
       "notes": "Effective date of the 0% single-tax trade rate for ИП with ККМ ('действует с 01.04.2025'). Gates the 0% regime; not in ledger. [gap-audit 2026-06-17 completeness pass] | FIXED 2026-07-03: дата вступления 0% исправлена 01.04.2025→01.01.2025 (ст.423 п.1 НК КР, cbd.minjust.gov.kg); 01.04.2025 — это отмена рыночных ставок 0.1%/1%. ru+ky в SingleTaxCalculatorPage.tsx.",
       "official_value": "01.01.2025",
       "source_url": "https://cbd.minjust.gov.kg/3-39/edition/1286442/ru",
       "verified_date": "2026-08-03",
       "verify_method": "tier2-tail",
       "verify_confidence": "high",
-      "verify_note": "RE-VERIFIED 2026-08-03: ст.423 ч.8 прочитана вербатим (офиц. PDF ГНС) — ставка 0% для ИП при выручке ≤15 млн сом, ККМ, ≤2 наёмных работников, один торговый объект, уплата страховых взносов."
+      "verify_note": "RE-VERIFIED 2026-08-03: ст.423 ч.8 прочитана вербатим (офиц. PDF ГНС) — ставка 0% для ИП при выручке ≤15 млн сом, ККМ, ≤2 наёмных работников, один торговый объект, уплата страховых взносов. | ⚠️ UNCERTAIN 2026-08-17: в тексте ст.423 НК даты вступления нет вообще. Косвенно за 01.01.2025 — офиц. PDF ГНС «Основные изменения» от 27.02.2025 (Закон №37 от 12.02.2025 в силе с 01.01.2025). Вербатим не доказано: ЦБД Минюста под WAF."
     },
     {
       "id": "single-tax-calculator__single_tax_trade_0pct_ip_kkm",
@@ -4203,7 +4203,7 @@
         "src/pages/SingleTaxCalculatorPage.tsx:41",
         "src/pages/SingleTaxCalculatorPage.tsx:42"
       ],
-      "last_updated": "2026-08-03",
+      "last_updated": "2026-08-17",
       "source_hint": "salyk.kg",
       "conflict": false,
       "status": "current",
@@ -4213,7 +4213,7 @@
       "verified_date": "2026-08-03",
       "verify_method": "tier2-tail",
       "verify_confidence": "high",
-      "verify_note": "RE-VERIFIED 2026-08-03: ст.423 ч.8 вербатим — «без найма работников, за исключением субъектов торговли, осуществляющих свою деятельность с привлечением не более двух наемных работников»."
+      "verify_note": "RE-VERIFIED 2026-08-03: ст.423 ч.8 вербатим — «без найма работников, за исключением субъектов торговли, осуществляющих свою деятельность с привлечением не более двух наемных работников». | ✅ RE-VERIFIED 2026-08-17 (tier2, воркфлоу по первоисточникам). 2 работника — вербатим ст.423 ч.8 НК КР. Изменений 2026 г. в ст.423 нет (последнее — Закон №262 от 31.12.2025)."
     },
     {
       "id": "single-tax-calculator__single_tax_trade_30_50m_cashless",
