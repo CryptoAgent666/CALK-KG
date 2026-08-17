@@ -30,12 +30,23 @@ const REGIONAL_AVERAGE_SALARY = {
   'batken': { nameKey: 'region_batken', salary: 30800 }
 };
 
-// Процентные ставки алиментов по законодательству КР
+// Доли алиментов по ст.86 п.1 СК КР: «на одного ребенка — одной четверти, на двух детей —
+// одной трети, на трех и более детей — половины заработка».
+// На двух детей закон даёт именно 1/3, а не 0,33: при доходе 50 000 сом это 16 666,67
+// против 16 500 — недоплата 2 000 сом в год.
 const ALIMONY_RATES = {
-  1: { rate: 0.25, descriptionKey: 'alimony_one_child' },
-  2: { rate: 0.33, descriptionKey: 'alimony_two_children' },
-  3: { rate: 0.50, descriptionKey: 'alimony_three_plus_children' }
+  1: { rate: 1 / 4, descriptionKey: 'alimony_one_child' },
+  2: { rate: 1 / 3, descriptionKey: 'alimony_two_children' },
+  3: { rate: 1 / 2, descriptionKey: 'alimony_three_plus_children' }
 };
+
+/**
+ * Долю показываем дробью, как её и формулирует закон («одной четверти, одной трети,
+ * половины»). В процентах 1/3 точно не выражается: «33,33333%» — мусор в интерфейсе,
+ * а округлённые «33,3%» ломают формулу (50 000 × 33,3% = 16 650, а начислено 16 667).
+ */
+const RATE_LABELS = new Map<number, string>([[1 / 4, '1/4'], [1 / 3, '1/3'], [1 / 2, '1/2']]);
+const formatRate = (rate: number): string => RATE_LABELS.get(rate) ?? `${Math.round(rate * 100)}%`;
 
 // МЗП КР с 01.01.2026 (справочно; база минимума алиментов)
 const MIN_WAGE = 3280;
@@ -357,7 +368,7 @@ const AlimonyCalculatorPage = () => {
                   <div className="flex items-center text-sm text-blue-800">
                     <Scale className="h-4 w-4 mr-2" />
                     <span>
-                      {t('alimony_applied_rate')}: <strong>{(currentRateInfo.rate * 100)}%</strong> {t('alimony_rate_description')} ({getRateDescription(childrenCount > 3 ? 3 : childrenCount).toLowerCase()})
+                      {t('alimony_applied_rate')}: <strong>{formatRate(currentRateInfo.rate)}</strong> {t('alimony_rate_description')} ({getRateDescription(childrenCount > 3 ? 3 : childrenCount).toLowerCase()})
                     </span>
                   </div>
                 </div>
@@ -482,7 +493,7 @@ const AlimonyCalculatorPage = () => {
                     resultText={`${t('alimony_calc_title')} - ${t('alimony_calculation_results')}:
 ${t('alimony_children_count_label')}: ${childrenCount}
 ${t('alimony_calculation_base')}: ${formatCurrency(results.baseAmount)} ${t('som')}
-${t('alimony_rate_label')}: ${(results.appliedRate * 100)}%
+${t('alimony_rate_label')}: ${formatRate(results.appliedRate)}
 ${t('alimony_method_label')}: ${results.calculationMethod}
 ${t('alimony_approximate_amount')}: ${formatCurrency(results.alimonyAmount)} ${t('som')} ${t('pension_per_month')}
 
@@ -541,7 +552,7 @@ ${t('calculated_on_site')} Calk.KG`}
                           </Tooltip>
                         </div>
                         <span className="text-2xl font-bold text-blue-600">
-                          {(results.appliedRate * 100)}%
+                          {formatRate(results.appliedRate)}
                         </span>
                       </div>
                       <div className="text-sm text-gray-500">
@@ -558,11 +569,11 @@ ${t('calculated_on_site')} Calk.KG`}
                       <div className="text-lg text-gray-900 font-mono bg-white p-4 rounded border">
                         {results.minApplied ? (
                           <>
-                            <div>{formatCurrency(results.baseAmount)} × {(results.appliedRate * 100)}% = {formatCurrency(results.shareAmount ?? 0)} {t('som')}</div>
+                            <div>{formatCurrency(results.baseAmount)} × {formatRate(results.appliedRate)} = {formatCurrency(results.shareAmount ?? 0)} {t('som')}</div>
                             <div className="text-pink-700 mt-1 text-base">{t('alimony_min_applied')}: {formatCurrency(results.alimonyAmount)} {t('som')}</div>
                           </>
                         ) : (
-                          <>{formatCurrency(results.baseAmount)} × {(results.appliedRate * 100)}% = {formatCurrency(results.alimonyAmount)} {t('som')}</>
+                          <>{formatCurrency(results.baseAmount)} × {formatRate(results.appliedRate)} = {formatCurrency(results.alimonyAmount)} {t('som')}</>
                         )}
                       </div>
                     </div>
@@ -622,7 +633,7 @@ ${t('calculated_on_site')} Calk.KG`}
               >
                 <div className="text-center">
                   <div className="text-3xl font-bold text-gray-900 mb-2">
-                    {(rateInfo.rate * 100)}%
+                    {formatRate(rateInfo.rate)}
                   </div>
                   <div className="text-sm text-gray-600">
                     {getRateDescription(parseInt(count))}
@@ -663,7 +674,7 @@ ${t('calculated_on_site')} Calk.KG`}
                         {t('alimony_avg_salary_column')}
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        {t('alimony_amount_column')} ({(currentRateInfo.rate * 100)}%)
+                        {t('alimony_amount_column')} ({formatRate(currentRateInfo.rate)})
                       </th>
                     </tr>
                   </thead>
@@ -757,7 +768,7 @@ ${t('calculated_on_site')} Calk.KG`}
                         {example.children === 1 ? t('alimony_child_1') : t('alimony_children_2').replace('2', example.children.toString())}
                       </span>
                       <span className="text-xs text-gray-500">
-                        {(ALIMONY_RATES[example.children > 3 ? 3 : example.children as keyof typeof ALIMONY_RATES].rate * 100)}%
+                        {formatRate(ALIMONY_RATES[example.children > 3 ? 3 : example.children as keyof typeof ALIMONY_RATES].rate)}
                       </span>
                     </div>
                     <div className="text-right">
