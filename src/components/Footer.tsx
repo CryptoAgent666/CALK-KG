@@ -2,6 +2,7 @@ import React from 'react';
 import { Calculator, Mail, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
+import PrivacySettingsLink from './PrivacySettingsLink';
 
 const Footer = () => {
   const { t, getLocalizedPath } = useLanguage();
@@ -119,6 +120,9 @@ const Footer = () => {
               <Link to={getLocalizedPath('/terms-of-service')} className="text-gray-400 hover:text-white transition-colors">
                 {t('footer_terms')}
               </Link>
+              {/* Статический гейт как у бейджей выше: в app-бандле CMP не бывает,
+                  а так terser выкидывает и компонент, и строки googlefc из бандла. */}
+              {import.meta.env.VITE_CALK_PLATFORM !== 'app' && <PrivacySettingsLink />}
             </div>
           </div>
         </div>

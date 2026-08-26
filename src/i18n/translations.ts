@@ -7537,6 +7537,7 @@ export const translations = {
     socialfund_source_label: 'Источник',
     socialfund_source_text: 'Социальный фонд КР: разъяснения по сниженным тарифам работодателя с 2024 года и мартовское обновление 2026.',
     // Страница «Обновления» (/updates) — пререндер <head> читает отсюда.
+    footer_privacy_settings: 'Настройки конфиденциальности',
     sitemap_updates_desc: 'Журнал изменений: что и когда обновлено на сайте',
     nav_updates: 'Обновления',
     updates_page_title: 'Обновления сайта Calk.KG — что и когда изменилось',
@@ -15239,6 +15240,7 @@ export const translations = {
     socialfund_source_label: 'Булак',
     socialfund_source_text: 'Соцфонд КР: 2024-жылдан тартып иш берүүчүлөр үчүн төмөндөтүлгөн тарифтер боюнча түшүндүрмө жана март 2026 жаңыртуусу.',
     // Страница «Обновления» (/updates) — пререндер <head> читает отсюда.
+    footer_privacy_settings: 'Купуялык жөндөөлөрү',
     sitemap_updates_desc: 'Өзгөрүүлөр журналы: сайтта эмне жана качан жаңыртылды',
     nav_updates: 'Жаңылоолор',
     updates_page_title: 'Calk.KG сайтынын жаңылоолору — эмне жана качан өзгөрдү',
