@@ -88,6 +88,7 @@ const Footer = () => {
               <li><Link to={getLocalizedPath('/disclaimer')} className="text-gray-400 hover:text-white transition-colors">{t('footer_disclaimer')}</Link></li>
               <li><Link to={getLocalizedPath('/about')} className="text-gray-400 hover:text-white transition-colors">{t('footer_about')}</Link></li>
               <li><Link to={getLocalizedPath('/contact')} className="text-gray-400 hover:text-white transition-colors">{t('footer_contacts')}</Link></li>
+              <li><Link to={getLocalizedPath('/updates')} className="text-gray-400 hover:text-white transition-colors">{t('nav_updates')}</Link></li>
             </ul>
           </div>
 

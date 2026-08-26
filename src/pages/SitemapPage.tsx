@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Home, Calculator, Map } from 'lucide-react';
+import { Home, Calculator, Map, History } from 'lucide-react';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
 import { generateWebPageSchema, generateBreadcrumbSchema } from '../utils/schemaGenerator';
@@ -131,6 +131,19 @@ const SitemapPage = () => {
               <div>
                 <div className="font-medium text-gray-900 group-hover:text-blue-600">{t('nav_about')}</div>
                 <div className="text-sm text-gray-500">{t('sitemap_about_desc')}</div>
+              </div>
+            </Link>
+
+            <Link
+              to={ky('/updates')}
+              className="flex items-center space-x-3 p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-blue-200 group"
+            >
+              <div className="bg-amber-50 p-2 rounded-lg group-hover:bg-amber-100 transition-colors">
+                <History className="h-5 w-5 text-amber-600" />
+              </div>
+              <div>
+                <div className="font-medium text-gray-900 group-hover:text-blue-600">{t('nav_updates')}</div>
+                <div className="text-sm text-gray-500">{t('sitemap_updates_desc')}</div>
               </div>
             </Link>
 

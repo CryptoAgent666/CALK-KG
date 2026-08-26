@@ -194,7 +194,8 @@ const staticMetaKeys = {
   'privacy-policy': { titleKey: 'pp_title', descriptionKey: 'privacy_policy_description' },
   'terms-of-service': { titleKey: 'tos_title', descriptionKey: 'terms_of_service_description' },
   disclaimer: { titleKey: 'disclaimer_title', descriptionKey: 'disclaimer_description' },
-  sitemap: { titleKey: 'sitemap_page_title', descriptionKey: 'sitemap_meta_description' }
+  sitemap: { titleKey: 'sitemap_page_title', descriptionKey: 'sitemap_meta_description' },
+  updates: { titleKey: 'updates_page_title', descriptionKey: 'updates_page_description' }
 };
 
 const DEFAULT_HOME_DESCRIPTION_RU = 'Более 35 бесплатных калькуляторов для жителей Кыргызстана: зарплата, кредиты, ипотека, налоги, коммунальные услуги. Точные расчеты по законам КР.';

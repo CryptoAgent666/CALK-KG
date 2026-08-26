@@ -12,6 +12,7 @@ const getSegmentLabel = (segment: string, language: 'ru' | 'ky'): string => {
     'terms-of-service': { ru: 'Условия использования', ky: 'Колдонуу шарттары' },
     disclaimer: { ru: 'Отказ от ответственности', ky: 'Жоопкерчиликтен баш тартуу' },
     sitemap: { ru: 'Карта сайта', ky: 'Сайт картасы' },
+    updates: { ru: 'Обновления', ky: 'Жаңылоолор' },
     salary: { ru: 'Зарплата', ky: 'Айлык акы' },
     'single-tax': { ru: 'Единый налог', ky: 'Бирдиктүү салык' },
     'property-tax': { ru: 'Налог на имущество', ky: 'Мүлк салыгы' },

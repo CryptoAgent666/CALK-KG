@@ -59,6 +59,7 @@ const WeddingCalculatorPage = lazy(() => import('./pages/WeddingCalculatorPage')
 const AboutPage = lazy(() => import('./pages/AboutPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const SitemapPage = lazy(() => import('./pages/SitemapPage'));
+const UpdatesPage = lazy(() => import('./pages/UpdatesPage'));
 const DisclaimerPage = lazy(() => import('./pages/DisclaimerPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
@@ -241,6 +242,7 @@ function App() {
     { path: 'terms-of-service', element: <TermsOfServicePage /> },
     { path: 'disclaimer', element: <DisclaimerPage /> },
     { path: 'sitemap', element: <SitemapPage /> },
+    { path: 'updates', element: <UpdatesPage /> },
   ];
 
   return (
