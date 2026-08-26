@@ -85,6 +85,44 @@ function rewardedId(): string {
 // всё равно живёт до конца сессии.
 let tempUntilMem = 0;
 
+/**
+ * Инициализация SDK + обязательная цепочка согласий ДО первого объявления.
+ * Порядок флота: UMP (GDPR) → ATT (iOS) → реклама (calk.uz 1.3.1, KZ-CALK ed781e8).
+ *
+ * - UMP: для EEA/UK форма обязательна до запроса рекламы (требование Google);
+ *   в KG статус NOT_REQUIRED и форма не появляется. Сама форма приходит из
+ *   опубликованного GDPR-сообщения для приложения Calk.KG в AdMob → Privacy &
+ *   messaging — без него requestConsentInfo вернёт REQUIRED, а показать будет нечего.
+ * - ATT: Apple требует запрос перед таргет-рекламой; диалог показывается только
+ *   при notDetermined. Текст — NSUserTrackingUsageDescription в Info.plist.
+ */
+async function ensureAdMobReady(): Promise<void> {
+  if (sdkInitialized) return;
+  const { AdMob, AdmobConsentStatus } = await import('@capacitor-community/admob');
+  await AdMob.initialize();
+  sdkInitialized = true;
+
+  try {
+    const consent = await AdMob.requestConsentInfo();
+    if (consent.isConsentFormAvailable && consent.status === AdmobConsentStatus.REQUIRED) {
+      await AdMob.showConsentForm();
+    }
+  } catch {
+    /* согласие не критично для не-EEA; реклама без него просто неперсонализированная */
+  }
+
+  if (Capacitor.getPlatform() === 'ios') {
+    try {
+      const { status } = await AdMob.trackingAuthorizationStatus();
+      if (status === 'notDetermined') {
+        await AdMob.requestTrackingAuthorization();
+      }
+    } catch {
+      /* ignore */
+    }
+  }
+}
+
 /** Таймстамп окончания временного (за ролик) периода без рекламы, 0 если нет. */
 export function tempAdFreeUntil(): number {
   let stored = 0;
@@ -167,10 +205,7 @@ export async function watchAdForTempAdFree(): Promise<WatchAdResult> {
   if (isAdFree() || tempAdFreeActive()) return 'ok'; // выдавать нечего — уже без рекламы
   try {
     const { AdMob, RewardAdPluginEvents } = await import('@capacitor-community/admob');
-    if (!sdkInitialized) {
-      await AdMob.initialize();
-      sdkInitialized = true;
-    }
+    await ensureAdMobReady();
     await AdMob.prepareRewardVideoAd({ adId: rewardedId(), isTesting: useTestAdsNow() });
 
     let rewarded = false;
@@ -231,10 +266,7 @@ export async function initNativeAds(): Promise<void> {
   }
   try {
     const { AdMob, BannerAdSize, BannerAdPosition } = await import('@capacitor-community/admob');
-    if (!sdkInitialized) {
-      await AdMob.initialize();
-      sdkInitialized = true;
-    }
+    await ensureAdMobReady();
 
     // Test ads: in dev server, OR when built with VITE_ADMOB_TEST=1 (safe device testing).
     const ids = useTestAdsNow() ? TEST_BANNER : PROD_BANNER;
