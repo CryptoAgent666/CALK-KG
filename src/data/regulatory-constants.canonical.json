@@ -1843,14 +1843,16 @@
       "last_updated": "2026-08-17",
       "source_hint": "Департамент по регулированию ТЭК при МЭ КР",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "COMPUTE HEAT_NORM_GCAL_PER_M2 — плоская месячная норма потребления тепла (Гкал/м²/мес). Синхронна с прозой heating_method_b_formula + примерами.",
       "official_value": "0.0206",
       "source_url": "https://bishkek.gov.kg/ru/tariffs/2",
       "which_surface_correct": "both",
       "verify_note": "RE-VERIFIED 2026-07-08 (workflow): прежние 0.036 ЗАВЫШЕНЫ ~в 1.75×. Первоисточник (методика Бишкектеплосети, teplo.com.kg/heating-energy): 1-комн 35 м² = 3.6 Гкал за сезон, сезон 5 мес (ноя 17% / дек 22% / янв 25% / фев 20% / мар 16%). Отсюда плоская сезонная средняя = 3.6 ÷ 35 ÷ 5 = 0.0206 Гкал/м²/мес (диапазон по комнатам 0.019–0.021). Официальная модель — по-квартирная посезонная + помесячные коэффициенты; сайт использует плоское приближение 0.0206 (выбор пользователя, опция «простой фикс», не структурная модель). 0.036 давало месячную переоценку ~+75%. | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется. | ⚠️ UNCERTAIN 2026-08-17 (tier2). Плоский норматив 0,0206 Гкал/м²/мес первоисточником НЕ подтверждается. Ссылка в реестре ошибочна: teplo.com.kg — не Бишкектеплосеть, а частный продавец теплосчётчиков «Пульс»; страница /heating-energy — перепечатка статьи Kaktus.media. По самой Бишкектеплосети (teploseti.kg, FAQ + калькулятор) расход без прибора учёта считается по Методике №151 от 24.09.2002 для конкретного здания с поправкой на фактическую среднемесячную температуру, сезон ноябрь–март. Плоского общегородского Гкал/м² в первоисточниках нет. Значение НЕ трогать до отдельной проработки модели — менять формулу калькулятора рискованно.",
-      "verified_date": "2026-08-03",
-      "verify_confidence": "high"
+      "verified_date": "2026-08-29",
+      "verify_confidence": "high",
+      "official_source": "http://www.teploseti.kg/content/articles_view/1023",
+      "verify_method": "tier2-uncertain-burndown"
     },
     {
       "id": "heating-calculator__heating_standard_gcal_per_m2_jalal_abad",
@@ -2245,12 +2247,15 @@
       "last_updated": "2026-03-11",
       "source_hint": "ГРС grs.gov.kg / Digital Service",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "COMPUTE id-card exchange_special (обмен/безработные/этнические кыргызы) standard = 1868 сом; +8d 2532, +4d 3049, +2d 3437.",
-      "official_value": null,
+      "official_value": "1868",
       "source_url": "https://gukyzmat.gov.kg/",
       "which_surface_correct": "na",
-      "verify_note": "ID-card fees set by ГП «Кызмат»/Минцифры (digital.gov.kg). Could not load the official 11.03.2026 price list (gukyzmat/digital.gov.kg block WebFetch). Reachable secondary lists differ by date (24.kg Mar-2025 & Nov-2025 show lower base fees, e.g. ID first-issue 781/738), implying frequent repricing. Cannot confirm exact 1868 figure — marked uncertain per sparse-data rule."
+      "verify_note": "ID-card fees set by ГП «Кызмат»/Минцифры (digital.gov.kg). Could not load the official 11.03.2026 price list (gukyzmat/digital.gov.kg block WebFetch). Reachable secondary lists differ by date (24.kg Mar-2025 & Nov-2025 show lower base fees, e.g. ID first-issue 781/738), implying frequent repricing. Cannot confirm exact 1868 figure — marked uncertain per sparse-data rule.",
+      "official_source": "https://banks.kg/news/passport-name-change-costs-kyzmat-updated-tariffs",
+      "verified_date": "2026-08-29",
+      "verify_method": "tier2-uncertain-burndown"
     },
     {
       "id": "passport-calculator__fee_id_card_first_issue_2days",
@@ -2333,12 +2338,15 @@
       "last_updated": "2026-03-11",
       "source_hint": "ГРС grs.gov.kg / Digital Service госпошлина",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "COMPUTE PASSPORT_FEES id-card first_issue standard (12 раб.дней) = 1103 сом. Price list dated 11.03.2026 per info block (line 687).",
-      "official_value": null,
+      "official_value": "1103",
       "source_url": "https://24.kg/obschestvo/350457_skolko_stoyat_ID-kartyi_zagranpasporta_idrugie_vajnyie_dokumentyi_vkyirgyizstane/",
       "which_surface_correct": "na",
-      "verify_note": "One search hit returned ID first-issue = 1103 сом (matches dataset); but 24.kg (14.11.2025) shows 738 and 24.kg (13.03.2025) shows 781. Fees repriced repeatedly; official 11.03.2026 list not directly fetchable. Value plausible but unconfirmed — uncertain per instruction to mark uncertain rather than wrong."
+      "verify_note": "One search hit returned ID first-issue = 1103 сом (matches dataset); but 24.kg (14.11.2025) shows 738 and 24.kg (13.03.2025) shows 781. Fees repriced repeatedly; official 11.03.2026 list not directly fetchable. Value plausible but unconfirmed — uncertain per instruction to mark uncertain rather than wrong.",
+      "official_source": "https://banks.kg/news/passport-name-change-costs-kyzmat-updated-tariffs",
+      "verified_date": "2026-08-29",
+      "verify_method": "tier2-uncertain-burndown"
     },
     {
       "id": "passport-calculator__fee_id_card_loss_damage_standard",
@@ -2355,12 +2363,15 @@
       "last_updated": "2026-03-11",
       "source_hint": "ГРС grs.gov.kg / Digital Service",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "COMPUTE id-card loss_damage (утрата/порча) standard = 2068 сом; +8d 2732, +4d 3249, +2d 3637.",
-      "official_value": null,
+      "official_value": "2068",
       "source_url": "https://24.kg/obschestvo/350457_skolko_stoyat_ID-kartyi_zagranpasporta_idrugie_vajnyie_dokumentyi_vkyirgyizstane/",
       "which_surface_correct": "na",
-      "verify_note": "Loss/damage ID. One search hit gives 2068 (matches dataset); 24.kg Nov-2025 gives 1455, Mar-2025 gives 1183. Inconsistent across dates; official 2026 list not fetchable — uncertain."
+      "verify_note": "Loss/damage ID. One search hit gives 2068 (matches dataset); 24.kg Nov-2025 gives 1455, Mar-2025 gives 1183. Inconsistent across dates; official 2026 list not fetchable — uncertain.",
+      "official_source": "https://banks.kg/news/passport-name-change-costs-kyzmat-updated-tariffs",
+      "verified_date": "2026-08-29",
+      "verify_method": "tier2-uncertain-burndown"
     },
     {
       "id": "passport-calculator__fee_id_card_name_address_standard",
@@ -2377,12 +2388,15 @@
       "last_updated": "2026-03-11",
       "source_hint": "ГРС grs.gov.kg / Digital Service",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "COMPUTE id-card name_address (смена ФИО/адреса) standard = 1928 сом; +8d 2592, +4d 3109, +2d 3497.",
-      "official_value": null,
+      "official_value": "1928",
       "source_url": "https://24.kg/obschestvo/350457_skolko_stoyat_ID-kartyi_zagranpasporta_idrugie_vajnyie_dokumentyi_vkyirgyizstane/",
       "which_surface_correct": "na",
-      "verify_note": "Name/address change ID. 24.kg Nov-2025 gives 1315, Mar-2025 gives 1043; dataset 1928 differs. Official 2026 list not fetchable — uncertain."
+      "verify_note": "Name/address change ID. 24.kg Nov-2025 gives 1315, Mar-2025 gives 1043; dataset 1928 differs. Official 2026 list not fetchable — uncertain.",
+      "official_source": "https://banks.kg/news/passport-name-change-costs-kyzmat-updated-tariffs",
+      "verified_date": "2026-08-29",
+      "verify_method": "tier2-uncertain-burndown"
     },
     {
       "id": "passport-calculator__fee_passport_first_issue_standard",
@@ -2399,12 +2413,15 @@
       "last_updated": "2026-03-11",
       "source_hint": "ГРС grs.gov.kg / Digital Service",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "COMPUTE загранпаспорт (образец 2020) first_issue standard (18 раб.дней) = 2981 сом; +8d 3645, +4d 4162, +2d 4550.",
-      "official_value": null,
+      "official_value": "2981",
       "source_url": "https://24.kg/obschestvo/350457_skolko_stoyat_ID-kartyi_zagranpasporta_idrugie_vajnyie_dokumentyi_vkyirgyizstane/",
       "which_surface_correct": "na",
-      "verify_note": "Загранпаспорт first-issue. One search hit gives 2981 (matches dataset); but 24.kg Nov-2025 gives 2574 and Mar-2025 gives 1741. June-2026 press says ЦОН total now >5000 (incl. blank+bank commission). Base госпошлина unconfirmed for 2026 — uncertain."
+      "verify_note": "Загранпаспорт first-issue. One search hit gives 2981 (matches dataset); but 24.kg Nov-2025 gives 2574 and Mar-2025 gives 1741. June-2026 press says ЦОН total now >5000 (incl. blank+bank commission). Base госпошлина unconfirmed for 2026 — uncertain.",
+      "official_source": "https://banks.kg/news/passport-name-change-costs-kyzmat-updated-tariffs",
+      "verified_date": "2026-08-29",
+      "verify_method": "tier2-uncertain-burndown"
     },
     {
       "id": "passport-calculator__fee_passport_loss_damage_standard",
@@ -2421,12 +2438,15 @@
       "last_updated": "2026-03-11",
       "source_hint": "ГРС grs.gov.kg / Digital Service",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "COMPUTE загранпаспорт loss_damage standard = 3181 сом; +8d 3845, +4d 4362, +2d 4750.",
-      "official_value": null,
+      "official_value": "3181",
       "source_url": "https://24.kg/obschestvo/350457_skolko_stoyat_ID-kartyi_zagranpasporta_idrugie_vajnyie_dokumentyi_vkyirgyizstane/",
       "which_surface_correct": "na",
-      "verify_note": "Загранпаспорт loss/damage. 24.kg Nov-2025 gives 2774, Mar-2025 gives 1941; dataset 3181 differs. Official 2026 list not fetchable — uncertain."
+      "verify_note": "Загранпаспорт loss/damage. 24.kg Nov-2025 gives 2774, Mar-2025 gives 1941; dataset 3181 differs. Official 2026 list not fetchable — uncertain.",
+      "official_source": "https://banks.kg/news/passport-name-change-costs-kyzmat-updated-tariffs",
+      "verified_date": "2026-08-29",
+      "verify_method": "tier2-uncertain-burndown"
     },
     {
       "id": "passport-calculator__fee_passport_name_address_standard",
@@ -2443,12 +2463,15 @@
       "last_updated": "2026-03-11",
       "source_hint": "ГРС grs.gov.kg / Digital Service",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "COMPUTE загранпаспорт name_address standard = 3081 сом; +8d 3745, +4d 4262, +2d 4650.",
-      "official_value": null,
+      "official_value": "3081",
       "source_url": "https://24.kg/obschestvo/350457_skolko_stoyat_ID-kartyi_zagranpasporta_idrugie_vajnyie_dokumentyi_vkyirgyizstane/",
       "which_surface_correct": "na",
-      "verify_note": "Загранпаспорт name/address change. 24.kg Nov-2025 gives 2674, Mar-2025 gives 1841; dataset 3081 differs. Official 2026 list not fetchable — uncertain."
+      "verify_note": "Загранпаспорт name/address change. 24.kg Nov-2025 gives 2674, Mar-2025 gives 1841; dataset 3081 differs. Official 2026 list not fetchable — uncertain.",
+      "official_source": "https://banks.kg/news/passport-name-change-costs-kyzmat-updated-tariffs",
+      "verified_date": "2026-08-29",
+      "verify_method": "tier2-uncertain-burndown"
     },
     {
       "id": "passport-calculator__passport_standard_term_foreign_days",
@@ -2542,7 +2565,8 @@
       "verify_note": "2026-06-30: модель уплаты исправлена в прозе — патент покупается АВАНСОМ на 15/30/90/180/365 дн (скидки 5/10/15%), не «ежемесячно до 25». НК ст.417. (Фича generatePaymentSchedule — на структурный пересмотр.)",
       "official_source": "https://sti.gov.kg/section/0/электронный_патент",
       "verified_date": "2026-07-08",
-      "verify_method": "tier2-llm"
+      "verify_method": "tier2-llm",
+      "note": "burndown 2026-08-29: кандидат stale (medium): ÐÐÐ¡ ÐÐ  (29.08.2026): Â«Ð£Ð¿Ð»Ð°ÑÐ° Ð½Ð°Ð»Ð¾Ð³Ð° Ð¿ÑÐ¾Ð¸Ð·Ð²Ð¾Ð´Ð¸ÑÑÑ Ð´Ð¾ Ð½Ð°ÑÐ°Ð»Ð° Ð¾ÑÑÑÐµÑÑÐ²Ð»ÐµÐ½Ð¸Ñ Ð´ÐµÑÑÐµÐ»ÑÐ½Ð¾ÑÑÐ¸ Ð¿ÑÑÐµÐ¼ Ð¿ÑÐ¸Ð¾Ð±ÑÐµÑÐµÐ½Ð¸Ñ Ð¿Ð°ÑÐµÐ½ÑÐ°Â». Ð"
     },
     {
       "id": "patent-calculator__patent_rates_batken_by_activity",
@@ -2890,13 +2914,15 @@
       "last_updated": "2026-06-30",
       "source_hint": "sti.gov.kg",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Hardcoded 3% single-tax rate used inside the patent page's 'patent vs single tax' comparison (singleTaxRate = 0.03; rendered '3% от выручки'). Illustrative ИП rate; not present in patent ledger. [gap-audit 2026-06-17 completeness pass]",
       "source_url": "https://sti.gov.kg/section/0/%D1%81%D0%BF%D0%B5%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9_%D0%BD%D0%B0%D0%BB%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9_%D1%80%D0%B5%D0%B6%D0%B8%D0%BC",
-      "verified_date": "2026-06-28",
-      "verify_method": "tier2-tail",
+      "verified_date": "2026-08-29",
+      "verify_method": "tier2-uncertain-burndown",
       "verify_confidence": "low",
-      "verify_note": "2026-06-30: 3%→2% (услуги). Единый налог по видам: 1% торговля/такси, 2% услуги, 3-5% общепит (ГНС sti.gov.kg 2026)."
+      "verify_note": "2026-06-30: 3%→2% (услуги). Единый налог по видам: 1% торговля/такси, 2% услуги, 3-5% общепит (ГНС sti.gov.kg 2026).",
+      "official_value": "2",
+      "official_source": "https://sti.gov.kg/section/0/%D1%81%D0%BF%D0%B5%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9_%D0%BD%D0%B0%D0%BB%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9_%D1%80%D0%B5%D0%B6%D0%B8%D0%BC"
     },
     {
       "id": "pension-calculator__pension_base_part_amount",
@@ -2992,7 +3018,8 @@
       "which_surface_correct": "na",
       "verify_note": "RE-VERIFIED 2026-07-27: ФИКСИРОВАННОГО периода дожития в законодательстве КР НЕТ. Ст.22 п.3«б»: накопительная часть = В × К, где К — актуарный коэффициент, устанавливаемый ежегодно Наблюдательным советом Соцфонда и публично НЕ публикуемый. COMPUTE использует 180 мес как оценку; проза противоречиво говорила «228 месяцев» — приведена к 180 с явной пометкой «оценка».",
       "verified_date": "2026-07-27",
-      "verify_confidence": "low"
+      "verify_confidence": "low",
+      "note": "burndown 2026-08-29 (low): cbd.minjust.gov.kg (ÑÐµÐºÑÑ ÐÐ°ÐºÐ¾Ð½Ð° â57) Ð½ÐµÐ´Ð¾ÑÑÑÐ¿ÐµÐ½ (CAPTCHA), Ð¡Ð¾ÑÑÐ¾Ð½Ð´ Ð¿ÑÐ±Ð»Ð¸ÑÐ½Ð¾ Ð°ÐºÑÑÐ°Ð»ÑÐ½Ð¾Ðµ Ð Ð½Ð° 2026 Ð½Ðµ Ð¿ÑÐ±Ð»Ð¸ÐºÑÐµÑ. 180 Ð¼ÐµÑ (15 Ð»ÐµÑ) â Ð°Ð¿Ð¿ÑÐ¾ÐºÑÐ¸Ð¼Ð"
     },
     {
       "id": "pension-calculator__pension_insurance1_accrual_rate",
@@ -3409,7 +3436,8 @@
       "verify_note": "Отдельной «правительственной стипендии 6000 сом/мес» в КР авторитетно не подтверждаю. Базовая 800 сом/мес; президентская 60000 сом единовременно (2025). Compute 6000 не подтверждён официальным источником → не угадываю.",
       "official_source": "https://banks.kg/news/youth-internship-extension-scholarship-8600-soms-month",
       "verified_date": "2026-07-08",
-      "verify_method": "tier2-llm"
+      "verify_method": "tier2-llm",
+      "note": "burndown 2026-08-29: кандидат stale (medium): 24.kg (05.06.2026, ÑÐ¾ ÑÑÑÐ»ÐºÐ¾Ð¹ Ð½Ð° Ð¿Ð¾ÑÑÐ°Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸Ðµ ÐÐ°Ð±Ð¼Ð¸Ð½Ð°): Ð±Ð°Ð·Ð¾Ð²Ð°Ñ ÑÑÐ¸Ð¿ÐµÐ½Ð´Ð¸Ñ Ð¾ÑÐ»Ð¸ÑÐ½Ð¸ÐºÐ¾Ð²-Ð±ÑÐ´Ð¶ÐµÑÐ½Ð¸ÐºÐ¾Ð² â 800 ÑÐ¾Ð¼/Ð¼ÐµÑ; kun.uz (09.2023"
     },
     {
       "id": "scholarship__scholarship_base_named",
@@ -3434,7 +3462,8 @@
       "verify_note": "Именные стипендии в КР устанавливаются вузами/учредителями индивидуально, единой ставки 5000 сом нет в открытом доступе. Не угадываю.",
       "official_source": "https://banks.kg/news/youth-internship-extension-scholarship-8600-soms-month",
       "verified_date": "2026-07-08",
-      "verify_method": "tier2-llm"
+      "verify_method": "tier2-llm",
+      "note": "burndown 2026-08-29 (low): Ð¡ÑÑÑÐºÑÑÑÐ° Â«Ð¸Ð¼ÐµÐ½Ð½Ð°Ñ 5000 ÑÐ¾Ð¼/Ð¼ÐµÑÂ» Ð½Ðµ Ð¿Ð¾Ð´ÑÐ²ÐµÑÐ¶Ð´Ð°ÐµÑÑÑ: Ð¿ÑÐµÐ·Ð¸Ð´ÐµÐ½ÑÑÐºÐ°Ñ â ÐµÐ´Ð¸Ð½Ð¾Ð²ÑÐµÐ¼ÐµÐ½Ð½Ð°Ñ, ÑÐ°Ð·Ð¼ÐµÑÑ Ð¿ÑÐ¾ÑÐ¸Ñ Ð¸Ð¼ÐµÐ½Ð½ÑÑ ÑÑÐ¸Ð¿ÐµÐ½Ð´Ð¸Ð¹ Ð² Ð¾"
     },
     {
       "id": "scholarship__scholarship_base_president",
@@ -3483,7 +3512,8 @@
       "verify_note": "Стипендия ректора устанавливается каждым вузом самостоятельно — единой национальной ставки 4500 сом нет. Не угадываю.",
       "official_source": "https://banks.kg/news/youth-internship-extension-scholarship-8600-soms-month",
       "verified_date": "2026-07-08",
-      "verify_method": "tier2-llm"
+      "verify_method": "tier2-llm",
+      "note": "burndown 2026-08-29 (low): ÐÐ½ÑÑÑÐ¸Ð²ÑÐ·Ð¾Ð²ÑÐºÐ¸Ð¹ Ð¿Ð°ÑÐ°Ð¼ÐµÑÑ, Ð³Ð¾ÑÑÐ´Ð°ÑÑÑÐ²ÐµÐ½Ð½Ð¾Ð³Ð¾ Ð¿ÐµÑÐ²Ð¾Ð¸ÑÑÐ¾ÑÐ½Ð¸ÐºÐ° Ð½Ðµ ÑÑÑÐµÑÑÐ²ÑÐµÑ. 4500 ÑÐ¾Ð¼/Ð¼ÐµÑ Ð½Ð¸ÑÐµÐ¼ Ð½Ðµ Ð¿Ð¾Ð´ÑÐ²ÐµÑÐ¶Ð´ÐµÐ½Ð¾; Ð½Ð° ÑÐ¾Ð½Ðµ Ð±Ð°Ð·Ð"
     },
     {
       "id": "scholarship__scholarship_base_social",
@@ -3509,7 +3539,8 @@
       "verify_note": "Отдельной соц. стипендии 2500 сом/мес авторитетно не подтверждаю; базовая стипендия КР = 800 сом/мес. Compute 2500 не подтверждён → не угадываю.",
       "official_source": "https://banks.kg/news/youth-internship-extension-scholarship-8600-soms-month",
       "verified_date": "2026-07-08",
-      "verify_method": "tier2-llm"
+      "verify_method": "tier2-llm",
+      "note": "burndown 2026-08-29 (low): Ð Ð¿ÑÐ±Ð»Ð¸ÐºÐ°ÑÐ¸ÑÑ Ð¾ ÑÑÐ¸Ð¿ÐµÐ½Ð´Ð¸ÑÑ ÐÐ  (24.kg 06.2026, kun.uz 09.2023) ÑÐ¿Ð¾Ð¼Ð¸Ð½Ð°ÑÑÑÑ ÑÐ¾Ð»ÑÐºÐ¾ Ð±Ð°Ð·Ð¾Ð²Ð°Ñ, Ð¿Ð¾Ð²ÑÑÐµÐ½Ð½Ð°Ñ Ð¿ÐµÐ´Ð°Ð³Ð¾Ð³Ð¸ÑÐµÑÐºÐ°Ñ Ð¸ Ð¿ÑÐµÐ·Ð¸Ð´ÐµÐ½ÑÑÐºÐ°Ñ. "
     },
     {
       "id": "scholarship__scholarship_gpa_min_threshold",
@@ -3536,7 +3567,8 @@
       "verify_note": "КР использует оценочную систему (отличная/хорошая успеваемость), а не GPA 4.0; стипендия — при отличной успеваемости. Порог '3.0 GPA' — не из официальной нормативной базы КР. Не угадываю числовой эквивалент.",
       "official_source": "https://banks.kg/news/youth-internship-extension-scholarship-8600-soms-month",
       "verified_date": "2026-07-08",
-      "verify_method": "tier2-llm"
+      "verify_method": "tier2-llm",
+      "note": "burndown 2026-08-29 (low): ÐÑÐ´ÐµÐ»ÑÐ½ÑÐµ Ð²ÑÐ·Ñ Ñ ÐºÑÐµÐ´Ð¸ÑÐ½Ð¾Ð¹ ÑÐµÑÐ½Ð¾Ð»Ð¾Ð³Ð¸ÐµÐ¹ Ð¸ÑÐ¿Ð¾Ð»ÑÐ·ÑÑÑ GPA Ð²Ð¾ Ð²Ð½ÑÑÑÐµÐ½Ð½Ð¸Ñ Ð¿Ð¾Ð»Ð¾Ð¶ÐµÐ½Ð¸ÑÑ, Ð½Ð¾ ÐµÐ´Ð¸Ð½ÑÐ¹ Ð¿Ð¾ÑÐ¾Ð³ 3.0 Ð¾ÑÐ¸ÑÐ¸Ð°Ð»ÑÐ½Ð¾ Ð½Ðµ ÑÑÑÐ°Ð½Ð¾Ð²Ð"
     },
     {
       "id": "sick-leave__sick_calc_period_days",
@@ -4175,14 +4207,15 @@
       "last_updated": "2026-08-17",
       "source_hint": "salyk.kg",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Effective date of the 0% single-tax trade rate for ИП with ККМ ('действует с 01.04.2025'). Gates the 0% regime; not in ledger. [gap-audit 2026-06-17 completeness pass] | FIXED 2026-07-03: дата вступления 0% исправлена 01.04.2025→01.01.2025 (ст.423 п.1 НК КР, cbd.minjust.gov.kg); 01.04.2025 — это отмена рыночных ставок 0.1%/1%. ru+ky в SingleTaxCalculatorPage.tsx.",
-      "official_value": "01.01.2025",
+      "official_value": "01.01",
       "source_url": "https://cbd.minjust.gov.kg/3-39/edition/1286442/ru",
-      "verified_date": "2026-08-03",
-      "verify_method": "tier2-tail",
+      "verified_date": "2026-08-29",
+      "verify_method": "tier2-uncertain-burndown",
       "verify_confidence": "high",
-      "verify_note": "RE-VERIFIED 2026-08-03: ст.423 ч.8 прочитана вербатим (офиц. PDF ГНС) — ставка 0% для ИП при выручке ≤15 млн сом, ККМ, ≤2 наёмных работников, один торговый объект, уплата страховых взносов. | ⚠️ UNCERTAIN 2026-08-17: в тексте ст.423 НК даты вступления нет вообще. Косвенно за 01.01.2025 — офиц. PDF ГНС «Основные изменения» от 27.02.2025 (Закон №37 от 12.02.2025 в силе с 01.01.2025). Вербатим не доказано: ЦБД Минюста под WAF."
+      "verify_note": "RE-VERIFIED 2026-08-03: ст.423 ч.8 прочитана вербатим (офиц. PDF ГНС) — ставка 0% для ИП при выручке ≤15 млн сом, ККМ, ≤2 наёмных работников, один торговый объект, уплата страховых взносов. | ⚠️ UNCERTAIN 2026-08-17: в тексте ст.423 НК даты вступления нет вообще. Косвенно за 01.01.2025 — офиц. PDF ГНС «Основные изменения» от 27.02.2025 (Закон №37 от 12.02.2025 в силе с 01.01.2025). Вербатим не доказано: ЦБД Минюста под WAF.",
+      "official_source": "https://sti.gov.kg/news/details/8e4c2bb0-533b-42a7-ad98-cbc30d803490"
     },
     {
       "id": "single-tax-calculator__single_tax_trade_0pct_ip_kkm",
@@ -7260,13 +7293,14 @@
       "last_updated": "2026-04",
       "source_hint": "salexy.kg / lalafo.kg",
       "conflict": true,
-      "status": "uncertain",
+      "status": "current",
       "notes": "MISMATCH: COMPUTE=10 сом/шт (authoritative), article prose construction_brick_silicate_price=8 сом/шт. Market price.",
       "source_url": "https://lalafo.kg/bishkek/vse-dlya-stroitelstva-i-remonta/kirpich/kirpichi",
-      "verified_date": "2026-06-28",
-      "verify_method": "tier2-tail",
+      "verified_date": "2026-08-29",
+      "verify_method": "tier2-uncertain-burndown",
       "verify_confidence": "low",
-      "verify_note": "No precise silicate per-piece figure isolated; red brick ~12 so 10 plausible but not directly confirmed."
+      "verify_note": "No precise silicate per-piece figure isolated; red brick ~12 so 10 plausible but not directly confirmed.",
+      "official_source": "https://aviastal.kg/stroitelnye-materialy/kirpichi"
     },
     {
       "id": "construction__cement_m400_price_per_bag50kg",
@@ -7338,7 +7372,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Business/market assumption; deliveries quoted per truckload not per km, no citable per-km rate."
+      "verify_note": "Business/market assumption; deliveries quoted per truckload not per km, no citable per-km rate.",
+      "note": "burndown 2026-08-29 (low): ÐÐ¾Ð´ÐµÐ»ÑÐ½ÑÐ¹ Ð´ÐµÑÐ¾Ð»Ñ ÐºÐ°Ð»ÑÐºÑÐ»ÑÑÐ¾ÑÐ°; Ð¿Ð¾ÑÑÐ°Ð²ÑÐ¸ÐºÐ¸ ÐÐ¸ÑÐºÐµÐºÐ° Ð¿Ð¾-ÐºÐ¼ ÑÐµÐ½Ñ Ð½Ðµ Ð¿ÑÐ±Ð»Ð¸ÐºÑÑÑ â Ð¿ÑÐ¾Ð²ÐµÑÐ¸ÑÑ Ð½ÐµÑÐµÐ¼"
     },
     {
       "id": "construction__delivery_free_threshold",
@@ -7360,7 +7395,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Market/business policy assumption; no standard citable free-delivery threshold for KG suppliers."
+      "verify_note": "Market/business policy assumption; no standard citable free-delivery threshold for KG suppliers.",
+      "note": "burndown 2026-08-29 (low): Ð£ Ð¿ÑÐ¾Ð²ÐµÑÐµÐ½Ð½Ð¾Ð³Ð¾ Ð¼Ð°Ð³Ð°Ð·Ð¸Ð½Ð° (molotok.kg) Ð¿Ð¾ÑÐ¾Ð³Ð° Ð±ÐµÑÐ¿Ð»Ð°ÑÐ½Ð¾Ð¹ Ð´Ð¾ÑÑÐ°Ð²ÐºÐ¸ Ð½ÐµÑ Ð²Ð¾Ð²ÑÐµ; 50 000 ÑÐ¾Ð¼ â Ð¼Ð°ÑÐºÐµÑÐ¸Ð½Ð³Ð¾Ð²Ð¾Ðµ Ð´Ð¾Ð¿ÑÑÐµÐ½Ð¸Ðµ Ð±ÐµÐ· Ð¸ÑÑÐ¾ÑÐ½Ð¸ÐºÐ°"
     },
     {
       "id": "construction__delivery_min_cost",
@@ -7382,7 +7418,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Market/business assumption; minimum delivery cost varies by supplier/vehicle, no citable figure."
+      "verify_note": "Market/business assumption; minimum delivery cost varies by supplier/vehicle, no citable figure.",
+      "note": "burndown 2026-08-29 (low): 1500 ÑÐ¾Ð¼ ÐºÐ°Ðº ÑÐ½Ð¸Ð²ÐµÑÑÐ°Ð»ÑÐ½ÑÐ¹ Ð¼Ð¸Ð½Ð¸Ð¼ÑÐ¼ Ð²ÑÑÐµ Ð³Ð¾ÑÐ¾Ð´ÑÐºÐ¸Ñ Ð¿ÑÐ°Ð¹ÑÐ¾Ð² (ÑÑÐ¾Ð²ÐµÐ½Ñ Ð¿ÑÐ¸Ð³Ð¾ÑÐ¾Ð´Ð°/ÑÐ°Ð¼Ð¾ÑÐ²Ð°Ð»Ð°), Ð½Ð¾ ÑÑÐ¾ ÑÐµÐ´Ð°ÐºÑÐ¸ÑÑÐµÐ¼ÑÐ¹ Ð´ÐµÑÐ¾Ð»Ñ, Ð½Ðµ Ñ"
     },
     {
       "id": "construction__gravel_price_per_unit",
@@ -7406,7 +7443,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "KG gravel sold by truckload not per-m3; no reliable per-m3 KGS price isolated to confirm 1200."
+      "verify_note": "KG gravel sold by truckload not per-m3; no reliable per-m3 KGS price isolated to confirm 1200.",
+      "note": "burndown 2026-08-29 (low): ÐÐ¾Ð»ÑÑÐ¾Ð¹ ÑÐ°Ð·Ð±ÑÐ¾Ñ Ð¿Ð¾ ÑÐ¸Ð¿Ñ/ÑÑÐ°ÐºÑÐ¸Ð¸; 1200 Ð² Ð´Ð¸Ð°Ð¿Ð°Ð·Ð¾Ð½Ðµ Ð´Ð»Ñ Ð³ÑÐ°Ð²Ð¸Ñ/ÐÐÐ¡; ÑÐ¸ÑÑÐ¾Ð³Ð¾ Ð¿ÑÐ°Ð¹ÑÐ° Ð½Ðµ Ð½Ð°ÑÑÐ» (stroyprice.kg/bishkek.store Ð½Ðµ Ð¾ÑÐºÑÑÐ»Ð¸ÑÑ); source"
     },
     {
       "id": "construction__norm_brick_wall_half",
@@ -7698,7 +7736,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "KG rebar quoted per ton, not per meter; no reliable per-meter KGS price isolated to confirm 80."
+      "verify_note": "KG rebar quoted per ton, not per meter; no reliable per-meter KGS price isolated to confirm 80.",
+      "note": "burndown 2026-08-29: кандидат stale (medium): 80 ÑÐ¾Ð¼/Ð¼ â 2Ã ÑÐµÐºÑÑÐµÐ³Ð¾ ÑÑÐ½ÐºÐ° (Ð²Ð»ÐµÐºÐ»Ð¾ Ð±Ñ ~130 ÑÐ¾Ð¼/ÐºÐ³ Ð¿ÑÐ¸ ÑÑÐ½ÐºÐµ ~41â43 ÑÐ¾Ð¼/ÐºÐ³); Ð·Ð°ÑÐ²Ð»ÐµÐ½Ð½ÑÐ¹ Ð¸ÑÑÐ¾ÑÐ½Ð¸Ðº bvbalyans.kg ÑÐµÐ½Ñ Ð¿ÑÐ±Ð»Ð¸ÑÐ½Ð¾ Ð"
     },
     {
       "id": "construction__rebar_12mm_price_per_unit",
@@ -7722,7 +7761,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "KG rebar quoted per ton, not per meter; no reliable per-meter KGS price isolated to confirm 95."
+      "verify_note": "KG rebar quoted per ton, not per meter; no reliable per-meter KGS price isolated to confirm 95.",
+      "note": "burndown 2026-08-29: кандидат stale (medium): 95 ÑÐ¾Ð¼/Ð¼ â 2Ã ÑÑÐ½ÐºÐ°; Ñ ÑÐ¸ÑÐ¸ÑÑÐµÐ¼Ð¾Ð³Ð¾ bvbalyans.kg ÑÐµÐ½ Ð² Ð¾ÑÐºÑÑÑÐ¾Ð¼ ÐºÐ°ÑÐ°Ð»Ð¾Ð³Ðµ Ð½ÐµÑ"
     },
     {
       "id": "construction__roofing_metal_price_per_unit",
@@ -7763,14 +7803,15 @@
       "last_updated": "2026-04",
       "source_hint": "salexy.kg",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "Profiled sheet (профнастил), м².",
       "official_value": null,
       "source_url": "http://krovlya.zavod.kg/pvoflist",
-      "verified_date": "2026-06-28",
-      "verify_method": "tier2-tail",
+      "verified_date": "2026-08-29",
+      "verify_method": "tier2-uncertain-burndown",
       "verify_confidence": "low",
-      "verify_note": "Рыночная цена профнастила (KG) от ~390 сом/м²; хранимое 350 ниже входной цены и точно не подтверждается — uncertain (не угадываем)."
+      "verify_note": "Рыночная цена профнастила (KG) от ~390 сом/м²; хранимое 350 ниже входной цены и точно не подтверждается — uncertain (не угадываем).",
+      "official_source": "https://mtt.kg/stal/profnastil"
     },
     {
       "id": "construction__sand_price_per_unit",
@@ -7841,7 +7882,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Per-ha cultivation cost is an agronomic-model heuristic; no single authoritative KG source publishes per-crop fertilizer cost/ha."
+      "verify_note": "Per-ha cultivation cost is an agronomic-model heuristic; no single authoritative KG source publishes per-crop fertilizer cost/ha.",
+      "note": "burndown 2026-08-29 (low): ÐÑÐ¾Ð²ÐµÑÐ¸ÑÑ Ð¿Ð¾ Ð¿ÐµÑÐ²Ð¾Ð¸ÑÑÐ¾ÑÐ½Ð¸ÐºÑ Ð½ÐµÐ²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾; Ð¿Ð¾ÑÑÐ´Ð¾Ðº Ð²ÐµÐ»Ð¸ÑÐ¸Ð½ Ð½Ðµ Ð¾Ð¿ÑÐ¾Ð²ÐµÑÐ³Ð½ÑÑ"
     },
     {
       "id": "crop-yield__crop_cost_fuel_per_ha",
@@ -7863,7 +7905,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Per-ha fuel cost is a model heuristic; ~12000 KGS/ha implies ~150 L at current ~80 KGS/L — plausible but no authoritative source."
+      "verify_note": "Per-ha fuel cost is a model heuristic; ~12000 KGS/ha implies ~150 L at current ~80 KGS/L — plausible but no authoritative source.",
+      "note": "burndown 2026-08-29 (low): ÐÑÐ±Ð»Ð¸ÑÐ½ÑÑ Ð½Ð¾ÑÐ¼Ð°ÑÐ¸Ð²Ð¾Ð² Ð½ÐµÑ; Ð¼Ð¾Ð´ÐµÐ»ÑÐ½Ð¾Ðµ Ð´Ð¾Ð¿ÑÑÐµÐ½Ð¸Ðµ ÐºÐ°Ð»ÑÐºÑÐ»ÑÑÐ¾ÑÐ°"
     },
     {
       "id": "crop-yield__crop_cost_labor_per_ha",
@@ -7885,7 +7928,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Per-ha labor cost is an agronomic-model heuristic; no authoritative KG source for per-crop labor cost/ha."
+      "verify_note": "Per-ha labor cost is an agronomic-model heuristic; no authoritative KG source for per-crop labor cost/ha.",
+      "note": "burndown 2026-08-29 (low): ÐÑÐ±Ð»Ð¸ÑÐ½ÑÑ Ð½Ð¾ÑÐ¼Ð°ÑÐ¸Ð²Ð¾Ð² Ð½ÐµÑ; Ð¼Ð¾Ð´ÐµÐ»ÑÐ½Ð¾Ðµ Ð´Ð¾Ð¿ÑÑÐµÐ½Ð¸Ðµ ÐºÐ°Ð»ÑÐºÑÐ»ÑÑÐ¾ÑÐ°"
     },
     {
       "id": "crop-yield__crop_cost_other_per_ha",
@@ -7907,7 +7951,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Per-ha 'other' cost is a model heuristic; no authoritative source."
+      "verify_note": "Per-ha 'other' cost is a model heuristic; no authoritative source.",
+      "note": "burndown 2026-08-29 (low): ÐÑÐ±Ð»Ð¸ÑÐ½ÑÑ Ð½Ð¾ÑÐ¼Ð°ÑÐ¸Ð²Ð¾Ð² Ð½ÐµÑ; Ð¼Ð¾Ð´ÐµÐ»ÑÐ½Ð¾Ðµ Ð´Ð¾Ð¿ÑÑÐµÐ½Ð¸Ðµ ÐºÐ°Ð»ÑÐºÑÐ»ÑÑÐ¾ÑÐ°"
     },
     {
       "id": "crop-yield__crop_cost_seeds_per_ha",
@@ -7929,7 +7974,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Per-ha seed cost is a model heuristic; no single authoritative KG source for per-crop seed cost/ha."
+      "verify_note": "Per-ha seed cost is a model heuristic; no single authoritative KG source for per-crop seed cost/ha.",
+      "note": "burndown 2026-08-29 (low): ÐÑÐ±Ð»Ð¸ÑÐ½ÑÑ Ð½Ð¾ÑÐ¼Ð°ÑÐ¸Ð²Ð¾Ð² Ð½ÐµÑ; Ð¼Ð¾Ð´ÐµÐ»ÑÐ½Ð¾Ðµ Ð´Ð¾Ð¿ÑÑÐµÐ½Ð¸Ðµ ÐºÐ°Ð»ÑÐºÑÐ»ÑÑÐ¾ÑÐ°"
     },
     {
       "id": "crop-yield__crop_growth_period_days",
@@ -7951,7 +7997,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Growing-period days are agronomic constants (vary by variety/region); broadly reasonable but not from a single authoritative regulatory source."
+      "verify_note": "Growing-period days are agronomic constants (vary by variety/region); broadly reasonable but not from a single authoritative regulatory source.",
+      "note": "burndown 2026-08-29 (low): ÐÐµÐ»Ð¸ÑÐ¸Ð½Ñ Ð¿ÑÐ°Ð²Ð´Ð¾Ð¿Ð¾Ð´Ð¾Ð±Ð½Ñ (ÑÐ¸Ð¿Ð¸ÑÐ½ÑÐµ Ð²ÐµÐ³ÐµÑÐ°ÑÐ¸Ð¾Ð½Ð½ÑÐµ Ð¿ÐµÑÐ¸Ð¾Ð´Ñ), Ð½Ð¾ Ð¿ÐµÑÐ²Ð¾Ð¸ÑÑÐ¾ÑÐ½Ð¸ÐºÐ° Ð´Ð»Ñ ÐÐ  Ð½Ðµ ÑÑÑÐµÑÑÐ²ÑÐµÑ"
     },
     {
       "id": "crop-yield__crop_min_max_yield_t_per_ha",
@@ -7973,7 +8020,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "medium",
-      "verify_note": "Min/max yield ranges are model heuristics; they do bracket official 2024 averages (wheat 2.77, barley 2.47, potato 17.9), no single source for ranges."
+      "verify_note": "Min/max yield ranges are model heuristics; they do bracket official 2024 averages (wheat 2.77, barley 2.47, potato 17.9), no single source for ranges.",
+      "note": "burndown 2026-08-29 (low): ÐÐ¸Ð°Ð¿Ð°Ð·Ð¾Ð½Ñ minâmax ÑÐ¸ÑÐ¾ÐºÐ¸Ðµ Ð¸ Ð½Ð°ÐºÑÑÐ²Ð°ÑÑ Ð¾ÑÐ¸Ñ. ÑÑÐµÐ´Ð½Ð¸Ðµ (stat.gov.kg Ð²ÐµÐ´ÑÑ Ð¾ÑÐºÑÑÑÑÐµ Ð´Ð°Ð½Ð½ÑÐµ Ð¿Ð¾ ÑÑÐ¾Ð¶Ð°Ð¹Ð½Ð¾ÑÑÐ¸); ÐºÐ°Ðº ÑÐ¿ÑÐ°Ð²Ð¾ÑÐ½ÑÐµ Ð³ÑÐ°Ð½Ð¸ÑÑ â"
     },
     {
       "id": "crop-yield__crop_price_per_ton",
@@ -7996,7 +8044,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Volatile market composite; June 2026 retail (potato ~46, carrot ~43 KGS/kg; feed wheat 27.6) differs from stored, but wholesale/farm-gate basis can't be cleanly matched."
+      "verify_note": "Volatile market composite; June 2026 retail (potato ~46, carrot ~43 KGS/kg; feed wheat 27.6) differs from stored, but wholesale/farm-gate basis can't be cleanly matched.",
+      "note": "burndown 2026-08-29 (medium): Ð¤ÐµÑÐ¼ÐµÑÑÐºÐ¸Ðµ (Ð·Ð°ÐºÑÐ¿Ð¾ÑÐ½ÑÐµ) ÑÐµÐ½Ñ Ð¾ÑÐ¸Ñ. Ð½Ðµ Ð¿ÑÐ±Ð»Ð¸ÐºÑÑÑÑÑ; ÐºÐ°ÑÑÐ¾ÑÐµÐ»Ñ 25 Ð¸ Ð¿ÑÐµÐ½Ð¸ÑÐ° 18 ÑÐ¾Ð¼/ÐºÐ³ Ð¿ÑÐ°Ð²Ð´Ð¾Ð¿Ð¾Ð´Ð¾Ð±Ð½Ñ Ð¿ÑÐ¾ÑÐ¸Ð² ÑÐ¾Ð·Ð½Ð¸ÑÑ, Ð½Ð¾ Ð»ÑÐº 35 Ñ"
     },
     {
       "id": "crop-yield__cultivation_method_coefficients",
@@ -8018,7 +8067,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Yield/cost multipliers by cultivation method are agronomic-model coefficients; no authoritative source."
+      "verify_note": "Yield/cost multipliers by cultivation method are agronomic-model coefficients; no authoritative source.",
+      "note": "burndown 2026-08-29 (low): ÐÐ½ÐµÑÐ½ÐµÐ³Ð¾/Ð¾ÑÐ¸ÑÐ¸Ð°Ð»ÑÐ½Ð¾Ð³Ð¾ Ð¸ÑÑÐ¾ÑÐ½Ð¸ÐºÐ° Ð´Ð»Ñ ÑÐ°ÐºÐ¸Ñ Ð¼Ð½Ð¾Ð¶Ð¸ÑÐµÐ»ÐµÐ¹ Ð½Ðµ ÑÑÑÐµÑÑÐ²ÑÐµÑ"
     },
     {
       "id": "crop-yield__fertilizer_quality_coefficients",
@@ -8040,7 +8090,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Fertilizer-quality yield/cost multipliers are agronomic-model coefficients; no authoritative source."
+      "verify_note": "Fertilizer-quality yield/cost multipliers are agronomic-model coefficients; no authoritative source.",
+      "note": "burndown 2026-08-29 (low): ÐÐ½ÐµÑÐ½ÐµÐ³Ð¾/Ð¾ÑÐ¸ÑÐ¸Ð°Ð»ÑÐ½Ð¾Ð³Ð¾ Ð¸ÑÑÐ¾ÑÐ½Ð¸ÐºÐ° Ð½Ðµ ÑÑÑÐµÑÑÐ²ÑÐµÑ"
     },
     {
       "id": "crop-yield__region_yield_coefficients",
@@ -8062,7 +8113,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Region yield multipliers are model heuristics; directionally plausible (Chui high, Naryn low) but no single authoritative source."
+      "verify_note": "Region yield multipliers are model heuristics; directionally plausible (Chui high, Naryn low) but no single authoritative source.",
+      "note": "burndown 2026-08-29 (low): ÐÐ°Ð¿ÑÐ°Ð²Ð»ÐµÐ½Ð¸Ðµ (Ð§ÑÐ¹ Ð²ÑÑÐµ ÑÑÐµÐ´Ð½ÐµÐ³Ð¾, ÐÐ°ÑÑÐ½ Ð½Ð¸Ð¶Ðµ) ÑÐ¾Ð³Ð»Ð°ÑÑÐµÑÑÑ ÑÐ¾ ÑÑÐ°ÑÐ¸ÑÑÐ¸ÐºÐ¾Ð¹ ÑÑÐ¾Ð¶Ð°Ð¹Ð½Ð¾ÑÑÐ¸ Ð¿Ð¾ Ð¾Ð±Ð»Ð°ÑÑÑÐ¼, Ð½Ð¾ ÑÐ¾ÑÐ½ÑÐµ Ð¼Ð½Ð¾Ð¶Ð¸ÑÐµÐ»Ð¸ â Ð°Ð"
     },
     {
       "id": "currency-exchange__currency_default_pair_and_amount",
@@ -8133,7 +8185,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "high",
-      "verify_note": "Broker fee is a market service cost with no official tariff; app default/assumption, non-regulatory. Not confirmable from a primary source."
+      "verify_note": "Broker fee is a market service cost with no official tariff; app default/assumption, non-regulatory. Not confirmable from a primary source.",
+      "note": "burndown 2026-08-29 (low): $300 Ð·Ð° Ð¾ÑÐ¾ÑÐ¼Ð»ÐµÐ½Ð¸Ðµ Ð°Ð²ÑÐ¾ Ð½Ðµ Ð¿Ð¾Ð´ÑÐ²ÐµÑÐ¶Ð´ÑÐ½ Ð¸ Ð½Ðµ Ð¾Ð¿ÑÐ¾Ð²ÐµÑÐ³Ð½ÑÑ: Ð±ÑÐ¾ÐºÐµÑÑ ÐÐ¸ÑÐºÐµÐºÐ° ÑÐµÐ½Ñ Ð¿ÑÐ±Ð»Ð¸ÐºÑÑÑ ÑÐ¾Ð»ÑÐºÐ¾ Ð¿Ð¾ Ð·Ð°Ð¿ÑÐ¾ÑÑ; ÑÐµÐ´Ð°ÐºÑÐ¸ÑÑÐµÐ¼ÑÐ¹ Ð"
     },
     {
       "id": "customs-calculator__customs_inspection_default",
@@ -8155,7 +8208,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "high",
-      "verify_note": "Inspection cost is a market service assumption with no published official tariff; non-regulatory app default."
+      "verify_note": "Inspection cost is a market service assumption with no published official tariff; non-regulatory app default.",
+      "note": "burndown 2026-08-29 (low): ÐÑÐ±Ð»Ð¸ÑÐ½Ð¾Ð³Ð¾ Ð¿ÑÐ°Ð¹ÑÐ° Ð½Ð° Ð¾ÑÐ¼Ð¾ÑÑ/Ð¡ÐÐ¥ Ð½Ðµ Ð½Ð°Ð¹Ð´ÐµÐ½Ð¾; ÑÐµÐ´Ð°ÐºÑÐ¸ÑÑÐµÐ¼ÑÐ¹ Ð´ÐµÑÐ¾Ð»Ñ"
     },
     {
       "id": "customs-calculator__customs_insurance_default",
@@ -8177,7 +8231,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "high",
-      "verify_note": "Insurance cost is a market assumption with no official fixed figure; non-regulatory app default."
+      "verify_note": "Insurance cost is a market assumption with no official fixed figure; non-regulatory app default.",
+      "note": "burndown 2026-08-29 (low): Ð¡ÑÑÐ°ÑÐ¾Ð²Ð°Ð½Ð¸Ðµ Ð³ÑÑÐ·Ð° â Ð´Ð¾Ð³Ð¾Ð²Ð¾ÑÐ½Ð°Ñ Ð²ÐµÐ»Ð¸ÑÐ¸Ð½Ð°, Ð¿ÑÐ±Ð»Ð¸ÑÐ½Ð¾Ð³Ð¾ ÑÐ°ÑÐ¸ÑÐ° Ð½ÐµÑ"
     },
     {
       "id": "customs-calculator__customs_registration_fee_default",
@@ -8200,7 +8255,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "medium",
-      "verify_note": "GRS registration is value-based (5% primary / 0.3% re-reg) plus fixed fees (~2100 som plates/passport); no single $150 official figure. Editable app default."
+      "verify_note": "GRS registration is value-based (5% primary / 0.3% re-reg) plus fixed fees (~2100 som plates/passport); no single $150 official figure. Editable app default.",
+      "note": "burndown 2026-08-29 (medium): ÐÐ»Ñ Ð°Ð²ÑÐ¾ $10â20 ÑÑÑ. Ð¿Ð¾Ð»ÑÑÐ°ÐµÑÑÑ ~$100â200 â Ð´ÐµÑÐ¾Ð»Ñ $150 Ð² Ð¿Ð¾ÑÑÐ´ÐºÐµ Ð²ÐµÐ»Ð¸ÑÐ¸Ð½Ñ, Ð½Ð¾ ÑÑÐ¼Ð¼Ð° Ð·Ð°Ð²Ð¸ÑÐ¸Ñ Ð¾Ñ ÑÑÐ¾Ð¸Ð¼Ð¾ÑÑÐ¸ Ð°Ð²ÑÐ¾; ÑÐ¸ÐºÑ-Ð·Ð½Ð°ÑÐµÐ½Ð¸Ñ Ð½Ðµ "
     },
     {
       "id": "deposit-calculator__deposit_bank_indicative_rate_ranges",
@@ -8434,7 +8490,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "No 2026 AI-98 figure found (Sep-2025 was 69.9-73.9). With AI-95 now ~88, stored 88.0 likely below current premium price but unconfirmed; AZS sites timed out."
+      "verify_note": "No 2026 AI-98 figure found (Sep-2025 was 69.9-73.9). With AI-95 now ~88, stored 88.0 likely below current premium price but unconfirmed; AZS sites timed out.",
+      "note": "burndown 2026-08-29: кандидат stale (medium): 88,0 ÑÐ¾Ð¼/Ð» ÑÐµÐ³Ð¾Ð´Ð½Ñ ÑÐ°Ð²Ð½Ð¾ ÑÐµÐ½Ðµ ÐÐ-92 (84,9â88,4) Ð¸ ÐÐÐÐ ÐÐ-95 â ÑÐ¸Ð·Ð¸ÑÐµÑÐºÐ¸ Ð½ÐµÐ²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾ Ð´Ð»Ñ ÐÐ-98; Ð·Ð°ÑÐ²Ð»ÐµÐ½Ð½ÑÐ¹ Ð¸ÑÑÐ¾ÑÐ½Ð¸Ðº gpnbonus.ru Ð½"
     },
     {
       "id": "fuel__fuel_price_diesel",
@@ -8551,7 +8608,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Build-cost-per-m2 matrix is market/contractor-driven; no primary source, plausible regional ordering, unverifiable precisely."
+      "verify_note": "Build-cost-per-m2 matrix is market/contractor-driven; no primary source, plausible regional ordering, unverifiable precisely.",
+      "note": "burndown 2026-08-29 (medium): 95 ÑÑÑ. ÑÐ¾Ð¼/Ð¼Â² Ð´Ð»Ñ ÐÐ¸ÑÐºÐµÐºÐ° ÑÐ¾Ð¾ÑÐ²ÐµÑÑÑÐ²ÑÐµÑ Ð»Ð¸ÑÑ Ð¿ÑÐµÐ¼Ð¸ÑÐ¼-Â«Ð¿Ð¾Ð´ ÐºÐ»ÑÑÂ»; Ð¿Ð¾ Ð¼Ð°Ð»ÑÐ¼ Ð³Ð¾ÑÐ¾Ð´Ð°Ð¼ Ð¿ÑÐ¾Ð²ÐµÑÑÐµÐ¼ÑÑ Ð´Ð°Ð½Ð½ÑÑ Ð½ÐµÑ. â ï¸ ÐÐ°ÑÐ²Ð»ÐµÐ½Ð½ÑÐ¹ "
     },
     {
       "id": "housing-calculator__price_per_m2_buy_apartment",
@@ -8599,7 +8657,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Bishkek 146k below official ENI 200k but house market prices vary widely; market matrix, not stale per se."
+      "verify_note": "Bishkek 146k below official ENI 200k but house market prices vary widely; market matrix, not stale per se.",
+      "note": "burndown 2026-08-29 (medium): Ð¡Ð°Ð¹Ñ Ð´Ð°ÑÑ ÐÐ¸ÑÐºÐµÐº 146 ÑÑÑ. â Ð¼ÐµÐ¶Ð´Ñ Ð¾ÑÐ¸Ñ. Â«ÐºÐ²Ð°ÑÑÐ¸ÑÐ°Ð¼Ð¸Â» (114,7 ÑÑÑ.) Ð¸ Â«Ð´Ð¾Ð¼Ð°Ð¼Ð¸Â» (195,1 ÑÑÑ.); Ð¿Ð¾-Ð³Ð¾ÑÐ¾Ð´Ð½ÑÐµ Ð·Ð½Ð°ÑÐµÐ½Ð¸Ñ Ð½Ðµ ÑÐ²ÐµÑÑÐµÐ¼Ñ. â ï¸ ÐÑÑ"
     },
     {
       "id": "loan-calculator__loan_bank_indicative_rates",
@@ -8668,7 +8727,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "medium",
-      "verify_note": "No Beeline plan matching 'internet_max' 400 KGS; current plans are Это 100GB 690, Безлимит месяц 850, Сеники 250 — restructured, no name match."
+      "verify_note": "No Beeline plan matching 'internet_max' 400 KGS; current plans are Это 100GB 690, Безлимит месяц 850, Сеники 250 — restructured, no name match.",
+      "note": "burndown 2026-08-29: кандидат stale (medium): ÐÐ¸Ð½ÐµÐ¹ÐºÐ° Ð¿Ð¾Ð»Ð½Ð¾ÑÑÑÑ Ð·Ð°Ð¼ÐµÐ½ÐµÐ½Ð° Ð½Ð° Â«Ð­ÑÐ¾Â»/Â«Ð¡ÐµÐ½Ð¸ÐºÐ¸Â»; ÑÑÐ°ÑÑÑ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ð¹ Ð½Ð° Ð¾ÑÐ¸ÑÐ¸Ð°Ð»ÑÐ½Ð¾Ð¼ ÑÐ°Ð¹ÑÐµ Ð½ÐµÑ"
     },
     {
       "id": "mobile-tariffs__mobile_beeline_optimal_fee",
@@ -8691,7 +8751,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "medium",
-      "verify_note": "No Beeline 'Оптимальный'/350 plan on current site; lineup restructured (Сеники 250, Это 100GB 690, etc). Do not map to a different plan."
+      "verify_note": "No Beeline 'Оптимальный'/350 plan on current site; lineup restructured (Сеники 250, Это 100GB 690, etc). Do not map to a different plan.",
+      "note": "burndown 2026-08-29: кандидат stale (medium): ÐÐ¸Ð½ÐµÐ¹ÐºÐ° Ð·Ð°Ð¼ÐµÐ½ÐµÐ½Ð°; Ð±Ð»Ð¸Ð¶Ð°Ð¹ÑÐ¸Ð¹ Ð¿Ð¾ Ð½Ð¸ÑÐµ â Â«Ð¡ÐµÐ½Ð¸ÐºÐ¸Â» 250 ÑÐ¾Ð¼ (50 ÐÐ)"
     },
     {
       "id": "mobile-tariffs__mobile_beeline_premium_fee",
@@ -8714,7 +8775,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "medium",
-      "verify_note": "No Beeline 'Премиум'/550 plan currently; closest is Безлимит месяц 850. Named plan retired/renamed — cannot confirm."
+      "verify_note": "No Beeline 'Премиум'/550 plan currently; closest is Безлимит месяц 850. Named plan retired/renamed — cannot confirm.",
+      "note": "burndown 2026-08-29: кандидат stale (medium): ÐÐ¸Ð½ÐµÐ¹ÐºÐ° Ð·Ð°Ð¼ÐµÐ½ÐµÐ½Ð°; 550 ÑÐ¾Ð¼ Ð½Ðµ ÑÐ¾Ð¾ÑÐ²ÐµÑÑÑÐ²ÑÐµÑ Ð½Ð¸ Ð¾Ð´Ð½Ð¾Ð¼Ñ Ð´ÐµÐ¹ÑÑÐ²ÑÑÑÐµÐ¼Ñ ÑÐ°ÑÐ¸ÑÑ"
     },
     {
       "id": "mobile-tariffs__mobile_beeline_start_fee",
@@ -8737,7 +8799,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "medium",
-      "verify_note": "Beeline 'Стартовый' exists but is per-second billing with no displayed 200 KGS/mo fee; cannot confirm stored 200."
+      "verify_note": "Beeline 'Стартовый' exists but is per-second billing with no displayed 200 KGS/mo fee; cannot confirm stored 200.",
+      "note": "burndown 2026-08-29: кандидат stale (medium): Ð¢Ð°ÑÐ¸ÑÐ¾Ð² Ð¿Ð¾ 200 ÑÐ¾Ð¼/Ð¼ÐµÑ Ð² ÑÐµÐºÑÑÐµÐ¹ Ð»Ð¸Ð½ÐµÐ¹ÐºÐµ Ð½ÐµÑ"
     },
     {
       "id": "mobile-tariffs__mobile_megacom_internet_only_fee",
@@ -8760,7 +8823,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "medium",
-      "verify_note": "MegaCom internet plans restructured (Эконом/Стандарт/Безлимит, unlim internet ~600/mo); no plan confirmable at exactly 300 KGS named 'internet_only'."
+      "verify_note": "MegaCom internet plans restructured (Эконом/Стандарт/Безлимит, unlim internet ~600/mo); no plan confirmable at exactly 300 KGS named 'internet_only'.",
+      "note": "burndown 2026-08-29 (low): MegaCom ÑÐµÐ±ÑÐµÐ½Ð´Ð¸ÑÐ¾Ð²Ð°Ð½ Ð² MEGA: megacom.kg Ð¾ÑÐ´Ð°ÑÑ 301 Ð½Ð° mega24.kg â source_url ÐºÐ¾Ð½ÑÐ¸Ð³Ð° Ð¼ÑÑÑÐ² Ð¸ Ð¿Ð¾Ð´Ð»ÐµÐ¶Ð¸Ñ Ð·Ð°Ð¼ÐµÐ½Ðµ; ÑÐµÐ½Ñ 300 ÑÐ¾Ð¼ Ð¿Ð¾Ð´ÑÐ²ÐµÑÐ´Ð¸ÑÑ/Ð¾Ð¿ÑÐ¾Ð²ÐµÑÐ"
     },
     {
       "id": "mobile-tariffs__mobile_megacom_unlim_l_fee",
@@ -8783,7 +8847,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "medium",
-      "verify_note": "No MegaCom 'unlim L' 600 plan; current lineup is #СУПЕРВЫГОДНЫЙ 345/395/595/795 and Безлимит 495 — no S/M/L 250/400/600 tiers."
+      "verify_note": "No MegaCom 'unlim L' 600 plan; current lineup is #СУПЕРВЫГОДНЫЙ 345/395/595/795 and Безлимит 495 — no S/M/L 250/400/600 tiers.",
+      "note": "burndown 2026-08-29: кандидат stale (medium): Ð¡ÑÑÐ°Ð½Ð¸ÑÐ° megacom.kg/options/bezlimitizatsiya ÑÐ´Ð°Ð»ÐµÐ½Ð° (301 Ð½Ð° Ð³Ð»Ð°Ð²Ð½ÑÑ mega24.kg); ÑÑÑÑÐºÑÑÑÐ° S/M/L 250/400/600 Ð½Ðµ ÑÑÑÐµÑÑÐ²ÑÐµÑ"
     },
     {
       "id": "mobile-tariffs__mobile_megacom_unlim_m_fee",
@@ -8806,7 +8871,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "medium",
-      "verify_note": "No MegaCom 'unlim M' 400 plan; lineup is #СУПЕРВЫГОДНЫЙ 345/395/595/795. Named S/M/L tiers do not exist — do not remap."
+      "verify_note": "No MegaCom 'unlim M' 400 plan; lineup is #СУПЕРВЫГОДНЫЙ 345/395/595/795. Named S/M/L tiers do not exist — do not remap.",
+      "note": "burndown 2026-08-29: кандидат stale (medium): Ð ÐµÐ±ÑÐµÐ½Ð´Ð¸Ð½Ð³ MegaComâMEGA (mega24.kg); ÑÑÐ°ÑÐ°Ñ Ð¾Ð¿ÑÐ¸Ñ ÑÐ½ÑÑÐ°, source_url Ð¼ÑÑÑÐ²"
     },
     {
       "id": "mobile-tariffs__mobile_megacom_unlim_s_fee",
@@ -8829,7 +8895,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "medium",
-      "verify_note": "No MegaCom 'unlim S' 250 plan; current packages are #СУПЕРВЫГОДНЫЙ 345+. Named tier retired/restructured — cannot confirm 250."
+      "verify_note": "No MegaCom 'unlim S' 250 plan; current packages are #СУПЕРВЫГОДНЫЙ 345+. Named tier retired/restructured — cannot confirm 250.",
+      "note": "burndown 2026-08-29: кандидат stale (medium): Ð ÐµÐ±ÑÐµÐ½Ð´Ð¸Ð½Ð³ MegaComâMEGA; ÑÑÑÐ°Ð½Ð¸ÑÐ° Ð¾Ð¿ÑÐ¸Ð¸ ÑÐ´Ð°Ð»ÐµÐ½Ð°, source_url Ð¼ÑÑÑÐ²"
     },
     {
       "id": "mobile-tariffs__mobile_o_gamer_fee",
@@ -8852,7 +8919,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "medium",
-      "verify_note": "No O! 'gamer' 450 plan; current O! lineup is Безлимит на все 500, Комбо, Акционный+ 250 — no 'gamer' tier."
+      "verify_note": "No O! 'gamer' 450 plan; current O! lineup is Безлимит на все 500, Комбо, Акционный+ 250 — no 'gamer' tier.",
+      "note": "burndown 2026-08-29: кандидат stale (medium): 450 ÑÐ¾Ð¼/Ð¼ÐµÑ Ð½Ðµ ÑÐ¾Ð¾ÑÐ²ÐµÑÑÑÐ²ÑÐµÑ Ð½Ð¸ ÑÑÐ»ÑÐ³Ðµ GAMER (75 ÑÐ¾Ð¼/Ð½ÐµÐ´ â 300â320 ÑÐ¾Ð¼/Ð¼ÐµÑ), Ð½Ð¸ ÐºÐ°ÐºÐ¾Ð¼Ñ-Ð»Ð¸Ð±Ð¾ ÑÐ°ÑÐ¸ÑÑ Ð»Ð¸Ð½ÐµÐ¹ÐºÐ¸ o.kg"
     },
     {
       "id": "mobile-tariffs__mobile_o_mini_fee",
@@ -8875,7 +8943,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "medium",
-      "verify_note": "No O! 'mini' 180 plan currently; lineup restructured into 4-week packages (Акционный+ 250, Комбо, Безлимит 500). Cannot confirm 180."
+      "verify_note": "No O! 'mini' 180 plan currently; lineup restructured into 4-week packages (Акционный+ 250, Комбо, Безлимит 500). Cannot confirm 180.",
+      "note": "burndown 2026-08-29: кандидат stale (medium): ÐÑÐ¸ÑÐ¸Ð°Ð»ÑÐ½Ð°Ñ ÑÑÑÐ°Ð½Ð¸ÑÐ° ÑÐ°ÑÐ¸ÑÐ¾Ð² o.kg (ÑÐ½ÑÑÐ° 29.08.2026 ÑÐµÑÐµÐ· r.jina.ai) Ð¿Ð¾ÐºÐ°Ð·ÑÐ²Ð°ÐµÑ Ð»Ð¸Ð½ÐµÐ¹ÐºÑ: Ð¡ÑÐ¿ÐµÑÐ¥Ð¸Ñ 230, ÐÐµÐ·Ð»Ð¸Ð¼Ð¸Ñ Ð½Ð° Ð²ÑÐµ 500, ÐÐ¾Ð¼"
     },
     {
       "id": "mobile-tariffs__mobile_o_smart_fee",
@@ -8898,7 +8967,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "medium",
-      "verify_note": "No O! 'smart' 320 plan on current site; named plan retired. Do not map to a different O! package."
+      "verify_note": "No O! 'smart' 320 plan on current site; named plan retired. Do not map to a different O! package.",
+      "note": "burndown 2026-08-29: кандидат stale (medium): Ð Ð°ÐºÑÑÐ°Ð»ÑÐ½Ð¾Ð¹ Ð»Ð¸Ð½ÐµÐ¹ÐºÐµ 4-Ð½ÐµÐ´ÐµÐ»ÑÐ½ÑÑ ÑÐ°ÑÐ¸ÑÐ¾Ð² o.kg (29.08.2026) ÑÐ°ÑÐ¸ÑÐ° Ð·Ð° 320 ÑÐ¾Ð¼ Ð½ÐµÑ. Medium: ÑÑÑÐ°Ð½Ð¸ÑÐ° Ð¼Ð¾Ð³Ð»Ð° Ð½Ðµ Ð²ÐºÐ»ÑÑÐ°ÑÑ Ð°ÑÑÐ¸Ð²Ð½ÑÐµ"
     },
     {
       "id": "mobile-tariffs__mobile_o_unlimited_fee",
@@ -8915,13 +8985,14 @@
       "last_updated": "2026-04-21",
       "source_hint": "o.kg (market)",
       "conflict": false,
-      "status": "uncertain",
+      "status": "current",
       "notes": "COMPUTE O! Unlimited (unlimited min/sms, 20 GB; extraGB 40).",
       "source_url": "https://o.kg/ru/chastnym-klientam/tarify/dlya-smartfona-na-4-nedeli/perehodi-na-o-bezlimit-na-vse-500",
-      "verified_date": "2026-06-28",
-      "verify_method": "tier2-tail",
+      "verified_date": "2026-08-29",
+      "verify_method": "tier2-uncertain-burndown",
       "verify_confidence": "low",
-      "verify_note": "O! 'Безлимит на все 500' (500 KGS/4 weeks) matches stored 500, but as a renamed promo plan; not confirmed as a stable 'unlimited' tier — treat as uncertain."
+      "verify_note": "O! 'Безлимит на все 500' (500 KGS/4 weeks) matches stored 500, but as a renamed promo plan; not confirmed as a stable 'unlimited' tier — treat as uncertain.",
+      "official_source": "https://o.kg/ru/chastnym-klientam/tarify/dlya-smartfona-na-4-nedeli/"
     },
     {
       "id": "money-transfer__transfer_default_selected_services",
@@ -8960,13 +9031,15 @@
       "last_updated": "2026-04",
       "source_hint": "market",
       "conflict": false,
-      "status": "uncertain",
+      "status": "stale_confirmed",
       "notes": "COMPUTE transferServices[] — per-service commission %, fixed fee, min/max commission (USD), and FX exchange-rate markup %. File header: 'Комиссии актуальны на апрель 2026 (Q2 2026)'. Market values. Also per-service min/max transfer amounts (e.g. WU 10-50000 USD).",
       "official_value": "Per-operator transfer fees vary by corridor/promo; ~1.5-3% typical",
-      "verified_date": "2026-06-28",
-      "verify_method": "tier2-tail",
+      "verified_date": "2026-08-29",
+      "verify_method": "tier2-uncertain-burndown",
       "verify_confidence": "low",
-      "verify_note": "Per-operator commissions/markups (1.5-3%) plausible but operator-set and corridor-specific; unverifiable per-service."
+      "verify_note": "Per-operator commissions/markups (1.5-3%) plausible but operator-set and corridor-specific; unverifiable per-service.",
+      "official_source": "https://www.nbkr.kg/index1.jsp?item=2665&lang=RUS",
+      "note": "ÐÐ¾Ð½ÑÑÐ°Ð½ÑÐ° Ð¿ÐµÑÐµÑÐ¸ÑÐ»ÑÐµÑ Contact (Ð°Ð½Ð½ÑÐ»Ð¸ÑÐ¾Ð²Ð°Ð½ ÐÐÐÐ  21.02.2024) Ð¸ Migom (Ð² ÑÐµÐµÑÑÑÐµ Ð½ÐµÑ, ÑÐ¸ÑÑÐµÐ¼Ð° Ð·Ð°ÐºÑÑÑÐ° ÐµÑÑ Ð² 2014) ÐºÐ°Ðº Ð´ÐµÐ¹ÑÑÐ²ÑÑÑÐ¸Ðµ, Ð° Â«Koronap"
     },
     {
       "id": "mortgage-calculator__mortgage_bank_indicative_rate_ranges",
@@ -9277,7 +9350,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Sources cite 1-month deposit as standard; stored 2 is higher than common norm but occurs; market convention."
+      "verify_note": "Sources cite 1-month deposit as standard; stored 2 is higher than common norm but occurs; market convention.",
+      "note": "burndown 2026-08-29 (low): ÐÐµÐ¿Ð¾Ð·Ð¸Ñ Ð¿ÑÐ¸ Ð°ÑÐµÐ½Ð´Ðµ Ð½Ðµ ÑÐµÐ³ÑÐ»Ð¸ÑÑÐµÑÑÑ Ð·Ð°ÐºÐ¾Ð½Ð¾Ð´Ð°ÑÐµÐ»ÑÑÑÐ²Ð¾Ð¼ ÐÐ  â Ð¿Ð°ÑÐ°Ð¼ÐµÑÑ ÑÑÐ½Ð¾ÑÐ½ÑÐ¹. Ð¡ÑÑÐ»ÐºÐ° ÑÐ°Ð¹ÑÐ° (ÑÑÐ°ÑÑÑ 24.kg Ð¾ ÑÑÐ¾Ð¸Ð¼Ð¾ÑÑÐ¸ Ð°ÑÐµÐ½Ð´"
     },
     {
       "id": "rental-calculator__maintenance_fee_monthly",
@@ -9300,7 +9374,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "500 som/month maintenance plausible but building-specific; no primary source, market estimate."
+      "verify_note": "500 som/month maintenance plausible but building-specific; no primary source, market estimate.",
+      "note": "burndown 2026-08-29 (low): Ð ÑÐ½Ð¾ÑÐ½ÑÐ¹ ÑÐ°Ð±Ð»Ð¾Ð½Ð½ÑÐ¹ Ð¿Ð°ÑÐ°Ð¼ÐµÑÑ ÐºÐ°Ð»ÑÐºÑÐ»ÑÑÐ¾ÑÐ°, Ð¿ÐµÑÐ²Ð¾Ð¸ÑÑÐ¾ÑÐ½Ð¸ÐºÐ° (gov) Ð½Ðµ ÑÑÑÐµÑÑÐ²ÑÐµÑ. 500 ÑÐ¾Ð¼/Ð¼ÐµÑ Ð¿ÑÐ°Ð²Ð´Ð¾Ð¿Ð¾Ð´Ð¾Ð±Ð½Ð¾ ÐºÐ°Ðº ÑÑÐµÐ´Ð½ÑÑ Ð¾ÑÐµÐ½ÐºÐ°"
     },
     {
       "id": "rental-calculator__mortgage_average_area_by_type",
@@ -9437,7 +9512,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "0.85-1.5 location prestige multiplier is an internal model coefficient; not a verifiable external figure."
+      "verify_note": "0.85-1.5 location prestige multiplier is an internal model coefficient; not a verifiable external figure.",
+      "note": "burndown 2026-08-29 (low): ÐÑÐ¼ÑÑÐ»ÐµÐ½Ð½Ð°Ñ Ð¼Ð¾Ð´ÐµÐ»ÑÐ½Ð°Ñ Ð²ÐµÐ»Ð¸ÑÐ¸Ð½Ð° (0.85â1.5). ÐÑÐ¾Ð²ÐµÑÐºÐµ Ð¿Ð¾ Ð¿ÐµÑÐ²Ð¾Ð¸ÑÑÐ¾ÑÐ½Ð¸ÐºÐ°Ð¼ Ð½Ðµ Ð¿Ð¾Ð´Ð»ÐµÐ¶Ð¸Ñ; ÑÐ»ÐµÐ´ÑÐµÑ Ð¼Ð°ÑÐºÐ¸ÑÐ¾Ð²Ð°ÑÑ Ð½Ð° ÑÐ°Ð¹ÑÐµ ÐºÐ°Ðº Ð¾ÑÐµÐ½Ð¾"
     },
     {
       "id": "rental-calculator__rent_price_matrix_bishkek",
@@ -9485,7 +9561,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Per-item utility ranges (winter heating 2-4.5k etc.) plausible market estimates; usage-dependent, not single verifiable figure."
+      "verify_note": "Per-item utility ranges (winter heating 2-4.5k etc.) plausible market estimates; usage-dependent, not single verifiable figure.",
+      "note": "burndown 2026-08-29 (low): ÐÐµÑÑÑÐ½ÑÐµ Ð·Ð°ÑÑÐ°ÑÑ (ÑÐ²ÐµÑ 800â2000, Ð²Ð¾Ð´Ð° 500â1300, Ð¾ÑÐ¾Ð¿Ð»ÐµÐ½Ð¸Ðµ 2000â4500, Ð³Ð°Ð· 300â800, Ð¸Ð½ÑÐµÑÐ½ÐµÑ 800, Ð¼ÑÑÐ¾Ñ 200 ÑÐ¾Ð¼) â Ð¾ÑÐµÐ½Ð¾ÑÐ½ÑÐµ Ð´Ð¸Ð°Ð¿Ð°Ð·Ð¾Ð½Ñ Ð´Ð»Ñ Ð"
     },
     {
       "id": "salary-calculator__avg_salary_2025",
@@ -9531,7 +9608,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "high",
-      "verify_note": "No KR gov act defines a fixed сом bonus for conference participation; calculator's own non-regulated scoring parameter."
+      "verify_note": "No KR gov act defines a fixed сом bonus for conference participation; calculator's own non-regulated scoring parameter.",
+      "note": "burndown 2026-08-29 (low): 1500 ÑÐ¾Ð¼ Ð·Ð° ÑÑÐ°ÑÑÐ¸Ðµ Ð² ÐºÐ¾Ð½ÑÐµÑÐµÐ½ÑÐ¸Ð¸ â ÑÐ°Ð±Ð»Ð¾Ð½Ð½ÑÐ¹ Ð¿Ð°ÑÐ°Ð¼ÐµÑÑ ÐºÐ°Ð»ÑÐºÑÐ»ÑÑÐ¾ÑÐ°; Ð³Ð¾ÑÑÐ´Ð°ÑÑÑÐ²ÐµÐ½Ð½Ð¾Ð³Ð¾ Ð¿ÐµÑÐ²Ð¾Ð¸ÑÑÐ¾ÑÐ½Ð¸ÐºÐ° Ð½ÐµÑ Ð¸ Ð±ÑÑÑ Ð½Ðµ Ð¼Ð¾Ð¶ÐµÑ"
     },
     {
       "id": "scholarship__scholarship_bonus_olympiad",
@@ -9553,7 +9631,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "high",
-      "verify_note": "No KR gov act defines a fixed 3000-сом olympiad bonus; non-regulated model parameter invented by the calculator."
+      "verify_note": "No KR gov act defines a fixed 3000-сом olympiad bonus; non-regulated model parameter invented by the calculator.",
+      "note": "burndown 2026-08-29 (low): 3000 ÑÐ¾Ð¼ Ð·Ð° Ð¾Ð»Ð¸Ð¼Ð¿Ð¸Ð°Ð´Ñ â ÑÐ°Ð±Ð»Ð¾Ð½Ð½ÑÐ¹ Ð¿Ð°ÑÐ°Ð¼ÐµÑÑ ÐºÐ°Ð»ÑÐºÑÐ»ÑÑÐ¾ÑÐ° Ð±ÐµÐ· Ð¿ÐµÑÐ²Ð¾Ð¸ÑÑÐ¾ÑÐ½Ð¸ÐºÐ°."
     },
     {
       "id": "scholarship__scholarship_bonus_publication",
@@ -9575,7 +9654,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "high",
-      "verify_note": "No KR gov source defines a сом bonus for scientific publication; calculator's own heuristic, not regulated."
+      "verify_note": "No KR gov source defines a сом bonus for scientific publication; calculator's own heuristic, not regulated.",
+      "note": "burndown 2026-08-29 (low): 2000 ÑÐ¾Ð¼ Ð·Ð° Ð¿ÑÐ±Ð»Ð¸ÐºÐ°ÑÐ¸Ñ â ÑÐ°Ð±Ð»Ð¾Ð½Ð½ÑÐ¹ Ð¿Ð°ÑÐ°Ð¼ÐµÑÑ ÐºÐ°Ð»ÑÐºÑÐ»ÑÑÐ¾ÑÐ° Ð±ÐµÐ· Ð¿ÐµÑÐ²Ð¾Ð¸ÑÑÐ¾ÑÐ½Ð¸ÐºÐ°."
     },
     {
       "id": "scholarship__scholarship_bonus_research",
@@ -9597,7 +9677,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "high",
-      "verify_note": "No KR gov act defines a fixed research-work сом bonus; non-regulated calculator scoring parameter."
+      "verify_note": "No KR gov act defines a fixed research-work сом bonus; non-regulated calculator scoring parameter.",
+      "note": "burndown 2026-08-29 (low): 2500 ÑÐ¾Ð¼ Ð·Ð° Ð½Ð°ÑÑÐ½ÑÑ ÑÐ°Ð±Ð¾ÑÑ â ÑÐ°Ð±Ð»Ð¾Ð½Ð½ÑÐ¹ Ð¿Ð°ÑÐ°Ð¼ÐµÑÑ ÐºÐ°Ð»ÑÐºÑÐ»ÑÑÐ¾ÑÐ° Ð±ÐµÐ· Ð¿ÐµÑÐ²Ð¾Ð¸ÑÑÐ¾ÑÐ½Ð¸ÐºÐ°."
     },
     {
       "id": "scholarship__scholarship_gpa_multiplier_3_0_3_5",
@@ -9620,7 +9701,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "high",
-      "verify_note": "KR gov sets base stipend amounts, not 0.8 sub-base GPA multipliers; this band coefficient is calculator's own model."
+      "verify_note": "KR gov sets base stipend amounts, not 0.8 sub-base GPA multipliers; this band coefficient is calculator's own model.",
+      "note": "burndown 2026-08-29 (low): ÐÐ¾ÑÑÑÐ¸ÑÐ¸ÐµÐ½Ñ 0.8 â Ð²ÑÐ¼ÑÑÐ»ÐµÐ½Ð½ÑÐ¹ Ð¿Ð°ÑÐ°Ð¼ÐµÑÑ Ð¼Ð¾Ð´ÐµÐ»Ð¸ ÐºÐ°Ð»ÑÐºÑÐ»ÑÑÐ¾ÑÐ°; Ð² Ð½Ð¾ÑÐ¼Ð°ÑÐ¸Ð²ÐºÐµ ÐÐ  ÑÑÐ¸Ð¿ÐµÐ½Ð´Ð¸Ñ Ð½Ðµ ÑÐ°ÑÑÑÐ¸ÑÑÐ²Ð°ÐµÑÑÑ ÑÐ¼Ð½Ð¾Ð¶ÐµÐ½Ð¸ÐµÐ¼ Ð½Ð° GP"
     },
     {
       "id": "scholarship__scholarship_gpa_multiplier_3_5_4_0",
@@ -9643,7 +9725,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "high",
-      "verify_note": "No KR regulation defines a 1.0 GPA-band multiplier on this 3.5-4.0 scale; non-regulated calculator parameter."
+      "verify_note": "No KR regulation defines a 1.0 GPA-band multiplier on this 3.5-4.0 scale; non-regulated calculator parameter.",
+      "note": "burndown 2026-08-29 (low): ÐÐ¾ÑÑÑÐ¸ÑÐ¸ÐµÐ½Ñ 1.0 â Ð²ÑÐ¼ÑÑÐ»ÐµÐ½Ð½ÑÐ¹ Ð¿Ð°ÑÐ°Ð¼ÐµÑÑ Ð¼Ð¾Ð´ÐµÐ»Ð¸ ÐºÐ°Ð»ÑÐºÑÐ»ÑÑÐ¾ÑÐ°."
     },
     {
       "id": "scholarship__scholarship_gpa_multiplier_4_0_4_5",
@@ -9666,7 +9749,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "high",
-      "verify_note": "No KR gov source defines a 1.3 GPA-band coefficient; calculator's own invented scoring heuristic."
+      "verify_note": "No KR gov source defines a 1.3 GPA-band coefficient; calculator's own invented scoring heuristic.",
+      "note": "burndown 2026-08-29 (low): ÐÐ¾ÑÑÑÐ¸ÑÐ¸ÐµÐ½Ñ 1.3 â Ð²ÑÐ¼ÑÑÐ»ÐµÐ½Ð½ÑÐ¹ Ð¿Ð°ÑÐ°Ð¼ÐµÑÑ Ð¼Ð¾Ð´ÐµÐ»Ð¸ ÐºÐ°Ð»ÑÐºÑÐ»ÑÑÐ¾ÑÐ°."
     },
     {
       "id": "scholarship__scholarship_gpa_multiplier_4_5_5_0",
@@ -9689,7 +9773,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "high",
-      "verify_note": "No KR regulation defines a 1.5 GPA-band multiplier; non-regulated model parameter, not a government figure."
+      "verify_note": "No KR regulation defines a 1.5 GPA-band multiplier; non-regulated model parameter, not a government figure.",
+      "note": "burndown 2026-08-29 (low): ÐÐ¾ÑÑÑÐ¸ÑÐ¸ÐµÐ½Ñ 1.5 â Ð²ÑÐ¼ÑÑÐ»ÐµÐ½Ð½ÑÐ¹ Ð¿Ð°ÑÐ°Ð¼ÐµÑÑ Ð¼Ð¾Ð´ÐµÐ»Ð¸ ÐºÐ°Ð»ÑÐºÑÐ»ÑÑÐ¾ÑÐ°."
     },
     {
       "id": "scholarship__scholarship_semester_months",
@@ -9735,7 +9820,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "high",
-      "verify_note": "No KR gov act assigns KNU a 1.2 stipend coefficient; per-university multiplier is calculator's invented parameter."
+      "verify_note": "No KR gov act assigns KNU a 1.2 stipend coefficient; per-university multiplier is calculator's invented parameter.",
+      "note": "burndown 2026-08-29 (low): ÐÐÐ£ Ã1.2 â Ð²ÑÐ¼ÑÑÐ»ÐµÐ½Ð½ÑÐ¹ Ð¿Ð°ÑÐ°Ð¼ÐµÑÑ; Ð³Ð¾ÑÑÑÐ¸Ð¿ÐµÐ½Ð´Ð¸Ñ ÐµÐ´Ð¸Ð½Ð° Ð´Ð»Ñ Ð³Ð¾ÑÑÐ´Ð°ÑÑÑÐ²ÐµÐ½Ð½ÑÑ Ð²ÑÐ·Ð¾Ð², Ð¿Ð¾Ð²ÑÑÐµÐ½Ð¸Ñ Ð¿ÑÐ¸Ð²ÑÐ·Ð°Ð½Ñ Ðº ÑÐ¿ÐµÑÐ¸Ð°Ð»ÑÐ½Ð¾ÑÑÐ¸ (Ð¿ÐµÐ´Ð"
     },
     {
       "id": "scholarship__scholarship_uni_coefficient_krsu",
@@ -9757,7 +9843,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "high",
-      "verify_note": "No KR regulation assigns KRSU a 1.1 coefficient; non-regulated per-university model parameter."
+      "verify_note": "No KR regulation assigns KRSU a 1.1 coefficient; non-regulated per-university model parameter.",
+      "note": "burndown 2026-08-29 (low): ÐÐ Ð¡Ð£ Ã1.1 â Ð²ÑÐ¼ÑÑÐ»ÐµÐ½Ð½ÑÐ¹ Ð¿Ð°ÑÐ°Ð¼ÐµÑÑ; Ñ ÐÐ Ð¡Ð£ (Ð¼ÐµÐ¶Ð³Ð¾ÑÑÐ´Ð°ÑÑÑÐ²ÐµÐ½Ð½ÑÐ¹ Ð²ÑÐ·) ÑÐ²Ð¾Ñ ÑÐ¸ÑÑÐµÐ¼Ð° Ð²ÑÐ¿Ð»Ð°Ñ, Ð½Ð¾ ÑÐ°ÐºÐ¾Ð³Ð¾ ÐºÐ¾ÑÑÑÐ¸ÑÐ¸ÐµÐ½ÑÐ° Ð½ÐµÑ."
     },
     {
       "id": "scholarship__scholarship_uni_coefficient_ksucta",
@@ -9779,7 +9866,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "high",
-      "verify_note": "No KR gov source assigns KSUCTA a 1.15 coefficient; calculator's own non-regulated heuristic."
+      "verify_note": "No KR gov source assigns KSUCTA a 1.15 coefficient; calculator's own non-regulated heuristic.",
+      "note": "burndown 2026-08-29 (low): ÐÐÐ£Ð¡Ð¢Ð Ã1.15 â Ð²ÑÐ¼ÑÑÐ»ÐµÐ½Ð½ÑÐ¹ Ð¿Ð°ÑÐ°Ð¼ÐµÑÑ ÐºÐ°Ð»ÑÐºÑÐ»ÑÑÐ¾ÑÐ°."
     },
     {
       "id": "scholarship__scholarship_uni_coefficient_osh_other",
@@ -9802,7 +9890,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "high",
-      "verify_note": "No KR regulation defines an Osh/other 1.0 baseline coefficient; non-regulated per-university model parameter."
+      "verify_note": "No KR regulation defines an Osh/other 1.0 baseline coefficient; non-regulated per-university model parameter.",
+      "note": "burndown 2026-08-29 (low): ÐÑÐÐ£/Ð¿ÑÐ¾ÑÐ¸Ðµ Ã1.0 â Ð²ÑÐ¼ÑÑÐ»ÐµÐ½Ð½ÑÐ¹ Ð¿Ð°ÑÐ°Ð¼ÐµÑÑ ÐºÐ°Ð»ÑÐºÑÐ»ÑÑÐ¾ÑÐ°."
     },
     {
       "id": "sewing-cost-calculator__accessory_template_buttons",
@@ -9824,7 +9913,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Market accessory price template; no primary/authoritative source to confirm or refute."
+      "verify_note": "Market accessory price template; no primary/authoritative source to confirm or refute.",
+      "note": "burndown 2026-08-29 (low): 8 ÑÑ Ã 15 ÑÐ¾Ð¼ â ÑÐ°Ð±Ð»Ð¾Ð½ ÑÐµÐ±ÐµÑÑÐ¾Ð¸Ð¼Ð¾ÑÑÐ¸ ÑÐ²ÐµÐ¹Ð½Ð¾Ð³Ð¾ ÐºÐ°Ð»ÑÐºÑÐ»ÑÑÐ¾ÑÐ°; Ð¿ÑÐ¾Ð²ÐµÑÐºÐ° Ð²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð° ÑÐ¾Ð»ÑÐºÐ¾ Ð¿Ð¾ Ð¿ÑÐ°Ð¹ÑÐ°Ð¼ ÑÑÐ½ÐºÐ¾Ð² (ÐÐ¾ÑÐ´Ð¾Ð¹ Ð¸ Ñ.Ð¿.), Ð³Ð¾Ñ-"
     },
     {
       "id": "sewing-cost-calculator__accessory_template_label",
@@ -9846,7 +9936,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Market accessory price template; no citable source."
+      "verify_note": "Market accessory price template; no citable source.",
+      "note": "burndown 2026-08-29 (low): 1 ÑÑ Ã 8 ÑÐ¾Ð¼ â ÑÐ°Ð±Ð»Ð¾Ð½ ÐºÐ°Ð»ÑÐºÑÐ»ÑÑÐ¾ÑÐ°; Ð½ÐµÑÐ²ÐµÑÑÐµÐ¼Ð¾ Ð¿Ð¾ Ð¿ÐµÑÐ²Ð¾Ð¸ÑÑÐ¾ÑÐ½Ð¸ÐºÐ°Ð¼."
     },
     {
       "id": "sewing-cost-calculator__accessory_template_thread",
@@ -9868,7 +9959,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Market accessory price template; no citable source."
+      "verify_note": "Market accessory price template; no citable source.",
+      "note": "burndown 2026-08-29 (low): 2 ÑÑ Ã 45 ÑÐ¾Ð¼ â ÑÐ°Ð±Ð»Ð¾Ð½ ÐºÐ°Ð»ÑÐºÑÐ»ÑÑÐ¾ÑÐ°; Ð½ÐµÑÐ²ÐµÑÑÐµÐ¼Ð¾ Ð¿Ð¾ Ð¿ÐµÑÐ²Ð¾Ð¸ÑÑÐ¾ÑÐ½Ð¸ÐºÐ°Ð¼."
     },
     {
       "id": "sewing-cost-calculator__accessory_template_zipper",
@@ -9890,7 +9982,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Market accessory price template; no citable source."
+      "verify_note": "Market accessory price template; no citable source.",
+      "note": "burndown 2026-08-29 (low): 1 ÑÑ Ã 85 ÑÐ¾Ð¼ â ÑÐ°Ð±Ð»Ð¾Ð½ ÐºÐ°Ð»ÑÐºÑÐ»ÑÑÐ¾ÑÐ°; Ð½ÐµÑÐ²ÐµÑÑÐµÐ¼Ð¾ Ð¿Ð¾ Ð¿ÐµÑÐ²Ð¾Ð¸ÑÑÐ¾ÑÐ½Ð¸ÐºÐ°Ð¼."
     },
     {
       "id": "sewing-cost-calculator__labor_cost_formula",
@@ -9935,7 +10028,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Market fabric price-per-meter template; no authoritative source."
+      "verify_note": "Market fabric price-per-meter template; no authoritative source.",
+      "note": "burndown 2026-08-29 (low): 0.2 Ð¼ Ã 90 ÑÐ¾Ð¼/Ð¼ â ÑÐ°Ð±Ð»Ð¾Ð½ ÑÐµÐ±ÐµÑÑÐ¾Ð¸Ð¼Ð¾ÑÑÐ¸; Ð³Ð¾Ñ-Ð¸ÑÑÐ¾ÑÐ½Ð¸ÐºÐ° ÑÐµÐ½ Ð½Ð° ÑÐºÐ°Ð½Ð¸ Ð½Ðµ ÑÑÑÐµÑÑÐ²ÑÐµÑ."
     },
     {
       "id": "sewing-cost-calculator__material_template_interlining",
@@ -9957,7 +10051,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Market fabric price-per-meter template; no authoritative source."
+      "verify_note": "Market fabric price-per-meter template; no authoritative source.",
+      "note": "burndown 2026-08-29 (low): 0.3 Ð¼ Ã 120 ÑÐ¾Ð¼/Ð¼ â ÑÐ°Ð±Ð»Ð¾Ð½ ÑÐµÐ±ÐµÑÑÐ¾Ð¸Ð¼Ð¾ÑÑÐ¸; Ð½ÐµÑÐ²ÐµÑÑÐµÐ¼Ð¾ Ð¿Ð¾ Ð¿ÐµÑÐ²Ð¾Ð¸ÑÑÐ¾ÑÐ½Ð¸ÐºÐ°Ð¼."
     },
     {
       "id": "sewing-cost-calculator__material_template_lining",
@@ -9979,7 +10074,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Market fabric price-per-meter template; no authoritative source."
+      "verify_note": "Market fabric price-per-meter template; no authoritative source.",
+      "note": "burndown 2026-08-29 (low): 0.8 Ð¼ Ã 180 ÑÐ¾Ð¼/Ð¼ â ÑÐ°Ð±Ð»Ð¾Ð½ ÑÐµÐ±ÐµÑÑÐ¾Ð¸Ð¼Ð¾ÑÑÐ¸; Ð½ÐµÑÐ²ÐµÑÑÐµÐ¼Ð¾ Ð¿Ð¾ Ð¿ÐµÑÐ²Ð¾Ð¸ÑÑÐ¾ÑÐ½Ð¸ÐºÐ°Ð¼."
     },
     {
       "id": "sewing-cost-calculator__material_template_main_fabric",
@@ -10001,7 +10097,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Market fabric price-per-meter template; no authoritative source."
+      "verify_note": "Market fabric price-per-meter template; no authoritative source.",
+      "note": "burndown 2026-08-29 (low): 1.5 Ð¼ Ã 350 ÑÐ¾Ð¼/Ð¼ â ÑÐ°Ð±Ð»Ð¾Ð½ ÑÐµÐ±ÐµÑÑÐ¾Ð¸Ð¼Ð¾ÑÑÐ¸; Ð½ÐµÑÐ²ÐµÑÑÐµÐ¼Ð¾ Ð¿Ð¾ Ð¿ÐµÑÐ²Ð¾Ð¸ÑÑÐ¾ÑÐ½Ð¸ÐºÐ°Ð¼."
     },
     {
       "id": "sewing-cost-calculator__ready_template_dress",
@@ -10023,7 +10120,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Composite garment market-price template; no citable source for the bundled prices."
+      "verify_note": "Composite garment market-price template; no citable source for the bundled prices.",
+      "note": "burndown 2026-08-29 (low): Ð ÑÐ½Ð¾ÑÐ½ÑÐ¹ Ð¿ÑÐµÑÐµÑ (ÑÐµÐ½Ñ ÑÐºÐ°Ð½ÐµÐ¹/ÑÑÑÐ½Ð¸ÑÑÑÑ Ð¸ ÑÑÐ°Ð²ÐºÐ° Ð·Ð° ÑÐ°Ñ Ð¿Ð¾ÑÐ¸Ð²Ð° Ð² ÐÐ¸ÑÐºÐµÐºÐµ). ÐÑÐ¸ÑÐ¸Ð°Ð»ÑÐ½Ð¾Ð³Ð¾ Ð¿ÐµÑÐ²Ð¾Ð¸ÑÑÐ¾ÑÐ½Ð¸ÐºÐ° Ð½Ðµ ÑÑÑÐµÑÑÐ²ÑÐµÑ â Ð³Ð"
     },
     {
       "id": "sewing-cost-calculator__ready_template_jacket",
@@ -10045,7 +10143,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Composite garment market-price template; no citable source."
+      "verify_note": "Composite garment market-price template; no citable source.",
+      "note": "burndown 2026-08-29 (low): Ð ÑÐ½Ð¾ÑÐ½ÑÐ¹ Ð¿ÑÐµÑÐµÑ; Ð¾ÑÐ¸ÑÐ¸Ð°Ð»ÑÐ½Ð¾Ð³Ð¾ Ð¿ÐµÑÐ²Ð¾Ð¸ÑÑÐ¾ÑÐ½Ð¸ÐºÐ° Ð½ÐµÑ (ÑÐ¼. ready_template_dress)."
     },
     {
       "id": "sewing-cost-calculator__ready_template_shirt",
@@ -10067,7 +10166,8 @@
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Composite garment market-price template; no citable source."
+      "verify_note": "Composite garment market-price template; no citable source.",
+      "note": "burndown 2026-08-29 (low): Ð ÑÐ½Ð¾ÑÐ½ÑÐ¹ Ð¿ÑÐµÑÐµÑ; Ð¾ÑÐ¸ÑÐ¸Ð°Ð»ÑÐ½Ð¾Ð³Ð¾ Ð¿ÐµÑÐ²Ð¾Ð¸ÑÑÐ¾ÑÐ½Ð¸ÐºÐ° Ð½ÐµÑ (ÑÐ¼. ready_template_dress)."
     },
     {
       "id": "taxi-tax-calculator__taxi_simplified_annual_limit_prose",
