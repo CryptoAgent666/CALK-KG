@@ -1,0 +1,25 @@
+{
+ "generated": "2026-08-29",
+ "roots": [
+  "src"
+ ],
+ "extensions": [
+  ".ts",
+  ".tsx",
+  ".astro",
+  ".md",
+  ".mdx",
+  ".json"
+ ],
+ "skip": [
+  "updates.ts",
+  ".bak",
+  "node_modules",
+  "regulatory-constants.canonical.json",
+  "stale-values.json",
+  ".next",
+  "dist",
+  "build"
+ ],
+ "entries": []
+}

@@ -7,6 +7,10 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
+# Гард прозы: блокирующий predeploy-шаг (fleet rollout 2026-08-29).
+# Сканирует src/ на устаревшие регуляторные значения по scripts/stale-values.json.
+node "$(dirname "$0")/check-stale-values.mjs" || { echo "деплой остановлен: устаревшие значения в прозе"; exit 1; }
+
 ENV_FILE="scripts/deploy.env"
 [ -f "$ENV_FILE" ] || { echo "❌ Нет $ENV_FILE. Скопируй scripts/deploy.env.example → scripts/deploy.env и заполни."; exit 1; }
 set -a; # shellcheck disable=SC1090
