@@ -95,3 +95,7 @@ gen-lang-client-*.json
 *-service-account.json
 # Apple: In-App Purchase Key / App Store Connect API Key
 *.p8
+
+# Бэкапы реестра/данных перед массовыми правками — рабочие файлы, не история
+*.bak
+*.bak-*
