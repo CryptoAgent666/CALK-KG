@@ -806,8 +806,13 @@ function generateHtml(templateHtml, route) {
     <link rel="canonical" href="https://calk.kg${pathForUrl}" />
     <link rel="alternate" hreflang="ru" href="${ruHref}" />
     <link rel="alternate" hreflang="ky" href="${kyHrefFinal}" />
-    <link rel="alternate" hreflang="x-default" href="${ruHref}" />`;
+    <link rel="alternate" hreflang="x-default" href="${ruHref}" />
+    <meta name="apple-itunes-app" content="app-id=6771220038" />`;
 
+  // apple-itunes-app — нативный Smart App Banner Safari на iOS: узкая полоса
+  // над страницей со ссылкой в App Store. Живёт только здесь, в пререндере, а он
+  // запускается лишь в веб-сборке (`npm run build`); `build:app` его не вызывает,
+  // поэтому внутрь приложения тег не попадает.
   html = html.replace(
     '</head>',
     `${ogTags}\n  </head>`

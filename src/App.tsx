@@ -15,6 +15,7 @@ import CalculatorGrid from './components/CalculatorGrid';
 import ContentBlock from './components/ContentBlock';
 import Footer from './components/Footer';
 import CookieConsentBanner from './components/CookieConsentBanner';
+import AppInstallBanner from './components/AppInstallBanner';
 import { RemoveAdsToast } from './components/RemoveAdsToast';
 import { maybeShowInterstitial } from './lib/admob';
 import VisualBreadcrumbs from './components/VisualBreadcrumbs';
@@ -282,6 +283,11 @@ function App() {
       {/* Cookie consent is for the website (AdSense/GA). Native apps strip AdSense and
           handle ad consent via ATT/UMP, so it's omitted there (VITE_CALK_PLATFORM=app). */}
       {import.meta.env.VITE_CALK_PLATFORM !== 'app' && <CookieConsentBanner />}
+      {/* Предложение поставить приложение — только веб и только телефон: внутри
+          приложения оно бессмысленно, а ссылка на Google Play в iOS-бинаре — это
+          реджект 2.3.10. Гейт статический, поэтому terser вырезает компонент
+          вместе с обоими URL магазинов (та же идиома, что у бейджей в футере). */}
+      {import.meta.env.VITE_CALK_PLATFORM !== 'app' && <AppInstallBanner />}
       {/* Тост «убрать рекламу» после каждого 3-го интерстишела — сам по себе
           рендерится только в приложении с модулем покупок (purchasesAvailable). */}
       <RemoveAdsToast />
