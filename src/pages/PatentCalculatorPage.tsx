@@ -1215,14 +1215,19 @@ const PatentCalculatorPage = () => {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {/* Получаем все уникальные виды деятельности */}
-                  {Array.from(new Set(
+                  {/* Дедуп по id через Map, а не Set: Set сравнивает объекты по ССЫЛКЕ,
+                      поэтому на литералах {id, nameKey} он не схлопывал ничего — один
+                      и тот же вид деятельности приходил из каждого региона, и таблица
+                      рисовала его столько раз, во скольких регионах он есть (плюс
+                      дубликаты React-ключей в консоли). */}
+                  {Array.from(new Map(
                     Object.values(PATENT_RATES).flatMap(region =>
-                      Object.entries(region.activities).map(([key, activity]) => ({
-                        id: key,
-                        nameKey: activity.nameKey
-                      }))
+                      Object.entries(region.activities).map(([key, activity]) => [
+                        key,
+                        { id: key, nameKey: activity.nameKey }
+                      ] as const)
                     )
-                  )).map((activity) => (
+                  ).values()).map((activity) => (
                     <tr key={activity.id} className={selectedActivity === activity.id ? 'bg-green-50' : ''}>
                       <td className="px-6 py-4 text-sm font-medium text-gray-900 max-w-xs">
                         {t(activity.nameKey)}
