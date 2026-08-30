@@ -38,6 +38,11 @@ function detectMobileOS(): MobileOS {
  * Полноэкранный вариант стоил бы позиций в мобильной выдаче — а это основной
  * источник трафика сайта.
  *
+ * ⚠️ Класс google-anno-skip обязателен: AdSense Auto ads (аннотации) линкуют
+ * слова прямо внутри нашего интерфейса — на проде подпись «35 калькуляторов»
+ * превратилась в рекламную ссылку <a class="google-anno">. Это документированный
+ * опт-аут Google; тот же класс стоит на баннере cookie.
+ *
  * ⚠️ В нативные сборки не попадает: на месте использования стоит статический
  * гейт по VITE_CALK_PLATFORM (идиома бейджей сторов в Footer). Без него ссылка
  * на Google Play уехала бы в iOS-бинарь — реджект 2.3.10, класс CRYPTOCALK.
@@ -84,7 +89,7 @@ const AppInstallBanner = () => {
     : { title: 'Приложение Calk.kg', subtitle: '35 калькуляторов', cta: 'Установить', close: 'Закрыть' };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-gray-200 bg-white/95 backdrop-blur sm:hidden">
+    <div className="google-anno-skip fixed bottom-0 left-0 right-0 z-40 border-t border-gray-200 bg-white/95 backdrop-blur sm:hidden">
       <div className="flex items-center gap-2.5 px-3 py-2.5">
         {/* Логотип рисуем иконкой, как в шапке и футере: файл
             public/apple-touch-icon.png — это SVG с расширением .png, в <img> он

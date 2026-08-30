@@ -48,7 +48,7 @@ const CookieConsentBanner = () => {
       };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-gray-200 bg-white/95 backdrop-blur">
+    <div className="google-anno-skip fixed bottom-0 left-0 right-0 z-50 border-t border-gray-200 bg-white/95 backdrop-blur">
       <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
         <div className="text-sm text-gray-700">
           <p className="font-semibold text-gray-900">{content.title}</p>
