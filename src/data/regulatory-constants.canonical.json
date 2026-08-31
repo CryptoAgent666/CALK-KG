@@ -8389,13 +8389,15 @@
       "source_hint": "market",
       "conflict": true,
       "status": "current",
-      "notes": "MISMATCH: ACTIVE FuelCalculatorArticle (imported by FuelCalculatorPage line 8) hardcodes АИ-92=62, АИ-95=68, АИ-98=75 сом/л — stale vs compute 75.5/81/88. FuelCalculatorArticle_NEW.tsx is NOT imported (possibly-stale dead file, 203 lines, same legacy prices 62/68/75). Page uses the non-_NEW article. | FIXED 2026-07-03: вся проза статьи пересчитана — буллеты цен (АИ-98 строка УДАЛЕНА: нет верифицируемой цены-2026, compute ai-98 остаётся uncertain), 5 маршрутов, газ-vs-бензин (5115/2803/2312; год 90270/49464/40806), FAQ a1/a2/a5, титулы январь→июль, lastUpdated 2026-07-03; в translations-ru/-ky И legacy translations.ts (generate-static-html.js рендерит из него FAQ JSON-LD + видимый SEO-контент!). FuelCalculatorArticle_NEW.tsx (мёртвый, gitignored по *_NEW.tsx, не импортировался) УДАЛЁН локально 2026-07-03 — из surfaces убран.",
-      "official_value": "АИ-92 79.9 / АИ-95 88.5 / ДТ 93.9 / автогаз 45.8 сом/л — потолки Госантимонополии для Бишкека/Чуй, действуют 25.05–30.09.2026",
+      "notes": "Сводный набор цен для статьи топлива. Активная FuelCalculatorArticle.tsx проверена 31.08.2026 — держит 87.0/109.9/99.9/48.2, совпадает с COMPUTE. Прежнее предупреждение про 62/68/75 и файл FuelCalculatorArticle_NEW.tsx снято: цены исправлены 18.08.2026, дублирующего файла в репозитории нет.",
+      "official_value": "АИ-92 87.0 / АИ-95 109.9 / ДТ 99.9 / автогаз 48.2 сом/л (август 2026)",
       "source_url": "https://economist.kg/transport/2026/04/10/kak-izmenilis-tseny-na-gsm-v-kyrgyzstane-v-2026-godu-dannye-gosantimonopolii/",
       "verified_date": "2026-08-18",
       "verify_method": "phase4-reconcile-from-compute",
       "verify_confidence": "high",
-      "verify_note": "Пересверено 18.08.2026 по трём независимым источникам, значения сходятся: Госантимонопольная служба через Tazabek 13.08.2026 (86,9/109,9/99,9), economist.kg 10.08.2026, globalpetrolprices 10.08.2026. Июльский скачок: АИ-95 88,5 → 109,9."
+      "verify_note": "Госантимонопольная служба через Tazabek 13.08.2026 (86,9/109,9/99,9); economist.kg 10.08.2026; globalpetrolprices 24.08.2026 — 109,06 сом/л по бензину, что подтверждает 109,9. ⚠️ Прежний official_value описывал потолки ГАМС 79,9/88,5/93,9/45,8 «действуют 25.05–30.09.2026» — это утверждение УСТАРЕЛО: после июльского скачка (перебои с импортом) ГАМС сама публикует 109,9, то есть потолки пересмотрены до истечения заявленного окна.",
+      "official_source": "https://www.globalpetrolprices.com/Kyrgyzstan/gasoline_prices/",
+      "official_checked": "2026-08-31"
     },
     {
       "id": "fuel__fuel_default_price_fallback",
@@ -8437,13 +8439,15 @@
       "source_hint": "market (АЗС / Kaktus.media / Tazabek)",
       "conflict": true,
       "status": "current",
-      "notes": "COMPUTE FUEL_TYPES ai-92.price (data file header 'актуально на 21 апреля 2026'). MISMATCH: active FuelCalculatorArticle.tsx:18 prose says АИ-92 = 62 сом/л (stale). | FIXED 2026-07-03: 75.5→79.9 (потолок ГАМС Бишкек/Чуй с 25.05.2026).",
-      "official_value": "79.9",
+      "notes": "COMPUTE FUEL_TYPES ai-92.price (data file header 'актуально на 21 апреля 2026'). | FIXED 2026-07-03: 75.5→79.9 (потолок ГАМС Бишкек/Чуй с 25.05.2026).",
+      "official_value": "87.0",
       "source_url": "https://time.kg/todaynews/exclusive/342387-gosantimonopolija-kr-utverdila-maksimalnye-ceny-na-benzin-dizel-i-gaz.html",
       "verified_date": "2026-08-18",
       "verify_method": "phase4-reconcile-from-compute",
       "verify_confidence": "high",
-      "verify_note": "Пересверено 18.08.2026 по трём независимым источникам, значения сходятся: Госантимонопольная служба через Tazabek 13.08.2026 (86,9/109,9/99,9), economist.kg 10.08.2026, globalpetrolprices 10.08.2026. Июльский скачок: АИ-95 88,5 → 109,9."
+      "verify_note": "Госантимонопольная служба через Tazabek 13.08.2026 (86,9/109,9/99,9); economist.kg 10.08.2026; globalpetrolprices 24.08.2026 — 109,06 сом/л по бензину, что подтверждает 109,9. ⚠️ Прежний official_value описывал потолки ГАМС 79,9/88,5/93,9/45,8 «действуют 25.05–30.09.2026» — это утверждение УСТАРЕЛО: после июльского скачка (перебои с импортом) ГАМС сама публикует 109,9, то есть потолки пересмотрены до истечения заявленного окна.",
+      "official_source": "https://www.globalpetrolprices.com/Kyrgyzstan/gasoline_prices/",
+      "official_checked": "2026-08-31"
     },
     {
       "id": "fuel__fuel_price_ai95",
@@ -8461,13 +8465,15 @@
       "source_hint": "market (АЗС / Kaktus.media / Tazabek)",
       "conflict": true,
       "status": "current",
-      "notes": "COMPUTE FUEL_TYPES ai-95.price; default selected fuel. MISMATCH: active FuelCalculatorArticle.tsx:19 says АИ-95 = 68 сом/л (stale). | FIXED 2026-07-03: 81.0→88.5 (факт ~88.3 globalpetrolprices 22.06.2026, потолок 88.9).",
-      "official_value": "88.5",
+      "notes": "COMPUTE FUEL_TYPES ai-95.price; default selected fuel. | FIXED 2026-07-03: 81.0→88.5 (факт ~88.3 globalpetrolprices 22.06.2026, потолок 88.9).",
+      "official_value": "109.9",
       "source_url": "https://www.globalpetrolprices.com/Kyrgyzstan/gasoline_prices/",
       "verified_date": "2026-08-18",
       "verify_method": "phase4-reconcile-from-compute",
       "verify_confidence": "high",
-      "verify_note": "Пересверено 18.08.2026 по трём независимым источникам, значения сходятся: Госантимонопольная служба через Tazabek 13.08.2026 (86,9/109,9/99,9), economist.kg 10.08.2026, globalpetrolprices 10.08.2026. Июльский скачок: АИ-95 88,5 → 109,9."
+      "verify_note": "Госантимонопольная служба через Tazabek 13.08.2026 (86,9/109,9/99,9); economist.kg 10.08.2026; globalpetrolprices 24.08.2026 — 109,06 сом/л по бензину, что подтверждает 109,9. ⚠️ Прежний official_value описывал потолки ГАМС 79,9/88,5/93,9/45,8 «действуют 25.05–30.09.2026» — это утверждение УСТАРЕЛО: после июльского скачка (перебои с импортом) ГАМС сама публикует 109,9, то есть потолки пересмотрены до истечения заявленного окна.",
+      "official_source": "https://www.globalpetrolprices.com/Kyrgyzstan/gasoline_prices/",
+      "official_checked": "2026-08-31"
     },
     {
       "id": "fuel__fuel_price_ai98",
@@ -8510,12 +8516,14 @@
       "conflict": false,
       "status": "current",
       "notes": "COMPUTE FUEL_TYPES diesel.price. | FIXED 2026-07-03: 79.0→93.9 (потолок ГАМС Бишкек/Чуй).",
-      "official_value": "93.9",
+      "official_value": "99.9",
       "source_url": "https://time.kg/todaynews/exclusive/342387-gosantimonopolija-kr-utverdila-maksimalnye-ceny-na-benzin-dizel-i-gaz.html",
       "verified_date": "2026-08-18",
       "verify_method": "phase4-reconcile-from-compute",
       "verify_confidence": "high",
-      "verify_note": "Пересверено 18.08.2026 по трём независимым источникам, значения сходятся: Госантимонопольная служба через Tazabek 13.08.2026 (86,9/109,9/99,9), economist.kg 10.08.2026, globalpetrolprices 10.08.2026. Июльский скачок: АИ-95 88,5 → 109,9."
+      "verify_note": "Госантимонопольная служба через Tazabek 13.08.2026 (86,9/109,9/99,9); economist.kg 10.08.2026; globalpetrolprices 24.08.2026 — 109,06 сом/л по бензину, что подтверждает 109,9. ⚠️ Прежний official_value описывал потолки ГАМС 79,9/88,5/93,9/45,8 «действуют 25.05–30.09.2026» — это утверждение УСТАРЕЛО: после июльского скачка (перебои с импортом) ГАМС сама публикует 109,9, то есть потолки пересмотрены до истечения заявленного окна.",
+      "official_source": "https://www.globalpetrolprices.com/Kyrgyzstan/gasoline_prices/",
+      "official_checked": "2026-08-31"
     },
     {
       "id": "fuel__fuel_price_gas_propane",
@@ -8534,12 +8542,14 @@
       "conflict": false,
       "status": "current",
       "notes": "COMPUTE FUEL_TYPES gas.price (LPG/пропан). | FIXED 2026-07-03: 38.5→45.8 (потолок ГАМС автогаз Бишкек/Чуй/Талас).",
-      "official_value": "45.8",
+      "official_value": "48.2",
       "source_url": "https://time.kg/todaynews/exclusive/342387-gosantimonopolija-kr-utverdila-maksimalnye-ceny-na-benzin-dizel-i-gaz.html",
       "verified_date": "2026-08-18",
       "verify_method": "phase4-reconcile-from-compute",
       "verify_confidence": "medium",
-      "verify_note": "Пересверено 18.08.2026 по трём независимым источникам, значения сходятся: Госантимонопольная служба через Tazabek 13.08.2026 (86,9/109,9/99,9), economist.kg 10.08.2026, globalpetrolprices 10.08.2026. Июльский скачок: АИ-95 88,5 → 109,9."
+      "verify_note": "Госантимонопольная служба через Tazabek 13.08.2026 (86,9/109,9/99,9); economist.kg 10.08.2026; globalpetrolprices 24.08.2026 — 109,06 сом/л по бензину, что подтверждает 109,9. ⚠️ Прежний official_value описывал потолки ГАМС 79,9/88,5/93,9/45,8 «действуют 25.05–30.09.2026» — это утверждение УСТАРЕЛО: после июльского скачка (перебои с импортом) ГАМС сама публикует 109,9, то есть потолки пересмотрены до истечения заявленного окна.",
+      "official_source": "https://www.globalpetrolprices.com/Kyrgyzstan/gasoline_prices/",
+      "official_checked": "2026-08-31"
     },
     {
       "id": "heating-calculator__heating_hot_water_approx_consumption_per_person",
@@ -10281,12 +10291,14 @@
       "conflict": true,
       "status": "current",
       "notes": "COMPUTE ZAKAT_CONFIG.gold_price_per_gram = 14200 сом/г default (user-editable input). Source comment: НБКР, Кыргызалтын, 999 пробы, 21.04.2026. Market reference, not regulated. Drives default nisab = 14200×85 = 1,207,000 сом. Prose zakat_faq_a1 says nisab ~250,000-300,000 сом which is STALE vs 14200 price (≈1.2M) — MISMATCH between FAQ prose nisab estimate and compute default.",
-      "official_value": "14200",
+      "official_value": "13752",
       "source_url": "https://ru.kyrgyzaltyn.kg/gold_bars/",
       "verified_date": "2026-08-17",
       "verify_method": "phase4-reconcile-from-compute",
       "verify_confidence": "medium",
-      "verify_note": "ОАО «Кыргызалтын», цена продажи на 17.08.2026. Прежние 14 200 от 21.04.2026 завышали нисаб на 38 080 сомов. Рыночная цена, двигается постоянно — сверять ежемесячно."
+      "verify_note": "ОАО «Кыргызалтын», цена продажи на 17.08.2026. Прежние 14 200 от 21.04.2026 завышали нисаб на 38 080 сомов. Рыночная цена, двигается постоянно — сверять ежемесячно.",
+      "official_source": "https://www.kyrgyzaltyn.kg/",
+      "official_checked": "2026-08-31"
     },
     {
       "id": "zakat-calculator__zakat_nisab_gold_grams",

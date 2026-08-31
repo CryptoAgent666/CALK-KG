@@ -11,6 +11,11 @@ cd "$(dirname "$0")/.."
 # Сканирует src/ на устаревшие регуляторные значения по scripts/stale-values.json.
 node "$(dirname "$0")/check-stale-values.mjs" || { echo "деплой остановлен: устаревшие значения в прозе"; exit 1; }
 
+# Гард реестра: value не должен расходиться с official_value. 30.08.2026 правка
+# семи констант тронула только value — пять расхождений нашёл внешний loop_closer,
+# а не мы. Теперь ловится до выкладки.
+node "$(dirname "$0")/check-ledger-consistency.mjs" || { echo "деплой остановлен: реестр рассогласован"; exit 1; }
+
 ENV_FILE="scripts/deploy.env"
 [ -f "$ENV_FILE" ] || { echo "❌ Нет $ENV_FILE. Скопируй scripts/deploy.env.example → scripts/deploy.env и заполни."; exit 1; }
 set -a; # shellcheck disable=SC1090
