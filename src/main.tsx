@@ -5,6 +5,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { LanguageProvider } from './contexts/LanguageContext';
 import App from './App.tsx';
 import { initWebAds } from './lib/webAds';
+import { initWebAnalytics } from './lib/webAnalytics';
 import { initNativeAds } from './lib/admob';
 import { initNativeUI } from './lib/nativeUI';
 import { initPurchases } from './lib/purchases';
@@ -42,4 +43,6 @@ initNativeUI();
 initPurchases();
 // Ads: AdSense on web (stripped from app builds), native AdMob inside the apps.
 initWebAds();
+// GA4 — тоже только веб: в приложении трекинг без ATT-промпта = реджект 5.1.2.
+initWebAnalytics();
 initNativeAds();
