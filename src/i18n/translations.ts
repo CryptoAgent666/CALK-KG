@@ -24,6 +24,11 @@ export const translations = {
     removeads_watch_loading: 'Загрузка ролика…',
     removeads_watch_failed: 'Ролик не загрузился, попробуйте позже',
     removeads_temp_until: 'Реклама отключена до {time}',
+    removeads_remove: 'Убрать рекламу',
+    removeads_hide: 'Скрыть',
+    removeads_bar_coffee: '☕ Без рекламы навсегда — цена пары кофе',
+    removeads_footer_done: 'Готово! Реклама отключена.',
+    removeads_footer_failed: 'Не получилось. Попробуйте ещё раз.',
     nav_about: 'О нас',
     
     // Hero section
@@ -7579,6 +7584,11 @@ export const translations = {
     removeads_watch_loading: 'Ролик жүктөлүүдө…',
     removeads_watch_failed: 'Ролик жүктөлгөн жок, кийинчерээк аракет кылыңыз',
     removeads_temp_until: 'Жарнама {time} чейин өчүк',
+    removeads_remove: 'Жарнаманы алып салуу',
+    removeads_hide: 'Жашыруу',
+    removeads_bar_coffee: '☕ Биротоло жарнамасыз — эки чыны кофенин баасына',
+    removeads_footer_done: 'Даяр! Жарнама өчүрүлдү.',
+    removeads_footer_failed: 'Болбой калды. Дагы бир жолу аракет кылыңыз.',
     nav_about: 'Биз жөнүндө',
     
     // Hero section

@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Capacitor } from '@capacitor/core';
 import { X, Sparkles } from 'lucide-react';
+import { emitIap } from '../lib/telemetry';
 import { useLanguage } from '../contexts/LanguageContext';
 import { SUGGEST_REMOVE_ADS_EVENT } from '../lib/admob';
 import {
@@ -28,6 +30,10 @@ export function RemoveAdsToast() {
 
   useEffect(() => onAdFreeChange(setAdFree), []);
 
+  // Слушатель события живёт с деп-массивом [], поэтому цену читает через ref.
+  const priceRef = useRef(price);
+  useEffect(() => { priceRef.current = price; }, [price]);
+
   useEffect(() => {
     if (!purchasesAvailable()) return;
     let alive = true;
@@ -40,7 +46,9 @@ export function RemoveAdsToast() {
     let timer: ReturnType<typeof setTimeout> | undefined;
     const onSuggest = () => {
       if (isAdFree()) return;
+      if (priceRef.current === null) return; // стор не отдал продукт — оффер не рисуется
       setVisible(true);
+      emitIap('paywall_shown', { platform: Capacitor.getPlatform() }); // показ оффера (тост после интерстишела)
       clearTimeout(timer);
       timer = setTimeout(() => setVisible(false), AUTO_HIDE_MS);
     };

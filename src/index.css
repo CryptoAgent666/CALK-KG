@@ -8,3 +8,14 @@
 html, body {
   overflow-x: hidden;
 }
+
+/* Плашка «Убрать рекламу» над AdMob-баннером (RemoveAdsBar, только в приложении):
+   въезжает снизу. fill-mode both держит transform после анимации — поэтому
+   плашка центрируется через left/right, а не translateX. */
+@keyframes calk-slide-up {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+.calk-slide-up {
+  animation: calk-slide-up 0.35s ease-out both;
+}

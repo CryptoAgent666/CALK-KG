@@ -3,6 +3,7 @@ import { Calculator, Mail, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import PrivacySettingsLink from './PrivacySettingsLink';
+import { RemoveAdsFooterLink } from './RemoveAdsFooterLink';
 
 const Footer = () => {
   const { t, getLocalizedPath } = useLanguage();
@@ -123,6 +124,9 @@ const Footer = () => {
               {/* Статический гейт как у бейджей выше: в app-бандле CMP не бывает,
                   а так terser выкидывает и компонент, и строки googlefc из бандла. */}
               {import.meta.env.VITE_CALK_PLATFORM !== 'app' && <PrivacySettingsLink />}
+              {/* Постоянный вход в покупку «Убрать рекламу» + Restore (Apple 3.1.1) —
+                  рендерится только в приложении с модулем покупок. */}
+              <RemoveAdsFooterLink />
             </div>
           </div>
         </div>

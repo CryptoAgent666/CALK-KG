@@ -17,6 +17,7 @@ import Footer from './components/Footer';
 import CookieConsentBanner from './components/CookieConsentBanner';
 import AppInstallBanner from './components/AppInstallBanner';
 import { RemoveAdsToast } from './components/RemoveAdsToast';
+import { RemoveAdsBar } from './components/RemoveAdsBar';
 import { maybeShowInterstitial } from './lib/admob';
 import VisualBreadcrumbs from './components/VisualBreadcrumbs';
 import { calculators } from './data/calculators';
@@ -291,6 +292,9 @@ function App() {
       {/* Тост «убрать рекламу» после каждого 3-го интерстишела — сам по себе
           рендерится только в приложении с модулем покупок (purchasesAvailable). */}
       <RemoveAdsToast />
+      {/* Постоянная плашка «убрать рекламу» над нативным AdMob-баннером — тоже
+          только в приложении с модулем покупок (внутри проверка purchasesAvailable). */}
+      <RemoveAdsBar />
     </div>
   );
 }

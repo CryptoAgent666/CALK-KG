@@ -1,4 +1,5 @@
 import { Capacitor } from '@capacitor/core';
+import { emitIap } from './telemetry';
 
 /**
  * RevenueCat: разовая покупка «Убрать рекламу» (non-consumable / durable one-time).
@@ -85,6 +86,16 @@ function isUserCancelled(e: unknown): boolean {
   const err = e as { code?: unknown; message?: unknown } | null;
   if (String(err?.code ?? '') === '1') return true;
   return /cancel/i.test(String(err?.message ?? ''));
+}
+
+/** Код ошибки RevenueCat для воронки (purchase_failed): по голому типу события
+ *  причину не установить. `code` / `errorCode` лежат в неперечисляемых свойствах,
+ *  поэтому читаем их явно; без кода — начало сообщения. */
+function rcErrorCode(e: unknown): string {
+  const err = e as { code?: unknown; errorCode?: unknown; message?: unknown } | null;
+  const code = err?.code ?? err?.errorCode;
+  if (code !== undefined && code !== null) return String(code);
+  return String(err?.message ?? e).slice(0, 64);
 }
 
 /**
@@ -247,21 +258,27 @@ export type BuyResult = 'ok' | 'cancelled' | 'unavailable' | 'failed';
 /** Купить «Убрать рекламу». */
 export async function buyRemoveAds(): Promise<BuyResult> {
   if (!purchasesAvailable()) return 'unavailable';
+  const platform = Capacitor.getPlatform();
+  emitIap('purchase_tapped', { platform });
   try {
     const { Purchases } = await loadSdk();
     const product = await fetchRemoveAdsProduct(Purchases);
     if (!product) {
       logStoreIssue(`покупка невозможна — стор не отдал «${removeAdsProductId()}»`);
+      emitIap('purchase_unavailable', { platform, code: 'product_not_found' });
       return 'unavailable';
     }
     const { customerInfo } = await Purchases.purchaseStoreProduct({ product });
     const ok = hasEntitlement(customerInfo);
     setAdFree(ok);
+    if (!ok) emitIap('purchase_failed', { platform, code: 'no_entitlement_after_purchase' });
     return ok ? 'ok' : 'failed';
   } catch (e) {
     // Отмена пользователем — не ошибка.
     const cancelled = isUserCancelled(e);
     if (!cancelled) logStoreIssue('покупка не прошла', e);
+    emitIap(cancelled ? 'purchase_cancelled' : 'purchase_failed',
+      { platform, code: cancelled ? undefined : rcErrorCode(e) });
     return cancelled ? 'cancelled' : 'failed';
   }
 }
