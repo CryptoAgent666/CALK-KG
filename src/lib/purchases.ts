@@ -75,6 +75,18 @@ const RC_API_KEYS = {
   android: import.meta.env.VITE_RC_ANDROID_KEY ?? 'goog_XXXXXXXXXXXXXXXXXXXXXXXX',
 };
 
+/** Отмена пользователем. У Capacitor-плагина RevenueCat поля `userCancelled` НЕТ
+ *  ни на iOS (reject без словаря данных), ни на Android (в `error.data` только
+ *  readableErrorCode/underlyingErrorMessage) — это флаг React-Native-SDK. Отмена
+ *  приходит как `code === "1"` (PURCHASES_ERROR_CODE.PURCHASE_CANCELLED_ERROR);
+ *  проверка сообщения — страховка. До 02.09.2026 читался `e.userCancelled`,
+ *  и любая отмена возвращалась как 'failed' (порт фикса с calk.kz). */
+function isUserCancelled(e: unknown): boolean {
+  const err = e as { code?: unknown; message?: unknown } | null;
+  if (String(err?.code ?? '') === '1') return true;
+  return /cancel/i.test(String(err?.message ?? ''));
+}
+
 /**
  * Диагностика проблем со стором.
  *
@@ -248,7 +260,7 @@ export async function buyRemoveAds(): Promise<BuyResult> {
     return ok ? 'ok' : 'failed';
   } catch (e) {
     // Отмена пользователем — не ошибка.
-    const cancelled = !!(e as { userCancelled?: boolean })?.userCancelled;
+    const cancelled = isUserCancelled(e);
     if (!cancelled) logStoreIssue('покупка не прошла', e);
     return cancelled ? 'cancelled' : 'failed';
   }
