@@ -23,6 +23,14 @@ source "$ENV_FILE"; set +a
 
 [ -f dist/index.html ] || { echo "❌ Нет dist/index.html — сначала: npm run build"; exit 1; }
 
+# Гард «это веб-сборка, а не app»: build:app и ota-publish.sh пересоздают тот же
+# dist/. 13.09.2026 деплой сайта шёл параллельно с OTA-сборкой — lftp залил на
+# главную app-бандл без AdSense/GA/плашки приложения. В веб-бандле AdSense есть
+# всегда (webAds.ts), в app-бандле его вырезает terser — по этому и отличаем.
+MAIN_JS="$(grep -o -E 'src="/assets/index-[^"]+\.js"' dist/index.html | head -1 | sed -E 's/src="\/(.*)"/\1/')"
+[ -n "$MAIN_JS" ] && [ -f "dist/$MAIN_JS" ] || { echo "❌ В dist/index.html не найден главный чанк — сборка битая"; exit 1; }
+grep -q 'adsbygoogle' "dist/$MAIN_JS" || { echo "❌ dist/ — это app-сборка (в $MAIN_JS нет AdSense). Сначала: npm run build; и не запускать build:app/ota-publish параллельно с деплоем"; exit 1; }
+
 : "${DEPLOY_PROTOCOL:?задай DEPLOY_PROTOCOL}"
 : "${DEPLOY_HOST:?задай DEPLOY_HOST}"
 : "${DEPLOY_USER:?задай DEPLOY_USER}"
