@@ -96,12 +96,16 @@ const AppInstallBanner = () => {
 
   return (
     <div className="google-anno-skip fixed bottom-0 left-0 right-0 z-40 border-t border-gray-200 bg-white/95 backdrop-blur sm:hidden">
-      <div className="flex items-center gap-2.5 px-3 py-2.5">
+      {/* Компоновка подобрана замером на живом сайте (13.09.2026): с пичем в две
+          строки текстовой колонке нужно ≥160 px, иначе плашка растёт с 67 до
+          99 px. Поэтому иконка 32 px и только от 375 px (на 360-px Android её
+          нет), кнопка компактная; крестик остаётся 44 px — тап-цель. */}
+      <div className="flex items-center gap-2 px-3 py-2.5">
         {/* Логотип рисуем иконкой, как в шапке и футере: файл
             public/apple-touch-icon.png — это SVG с расширением .png, в <img> он
             отдаётся как битая картинка. */}
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-r from-red-500 to-red-600">
-          <Calculator className="h-5 w-5 text-white" aria-hidden="true" />
+        <div className="hidden h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-r from-red-500 to-red-600 min-[375px]:flex">
+          <Calculator className="h-4 w-4 text-white" aria-hidden="true" />
         </div>
         <div className="min-w-0 flex-1">
           <p className="text-[13px] font-semibold leading-tight text-gray-900">{content.title}</p>
@@ -112,7 +116,7 @@ const AppInstallBanner = () => {
           target="_blank"
           rel="noopener noreferrer"
           onClick={dismiss}
-          className="inline-flex min-h-[44px] shrink-0 items-center rounded-lg bg-red-600 px-3.5 text-sm font-medium text-white hover:bg-red-700"
+          className="inline-flex min-h-[44px] shrink-0 items-center rounded-lg bg-red-600 px-2.5 text-[13px] font-medium text-white hover:bg-red-700"
         >
           {content.cta}
         </a>
