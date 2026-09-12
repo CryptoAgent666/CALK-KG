@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Calculator, X } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
-const DISMISS_KEY = 'calk-app-banner-v1';
+// v2: в v1 крестик ставил бессрочный флаг — закрывший однажды не видел плашку
+// больше никогда. Теперь храним время закрытия и молчим SNOOZE_MS (как calk.kz).
+const DISMISS_KEY = 'calk-app-banner-v2';
+const SNOOZE_MS = 14 * 24 * 3600 * 1000;
 const COOKIE_CONSENT_KEY = 'calk-cookie-consent-v1'; // тот же ключ, что в CookieConsentBanner
 
 const STORE_LINKS = {
@@ -58,7 +61,8 @@ const AppInstallBanner = () => {
     if (!detected) return;
 
     try {
-      if (window.localStorage.getItem(DISMISS_KEY)) return;
+      const snoozedAt = Number(window.localStorage.getItem(DISMISS_KEY) || '0');
+      if (snoozedAt && Date.now() - snoozedAt < SNOOZE_MS) return;
       // Пока висит баннер про cookie, вторую плашку снизу не показываем:
       // два блока друг на друге съедают экран телефона, а согласие важнее.
       if (!window.localStorage.getItem(COOKIE_CONSENT_KEY)) return;
@@ -73,7 +77,7 @@ const AppInstallBanner = () => {
 
   const dismiss = () => {
     try {
-      window.localStorage.setItem(DISMISS_KEY, 'dismissed');
+      window.localStorage.setItem(DISMISS_KEY, String(Date.now()));
     } catch {
       /* не критично — плашка скроется хотя бы на эту сессию */
     }
@@ -84,9 +88,11 @@ const AppInstallBanner = () => {
 
   // Текст одинаков для обеих платформ — различается только магазин в ссылке
   // (STORE_LINKS[os]), поэтому подпись про «iPhone/Android» не дублируем.
+  // Пич — зачем ставить, а не сколько калькуляторов (как calk.kz): расчёты
+  // зашиты в бандл и работают офлайн, рекламу можно отключить покупкой.
   const content = language === 'ky'
-    ? { title: 'Calk.kg тиркемеси', subtitle: '35 калькулятор', cta: 'Орнотуу', close: 'Жабуу' }
-    : { title: 'Приложение Calk.kg', subtitle: '35 калькуляторов', cta: 'Установить', close: 'Закрыть' };
+    ? { title: 'Calk.kg тиркемеси', subtitle: 'Офлайн иштейт, жарнаманы өчүрсө болот', cta: 'Орнотуу', close: 'Жабуу' }
+    : { title: 'Приложение Calk.kg', subtitle: 'Работает офлайн, рекламу можно отключить', cta: 'Установить', close: 'Закрыть' };
 
   return (
     <div className="google-anno-skip fixed bottom-0 left-0 right-0 z-40 border-t border-gray-200 bg-white/95 backdrop-blur sm:hidden">
