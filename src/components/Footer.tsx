@@ -91,6 +91,12 @@ const Footer = () => {
               <li><Link to={getLocalizedPath('/about')} className="text-gray-400 hover:text-white transition-colors">{t('footer_about')}</Link></li>
               <li><Link to={getLocalizedPath('/contact')} className="text-gray-400 hover:text-white transition-colors">{t('footer_contacts')}</Link></li>
               <li><Link to={getLocalizedPath('/updates')} className="text-gray-400 hover:text-white transition-colors">{t('nav_updates')}</Link></li>
+              {/* Постоянный вход в покупку «Убрать рекламу» + Restore (Apple 3.1.1) —
+                  рендерится только в приложении с модулем покупок. Именно в этом
+                  вертикальном списке (паттерн calk.uz), а не в нижнем ряду
+                  «Политика · Условия»: там третий пункт с ценой не влезал в 402 pt
+                  и ряд уезжал за края экрана (сим-QA 13.09.2026). */}
+              <li><RemoveAdsFooterLink /></li>
             </ul>
           </div>
 
@@ -124,9 +130,6 @@ const Footer = () => {
               {/* Статический гейт как у бейджей выше: в app-бандле CMP не бывает,
                   а так terser выкидывает и компонент, и строки googlefc из бандла. */}
               {import.meta.env.VITE_CALK_PLATFORM !== 'app' && <PrivacySettingsLink />}
-              {/* Постоянный вход в покупку «Убрать рекламу» + Restore (Apple 3.1.1) —
-                  рендерится только в приложении с модулем покупок. */}
-              <RemoveAdsFooterLink />
             </div>
           </div>
         </div>
