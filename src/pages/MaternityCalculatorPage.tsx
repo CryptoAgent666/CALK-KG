@@ -160,6 +160,7 @@ const MaternityCalculatorPage = () => {
           <li>{t('maternity_other_bala_yrysy')}</li>
           <li>{t('maternity_other_family')} <Link to={getLocalizedPath('/calculator/family-benefit/')} className="text-rose-700 font-medium hover:underline">{t('maternity_other_family_link')}</Link></li>
           <li>{t('maternity_other_high_mountain')}</li>
+          <li>{t('maternity_other_bala_bereke')}</li>
           <li>{t('maternity_other_childcare_leave')}</li>
           <li>{t('maternity_other_tax')}</li>
         </ul>
