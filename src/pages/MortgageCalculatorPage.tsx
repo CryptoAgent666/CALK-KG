@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { BANK_MORTGAGE_OFFERS, GOV_MORTGAGE_PROGRAMS, MORTGAGE_OFFERS_AS_OF, NBKR_AVG_MORTGAGE_RATE } from '../data/mortgageOffers';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Calculator, ArrowLeft, Info, Home, DollarSign, TrendingUp, Building2, ChevronDown, ChevronUp, Car } from 'lucide-react';
@@ -13,13 +14,6 @@ import {
   generateBreadcrumbSchema, 
   generateSoftwareApplicationSchema 
 } from '../utils/schemaGenerator';
-
-interface BankOffer {
-  nameKey: string;
-  minRate: number;
-  maxRate: number;
-  maxTerm: number;
-}
 
 interface LoanResults {
   loanAmount: number;
@@ -65,18 +59,6 @@ const MortgageCalculatorPage = () => {
   });
 
   const [paymentSchedule, setPaymentSchedule] = useState<PaymentScheduleItem[]>([]);
-
-  // Банки Кыргызстана с ипотечными ставками
-  const bankOffers: BankOffer[] = [
-    { nameKey: 'bank_ayil', minRate: 14.0, maxRate: 16.5, maxTerm: 20 },
-    { nameKey: 'bank_dos_kredo', minRate: 15.5, maxRate: 18.0, maxTerm: 15 },
-    { nameKey: 'bank_fkur', minRate: 14.5, maxRate: 17.0, maxTerm: 20 },
-    { nameKey: 'bank_cbk', minRate: 15.0, maxRate: 17.5, maxTerm: 20 },
-    { nameKey: 'bank_optima', minRate: 14.0, maxRate: 16.0, maxTerm: 15 },
-    { nameKey: 'bank_bta', minRate: 16.0, maxRate: 19.0, maxTerm: 15 },
-    { nameKey: 'bank_asia', minRate: 15.0, maxRate: 17.0, maxTerm: 20 },
-    { nameKey: 'bank_rsk', minRate: 13.5, maxRate: 16.0, maxTerm: 25 }
-  ];
 
   const termOptions = [
     { value: '5', label: t('mortgage_term_5_years') },
@@ -759,9 +741,9 @@ ${t('calculated_on_site')} Calk.KG`}
             </div>
           )}
 
-          {/* Bank Comparison Section */}
+          {/* Bank Comparison Section — только сверенные предложения (src/data/mortgageOffers.ts) */}
           {results.monthlyPayment > 0 && (
-            <div className="bg-white rounded-xl shadow-sm p-8 print:break-inside-avoid">
+            <div className="bg-white rounded-xl shadow-sm p-6 sm:p-8 print:break-inside-avoid">
               <div className="flex items-center mb-6">
                 <Building2 className="h-6 w-6 text-red-600 mr-3" />
                 <h2 className="text-xl font-semibold text-gray-900">
@@ -770,77 +752,54 @@ ${t('calculated_on_site')} Calk.KG`}
               </div>
 
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
+                <table className="min-w-full divide-y divide-gray-200 text-sm">
                   <thead className="bg-gray-50">
-                    <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        {t('mortgage_bank_name')}
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        {t('mortgage_bank_rate_range')}
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        {t('mortgage_bank_max_term')}
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        {t('mortgage_bank_monthly_min')}
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        {t('mortgage_bank_overpayment_min')}
-                      </th>
+                    <tr className="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th scope="col" className="px-4 py-3">{t('mortgage_bank_name')}</th>
+                      <th scope="col" className="px-4 py-3">{t('mortgage_offer_rate')}</th>
+                      <th scope="col" className="px-4 py-3">{t('mortgage_bank_max_term')}</th>
+                      <th scope="col" className="px-4 py-3">{t('mortgage_offer_down')}</th>
+                      <th scope="col" className="px-4 py-3">{t('mortgage_offer_payment')}</th>
+                      <th scope="col" className="px-4 py-3">{t('mortgage_offer_overpayment')}</th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {/* User's Offer */}
                     <tr className="bg-green-50">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        {t('mortgage_your_offer')}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
-                        {interestRate}%
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
-                        {loanTermYears} {t('mortgage_years_short')}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
-                        {formatCurrency(results.monthlyPayment)} {t('som')}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
-                        {formatCurrency(results.overpayment)} {t('som')}
-                      </td>
+                      <td className="px-4 py-4 font-medium text-gray-900">{t('mortgage_your_offer')}</td>
+                      <td className="px-4 py-4 font-semibold text-gray-900 whitespace-nowrap">{interestRate}%</td>
+                      <td className="px-4 py-4 font-semibold text-gray-900 whitespace-nowrap">{loanTermYears} {t('mortgage_years_short')}</td>
+                      <td className="px-4 py-4 text-gray-900">—</td>
+                      <td className="px-4 py-4 font-semibold text-gray-900 whitespace-nowrap">{formatCurrency(results.monthlyPayment)} {t('som')}</td>
+                      <td className="px-4 py-4 font-semibold text-gray-900 whitespace-nowrap">{formatCurrency(results.overpayment)} {t('som')}</td>
                     </tr>
-
-                    {/* Bank Offers */}
-                    {bankOffers.map((bank, index) => {
-                      const termYears = Math.min(parseInt(loanTermYears), bank.maxTerm);
+                    {BANK_MORTGAGE_OFFERS.map(offer => {
+                      const termYears = Math.min(parseInt(loanTermYears) || offer.maxTermYears, offer.maxTermYears);
                       const bankResults = calculateMortgage(
                         parseFloat(propertyValue) || 0,
                         parseFloat(downPaymentAmount) || 0,
                         termYears,
-                        bank.minRate
+                        offer.rateFrom
                       );
-
-                      const userRate = parseFloat(interestRate) || 0;
-                      const isBetter = bank.minRate < userRate;
-                      const isWorse = bank.minRate > userRate;
-
                       return (
-                        <tr key={index} className={isBetter ? 'bg-blue-50' : isWorse ? 'bg-red-50' : ''}>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {t(bank.nameKey as any)}
+                        <tr key={offer.bank}>
+                          <td className="px-4 py-4 text-gray-900">
+                            <a href={offer.url} target="_blank" rel="noopener noreferrer nofollow" className="font-medium hover:text-red-600 hover:underline">{offer.bank}</a>
+                            <span className="block text-xs text-gray-500">«{offer.product}»</span>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                            {bank.minRate}% - {bank.maxRate}%
+                          <td className="px-4 py-4 text-gray-900">
+                            <span className="whitespace-nowrap">{t('mortgage_offer_from')} {offer.rateFrom}%</span>
+                            {offer.epsFrom && <span className="block text-xs text-gray-500 whitespace-nowrap">{t('mortgage_offer_eps')} {offer.epsFrom.toLocaleString('ru-RU')}%</span>}
+                            {offer.rateNoteKey && <span className="block text-xs text-gray-500">{t(offer.rateNoteKey as any)}</span>}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                            {t('mortgage_up_to')} {bank.maxTerm} {t('mortgage_years_short')}
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          <td className="px-4 py-4 text-gray-900 whitespace-nowrap">{t('mortgage_up_to')} {offer.maxTermYears} {t('mortgage_years_short')}</td>
+                          <td className="px-4 py-4 text-gray-900 whitespace-nowrap">{offer.minDownPercent ? `${t('mortgage_offer_from')} ${offer.minDownPercent}%` : '—'}</td>
+                          <td className="px-4 py-4 text-gray-900 whitespace-nowrap">
                             {formatCurrency(bankResults.monthlyPayment)} {t('som')}
+                            {termYears < (parseInt(loanTermYears) || 0) && (
+                              <span className="block text-xs text-amber-700">{t('mortgage_offer_term_capped').replace('{n}', String(termYears))}</span>
+                            )}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                            {formatCurrency(bankResults.overpayment)} {t('som')}
-                          </td>
+                          <td className="px-4 py-4 text-gray-900 whitespace-nowrap">{formatCurrency(bankResults.overpayment)} {t('som')}</td>
                         </tr>
                       );
                     })}
@@ -848,21 +807,28 @@ ${t('calculated_on_site')} Calk.KG`}
                 </table>
               </div>
 
-              <div className="mt-6 text-sm text-gray-500">
-                <div className="flex items-center space-x-4">
-                  <div className="flex items-center">
-                    <div className="w-4 h-4 bg-blue-50 border border-blue-200 rounded mr-2"></div>
-                    <span>{t('mortgage_better_offer_legend')}</span>
+              <p className="mt-4 text-sm text-gray-500">
+                {t('mortgage_offers_as_of').replace('{date}', MORTGAGE_OFFERS_AS_OF.split('-').reverse().join('.'))}
+              </p>
+
+              <h3 className="mt-8 mb-3 text-lg font-semibold text-gray-900">{t('mortgage_gov_title')}</h3>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {GOV_MORTGAGE_PROGRAMS.map(program => (
+                  <div key={program.nameKey} className="border border-gray-200 rounded-lg p-4">
+                    <div className="flex items-baseline justify-between gap-3">
+                      <h4 className="font-medium text-gray-900">{t(program.nameKey as any)}</h4>
+                      <span className="text-lg font-bold text-green-700 whitespace-nowrap">{program.rate}</span>
+                    </div>
+                    <p className="mt-1 text-sm text-gray-600">
+                      {t('mortgage_up_to')} {program.maxTermYears} {t('mortgage_years_short')} · {t(program.downKey as any)}
+                    </p>
+                    <p className="mt-1 text-sm text-gray-500">{t(program.conditionsKey as any)}</p>
                   </div>
-                  <div className="flex items-center">
-                    <div className="w-4 h-4 bg-red-50 border border-red-200 rounded mr-2"></div>
-                    <span>{t('mortgage_worse_offer_legend')}</span>
-                  </div>
-                </div>
-                <p className="mt-3">
-                  <strong>{t('important')}</strong> {t('mortgage_bank_rates_notice')}
-                </p>
+                ))}
               </div>
+              <p className="mt-4 text-sm text-gray-500">
+                {t('mortgage_nbkr_avg').replace('{rate}', String(NBKR_AVG_MORTGAGE_RATE).replace('.', ','))}
+              </p>
             </div>
           )}
 

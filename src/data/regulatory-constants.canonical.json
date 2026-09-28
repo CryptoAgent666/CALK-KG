@@ -9080,25 +9080,23 @@
       "id": "mortgage-calculator__mortgage_bank_indicative_rate_ranges",
       "calculator": "mortgage-calculator",
       "key": "mortgage_bank_indicative_rate_ranges",
-      "value": "Айыл 14.0-16.5 (≤20y); ДосКредо 15.5-18.0 (≤15y); ФКУР 14.5-17.0 (≤20y); ЦБК 15.0-17.5 (≤20y); Оптима 14.0-16.0 (≤15y); БТА 16.0-19.0 (≤15y); Азия 15.0-17.0 (≤20y); РСК 13.5-16.0 (≤25y)",
+      "value": "АБанк от 16 (≤10л, взнос 30%); Мбанк 16→19 (≤10л); Бакай от 17 (≤12л); Элдик 19 (≤10л); Оптима от 19 (≤7л); Бай-Тушум от 20 (≤10л); Дос-Кредо 23 (≤7л)",
       "unit": "percent_per_annum",
       "law": "",
       "theme": "mortgage_market_rate",
       "is_gov_regulated": false,
-      "surfaces": [
-        "src/pages/MortgageCalculatorPage.tsx:70-79"
-      ],
-      "last_updated": "",
+      "surfaces": ["src/data/mortgageOffers.ts"],
+      "last_updated": "2026-09-28",
       "source_hint": "market",
       "conflict": true,
       "status": "current",
       "notes": "COMPUTE bankOffers[] min/maxRate + maxTerm per bank for mortgage comparison. Market. ARTICLE table (lastUpdated 2026-03-23) lists same ranges: RSK 13.5-16.0/25y, Айыл 14.0-16.5/20y, Оптима 14.0-16.0/15y, ФКУР 14.5-17.0/20y, БТА 16.0-19.0/15y — consistent, NO mismatch.",
-      "official_value": "KG bank mortgage market ~16-21% som (Ayil from 16%, KICB from 18%, KKB 21%)",
+      "official_value": "АБанк от 16 (≤10л, взнос 30%); Мбанк 16→19 (≤10л); Бакай от 17 (≤12л); Элдик 19 (≤10л); Оптима от 19 (≤7л); Бай-Тушум от 20 (≤10л); Дос-Кредо 23 (≤7л)",
       "source_url": "https://banks.kg/credits/mortgage",
-      "verified_date": "2026-06-28",
+      "verified_date": "2026-09-28",
       "verify_method": "tier2-tail",
-      "verify_confidence": "low",
-      "verify_note": "Stored 13.5-19% slightly low at top vs market 16-21% som, but broadly in range; market-volatile, no single official."
+      "verify_confidence": "high",
+      "verify_note": "RE-VERIFIED 2026-09-28 по сайтам банков (research): прежние значения (Айыл 14–16,5; «ФКУР»; БТА; «Банк Азии»; сроки 20–25 лет) были НЕВЕРНЫ — БТА присоединён к Бакай Банку (2020), «ФКУР» не существует, у Банка Азии нет ипотеки, РСК→Элдик Банк, «КБ Кыргызстан»→Мбанк. COMPUTE перенесён в src/data/mortgageOffers.ts. ⚠️ Коммерческие ставки — сверять ежеквартально; АБанк 16/17% — акция до 01.10.2026. НБКР: средневзвешенная ставка по новым ипотечным в сомах 16,05% (июль 2026)."
     },
     {
       "id": "mortgage-calculator__mortgage_default_loan_term_years",
@@ -9150,7 +9148,7 @@
       "id": "mortgage-calculator__mortgage_min_down_payment_prose",
       "calculator": "mortgage-calculator",
       "key": "mortgage_min_down_payment_prose",
-      "value": "10-20%",
+      "value": "банки обычно от 30%; ГИК — без взноса",
       "unit": "percent",
       "law": "",
       "theme": "mortgage_down_payment",
@@ -9158,17 +9156,17 @@
       "surfaces": [
         "i18n mortgage_info_min_down_payment:859"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-09-28",
       "source_hint": "market",
       "conflict": false,
       "status": "current",
       "notes": "PROSE: typical minimum down payment 10-20% (info block). Market guidance, not enforced in compute.",
-      "official_value": "Down payments ~10-20%+ typical; state program from 0-20%",
+      "official_value": "банки обычно от 30%; ГИК — без взноса",
       "source_url": "https://banks.kg/credits/mortgage",
-      "verified_date": "2026-06-28",
+      "verified_date": "2026-09-28",
       "verify_method": "tier2-tail",
-      "verify_confidence": "medium",
-      "verify_note": "'10-20%' consistent with KG mortgage down-payment norms; non-regulatory prose default."
+      "verify_confidence": "high",
+      "verify_note": "RE-VERIFIED 2026-09-28: у АБанк/Мбанк/Бакай/Оптима/Бай-Тушум минимальный взнос 30% (сайты банков); ГИК — без первоначального взноса (gik.kg). Проза «10–20%» была неверной — исправлена RU/KY/мастер."
     },
     {
       "id": "mortgage-calculator__mortgage_quick_example_scenarios",
@@ -9196,7 +9194,7 @@
       "id": "mortgage-calculator__mortgage_type_rate_term_down_prose",
       "calculator": "mortgage-calculator",
       "key": "mortgage_type_rate_term_down_prose",
-      "value": "new-build 14-17%/<=25y/from10%; secondary 15-19%/<=20y/from20%; construction 16-20%/<=15y/from30%; government 4-8%/<=25y/no-down",
+      "value": "банки: от 16% / взнос от 30%; долевое ГИК 8% / взнос от 50%",
       "unit": "percent_years_percent",
       "law": "",
       "theme": "mortgage_market_rate",
@@ -9207,17 +9205,17 @@
         "i18n mortgage_type_construction_*:922-924",
         "i18n mortgage_type_government_*:927-929"
       ],
-      "last_updated": "2026-07-03",
+      "last_updated": "2026-09-28",
       "source_hint": "market",
       "conflict": false,
       "status": "current",
       "notes": "PROSE illustrative rate/term/down-payment by mortgage type. The 'government' type 10-12% is the state-subsidized program rate (see also mortgage_article_affordable_rate). | FIXED 2026-07-03: government-тир 10-12%/до 20л/от 10% → 4-8%/до 25л/без взноса (gik.kg перепроверен WebFetch 2026-07-03); ru/ky/legacy.",
-      "official_value": "Гос-тир: ГИК «Мой дом 2024-2030» (указ №157 от 30.04.2026) — НАБОР программ: социальная 4%, льготная (бюджетники) 4%, доступная (частный сектор) 8%; срок до 25 лет; первонач. взнос не требуется. Рыночные тиры — иллюстративные диапазоны, OK. НЕ скаляр — не флагать 4-8% как stale",
+      "official_value": "банки: от 16% / взнос от 30%; долевое ГИК 8% / взнос от 50%",
       "source_url": "https://gik.kg/ru/products-detail/1/",
-      "verified_date": "2026-07-03",
+      "verified_date": "2026-09-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "medium",
-      "verify_note": "Government tier states 10-12%; current state program is 8% p.a. — stale. Other (market) tiers broadly OK."
+      "verify_note": "RE-VERIFIED 2026-09-28: типовые ставки 14–20% и взносы 10–20% не подтверждаются; приведено к диапазону сайтов банков (от 16%, взнос 30%) и ГИК (долевое 8%, взнос от 50%)."
     },
     {
       "id": "pension-calculator__pension_avg_amount_range",
