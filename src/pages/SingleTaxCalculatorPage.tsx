@@ -751,7 +751,7 @@ ${language === 'ky' ? 'Айлык салык:' : 'Налог в месяц:'} ${
         <div className="mt-12 rounded-xl bg-white p-8 shadow-sm print:hidden">
           <h3 className="mb-4 font-medium text-gray-900">{t('other_calculators')}:</h3>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-            <Link to={getLocalizedPath('/calculator/salary')} className="group rounded-lg border border-gray-200 p-4 transition-colors hover:border-red-200 hover:bg-gray-50">
+            <Link to={getLocalizedPath('/calculator/salary/')} className="group rounded-lg border border-gray-200 p-4 transition-colors hover:border-red-200 hover:bg-gray-50">
               <div className="flex items-center space-x-3">
                 <div className="rounded-lg bg-green-50 p-2 transition-colors group-hover:bg-green-100">
                   <DollarSign className="h-5 w-5 text-green-600" />
@@ -762,7 +762,7 @@ ${language === 'ky' ? 'Айлык салык:' : 'Налог в месяц:'} ${
                 </div>
               </div>
             </Link>
-            <Link to={getLocalizedPath('/calculator/patent')} className="group rounded-lg border border-gray-200 p-4 transition-colors hover:border-red-200 hover:bg-gray-50">
+            <Link to={getLocalizedPath('/calculator/patent/')} className="group rounded-lg border border-gray-200 p-4 transition-colors hover:border-red-200 hover:bg-gray-50">
               <div className="flex items-center space-x-3">
                 <div className="rounded-lg bg-blue-50 p-2 transition-colors group-hover:bg-blue-100">
                   <Building2 className="h-5 w-5 text-blue-600" />
@@ -773,7 +773,7 @@ ${language === 'ky' ? 'Айлык салык:' : 'Налог в месяц:'} ${
                 </div>
               </div>
             </Link>
-            <Link to={getLocalizedPath('/calculator/social-fund')} className="group rounded-lg border border-gray-200 p-4 transition-colors hover:border-red-200 hover:bg-gray-50">
+            <Link to={getLocalizedPath('/calculator/social-fund/')} className="group rounded-lg border border-gray-200 p-4 transition-colors hover:border-red-200 hover:bg-gray-50">
               <div className="flex items-center space-x-3">
                 <div className="rounded-lg bg-purple-50 p-2 transition-colors group-hover:bg-purple-100">
                   <Users className="h-5 w-5 text-purple-600" />

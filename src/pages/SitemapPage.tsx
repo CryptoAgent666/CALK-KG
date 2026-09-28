@@ -7,6 +7,7 @@ import HreflangTags from '../components/HreflangTags';
 import { generateWebPageSchema, generateBreadcrumbSchema } from '../utils/schemaGenerator';
 import { useLanguage } from '../contexts/LanguageContext';
 import { calculators } from '../data/calculators';
+import { calculatorRoutes } from '../data/calculatorRoutes';
 import { categories } from '../data/categories';
 
 const SitemapPage = () => {
@@ -122,7 +123,7 @@ const SitemapPage = () => {
             </Link>
 
             <Link
-              to={ky('/about')}
+              to={ky('/about/')}
               className="flex items-center space-x-3 p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-blue-200 group"
             >
               <div className="bg-blue-50 p-2 rounded-lg group-hover:bg-blue-100 transition-colors">
@@ -135,7 +136,7 @@ const SitemapPage = () => {
             </Link>
 
             <Link
-              to={ky('/updates')}
+              to={ky('/updates/')}
               className="flex items-center space-x-3 p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-blue-200 group"
             >
               <div className="bg-amber-50 p-2 rounded-lg group-hover:bg-amber-100 transition-colors">
@@ -148,7 +149,7 @@ const SitemapPage = () => {
             </Link>
 
             <Link
-              to={ky('/privacy-policy')}
+              to={ky('/privacy-policy/')}
               className="flex items-center space-x-3 p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-blue-200 group"
             >
               <div className="bg-gray-50 p-2 rounded-lg group-hover:bg-gray-100 transition-colors">
@@ -161,7 +162,7 @@ const SitemapPage = () => {
             </Link>
 
             <Link
-              to={ky('/terms-of-service')}
+              to={ky('/terms-of-service/')}
               className="flex items-center space-x-3 p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-blue-200 group"
             >
               <div className="bg-gray-50 p-2 rounded-lg group-hover:bg-gray-100 transition-colors">
@@ -196,10 +197,9 @@ const SitemapPage = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {data.calculators.map((calculator: any) => {
                   const IconComponent = calculator.icon;
-                  const slug = calculator.id.replace('-calculator', '');
                   // On the KY sitemap, point at the KY versions of each calculator
                   // so users don't get bounced to the RU article via /calculator/...
-                  const calculatorUrl = ky(`/calculator/${slug}`);
+                  const calculatorUrl = ky(calculatorRoutes[calculator.id]);
                   
                   return (
                     <Link 

@@ -56,7 +56,7 @@ export const SITE_UPDATES: SiteUpdate[] = [
   {
     date: '2026-08-31',
     type: 'fix',
-    link: '/calculator/patent',
+    link: '/calculator/patent/',
     ru: {
       title: 'В таблице сравнения патента каждый вид деятельности повторялся по числу регионов',
       description:
@@ -71,7 +71,7 @@ export const SITE_UPDATES: SiteUpdate[] = [
   {
     date: '2026-08-29',
     type: 'fix',
-    link: '/calculator/zakat',
+    link: '/calculator/zakat/',
     ru: {
       title: 'Закят: в тексте страницы стояли три разных нисаба',
       description:
@@ -86,7 +86,7 @@ export const SITE_UPDATES: SiteUpdate[] = [
   {
     date: '2026-08-29',
     type: 'rate',
-    link: '/calculator/currency-exchange',
+    link: '/calculator/currency-exchange/',
     ru: {
       title: 'Курс рубля в таблице обменников опустился ниже официального',
       description:
@@ -143,7 +143,7 @@ export const SITE_UPDATES: SiteUpdate[] = [
   {
     date: '2026-08-18',
     type: 'rate',
-    link: '/calculator/currency-exchange',
+    link: '/calculator/currency-exchange/',
     ru: {
       title: 'Курсы обменников пересчитаны, штамп «Обновлено» убран с 23 калькуляторов',
       description:
@@ -158,7 +158,7 @@ export const SITE_UPDATES: SiteUpdate[] = [
   {
     date: '2026-08-18',
     type: 'fix',
-    link: '/calculator/zakat',
+    link: '/calculator/zakat/',
     ru: {
       title: 'Закят считался по апрельской цене золота',
       description:
@@ -187,7 +187,7 @@ export const SITE_UPDATES: SiteUpdate[] = [
   {
     date: '2026-08-18',
     type: 'rate',
-    link: '/calculator/fuel',
+    link: '/calculator/fuel/',
     ru: {
       title: 'Цены на топливо — август 2026',
       description:
@@ -202,7 +202,7 @@ export const SITE_UPDATES: SiteUpdate[] = [
   {
     date: '2026-08-17',
     type: 'rate',
-    link: '/calculator/heating',
+    link: '/calculator/heating/',
     ru: {
       title: 'Отопление подорожало на 25 %, алименты на двоих — ровно треть',
       description:
@@ -217,7 +217,7 @@ export const SITE_UPDATES: SiteUpdate[] = [
   {
     date: '2026-08-10',
     type: 'rate',
-    link: '/calculator/gas',
+    link: '/calculator/gas/',
     ru: {
       title: 'Тариф на газ отставал на 15 месяцев',
       description:
@@ -232,7 +232,7 @@ export const SITE_UPDATES: SiteUpdate[] = [
   {
     date: '2026-08-02',
     type: 'fix',
-    link: '/calculator/pension',
+    link: '/calculator/pension/',
     ru: {
       title: 'Пенсия и Соцфонд приведены к букве закона',
       description:
@@ -247,7 +247,7 @@ export const SITE_UPDATES: SiteUpdate[] = [
   {
     date: '2026-08-02',
     type: 'fix',
-    link: '/calculator/sick-leave',
+    link: '/calculator/sick-leave/',
     ru: {
       title: 'Больничный: пять фактических ошибок в описании',
       description:
@@ -262,7 +262,7 @@ export const SITE_UPDATES: SiteUpdate[] = [
   {
     date: '2026-08-02',
     type: 'fix',
-    link: '/calculator/property-tax',
+    link: '/calculator/property-tax/',
     ru: {
       title: 'Налог на имущество пересчитан по модели Налогового кодекса',
       description:

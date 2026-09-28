@@ -54,7 +54,7 @@ const CookieConsentBanner = () => {
           <p className="font-semibold text-gray-900">{content.title}</p>
           <p>
             {content.description}{' '}
-            <Link to={getLocalizedPath('/privacy-policy')} className="text-red-600 hover:text-red-700 underline">
+            <Link to={getLocalizedPath('/privacy-policy/')} className="text-red-600 hover:text-red-700 underline">
               {content.more}
             </Link>
           </p>

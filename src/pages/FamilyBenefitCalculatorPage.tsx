@@ -397,7 +397,7 @@ const FamilyBenefitCalculatorPage = () => {
                       <li>{t('family_criterion_4')}</li>
                     </ul>
                     <p className="mt-3">
-                      👨‍👩‍👧‍👦 <strong>{t('family_additional_support')}</strong> {t('family_additional_support_text')} <Link to={getLocalizedPath("/calculator/alimony")} className="text-blue-600 hover:text-blue-800 underline">{t('family_alimony_calculator_link')}</Link>. {t('family_for_working_parents')} <Link to={getLocalizedPath("/calculator/salary")} className="text-blue-600 hover:text-blue-800 underline">{t('family_salary_calculator_link')}</Link>.
+                      👨‍👩‍👧‍👦 <strong>{t('family_additional_support')}</strong> {t('family_additional_support_text')} <Link to={getLocalizedPath("/calculator/alimony/")} className="text-blue-600 hover:text-blue-800 underline">{t('family_alimony_calculator_link')}</Link>. {t('family_for_working_parents')} <Link to={getLocalizedPath("/calculator/salary/")} className="text-blue-600 hover:text-blue-800 underline">{t('family_salary_calculator_link')}</Link>.
                     </p>
                   </div>
                 </div>
@@ -777,7 +777,7 @@ ${t('family_result_calculation_site')}`}
             <h3 className="font-medium text-gray-900 mb-4">{t('other_calculators')}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <Link
-                to={getLocalizedPath("/calculator/alimony")}
+                to={getLocalizedPath("/calculator/alimony/")}
                 className="p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200 group"
               >
                 <div className="flex items-center space-x-3">
@@ -791,7 +791,7 @@ ${t('family_result_calculation_site')}`}
                 </div>
               </Link>
               <Link
-                to={getLocalizedPath("/calculator/salary")}
+                to={getLocalizedPath("/calculator/salary/")}
                 className="p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200 group"
               >
                 <div className="flex items-center space-x-3">
@@ -805,7 +805,7 @@ ${t('family_result_calculation_site')}`}
                 </div>
               </Link>
               <Link
-                to={getLocalizedPath("/calculator/pension")}
+                to={getLocalizedPath("/calculator/pension/")}
                 className="p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200 group"
               >
                 <div className="flex items-center space-x-3">

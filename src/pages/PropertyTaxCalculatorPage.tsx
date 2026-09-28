@@ -429,8 +429,8 @@ const PropertyTaxCalculatorPage = () => {
                     </ol>
                     <p className="mt-3">
                       {t('property_tax_purchase_tip')} {' '}
-                      <Link to={getLocalizedPath("/calculator/housing")} className="text-blue-600 hover:text-blue-800 underline">{t('property_tax_housing_calc')}</Link> {t('property_tax_or_calc')} {' '}
-                      <Link to={getLocalizedPath("/calculator/mortgage")} className="text-blue-600 hover:text-blue-800 underline">{t('property_tax_mortgage_calc')}</Link> {t('property_tax_for_purchase')}
+                      <Link to={getLocalizedPath("/calculator/housing/")} className="text-blue-600 hover:text-blue-800 underline">{t('property_tax_housing_calc')}</Link> {t('property_tax_or_calc')} {' '}
+                      <Link to={getLocalizedPath("/calculator/mortgage/")} className="text-blue-600 hover:text-blue-800 underline">{t('property_tax_mortgage_calc')}</Link> {t('property_tax_for_purchase')}
                     </p>
                   </div>
                 </div>
@@ -702,7 +702,7 @@ ${t('calculated_on_site')} Calk.KG`}
             <h3 className="font-medium text-gray-900 mb-4">{t('other_calculators')}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <Link
-                to={getLocalizedPath("/calculator/single-tax")}
+                to={getLocalizedPath("/calculator/single-tax/")}
                 className="p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200 group"
               >
                 <div className="flex items-center space-x-3">
@@ -716,7 +716,7 @@ ${t('calculated_on_site')} Calk.KG`}
                 </div>
               </Link>
               <Link
-                to={getLocalizedPath("/calculator/salary")}
+                to={getLocalizedPath("/calculator/salary/")}
                 className="p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200 group"
               >
                 <div className="flex items-center space-x-3">
@@ -730,7 +730,7 @@ ${t('calculated_on_site')} Calk.KG`}
                 </div>
               </Link>
               <Link
-                to={getLocalizedPath("/calculator/social-fund")}
+                to={getLocalizedPath("/calculator/social-fund/")}
                 className="p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200 group"
               >
                 <div className="flex items-center space-x-3">

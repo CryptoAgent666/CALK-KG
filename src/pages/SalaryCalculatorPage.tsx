@@ -341,7 +341,7 @@ const SalaryCalculatorPage = () => {
                   <div className="text-sm text-blue-800">
                     <p className="font-medium mb-2">{t('calculation_order')}</p>
                     <ol className="list-decimal list-inside space-y-1">
-                      <li>{t('salary_calc_step1')} (<Link to={getLocalizedPath("/calculator/social-fund")} className="text-blue-600 hover:text-blue-800 underline">{t('salary_calc_step1_link')}</Link>)</li>
+                      <li>{t('salary_calc_step1')} (<Link to={getLocalizedPath("/calculator/social-fund/")} className="text-blue-600 hover:text-blue-800 underline">{t('salary_calc_step1_link')}</Link>)</li>
                       <li>{t('salary_calc_step2')}</li>
                       <li>{t('salary_calc_step3')}</li>
                       <li>{t('salary_calc_step4')}</li>
@@ -550,7 +550,7 @@ ${t('calculated_on_site')} Calk.KG`}
                 <h3 className="font-medium text-gray-900 mb-4">{t('other_calculators')}</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   <Link
-                    to={getLocalizedPath("/calculator/social-fund")}
+                    to={getLocalizedPath("/calculator/social-fund/")}
                     className="p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200 group"
                   >
                     <div className="flex items-center space-x-3">
@@ -564,7 +564,7 @@ ${t('calculated_on_site')} Calk.KG`}
                     </div>
                   </Link>
                   <Link
-                    to={getLocalizedPath("/calculator/pension")}
+                    to={getLocalizedPath("/calculator/pension/")}
                     className="p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200 group"
                   >
                     <div className="flex items-center space-x-3">
@@ -578,7 +578,7 @@ ${t('calculated_on_site')} Calk.KG`}
                     </div>
                   </Link>
                   <Link
-                    to={getLocalizedPath("/calculator/single-tax")}
+                    to={getLocalizedPath("/calculator/single-tax/")}
                     className="p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200 group"
                   >
                     <div className="flex items-center space-x-3">
@@ -592,7 +592,7 @@ ${t('calculated_on_site')} Calk.KG`}
                     </div>
                   </Link>
                   <Link
-                    to={getLocalizedPath("/calculator/taxi-tax")}
+                    to={getLocalizedPath("/calculator/taxi-tax/")}
                     className="p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200 group"
                   >
                     <div className="flex items-center space-x-3">

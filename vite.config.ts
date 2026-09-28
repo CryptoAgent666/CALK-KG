@@ -5167,7 +5167,21 @@ ${createJsonLdScript(jsonLdSchemas.length === 1 ? jsonLdSchemas[0] : jsonLdSchem
   };
 }
 
-export default defineConfig({
+// SSR-сборка (`vite build --ssr src/entry-server.tsx`) нужна только пререндеру:
+// ей не нужны ни статический генератор (он перезаписал бы dist/), ни gzip/br.
+const ssrBuildConfig = defineConfig({
+  plugins: [react()],
+  // CJS-пакеты без именованных ESM-экспортов — вшиваем в бандл.
+  ssr: { noExternal: ['react-helmet-async'] },
+  build: {
+    outDir: 'dist-ssr',
+    emptyOutDir: true,
+    minify: false,
+    copyPublicDir: false,
+  },
+});
+
+export default defineConfig((env) => env.isSsrBuild ? ssrBuildConfig : {
   plugins: [
     react(),
     staticHtmlPlugin(),

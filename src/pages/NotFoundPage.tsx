@@ -73,7 +73,7 @@ const NotFoundPage = () => {
             <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('popular_calculators')}:</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <Link
-                to="/calculator/salary"
+                to="/calculator/salary/"
                 className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200"
               >
                 <div className="bg-red-50 p-2 rounded-lg">
@@ -82,7 +82,7 @@ const NotFoundPage = () => {
                 <span className="text-gray-700 font-medium">{t('salary_calculator')}</span>
               </Link>
               <Link
-                to="/calculator/loan"
+                to="/calculator/loan/"
                 className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200"
               >
                 <div className="bg-green-50 p-2 rounded-lg">
@@ -91,7 +91,7 @@ const NotFoundPage = () => {
                 <span className="text-gray-700 font-medium">{t('loan_calculator')}</span>
               </Link>
               <Link
-                to="/calculator/mortgage"
+                to="/calculator/mortgage/"
                 className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200"
               >
                 <div className="bg-blue-50 p-2 rounded-lg">
@@ -100,7 +100,7 @@ const NotFoundPage = () => {
                 <span className="text-gray-700 font-medium">{t('mortgage_calculator')}</span>
               </Link>
               <Link
-                to="/calculator/single-tax"
+                to="/calculator/single-tax/"
                 className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200"
               >
                 <div className="bg-yellow-50 p-2 rounded-lg">

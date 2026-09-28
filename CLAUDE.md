@@ -2,8 +2,9 @@
 
 Kyrgyzstan tax/finance/utility calculator site. **Vite 5 + React 18 + TypeScript**, **bilingual
 Russian (ru) / Kyrgyz (ky)**, **35 calculators**. Currency **сом (KGS)**. Git:
-`github.com/CryptoAgent666/CALK-KG`. Build: `npm run build` (`vite build` → `generate-static-html.js`
-→ `generate-sitemap.js`); publish `dist/`.
+`github.com/CryptoAgent666/CALK-KG`. Build: `npm run build` (`vite build` → `vite build --ssr src/entry-server.tsx`
+→ `generate-static-html.js` (real React render of every route into the static HTML) → `generate-sitemap.js`);
+publish `dist/`. Render code must not touch `window`/`document` outside effects (SSR runs in Node).
 
 ## Regulatory constants (taxes, soc fund, pensions, benefits, fines, duties, utility tariffs…)
 
@@ -25,7 +26,8 @@ The site hard-codes hundreds of government-set values. They are inventoried + fr
     (`*_calc_title` / `*_calc_description`) and `scripts/check-translation-keys.js` treats it as the **key master**.
     So when a meta description / supported-city set changes, also update the matching `*_calc_description` here
     (both `ru:` and `ky:` blocks), and add any brand-new `t()` keys, or the static meta goes stale and the
-    key-checker flags them. (Prerender is shell + meta only — tariff numbers render client-side from the active files.)
+    key-checker flags them. (Since 2026-09-28 the static body is a real SSR render from the active files; translations.ts feeds only `<head>` meta
+    and FAQPage schema — FAQ items not visible on the page are dropped automatically.)
 
 ### State as of 2026-06-17 (pilot run from DATA_HUB)
 - **428 constants** = **109 current · 9 stale (deferred) · 102 uncertain · 208 unverified**. 220 gov
@@ -36,6 +38,10 @@ The site hard-codes hundreds of government-set values. They are inventoried + fr
   1 200→1 500 + ГМД 1 700→1 500**, **7 electricity tariffs** (01.05.2026 grid), **gas commercial
   28→24.25**, **heating 1 950→1 560**, patent limit 10→30 млн, single-tax 12→8 млн, phone fine
   1 500→3 000, mortgage/alimony/housing/water prose.
+- ⚠️ **Superseded later (re-verified by primary sources; ledger is authoritative):** heating stays
+  **1 950** сом/Гкал (приказ №105 / №42, 17.08.2026), NOT 1 560; «үй-бүлөгө көмөк» stays **1 200**/child
+  (1 500 is the ГМД threshold, 27.07.2026); traffic-fine статьи were re-checked verbatim in 07.2026 —
+  only 7 items flagged in `trafficFines.ts` remain.
 - ⚠️ **Deferred (structural, NOT applied):** sick-leave bracket logic (3–5 yr must be 60% not 80%;
   5–8 yr 80% not 100%; first 10 working days; cap 10 000/mo), scholarship semantics (academic 800/mo,
   president 60 000 one-time), ~19 traffic-fine **статья** relabels, gas/electricity narrative prose

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Calculator, ArrowLeft, Info, Home, Search, Car, AlertTriangle, Scale, Clock, Shield, CreditCard, FileText } from 'lucide-react';
@@ -18,13 +18,19 @@ import { TrafficFinesCalculatorArticle } from '../components/TrafficFinesCalcula
 
 // Интерфейс для отображения штрафов
 interface TrafficFine {
+  id: string;
   category: string;
   name: string;
   fine: number;
   article: string;
   notes: string;
+  // Скидка 70% (ст.563 ч.5 КоП). Берётся из notesId: раньше искали «скидка 70%»
+  // в тексте примечания, и на кыргызской версии скидка не показывалась нигде.
+  discount: boolean;
   keywords: string[];
 }
+
+const OSAGO_URL = 'https://polisonline.kg/';
 
 const TrafficFinesCalculatorPage = () => {
   const { language, t, getLocalizedPath} = useLanguage();
@@ -32,11 +38,13 @@ const TrafficFinesCalculatorPage = () => {
   // Функция для получения переведенных штрафов
   const getTranslatedFines = (): TrafficFine[] => {
     return TRAFFIC_FINES.map(fine => ({
+      id: fine.id,
       category: t(`traffic_cat_${fine.categoryId}` as any),
       name: t(`traffic_${fine.id}` as any),
       fine: fine.fine,
       article: fine.article,
       notes: t(`traffic_note_${fine.notesId}` as any),
+      discount: fine.notesId.startsWith('discount_70'),
       keywords: fine.keywords
     }));
   };
@@ -48,7 +56,7 @@ const TrafficFinesCalculatorPage = () => {
     document.title = t('traffic_fines_calc_title') + " | Calk.KG";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', t('traffic_fines_calc_description'));
+      metaDescription.setAttribute('content', t('traffic_fines_calc_subtitle'));
     }
   }, [t]);
 
@@ -80,7 +88,7 @@ const TrafficFinesCalculatorPage = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedFine, setSelectedFine] = useState<TrafficFine | null>(null);
   const [filteredFines, setFilteredFines] = useState<TrafficFine[]>([]);
-  const [showAllFines, setShowAllFines] = useState<boolean>(false);
+  const [showAllFines, setShowAllFines] = useState<boolean>(true);
 
   // Фильтрация штрафов по поисковому запросу
   useEffect(() => {
@@ -129,13 +137,21 @@ const TrafficFinesCalculatorPage = () => {
     return originalFine * 0.3; // 70% скидка = платим 30%
   };
 
+  const detailsRef = useRef<HTMLDivElement>(null);
+
   const handleFineSelect = (fine: TrafficFine) => {
     setSelectedFine(fine);
     setSearchTerm('');
     setFilteredFines([]);
   };
 
-  const hasDiscount = selectedFine ? selectedFine.notes.includes('скидка 70%') : false;
+  // Карточка штрафа стоит над таблицей — без прокрутки клик по строке внизу
+  // выглядел бы как «ничего не произошло».
+  useEffect(() => {
+    if (selectedFine) detailsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [selectedFine]);
+
+  const hasDiscount = selectedFine ? selectedFine.discount : false;
   const discountedAmount = selectedFine ? calculateDiscountedFine(selectedFine.fine, hasDiscount) : 0;
 
   // Tooltip component
@@ -237,6 +253,55 @@ const TrafficFinesCalculatorPage = () => {
       {/* Main Content */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         
+        {/* Проверка и оплата — первое, что ищут по «штрафы kg / штраф кж»:
+            сам штраф по номеру показывает только госреестр, поэтому ведём туда. */}
+        <section aria-labelledby="fines-check-title" className="bg-white rounded-xl shadow-sm border border-red-100 p-6 sm:p-8 mb-12">
+          <h2 id="fines-check-title" className="text-2xl font-semibold text-gray-900 mb-3">{t('traffic_check_title')}</h2>
+          <p className="text-gray-600 mb-6">{t('traffic_check_intro')}</p>
+          <div className="flex flex-col sm:flex-row gap-3 mb-3">
+            <a
+              href={language === 'ky' ? 'https://carcheck.gov.kg/ky' : 'https://carcheck.gov.kg/ru'}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 bg-red-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-red-700 transition-colors"
+            >
+              <Search className="h-5 w-5" aria-hidden="true" />
+              {t('traffic_check_button')}
+            </a>
+            <a
+              href="https://egov.kg/ru/gov-services/2607"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-medium hover:border-red-300 hover:text-red-700 transition-colors"
+            >
+              <FileText className="h-5 w-5" aria-hidden="true" />
+              {t('traffic_check_egov')}
+            </a>
+          </div>
+          <p className="text-xs text-gray-500 mb-8">{t('traffic_check_source')}</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-green-50 border border-green-200 rounded-lg p-5">
+              <h3 className="font-medium text-green-900 mb-2 flex items-center gap-2">
+                <Clock className="h-5 w-5 text-green-600" aria-hidden="true" />
+                {t('traffic_check_discount_title')}
+              </h3>
+              <p className="text-sm text-green-800 leading-relaxed">{t('traffic_check_discount_text')}</p>
+            </div>
+            <div className="bg-gray-50 rounded-lg p-5">
+              <h3 className="font-medium text-gray-900 mb-2 flex items-center gap-2">
+                <CreditCard className="h-5 w-5 text-gray-600" aria-hidden="true" />
+                {t('traffic_check_pay_title')}
+              </h3>
+              <ul className="text-sm text-gray-600 space-y-1 list-disc pl-5">
+                <li>{t('traffic_payment_2')}</li>
+                <li>{t('traffic_payment_3')}</li>
+                <li>{t('traffic_payment_1')}</li>
+              </ul>
+              <p className="text-sm text-gray-600 mt-3">{t('traffic_check_pay_note')}</p>
+            </div>
+          </div>
+        </section>
+
         {/* Search Section */}
         <div className="bg-white rounded-xl shadow-sm p-8 mb-12">
           <h2 className="text-2xl font-semibold text-gray-900 mb-6">{t('traffic_search_title')}</h2>
@@ -272,7 +337,7 @@ const TrafficFinesCalculatorPage = () => {
                       <div className="text-lg font-bold text-red-600">
                         {formatCurrency(fine.fine)} {t('traffic_som')}
                       </div>
-                      {fine.notes.includes('скидка 70%') && (
+                      {fine.discount && (
                         <div className="text-xs text-green-600">
                           {formatCurrency(calculateDiscountedFine(fine.fine, true))} {t('traffic_with_discount')}
                         </div>
@@ -306,7 +371,7 @@ const TrafficFinesCalculatorPage = () => {
 
         {/* Selected Fine Details */}
         {selectedFine && (
-          <div className="bg-white rounded-xl shadow-sm p-8 mb-12">
+          <div ref={detailsRef} className="bg-white rounded-xl shadow-sm p-8 mb-12 scroll-mt-4">
             <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
               <Scale className="h-6 w-6 text-red-600 mr-3" />
               {t('traffic_fine_info')}
@@ -356,6 +421,12 @@ const TrafficFinesCalculatorPage = () => {
                       {selectedFine.notes}
                     </div>
 
+                    {selectedFine.id.startsWith('no_insurance') && (
+                      <a href={OSAGO_URL} target="_blank" rel="noopener" className="inline-block text-sm font-medium text-blue-700 hover:underline">
+                        {t('traffic_osago_link')} →
+                      </a>
+                    )}
+
                     {hasDiscount && (
                       <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                         <div className="flex items-center space-x-2 mb-2">
@@ -376,49 +447,61 @@ const TrafficFinesCalculatorPage = () => {
           </div>
         )}
 
-        {/* All Categories */}
+        {/* Таблица штрафов — видна сразу и попадает в пререндер. Раньше список был
+            спрятан за кнопкой, и по «таблица штрафов ПДД» Google не видел ни строки. */}
         {showAllFines && (
-          <div className="bg-white rounded-xl shadow-sm p-8 mb-12">
-            <h2 className="text-xl font-semibold text-gray-900 mb-6">{t('traffic_all_categories')}</h2>
-            
+          <section aria-labelledby="fines-table-title" className="bg-white rounded-xl shadow-sm p-4 sm:p-8 mb-12">
+            <h2 id="fines-table-title" className="text-xl font-semibold text-gray-900 mb-6">{t('traffic_table_title')}</h2>
+
             <div className="space-y-8">
               {Object.entries(groupedFines).map(([category, fines]) => (
-                <div key={category} className="border border-gray-200 rounded-lg p-6">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
-                    <div className="w-3 h-3 bg-red-500 rounded-full mr-3"></div>
+                <div key={category}>
+                  <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                    <span className="w-3 h-3 bg-red-500 rounded-full mr-3" aria-hidden="true"></span>
                     {category}
                   </h3>
-                  
-                  <div className="space-y-3">
-                    {fines.map((fine, index) => (
-                      <button
-                        key={index}
-                        onClick={() => handleFineSelect(fine)}
-                        className="w-full text-left p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-100"
-                      >
-                        <div className="flex justify-between items-start">
-                          <div className="flex-1">
-                            <div className="font-medium text-gray-900 mb-1">{fine.name}</div>
-                            <div className="text-xs text-gray-500">{fine.article}</div>
-                          </div>
-                          <div className="text-right ml-4">
-                            <div className="text-lg font-bold text-red-600">
-                              {formatCurrency(fine.fine)} {t('traffic_som')}
-                            </div>
-                            {fine.notes.includes('скидка 70%') && (
-                              <div className="text-xs text-green-600">
-                                {formatCurrency(calculateDiscountedFine(fine.fine, true))} {t('traffic_with_discount')}
-                              </div>
+                  <table className="w-full text-sm table-fixed">
+                    <thead>
+                      <tr className="text-left text-gray-500 border-b border-gray-200">
+                        <th scope="col" className="py-2 pr-3 font-medium">{t('traffic_table_col_violation')}</th>
+                        <th scope="col" className="hidden sm:table-cell w-28 py-2 pr-3 font-medium">{t('traffic_table_col_article')}</th>
+                        <th scope="col" className="w-24 sm:w-28 py-2 pr-3 font-medium text-right">{t('traffic_table_col_fine')}</th>
+                        <th scope="col" className="w-24 sm:w-32 py-2 font-medium text-right">{t('traffic_table_col_discount')}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {fines.map(fine => (
+                        <tr key={fine.id} className="border-b border-gray-100 last:border-b-0 align-top">
+                          <td className="py-3 pr-3">
+                            <button
+                              type="button"
+                              onClick={() => handleFineSelect(fine)}
+                              className="text-left font-medium text-gray-900 hover:text-red-600 transition-colors"
+                            >
+                              {fine.name}
+                            </button>
+                            <span className="sm:hidden block text-xs text-gray-500 mt-1">{fine.article}</span>
+                            {fine.id.startsWith('no_insurance') && (
+                              <a href={OSAGO_URL} target="_blank" rel="noopener" className="block mt-1 text-xs font-medium text-blue-700 hover:underline">
+                                {t('traffic_osago_link')} →
+                              </a>
                             )}
-                          </div>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
+                          </td>
+                          <td className="hidden sm:table-cell py-3 pr-3 text-gray-500 whitespace-nowrap">{fine.article}</td>
+                          <td className="py-3 pr-3 text-right font-semibold text-red-600 whitespace-nowrap">
+                            {formatCurrency(fine.fine)} {t('traffic_som')}
+                          </td>
+                          <td className="py-3 text-right text-green-700 whitespace-nowrap">
+                            {fine.discount ? `${formatCurrency(calculateDiscountedFine(fine.fine, true))} ${t('traffic_som')}` : '—'}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               ))}
             </div>
-          </div>
+          </section>
         )}
 
         {/* Statistics */}
@@ -484,59 +567,12 @@ const TrafficFinesCalculatorPage = () => {
           </div>
         </div>
 
-        {/* How to Pay Info */}
-        <div className="bg-white rounded-xl shadow-sm p-8 mb-12">
-          <h3 className="font-medium text-gray-900 mb-6">{t('traffic_how_to_pay')}</h3>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <h4 className="font-medium text-gray-800 mb-3">{t('traffic_payment_methods')}</h4>
-              <ul className="text-sm text-gray-600 space-y-2">
-                <li className="flex items-start">
-                  <span className="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  {t('traffic_payment_1')}
-                </li>
-                <li className="flex items-start">
-                  <span className="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  {t('traffic_payment_2')}
-                </li>
-                <li className="flex items-start">
-                  <span className="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  {t('traffic_payment_3')}
-                </li>
-                <li className="flex items-start">
-                  <span className="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  {t('traffic_payment_4')}
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="font-medium text-gray-800 mb-3">{t('traffic_need_to_know')}</h4>
-              <ul className="text-sm text-gray-600 space-y-2">
-                <li className="flex items-start">
-                  <Clock className="h-4 w-4 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
-                  {t('traffic_discount_30')}
-                </li>
-                <li className="flex items-start">
-                  <Shield className="h-4 w-4 text-blue-500 mt-0.5 mr-2 flex-shrink-0" />
-                  {t('traffic_no_discount')}
-                </li>
-                <li className="flex items-start">
-                  <AlertTriangle className="h-4 w-4 text-amber-500 mt-0.5 mr-2 flex-shrink-0" />
-                  {t('traffic_repeat_violations')}
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
         {/* Other Calculators */}
         <div className="bg-white rounded-xl shadow-sm p-8 mb-12">
           <h3 className="font-medium text-gray-900 mb-4">{t('other_calculators')}</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <Link
-              to={getLocalizedPath("/calculator/customs")}
+              to={getLocalizedPath("/calculator/customs/")}
               className="p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200 group"
             >
               <div className="flex items-center space-x-3">
@@ -550,7 +586,7 @@ const TrafficFinesCalculatorPage = () => {
               </div>
             </Link>
             <Link
-              to={getLocalizedPath("/calculator/auto-loan")}
+              to={getLocalizedPath("/calculator/auto-loan/")}
               className="p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200 group"
             >
               <div className="flex items-center space-x-3">
@@ -564,7 +600,7 @@ const TrafficFinesCalculatorPage = () => {
               </div>
             </Link>
             <Link
-              to={getLocalizedPath("/calculator/passport")}
+              to={getLocalizedPath("/calculator/passport/")}
               className="p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200 group"
             >
               <div className="flex items-center space-x-3">

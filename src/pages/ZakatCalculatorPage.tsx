@@ -918,7 +918,7 @@ const ZakatCalculatorPage = () => {
             <h3 className="font-medium text-gray-900 mb-4">{t('other_calculators')}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <Link
-                to={getLocalizedPath("/calculator/family-benefit")}
+                to={getLocalizedPath("/calculator/family-benefit/")}
                 className="p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-green-200 group"
               >
                 <div className="flex items-center space-x-3">
@@ -932,7 +932,7 @@ const ZakatCalculatorPage = () => {
                 </div>
               </Link>
               <Link
-                to={getLocalizedPath("/calculator/alimony")}
+                to={getLocalizedPath("/calculator/alimony/")}
                 className="p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-green-200 group"
               >
                 <div className="flex items-center space-x-3">
@@ -946,7 +946,7 @@ const ZakatCalculatorPage = () => {
                 </div>
               </Link>
               <Link
-                to={getLocalizedPath("/calculator/salary")}
+                to={getLocalizedPath("/calculator/salary/")}
                 className="p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-green-200 group"
               >
                 <div className="flex items-center space-x-3">

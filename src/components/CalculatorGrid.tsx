@@ -3,6 +3,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import CalculatorCard from './CalculatorCard';
 import CategoryFilter from './CategoryFilter';
 import { Calculator } from '../types/calculator';
+import { calculatorRoutes } from '../data/calculatorRoutes';
 
 interface CalculatorGridProps {
   calculators: Calculator[];
@@ -10,42 +11,6 @@ interface CalculatorGridProps {
   setSelectedCategory: (category: string) => void;
 }
 
-const calculatorRoutes: Record<string, string> = {
-  'currency-exchange': '/calculator/currency-exchange',
-  'money-transfer': '/calculator/money-transfer',
-  'mobile-tariffs': '/calculator/mobile-tariffs',
-  'crop-yield': '/calculator/crop-yield',
-  'rental': '/calculator/rental',
-  'sick-leave': '/calculator/sick-leave',
-  'fuel': '/calculator/fuel',
-  'construction': '/calculator/construction',
-  'scholarship': '/calculator/scholarship',
-  'salary-calculator': '/calculator/salary',
-  'single-tax-calculator': '/calculator/single-tax',
-  'property-tax-calculator': '/calculator/property-tax',
-  'social-fund-calculator': '/calculator/social-fund',
-  'pension-calculator': '/calculator/pension',
-  'loan-calculator': '/calculator/loan',
-  'mortgage-calculator': '/calculator/mortgage',
-  'auto-loan-calculator': '/calculator/auto-loan',
-  'deposit-calculator': '/calculator/deposit',
-  'customs-calculator': '/calculator/customs',
-  'electricity-calculator': '/calculator/electricity',
-  'water-calculator': '/calculator/water',
-  'heating-calculator': '/calculator/heating',
-  'gas-calculator': '/calculator/gas',
-  'alimony-calculator': '/calculator/alimony',
-  'family-benefit-calculator': '/calculator/family-benefit',
-  'patent-calculator': '/calculator/patent',
-  'traffic-fines-calculator': '/calculator/traffic-fines',
-  'zakat-calculator': '/calculator/zakat',
-  'taxi-tax-calculator': '/calculator/taxi-tax',
-  'passport-calculator': '/calculator/passport',
-  'calorie-calculator': '/calculator/calorie',
-  'sewing-cost-calculator': '/calculator/sewing-cost',
-  'housing-calculator': '/calculator/housing',
-  'wedding-calculator': '/calculator/wedding',
-};
 
 const CalculatorGrid = ({ calculators, selectedCategory, setSelectedCategory }: CalculatorGridProps) => {
   const { t, getLocalizedPath } = useLanguage();

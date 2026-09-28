@@ -52,7 +52,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
   const navigate = useNavigate();
 
   const [language, setLanguageState] = useState<Language>(() => {
-    return getLanguageFromPath(window.location.pathname);
+    return getLanguageFromPath(location.pathname);
   });
   const [kyReady, setKyReady] = useState(isKyLoaded());
 

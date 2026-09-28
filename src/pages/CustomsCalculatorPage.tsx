@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Calculator, ArrowLeft, Info, Home, Car, AlertTriangle, Calendar, DollarSign } from 'lucide-react';
 import ActionButtons from '../components/ActionButtons';
-import { CustomsCalculatorArticle } from '../components/CustomsCalculatorArticle';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
 import FAQSchema from '../components/FAQSchema';
@@ -47,7 +46,8 @@ const getDutyRate = (
   const currentYear = new Date().getFullYear();
   const age = currentYear - year;
 
-  // Электромобили: ЛЬГОТА - 0% пошлина до 2027 года
+  // Электромобили: 0% — Решение Совета ЕЭК №111 от 05.12.2025 (ввоз в 2026 г., квота КР 25 000 шт.;
+  // сверх квоты — обычная ставка). ⚠️ Решения на 2027 год пока нет — сверить в январе 2027.
   if (vehicleType === 'electric') {
     return { dutyRate: 0, exciseRate: 0 };
   }
@@ -139,7 +139,9 @@ const CustomsCalculatorPage = () => {
     type: VehicleType = 'passenger',
     weight?: number
   ): CustomsResults => {
-    if (value <= 0 || carYear <= 0 || volume <= 0) {
+    // Объём двигателя влияет на ставку только у мотоциклов. Раньше он требовался
+    // для всех типов, и электромобиль (без двигателя) всегда давал 0 к оплате.
+    if (value <= 0 || carYear <= 0 || (type === 'motorcycle' && volume <= 0)) {
       return { 
         customsStoicostValue: value, 
         customsFee: 0, 
@@ -210,7 +212,7 @@ const CustomsCalculatorPage = () => {
     const value = parseFloat(customsValue) || 0;
     const weight = parseFloat(truckWeight) || 3.5;
 
-    if (carYear > 0 && volume > 0 && value > 0) {
+    if (carYear > 0 && value > 0 && (vehicleType !== 'motorcycle' || volume > 0)) {
       setResults(calculateCustoms(carYear, volume, value, vehicleType, weight));
     } else {
       setResults({ 
@@ -515,7 +517,8 @@ const CustomsCalculatorPage = () => {
                 </div>
               ) : null}
 
-              {/* Engine Volume */}
+              {/* Engine Volume — у электромобиля двигателя внутреннего сгорания нет */}
+              {vehicleType !== 'electric' && (
               <div className="mb-6">
                 <div className="flex items-center mb-3">
                   <label className="block text-sm font-medium text-gray-700">
@@ -533,6 +536,7 @@ const CustomsCalculatorPage = () => {
                   className="w-full px-4 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg print:text-base"
                 />
               </div>
+              )}
 
               {/* Customs Value */}
               <div className="mb-6">
@@ -799,14 +803,14 @@ ${t('calculated_on_calk')}`}
                   </div>
 
                   {/* Benefit Badge (for EV/Hybrid) */}
-                  {results.benefitAmount && results.benefitAmount > 0 && (
+                  {(results.benefitAmount ?? 0) > 0 && (
                     <div className="bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl p-6 text-white">
                       <div className="text-center">
                         <div className="text-green-100 mb-1">
                           {vehicleType === 'electric' ? '⚡ ' + t('customs_ev_benefit_title') : '🔋 ' + t('customs_hybrid_benefit_text').split(':')[0]}
                         </div>
                         <p className="text-3xl font-bold">
-                          ${formatCurrency(results.benefitAmount)}
+                          ${formatCurrency(results.benefitAmount ?? 0)}
                         </p>
                         <p className="text-sm text-green-100 mt-2">
                           {t('customs_customs_payments')} {vehicleType === 'electric' ? '(0%)' : '(10%)'}
@@ -882,7 +886,7 @@ ${t('calculated_on_calk')}`}
             <h3 className="font-medium text-gray-900 mb-4">{t('other_calculators')}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <Link
-                to={getLocalizedPath('/calculator/auto-loan')}
+                to={getLocalizedPath('/calculator/auto-loan/')}
                 className="p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200 group"
               >
                 <div className="flex items-center space-x-3">
@@ -896,7 +900,7 @@ ${t('calculated_on_calk')}`}
                 </div>
               </Link>
               <Link
-                to={getLocalizedPath('/calculator/loan')}
+                to={getLocalizedPath('/calculator/loan/')}
                 className="p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200 group"
               >
                 <div className="flex items-center space-x-3">
@@ -910,7 +914,7 @@ ${t('calculated_on_calk')}`}
                 </div>
               </Link>
               <Link
-                to={getLocalizedPath('/calculator/traffic-fines')}
+                to={getLocalizedPath('/calculator/traffic-fines/')}
                 className="p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200 group"
               >
                 <div className="flex items-center space-x-3">
@@ -962,9 +966,9 @@ ${t('calculated_on_calk')}`}
                       <div className="text-red-600 font-semibold">
                         ${formatCurrency(exampleResult.totalCost)}
                       </div>
-                      {exampleResult.benefitAmount && exampleResult.benefitAmount > 0 && (
+                      {(exampleResult.benefitAmount ?? 0) > 0 && (
                         <div className="text-xs text-green-600">
-                          💰 -{formatCurrency(exampleResult.benefitAmount)}
+                          💰 -{formatCurrency(exampleResult.benefitAmount ?? 0)}
                         </div>
                       )}
                       <div className="text-xs text-gray-500">
@@ -1153,6 +1157,22 @@ ${t('calculated_on_calk')}`}
                 </summary>
                 <p className="mt-4 text-gray-700 leading-relaxed">{t('customs_faq_a8')}</p>
               </details>
+
+              <details className="group bg-gray-50 rounded-lg p-6 hover:bg-gray-100 transition-colors">
+                <summary className="font-semibold text-lg text-gray-900 cursor-pointer list-none flex items-center justify-between">
+                  <span>🌏 {t('customs_faq_q9')}</span>
+                  <span className="text-blue-600 group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <p className="mt-4 text-gray-700 leading-relaxed">{t('customs_faq_a9')}</p>
+              </details>
+
+              <details className="group bg-gray-50 rounded-lg p-6 hover:bg-gray-100 transition-colors">
+                <summary className="font-semibold text-lg text-gray-900 cursor-pointer list-none flex items-center justify-between">
+                  <span>🔁 {t('customs_faq_q10')}</span>
+                  <span className="text-blue-600 group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <p className="mt-4 text-gray-700 leading-relaxed">{t('customs_faq_a10')}</p>
+              </details>
             </div>
           </div>
 
@@ -1297,6 +1317,4 @@ ${t('calculated_on_calk')}`}
 };
 
 
-      {/* Информационная статья под калькулятором */}
-      <CustomsCalculatorArticle />
 export default CustomsCalculatorPage;

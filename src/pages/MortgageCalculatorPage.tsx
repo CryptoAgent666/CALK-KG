@@ -484,7 +484,7 @@ const MortgageCalculatorPage = () => {
                       <li>{t('mortgage_info_early_repayment')}</li>
                     </ul>
                     <p className="mt-3">
-                      💡 <strong>{t('useful_to_know')}</strong> {t('mortgage_info_tip_intro')} <Link to={getLocalizedPath("/calculator/housing")} className="text-blue-600 hover:text-blue-800 underline">{t('mortgage_info_tip_housing_cost')}</Link> {t('mortgage_info_tip_and')} <Link to={getLocalizedPath("/calculator/property-tax")} className="text-blue-600 hover:text-blue-800 underline">{t('mortgage_info_tip_property_tax')}</Link>.
+                      💡 <strong>{t('useful_to_know')}</strong> {t('mortgage_info_tip_intro')} <Link to={getLocalizedPath("/calculator/housing/")} className="text-blue-600 hover:text-blue-800 underline">{t('mortgage_info_tip_housing_cost')}</Link> {t('mortgage_info_tip_and')} <Link to={getLocalizedPath("/calculator/property-tax/")} className="text-blue-600 hover:text-blue-800 underline">{t('mortgage_info_tip_property_tax')}</Link>.
                     </p>
                   </div>
                 </div>
@@ -919,7 +919,7 @@ ${t('calculated_on_site')} Calk.KG`}
             <h3 className="font-medium text-gray-900 mb-4">{t('other_calculators')}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <Link
-                to={getLocalizedPath("/calculator/loan")}
+                to={getLocalizedPath("/calculator/loan/")}
                 className="p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200 group"
               >
                 <div className="flex items-center space-x-3">
@@ -933,7 +933,7 @@ ${t('calculated_on_site')} Calk.KG`}
                 </div>
               </Link>
               <Link
-                to={getLocalizedPath("/calculator/auto-loan")}
+                to={getLocalizedPath("/calculator/auto-loan/")}
                 className="p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200 group"
               >
                 <div className="flex items-center space-x-3">
@@ -947,7 +947,7 @@ ${t('calculated_on_site')} Calk.KG`}
                 </div>
               </Link>
               <Link
-                to={getLocalizedPath("/calculator/deposit")}
+                to={getLocalizedPath("/calculator/deposit/")}
                 className="p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200 group"
               >
                 <div className="flex items-center space-x-3">

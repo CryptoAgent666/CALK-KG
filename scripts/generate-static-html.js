@@ -1,6 +1,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { dirname, join } from 'path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
+import { gzipSync, brotliCompressSync, constants as zlibConstants } from 'zlib';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const distDir = join(__dirname, '..', 'dist');
@@ -9,6 +10,8 @@ const publicDir = join(__dirname, '..', 'public');
 const ogDir = join(publicDir, 'og-images');
 
 const appPath = join(srcDir, 'App.tsx');
+// Серверный бандл страниц: `vite build --ssr src/entry-server.tsx` (шаг npm run build).
+const ssrEntryPath = join(__dirname, '..', 'dist-ssr', 'entry-server.js');
 const translationsPath = join(srcDir, 'i18n', 'translations.ts');
 
 const languages = [
@@ -19,123 +22,6 @@ const languages = [
 // Overrides ONLY for calculators whose translation key does NOT follow the
 // default normalization (slug.replace('-', '_')).
 // Default: property-tax → property_tax_calc_title (matches translations).
-// Gov-source mapping — must mirror src/data/govSources.ts to keep SSG content
-// and React-rendered content in sync.
-const GOV_SOURCES = {
-  sti: { ru: ['Налоговая служба КР', 'sti.gov.kg'], ky: ['КРнын Салык кызматы', 'sti.gov.kg'] },
-  sf: { ru: ['Социальный фонд КР', 'sf.gov.kg'], ky: ['КРнын Социалдык фонду', 'sf.gov.kg'] },
-  mlsp: { ru: ['Министерство труда КР', 'mlsp.gov.kg'], ky: ['КРнын Эмгек министрлиги', 'mlsp.gov.kg'] },
-  minfin: { ru: ['Министерство финансов КР', 'minfin.kg'], ky: ['КРнын Каржы министрлиги', 'minfin.kg'] },
-  customs: { ru: ['Таможенная служба КР', 'customs.gov.kg'], ky: ['КРнын Бажы кызматы', 'customs.gov.kg'] },
-  nbkr: { ru: ['Национальный банк КР', 'nbkr.kg'], ky: ['КРнын Улуттук банкы', 'nbkr.kg'] },
-  toktom: { ru: ['Правовая база Токтом', 'toktom.kg'], ky: ['Токтом укуктук базасы', 'toktom.kg'] },
-  stat: { ru: ['Нацстатком КР', 'stat.gov.kg'], ky: ['КРнын Улуттук статкомитети', 'stat.gov.kg'] },
-  grs: { ru: ['Государственная регистрационная служба', 'grs.gov.kg'], ky: ['Мамлекеттик каттоо кызматы', 'grs.gov.kg'] },
-  patrol: { ru: ['Минздрав КР', 'med.kg'], ky: ['КРнын Саламаттык сактоо министрлиги', 'med.kg'] }
-};
-
-const CALCULATOR_SOURCES = {
-  'salary': ['sti', 'sf', 'mlsp', 'toktom'],
-  'single-tax': ['sti', 'toktom'],
-  'property-tax': ['sti', 'toktom'],
-  'patent': ['sti', 'toktom'],
-  'taxi-tax': ['sti', 'sf', 'toktom'],
-  'loan': ['nbkr', 'toktom'],
-  'mortgage': ['nbkr', 'toktom'],
-  'auto-loan': ['nbkr', 'toktom'],
-  'deposit': ['nbkr', 'toktom'],
-  'currency-exchange': ['nbkr', 'stat'],
-  'money-transfer': ['nbkr', 'toktom'],
-  'mobile-tariffs': ['minfin', 'stat'],
-  'pension': ['sf', 'mlsp', 'toktom'],
-  'alimony': ['mlsp', 'toktom'],
-  'family-benefit': ['mlsp', 'sf', 'toktom'],
-  'sick-leave': ['sf', 'mlsp', 'toktom'],
-  'social-fund': ['sf', 'toktom'],
-  'scholarship': ['mlsp', 'toktom'],
-  'electricity': ['minfin', 'toktom'],
-  'water': ['toktom', 'minfin'],
-  'gas': ['minfin', 'toktom'],
-  'heating': ['toktom', 'minfin'],
-  'housing': ['toktom', 'stat'],
-  'customs': ['customs', 'minfin', 'toktom'],
-  'fuel': ['minfin', 'toktom'],
-  'traffic-fines': ['toktom', 'mlsp'],
-  'passport': ['grs', 'toktom'],
-  'construction': ['stat', 'minfin'],
-  'crop-yield': ['stat', 'mlsp'],
-  'rental': ['stat', 'toktom'],
-  'zakat': ['nbkr', 'stat'],
-  'calorie': ['patrol', 'stat'],
-  'sewing-cost': ['stat', 'minfin'],
-  'wedding': ['stat', 'toktom']
-};
-
-// Pick 4-5 related calculators from same category for internal linking + SEO.
-function buildRelatedCalculatorsHtml(slug, lang, langPrefix) {
-  const currentCat = calculatorCategories[slug];
-  if (!currentCat) return '';
-
-  // Find 4 other calculators in the same category
-  const related = Object.entries(calculatorCategories)
-    .filter(([s, c]) => s !== slug && c.cat === currentCat.cat)
-    .slice(0, 4);
-
-  if (related.length === 0) return '';
-
-  const heading = lang === 'ky' ? 'Тектеш калькуляторлор' : 'Похожие калькуляторы';
-  const intro = lang === 'ky'
-    ? `Бул бөлүмдө дагы пайдалуу калькуляторлор:`
-    : `Другие полезные калькуляторы в этом разделе:`;
-
-  const items = related.map(([s, c]) => {
-    const titleKey = (slugOverrides[s] || s.replace(/-/g, '_')) + '_calc_title';
-    const altTitleKey = (slugOverrides[s] || s.replace(/-/g, '_')) + '_title';
-    const linkText = getTranslation(lang, titleKey, '') || getTranslation(lang, altTitleKey, '') || s;
-    // Use RELATIVE URLs — better for SEO and audit detection
-    const path = `${langPrefix}/calculator/${s}/`;
-    return `<li style="margin:8px 0;"><a href="${path}" style="color:#1d4ed8;">${linkText}</a></li>`;
-  }).join('\n        ');
-
-  return `
-    <section style="margin:32px 0;padding:20px;background:#f9fafb;border-radius:8px;border:1px solid #e5e7eb;">
-      <h2 style="font-size:18px;margin:0 0 8px;color:#111;">${heading}</h2>
-      <p style="margin:8px 0;font-size:14px;color:#475569;">${intro}</p>
-      <ul style="margin:12px 0;padding-left:20px;list-style:disc;">
-        ${items}
-      </ul>
-    </section>`;
-}
-
-function buildGovSourcesHtml(slug, lang) {
-  const sourceIds = CALCULATOR_SOURCES[slug] || [];
-  if (sourceIds.length === 0) return '';
-
-  const heading = lang === 'ky' ? 'Расмий булактар' : 'Официальные источники';
-  const intro = lang === 'ky'
-    ? 'Бул калькулятор төмөнкү ишенимдүү булактарга негизделет:'
-    : 'Данный калькулятор основан на следующих авторитетных источниках:';
-
-  const items = sourceIds
-    .map(id => GOV_SOURCES[id])
-    .filter(Boolean)
-    .map(s => {
-      const name = s[lang === 'ky' ? 'ky' : 'ru'][0];
-      const domain = s.ru[1];
-      return `<li style="margin:8px 0;"><a href="https://${domain}" target="_blank" rel="noopener noreferrer external" style="color:#1d4ed8;">${name}</a> — <span style="color:#666;">${domain}</span></li>`;
-    })
-    .join('\n        ');
-
-  return `
-    <section style="margin:32px 0;padding:20px;background:#eff6ff;border-radius:8px;border:1px solid #bfdbfe;">
-      <h2 style="font-size:18px;margin:0 0 8px;color:#1e3a8a;">${heading}</h2>
-      <p style="margin:8px 0;font-size:14px;color:#475569;">${intro}</p>
-      <ul style="margin:12px 0;padding-left:20px;list-style:disc;">
-        ${items}
-      </ul>
-    </section>`;
-}
-
 const slugOverrides = {
   'crop-yield': 'crop_calc',
   'rental': 'rent_calc',
@@ -339,39 +225,6 @@ function extractFaqs(base, lang) {
   return faqs;
 }
 
-function extractArticleSections(base, lang) {
-  const sections = [];
-
-  // Standard article section key patterns
-  const sectionPatterns = [
-    ['_article_what_title', '_article_what_intro'],
-    ['_article_how_title', '_article_how_intro'],
-    ['_example_title', '_example_intro'],
-    ['_example_title', '_example_text'],
-    ['_tips_title', '_tips_intro'],
-    ['_payment_title', '_payment_intro'],
-    ['_meter_title', '_meter_intro'],
-    ['_comparison_title', '_comparison_intro'],
-    ['_savings_title', '_savings_intro'],
-    ['_types_title', '_types_intro'],
-    ['_guide_title', '_guide_intro'],
-    ['_application_title', '_application_intro'],
-    ['_verification_title', '_verification_intro'],
-    ['_transition_title', '_transition_intro'],
-    ['_advantages_title', '_advantages_intro'],
-  ];
-
-  for (const [titleSuffix, bodySuffix] of sectionPatterns) {
-    const title = getTranslation(lang, `${base}${titleSuffix}`, '');
-    const body = getTranslation(lang, `${base}${bodySuffix}`, '');
-    if (title || body) {
-      sections.push({ title, body });
-    }
-  }
-
-  return sections;
-}
-
 // --- JSON-LD schema generators (mirroring src/utils/schemaGenerator.ts) ---
 
 function escapeJsonString(str) {
@@ -520,8 +373,22 @@ function jsonLdScriptTag(schema) {
 
 // --- Content & schema injection ---
 
-function injectContentPreview(html, route) {
-  // For calculator pages, inject visible article content and JSON-LD structured data
+const decodeEntities = (str) => str
+  .replace(/&nbsp;/g, ' ')
+  .replace(/&quot;/g, '"')
+  .replace(/&#x27;|&#39;/g, "'")
+  .replace(/&lt;/g, '<')
+  .replace(/&gt;/g, '>')
+  .replace(/&amp;/g, '&');
+
+const normalizeText = (str) => decodeEntities(String(str).replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim();
+
+// Видимый текст пререндеренной страницы — для сверки FAQ-разметки с контентом.
+const visibleTextOf = (appHtml) => normalizeText(
+  appHtml.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/g, ' ')
+);
+
+function injectCalculatorSchemas(html, route, visibleText) {
   if (route.type !== 'calculator') return html;
 
   const base = slugOverrides[route.slug] || route.slug.replace(/-/g, '_');
@@ -530,114 +397,19 @@ function injectContentPreview(html, route) {
   const pageUrl = `https://calk.kg${pathForUrl}`;
   const langPrefix = lang === 'ky' ? '/ky' : '';
 
-  // --- Extract content ---
   const calcTitle = getTranslation(lang, `${base}_calc_title`, '') ||
                     getTranslation(lang, `${base}_title`, route.slug);
   const calcDescription = getTranslation(lang, `${base}_calc_description`, '') ||
                           getTranslation(lang, `${base}_description`, '');
-  const articleSections = extractArticleSections(base, lang);
-  const faqs = extractFaqs(base, lang);
+  // FAQ-разметка допустима только для вопросов, которые видны на странице. FAQ здесь
+  // из translations.ts, а страница рендерится из translations-ru/ky — тексты
+  // расходятся, поэтому оставляем лишь пары, найденные в пререндеренном HTML.
+  const faqs = extractFaqs(base, lang).filter(faq =>
+    visibleText.includes(normalizeText(faq.question)) &&
+    visibleText.includes(normalizeText(faq.answer).slice(0, 80))
+  );
   const catInfo = calculatorCategories[route.slug];
   const categoryName = catInfo ? catInfo[lang] || catInfo.ru : (lang === 'ky' ? 'Башка' : 'Разное');
-
-  // --- Build visible article HTML ---
-  // Always inject the article (even without FAQs) so AuthorByline,
-  // GovSources, and the H1+description are visible to crawlers.
-  const hasContent = true; // articleSections.length > 0 || faqs.length > 0;
-
-  if (hasContent) {
-    const sectionsHtml = articleSections
-      .map(s => `${s.title ? `<h2 style="font-size:20px;margin:24px 0 12px;">${s.title}</h2>` : ''}${s.body ? `<p style="margin:12px 0;line-height:1.6;">${s.body}</p>` : ''}`)
-      .join('\n        ');
-
-    const faqsHtml = faqs
-      .map(f => `<div style="margin:16px 0;"><h3 style="font-size:17px;margin:12px 0;">${f.question}</h3><p style="margin:8px 0;line-height:1.6;">${f.answer}</p></div>`)
-      .join('\n          ');
-
-    const faqSectionTitle = lang === 'ky' ? 'Көп берилүүчү суроолор' : 'Часто задаваемые вопросы';
-    const govSourcesHtml = buildGovSourcesHtml(route.slug, lang);
-    const relatedHtml = buildRelatedCalculatorsHtml(route.slug, lang, langPrefix);
-
-    // Editorial byline (Author + last updated) for E-E-A-T
-    const today = new Date().toISOString().split('T')[0];
-    // Human-readable date — Google + users see this in static HTML before JS hydrates
-    const d = new Date(today + 'T00:00:00');
-    const KY_MONTHS = ['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'];
-    const RU_MONTHS = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
-    const humanDate = lang === 'ky'
-      ? `${d.getDate()}-${KY_MONTHS[d.getMonth()]} ${d.getFullYear()}-жыл`
-      : `${d.getDate()} ${RU_MONTHS[d.getMonth()]} ${d.getFullYear()} г.`;
-
-    const reviewedLabel = lang === 'ky' ? '✓ Текшерилди:' : '✓ Проверено';
-    const editorialLabel = lang === 'ky' ? 'Calk.KG редакциясы тарабынан' : 'редакцией Calk.KG';
-    const updatedLabel = lang === 'ky' ? 'Жаңыртылды' : 'Обновлено';
-
-    // Static breadcrumb HTML — крауллерам нужен <nav> в первичном HTML до hydration.
-    // React VisualBreadcrumbs появляется после JS — но Googlebot ходит JS-light по нашему сайту.
-    const homeLabelStatic = lang === 'ky' ? 'Башкы бет' : 'Главная';
-    const calculatorsLabel = lang === 'ky' ? 'Калькуляторлор' : 'Калькуляторы';
-    const breadcrumbBaseUrl = lang === 'ky' ? '/ky' : '';
-    const staticBreadcrumb = `
-    <nav aria-label="Breadcrumb" style="background:#fff;border-bottom:1px solid #e5e7eb;">
-      <div style="max-width:800px;margin:0 auto;padding:12px 20px;font-size:14px;color:#6b7280;">
-        <a href="${breadcrumbBaseUrl || '/'}" style="color:#6b7280;text-decoration:none;">${homeLabelStatic}</a>
-        <span style="margin:0 8px;color:#9ca3af;">›</span>
-        <a href="${breadcrumbBaseUrl}/" style="color:#6b7280;text-decoration:none;">${calculatorsLabel}</a>
-        <span style="margin:0 8px;color:#9ca3af;">›</span>
-        <span style="color:#111;font-weight:500;">${calcTitle}</span>
-      </div>
-    </nav>`;
-
-    const staticArticle = `
-    ${staticBreadcrumb}
-    <main id="static-content" style="max-width:800px;margin:40px auto;padding:20px;font-family:system-ui,-apple-system,sans-serif;">
-      <article style="background:transparent;">
-      <h1 style="font-size:24px;margin-bottom:16px;">${calcTitle}</h1>
-
-      <div style="display:flex;gap:16px;margin:12px 0 20px;padding:8px 0 16px;border-bottom:1px solid #e5e7eb;font-size:14px;color:#6b7280;" itemscope itemtype="https://schema.org/Person">
-        <span><span style="color:#16a34a;">${reviewedLabel}</span> <span itemprop="name" style="color:#111;font-weight:500;">${editorialLabel}</span></span>
-        <time datetime="${today}" itemprop="dateModified">${updatedLabel}: <span style="color:#111;">${humanDate}</span></time>
-      </div>
-
-      ${calcDescription ? `<p style="margin:12px 0;line-height:1.6;color:#555;">${calcDescription}</p>` : ''}
-      ${sectionsHtml}
-      ${faqs.length > 0 ? `
-      <section style="margin:32px 0;">
-        <h2 style="font-size:20px;margin:24px 0 12px;">${faqSectionTitle}</h2>
-        ${faqsHtml}
-      </section>` : ''}
-      ${relatedHtml}
-      ${govSourcesHtml}
-      <noscript>
-        <p style="margin:20px 0;color:#666;">
-          ${lang === 'ky' ? 'Калькуляторду колдонуу үчүн JavaScript керек.' : 'Для использования калькулятора требуется JavaScript.'}
-        </p>
-      </noscript>
-      </article>
-    </main>`;
-
-    // Inject before </body> for SEO crawlers.
-    // First, remove the home-page static-content block inherited from the
-    // vite-generated template (it has the wrong content for calculator pages
-    // and creates a duplicate <h1>).
-    html = html.replace(
-      /<main id="static-content" data-ssg-static="true"[\s\S]*?<\/main>/,
-      ''
-    );
-
-    // Then inject the per-page article inside #root so the spinner is replaced too.
-    // Hidden by CSS class .react-mounted (added by main.tsx before React renders)
-    // and also removed from DOM by main.tsx's staticContent.remove()
-    html = html.replace(
-      /<div id="root">(?:<div class="loading-spinner"><\/div>|\s*)<\/div>/,
-      `<div id="root">${staticArticle}</div>`
-    );
-    // Fallback: if #root already has other content (vite injected something),
-    // append our article right before </body>
-    if (!html.includes('id="static-content"')) {
-      html = html.replace('</body>', `${staticArticle}\n</body>`);
-    }
-  }
 
   // --- Inject JSON-LD schemas into <head> ---
   const schemas = [];
@@ -715,7 +487,7 @@ function injectContentPreview(html, route) {
   return html;
 }
 
-function generateHtml(templateHtml, route) {
+function generateHtml(templateHtml, route, appHtml) {
   let html = templateHtml;
   // Add trailing slash for calculator/static pages to match nginx behavior
   // (nginx 301-redirects /calculator/X to /calculator/X/)
@@ -818,24 +590,53 @@ function generateHtml(templateHtml, route) {
     `${ogTags}\n  </head>`
   );
   
-  // Inject content preview for SEO
-  html = injectContentPreview(html, route);
+  // Тело страницы — настоящий рендер React (dist-ssr). Всё, что шаблон или
+  // статический плагин vite положили в #root, заменяется целиком. main.tsx
+  // удаляет #static-content до монтирования приложения.
+  const withBody = html.replace(
+    /<div id="root">[\s\S]*<\/div>(\s*<\/body>)/,
+    (_match, bodyEnd) => `<div id="root"><div id="static-content">${appHtml}</div></div>${bodyEnd}`
+  );
+  if (withBody === html) {
+    throw new Error(`[prerender] #root not found in template for ${route.path}`);
+  }
+  html = withBody;
+
+  html = injectCalculatorSchemas(html, route, visibleTextOf(appHtml));
 
   return html;
 }
 
-function generateStaticHtml() {
+// Готовые .gz/.br рядом с HTML: vite-plugin-compression сжимает файлы ДО этого
+// скрипта, и без перезаписи рядом лежали бы архивы старой версии страницы.
+function writeHtml(filePath, html) {
+  const buffer = Buffer.from(html, 'utf-8');
+  writeFileSync(filePath, buffer);
+  writeFileSync(`${filePath}.gz`, gzipSync(buffer, { level: 9 }));
+  writeFileSync(`${filePath}.br`, brotliCompressSync(buffer, {
+    params: { [zlibConstants.BROTLI_PARAM_QUALITY]: 11 }
+  }));
+}
+
+async function generateStaticHtml() {
+  if (!existsSync(ssrEntryPath)) {
+    throw new Error('[prerender] dist-ssr/entry-server.js not found — run: vite build --ssr src/entry-server.tsx');
+  }
+  const { render } = await import(pathToFileURL(ssrEntryPath).href);
   const templateHtml = readFileSync(join(distDir, 'index.html'), 'utf-8');
   const routes = buildRoutes();
 
   console.log('Generating static HTML files...\n');
 
   for (const route of routes) {
-    const html = generateHtml(templateHtml, route);
+    // Рендерим по каноническому URL (со слешем), как его открывает браузер.
+    const renderUrl = route.type === 'home' || route.path.endsWith('/') ? route.path : `${route.path}/`;
+    const appHtml = await render(renderUrl);
+    const html = generateHtml(templateHtml, route, appHtml);
     const normalizedPath = route.path.replace(/^\/+/, '');
 
     if (!normalizedPath) {
-      writeFileSync(join(distDir, 'index.html'), html);
+      writeHtml(join(distDir, 'index.html'), html);
       console.log(`  / -> dist/index.html`);
       continue;
     }
@@ -844,11 +645,11 @@ function generateStaticHtml() {
     if (!existsSync(dirPath)) {
       mkdirSync(dirPath, { recursive: true });
     }
-    writeFileSync(join(dirPath, 'index.html'), html);
+    writeHtml(join(dirPath, 'index.html'), html);
     console.log(`  ${route.path} -> dist/${normalizedPath}/index.html`);
   }
 
   console.log(`\nGenerated ${routes.length} static HTML files.`);
 }
 
-generateStaticHtml();
+await generateStaticHtml();

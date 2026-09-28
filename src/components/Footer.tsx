@@ -78,19 +78,19 @@ const Footer = () => {
               <li><Link to={`${getLocalizedPath('/')}?category=finance`} onClick={scrollToTop} className="text-gray-400 hover:text-white transition-colors hover:underline">{t('footer_financial_calculators')}</Link></li>
               <li><Link to={`${getLocalizedPath('/')}?category=auto`} onClick={scrollToTop} className="text-gray-400 hover:text-white transition-colors hover:underline">{t('footer_auto_calculators')}</Link></li>
               <li><Link to={`${getLocalizedPath('/')}?category=utilities`} onClick={scrollToTop} className="text-gray-400 hover:text-white transition-colors hover:underline">{t('footer_utilities_calculators')}</Link></li>
-              <li><Link to={getLocalizedPath('/sitemap')} className="text-gray-400 hover:text-white transition-colors hover:underline">{t('footer_sitemap')}</Link></li>
+              <li><Link to={getLocalizedPath('/sitemap/')} className="text-gray-400 hover:text-white transition-colors hover:underline">{t('footer_sitemap')}</Link></li>
             </ul>
           </div>
 
           <div>
             <h3 className="text-lg font-semibold mb-4">{t('footer_info')}</h3>
             <ul className="space-y-2">
-              <li><Link to={getLocalizedPath('/privacy-policy')} className="text-gray-400 hover:text-white transition-colors">{t('footer_privacy')}</Link></li>
-              <li><Link to={getLocalizedPath('/terms-of-service')} className="text-gray-400 hover:text-white transition-colors">{t('footer_terms')}</Link></li>
-              <li><Link to={getLocalizedPath('/disclaimer')} className="text-gray-400 hover:text-white transition-colors">{t('footer_disclaimer')}</Link></li>
-              <li><Link to={getLocalizedPath('/about')} className="text-gray-400 hover:text-white transition-colors">{t('footer_about')}</Link></li>
-              <li><Link to={getLocalizedPath('/contact')} className="text-gray-400 hover:text-white transition-colors">{t('footer_contacts')}</Link></li>
-              <li><Link to={getLocalizedPath('/updates')} className="text-gray-400 hover:text-white transition-colors">{t('nav_updates')}</Link></li>
+              <li><Link to={getLocalizedPath('/privacy-policy/')} className="text-gray-400 hover:text-white transition-colors">{t('footer_privacy')}</Link></li>
+              <li><Link to={getLocalizedPath('/terms-of-service/')} className="text-gray-400 hover:text-white transition-colors">{t('footer_terms')}</Link></li>
+              <li><Link to={getLocalizedPath('/disclaimer/')} className="text-gray-400 hover:text-white transition-colors">{t('footer_disclaimer')}</Link></li>
+              <li><Link to={getLocalizedPath('/about/')} className="text-gray-400 hover:text-white transition-colors">{t('footer_about')}</Link></li>
+              <li><Link to={getLocalizedPath('/contact/')} className="text-gray-400 hover:text-white transition-colors">{t('footer_contacts')}</Link></li>
+              <li><Link to={getLocalizedPath('/updates/')} className="text-gray-400 hover:text-white transition-colors">{t('nav_updates')}</Link></li>
               {/* Постоянный вход в покупку «Убрать рекламу» + Restore (Apple 3.1.1) —
                   рендерится только в приложении с модулем покупок. Именно в этом
                   вертикальном списке (паттерн calk.uz), а не в нижнем ряду
@@ -121,10 +121,10 @@ const Footer = () => {
               {t('footer_copyright')}
             </p>
             <div className="flex space-x-6">
-              <Link to={getLocalizedPath('/privacy-policy')} className="text-gray-400 hover:text-white transition-colors">
+              <Link to={getLocalizedPath('/privacy-policy/')} className="text-gray-400 hover:text-white transition-colors">
                 {t('footer_privacy')}
               </Link>
-              <Link to={getLocalizedPath('/terms-of-service')} className="text-gray-400 hover:text-white transition-colors">
+              <Link to={getLocalizedPath('/terms-of-service/')} className="text-gray-400 hover:text-white transition-colors">
                 {t('footer_terms')}
               </Link>
               {/* Статический гейт как у бейджей выше: в app-бандле CMP не бывает,

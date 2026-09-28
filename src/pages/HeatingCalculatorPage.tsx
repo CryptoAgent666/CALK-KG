@@ -990,7 +990,7 @@ const HeatingCalculatorPage = () => {
           <h3 className="font-medium text-gray-900 mb-4">{t('other_calculators')}</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <Link
-              to={getLocalizedPath("/calculator/electricity")}
+              to={getLocalizedPath("/calculator/electricity/")}
               className="p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200 group"
             >
               <div className="flex items-center space-x-3">
@@ -1004,7 +1004,7 @@ const HeatingCalculatorPage = () => {
               </div>
             </Link>
             <Link
-              to={getLocalizedPath("/calculator/water")}
+              to={getLocalizedPath("/calculator/water/")}
               className="p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200 group"
             >
               <div className="flex items-center space-x-3">
@@ -1018,7 +1018,7 @@ const HeatingCalculatorPage = () => {
               </div>
             </Link>
             <Link
-              to={getLocalizedPath("/calculator/gas")}
+              to={getLocalizedPath("/calculator/gas/")}
               className="p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200 group"
             >
               <div className="flex items-center space-x-3">

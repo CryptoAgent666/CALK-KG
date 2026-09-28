@@ -851,7 +851,7 @@ const SewingCostCalculatorPage = () => {
                   </li>
                   <li className="flex items-start">
                     <span className="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                    <span><strong>{t('sewing_taxes')}</strong> - {t('sewing_taxes_desc')} (<Link to={getLocalizedPath("/calculator/single-tax")} className="text-purple-600 hover:text-purple-800 underline">{t('sewing_single_tax')}</Link> {t('or')} <Link to={getLocalizedPath("/calculator/patent")} className="text-purple-600 hover:text-purple-800 underline">{t('sewing_patent')}</Link>)</span>
+                    <span><strong>{t('sewing_taxes')}</strong> - {t('sewing_taxes_desc')} (<Link to={getLocalizedPath("/calculator/single-tax/")} className="text-purple-600 hover:text-purple-800 underline">{t('sewing_single_tax')}</Link> {t('or')} <Link to={getLocalizedPath("/calculator/patent/")} className="text-purple-600 hover:text-purple-800 underline">{t('sewing_patent')}</Link>)</span>
                   </li>
                 </ul>
               </div>
@@ -873,7 +873,7 @@ const SewingCostCalculatorPage = () => {
                   </li>
                   <li className="flex items-start">
                     <span className="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                    <span>{t('sewing_track_time')} <Link to={getLocalizedPath("/calculator/salary")} className="text-green-600 hover:text-green-800 underline">{t('sewing_seamstress_salary')}</Link></span>
+                    <span>{t('sewing_track_time')} <Link to={getLocalizedPath("/calculator/salary/")} className="text-green-600 hover:text-green-800 underline">{t('sewing_seamstress_salary')}</Link></span>
                   </li>
                 </ul>
               </div>
@@ -885,7 +885,7 @@ const SewingCostCalculatorPage = () => {
             <h3 className="font-medium text-gray-900 mb-4">{t('other_calculators')}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <Link
-                to={getLocalizedPath("/calculator/single-tax")}
+                to={getLocalizedPath("/calculator/single-tax/")}
                 className="p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-purple-200 group"
               >
                 <div className="flex items-center space-x-3">
@@ -899,7 +899,7 @@ const SewingCostCalculatorPage = () => {
                 </div>
               </Link>
               <Link
-                to={getLocalizedPath("/calculator/patent")}
+                to={getLocalizedPath("/calculator/patent/")}
                 className="p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-purple-200 group"
               >
                 <div className="flex items-center space-x-3">
@@ -913,7 +913,7 @@ const SewingCostCalculatorPage = () => {
                 </div>
               </Link>
               <Link
-                to={getLocalizedPath("/calculator/salary")}
+                to={getLocalizedPath("/calculator/salary/")}
                 className="p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-purple-200 group"
               >
                 <div className="flex items-center space-x-3">

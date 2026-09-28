@@ -50,7 +50,7 @@ const Header = () => {
                 </Link>
               ))}
 
-            <Link to={getLocalizedPath('/about')} className="text-gray-700 hover:text-red-600 transition-colors font-medium">
+            <Link to={getLocalizedPath('/about/')} className="text-gray-700 hover:text-red-600 transition-colors font-medium">
               {t('nav_about')}
             </Link>
 
@@ -129,7 +129,7 @@ const Header = () => {
                 <span>{t('nav_home')}</span>
               </Link>
               <Link
-                to={getLocalizedPath('/about')}
+                to={getLocalizedPath('/about/')}
                 className="flex items-center space-x-4 text-gray-700 hover:text-red-600 hover:bg-red-50 transition-all py-4 px-3 rounded-xl text-base font-medium group"
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -194,7 +194,7 @@ const Header = () => {
               </h3>
               <div className="space-y-1">
                 <Link
-                  to={getLocalizedPath('/calculator/salary')}
+                  to={getLocalizedPath('/calculator/salary/')}
                   className="flex items-center space-x-4 text-gray-700 hover:text-red-600 hover:bg-red-50 transition-all py-3 px-3 rounded-xl group"
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -204,7 +204,7 @@ const Header = () => {
                   <span className="font-medium">{t('calculator_salary')}</span>
                 </Link>
                 <Link
-                  to={getLocalizedPath('/calculator/customs')}
+                  to={getLocalizedPath('/calculator/customs/')}
                   className="flex items-center space-x-4 text-gray-700 hover:text-red-600 hover:bg-red-50 transition-all py-3 px-3 rounded-xl group"
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -214,7 +214,7 @@ const Header = () => {
                   <span className="font-medium">{t('calculator_customs')}</span>
                 </Link>
                 <Link
-                  to={getLocalizedPath('/calculator/electricity')}
+                  to={getLocalizedPath('/calculator/electricity/')}
                   className="flex items-center space-x-4 text-gray-700 hover:text-red-600 hover:bg-red-50 transition-all py-3 px-3 rounded-xl group"
                   onClick={() => setIsMenuOpen(false)}
                 >

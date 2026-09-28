@@ -372,7 +372,7 @@ ${language === 'ky' ? 'Жалпы кармоо 2%:' : 'Итого удержан
         <div className="mt-12 rounded-xl bg-white p-8 shadow-sm print:hidden">
           <h3 className="mb-4 font-medium text-gray-900">{t('other_calculators')}</h3>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-            <Link to={getLocalizedPath('/calculator/single-tax')} className="group rounded-lg border border-gray-200 p-4 transition-colors hover:border-blue-200 hover:bg-gray-50">
+            <Link to={getLocalizedPath('/calculator/single-tax/')} className="group rounded-lg border border-gray-200 p-4 transition-colors hover:border-blue-200 hover:bg-gray-50">
               <div className="flex items-center space-x-3">
                 <div className="rounded-lg bg-green-50 p-2 transition-colors group-hover:bg-green-100">
                   <Receipt className="h-5 w-5 text-green-600" />
@@ -383,7 +383,7 @@ ${language === 'ky' ? 'Жалпы кармоо 2%:' : 'Итого удержан
                 </div>
               </div>
             </Link>
-            <Link to={getLocalizedPath('/calculator/patent')} className="group rounded-lg border border-gray-200 p-4 transition-colors hover:border-blue-200 hover:bg-gray-50">
+            <Link to={getLocalizedPath('/calculator/patent/')} className="group rounded-lg border border-gray-200 p-4 transition-colors hover:border-blue-200 hover:bg-gray-50">
               <div className="flex items-center space-x-3">
                 <div className="rounded-lg bg-green-50 p-2 transition-colors group-hover:bg-green-100">
                   <Building2 className="h-5 w-5 text-green-600" />
@@ -394,7 +394,7 @@ ${language === 'ky' ? 'Жалпы кармоо 2%:' : 'Итого удержан
                 </div>
               </div>
             </Link>
-            <Link to={getLocalizedPath('/calculator/salary')} className="group rounded-lg border border-gray-200 p-4 transition-colors hover:border-blue-200 hover:bg-gray-50">
+            <Link to={getLocalizedPath('/calculator/salary/')} className="group rounded-lg border border-gray-200 p-4 transition-colors hover:border-blue-200 hover:bg-gray-50">
               <div className="flex items-center space-x-3">
                 <div className="rounded-lg bg-green-50 p-2 transition-colors group-hover:bg-green-100">
                   <CreditCard className="h-5 w-5 text-green-600" />

@@ -20,6 +20,7 @@ import { RemoveAdsToast } from './components/RemoveAdsToast';
 import { RemoveAdsBar } from './components/RemoveAdsBar';
 import { maybeShowInterstitial } from './lib/admob';
 import VisualBreadcrumbs from './components/VisualBreadcrumbs';
+import SeeAlsoCalculators from './components/SeeAlsoCalculators';
 import { calculators } from './data/calculators';
 
 const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'));
@@ -174,6 +175,7 @@ const CalculatorPageWrapper = ({ children }: { children: React.ReactNode }) => (
     <Header />
     <VisualBreadcrumbs />
     <main id="main">{children}</main>
+    <SeeAlsoCalculators />
     <Footer />
   </Suspense>
 );
