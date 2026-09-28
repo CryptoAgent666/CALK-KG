@@ -19,6 +19,11 @@ export interface SickLeaveType {
   maxDays: number; // максимальное количество оплачиваемых дней
   paymentPercent: number; // процент от среднего заработка (если не зависит от стажа)
   dependsOnExperience: boolean; // зависит ли от стажа
+  // 100% среднего заработка за ВСЕ рабочие дни, без перехода на 100 РП с 11-го дня
+  // (трудовое увечье / профзаболевание — см. FULL_PAY_* ниже).
+  fullPayAllDays?: boolean;
+  maternity?: boolean; // беременность и роды: с 11-го дня 20 РП/мес из бюджета (п.63)
+  calendarDays?: number; // длительность декретного отпуска в календарных днях (ТК ст.148)
 }
 
 export const SICK_LEAVE_TYPES: SickLeaveType[] = [
@@ -35,8 +40,10 @@ export const SICK_LEAVE_TYPES: SickLeaveType[] = [
     id: 'injury',
     nameKey: 'sick_type_injury',
     maxDays: 180, // статутного лимита НЕТ; см. комментарий выше (МСЭК после 120 дней).
-    paymentPercent: 0, // зависит от стажа
-    dependsOnExperience: true
+    // Трудовое увечье / профзаболевание — 100% за все рабочие дни независимо от стажа.
+    paymentPercent: 100,
+    dependsOnExperience: false,
+    fullPayAllDays: true
   },
   {
     id: 'child-care',
@@ -49,24 +56,31 @@ export const SICK_LEAVE_TYPES: SickLeaveType[] = [
   {
     id: 'pregnancy',
     nameKey: 'sick_type_pregnancy',
-    maxDays: 126, // 70 дней до + 56 дней после родов
-    paymentPercent: 100, // 100% независимо от стажа
-    dependsOnExperience: false
+    maxDays: 90, // рабочих дней в 126 календарных (70 до + 56 после родов)
+    paymentPercent: 100, // первые 10 рабочих дней — 100% независимо от стажа
+    dependsOnExperience: false,
+    maternity: true,
+    calendarDays: 126
   },
   {
     id: 'complicated-pregnancy',
     nameKey: 'sick_type_complicated_pregnancy',
-    maxDays: 140, // 70 дней до + 70 дней после родов (осложнённые роды)
+    maxDays: 100, // рабочих дней в 140 календарных (70 до + 70 после, осложнённые роды)
     paymentPercent: 100,
-    dependsOnExperience: false
+    dependsOnExperience: false,
+    maternity: true,
+    calendarDays: 140
   },
   {
     id: 'twins-pregnancy',
     nameKey: 'sick_type_twins_pregnancy',
-    maxDays: 140, // ТК ст.148 ч.1: 70 до + 70 после (осложнённые роды ИЛИ двое и более детей).
-    // 180 дней — только для высокогорных и отдалённых зон (ТК ст.148 ч.2 п.3).
+    maxDays: 100, // рабочих дней в 140 календарных. ТК ст.148 ч.1: 70 до + 70 после
+    // (осложнённые роды ИЛИ двое и более детей). 180 дней — только для высокогорных и
+    // отдалённых зон (ТК ст.148 ч.2 п.3).
     paymentPercent: 100,
-    dependsOnExperience: false
+    dependsOnExperience: false,
+    maternity: true,
+    calendarDays: 140
   }
 ];
 
@@ -155,6 +169,80 @@ export const calculateSickLeaveBreakdown = (
   return { first10Pay, fromDay11Pay, total: first10Pay + fromDay11Pay };
 };
 
+// 100% среднего заработка за ВСЕ рабочие дни независимо от стажа получают, в частности:
+// работники с зарплатой не выше 50 РП (5 000 сом) в месяц, заболевшие вследствие трудового
+// увечья или профзаболевания, работающие в высокогорье и отдалённых труднодоступных зонах,
+// онкологические больные, награждённые госнаградами и др. Источники (сверено 2026-09-28):
+// jardam.kg «Как получить пособие по временной нетрудоспособности» (перечень категорий),
+// kaktus.media/552511 (2026), mlsp.gov.kg 26.07.2023 (высокогорье — полный заработок за все дни).
+export const FULL_PAY_WAGE_LIMIT_RP = 50;
+export const FULL_PAY_WAGE_LIMIT_MONTHLY = FULL_PAY_WAGE_LIMIT_RP * RASCHETNY_POKAZATEL; // 5 000 сом/мес
+
+export type FullPayReason = 'injury' | 'low_wage' | 'special_category' | null;
+
+export interface SickLeaveCalculation {
+  averageDailyWage: number;
+  paymentPercent: number;
+  first10Pay: number;
+  fromDay11Pay: number;
+  total: number;
+  first10Days: number;
+  daysFrom11: number;
+  dailyFromDay11: number;
+  fullPayReason: FullPayReason;
+}
+
+// Единый расчёт для калькулятора и для примеров в статье — чтобы проза не расходилась
+// с тем, что считает форма. workingDays — оплачиваемые РАБОЧИЕ дни (п.45: «за все рабочие дни»).
+export const calculateSickLeave = (params: {
+  typeId: string;
+  experienceYears: number;
+  earnings3Months: number;
+  workingDays: number;
+  specialCategory?: boolean;
+}): SickLeaveCalculation => {
+  const type = SICK_LEAVE_TYPES.find(item => item.id === params.typeId) || SICK_LEAVE_TYPES[0];
+  const averageDailyWage = calculateAverageDailyWage(params.earnings3Months);
+  const lowWage = params.earnings3Months / 3 <= FULL_PAY_WAGE_LIMIT_MONTHLY;
+
+  let fullPayReason: FullPayReason = null;
+  if (!type.maternity) {
+    if (type.fullPayAllDays) fullPayReason = 'injury';
+    else if (lowWage) fullPayReason = 'low_wage';
+    else if (params.specialCategory) fullPayReason = 'special_category';
+  }
+
+  if (fullPayReason) {
+    const total = averageDailyWage * params.workingDays;
+    return {
+      averageDailyWage,
+      paymentPercent: 100,
+      first10Pay: total,
+      fromDay11Pay: 0,
+      total,
+      first10Days: params.workingDays,
+      daysFrom11: 0,
+      dailyFromDay11: 0,
+      fullPayReason
+    };
+  }
+
+  const paymentPercent = type.dependsOnExperience
+    ? getPaymentPercentByExperience(params.experienceYears)
+    : type.paymentPercent;
+  const ratePerMonth = type.maternity ? MATERNITY_RATE_FROM_DAY11_MONTHLY : RATE_FROM_DAY11_MONTHLY;
+  const breakdown = calculateSickLeaveBreakdown(averageDailyWage, params.workingDays, paymentPercent, ratePerMonth);
+  return {
+    averageDailyWage,
+    paymentPercent,
+    ...breakdown,
+    first10Days: Math.min(params.workingDays, EMPLOYER_PAID_DAYS),
+    daysFrom11: Math.max(0, params.workingDays - EMPLOYER_PAID_DAYS),
+    dailyFromDay11: ratePerMonth / WORKING_DAYS_PER_MONTH,
+    fullPayReason: null
+  };
+};
+
 // Совместимость: полная выплата без разбивки.
 export const calculateSickLeavePay = (
   averageDailyWage: number,
@@ -189,7 +277,7 @@ export const SICK_LEAVE_EXAMPLES: SickLeaveExample[] = [
     sickLeaveType: 'pregnancy',
     experienceYears: 2,
     totalEarnings: 75000, // 25,000 сом/мес * 3 мес
-    daysOnSickLeave: 126
+    daysOnSickLeave: 90 // рабочих дней в 126 календарных
   },
   {
     id: 'example-3',

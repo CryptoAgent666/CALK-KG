@@ -8,13 +8,8 @@ import FAQSchema from '../components/FAQSchema';
 import { SickLeaveCalculatorArticle } from '../components/SickLeaveCalculatorArticle';
 import {
   SICK_LEAVE_TYPES,
-  EXPERIENCE_RATES,
-  getPaymentPercentByExperience,
-  calculateAverageDailyWage,
-  calculateSickLeaveBreakdown,
-  MIN_MONTHLY_WAGE,
-  RATE_FROM_DAY11_MONTHLY,
-  MATERNITY_RATE_FROM_DAY11_MONTHLY,
+  calculateSickLeave,
+  FullPayReason,
   SICK_LEAVE_EXAMPLES
 } from '../data/sickLeaveData';
 
@@ -25,6 +20,7 @@ interface SickLeaveResults {
   afterTax: number;
   first10Pay: number;
   fromDay11Pay: number;
+  fullPayReason: FullPayReason;
 }
 
 const SickLeaveCalculatorPage = () => {
@@ -34,6 +30,7 @@ const SickLeaveCalculatorPage = () => {
   const [experienceYears, setExperienceYears] = useState<string>('5');
   const [totalEarnings, setTotalEarnings] = useState<string>('60000');
   const [daysOnLeave, setDaysOnLeave] = useState<string>('10');
+  const [specialCategory, setSpecialCategory] = useState<boolean>(false);
   
   const [results, setResults] = useState<SickLeaveResults | null>(null);
   
@@ -49,42 +46,30 @@ const SickLeaveCalculatorPage = () => {
       return;
     }
     
-    // Среднедневной заработок: заработок за 3 месяца ÷ рабочие дни (≈66)
-    const avgDailyWage = calculateAverageDailyWage(earnings);
-
-    // Определяем процент оплаты
-    let paymentPercent = 100;
-    if (selectedType?.dependsOnExperience) {
-      paymentPercent = getPaymentPercentByExperience(experience);
-    } else {
-      paymentPercent = selectedType?.paymentPercent || 100;
-    }
-
-    // Плательщик один — работодатель (п.45 Положения). Разбивка по ПЕРИОДАМ:
-    //  • обычный больничный: 10 раб. дней по стажу, далее 100 РП/мес (п.37 подп.2);
-    //  • беременность и роды: 10 раб. дней полностью, далее 20 РП/мес из
-    //    республиканского бюджета (п.63 подп.1).
-    const isMaternity = !selectedType?.dependsOnExperience;
-    const { first10Pay, fromDay11Pay, total: totalPayment } = calculateSickLeaveBreakdown(
-      avgDailyWage,
-      days,
-      paymentPercent,
-      isMaternity ? MATERNITY_RATE_FROM_DAY11_MONTHLY : RATE_FROM_DAY11_MONTHLY
-    );
+    // Расчёт — общий с примерами в статье (sickLeaveData.calculateSickLeave):
+    // плательщик один — работодатель (п.45); 10 рабочих дней по стажу, далее 100 РП/мес
+    // (п.37 подп.2); декрет — далее 20 РП/мес из бюджета (п.63); травма, зарплата
+    // до 50 РП и льготные категории — 100% за все рабочие дни.
+    const calc = calculateSickLeave({
+      typeId: sickLeaveType,
+      experienceYears: isNaN(experience) ? 0 : experience,
+      earnings3Months: earnings,
+      workingDays: days,
+      specialCategory
+    });
 
     // Пособие НЕ облагается подоходным налогом (НК ст.191 ч.3 п.1 и ч.4 п.1),
     // поэтому «на руки» равно начисленной сумме.
-    const afterTax = totalPayment;
-
     setResults({
-      averageDailyWage: avgDailyWage,
-      paymentPercent,
-      totalPayment,
-      afterTax,
-      first10Pay,
-      fromDay11Pay
+      averageDailyWage: calc.averageDailyWage,
+      paymentPercent: calc.paymentPercent,
+      totalPayment: calc.total,
+      afterTax: calc.total,
+      first10Pay: calc.first10Pay,
+      fromDay11Pay: calc.fromDay11Pay,
+      fullPayReason: calc.fullPayReason
     });
-  }, [sickLeaveType, experienceYears, totalEarnings, daysOnLeave, selectedType]);
+  }, [sickLeaveType, experienceYears, totalEarnings, daysOnLeave, specialCategory]);
   
   const formatCurrency = (value: number): string => {
     return new Intl.NumberFormat('ru-RU', {
@@ -233,14 +218,36 @@ const SickLeaveCalculatorPage = () => {
                   placeholder="10"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                   min="1"
-                  max={selectedType?.maxDays || 30}
+                  max={selectedType?.maxDays || 180}
                 />
                 {selectedType && (
                   <p className="mt-2 text-xs text-gray-500">
-                    {t('sick_max_days').replace('{days}', selectedType.maxDays.toString())}
+                    {selectedType.calendarDays
+                      ? t('sick_days_hint_maternity')
+                          .replace('{calendar}', selectedType.calendarDays.toString())
+                          .replace('{working}', selectedType.maxDays.toString())
+                      : selectedType.id === 'child-care'
+                        ? t('sick_days_hint_child')
+                        : t('sick_days_hint_illness')}
                   </p>
                 )}
               </div>
+
+              {/* Льготные категории: 100% за все рабочие дни */}
+              {!selectedType?.calendarDays && !selectedType?.fullPayAllDays && (
+                <label className="mb-6 flex items-start gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={specialCategory}
+                    onChange={(e) => setSpecialCategory(e.target.checked)}
+                    className="mt-1 h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500"
+                  />
+                  <span className="text-sm text-gray-700">
+                    {t('sick_special_category')}
+                    <span className="block text-xs text-gray-500 mt-1">{t('sick_special_category_hint')}</span>
+                  </span>
+                </label>
+              )}
             </div>
             
             {/* Examples */}
@@ -298,11 +305,25 @@ const SickLeaveCalculatorPage = () => {
                       </span>
                     </div>
                     
-                    {selectedType?.dependsOnExperience && (
+                    {results.fullPayReason && (
+                      <div className="bg-blue-50 rounded-lg p-4">
+                        <div className="flex justify-between items-center gap-4">
+                          <span className="text-sm text-gray-700">
+                            {t('sick_full_pay_all_days')}
+                            <span className="block text-xs text-gray-500 mt-1">{t(`sick_full_pay_reason_${results.fullPayReason}`)}</span>
+                          </span>
+                          <span className="font-medium text-blue-600 whitespace-nowrap">
+                            {formatCurrency(results.first10Pay)} {t('som')}
+                          </span>
+                        </div>
+                      </div>
+                    )}
+
+                    {!results.fullPayReason && (
                       <>
                         <div className="bg-blue-50 rounded-lg p-4">
                           <div className="flex justify-between items-center mb-2">
-                            <span className="text-sm text-gray-700">{t('sick_first_10_days')}</span>
+                            <span className="text-sm text-gray-700">{t(selectedType?.maternity ? 'sick_first_10_days_maternity' : 'sick_first_10_days')}</span>
                             <span className="font-medium text-blue-600">
                               {formatCurrency(results.first10Pay)} {t('som')}
                             </span>
@@ -312,7 +333,7 @@ const SickLeaveCalculatorPage = () => {
                         {results.fromDay11Pay > 0 && (
                           <div className="bg-green-50 rounded-lg p-4">
                             <div className="flex justify-between items-center mb-2">
-                              <span className="text-sm text-gray-700">{t('sick_after_10_days')}</span>
+                              <span className="text-sm text-gray-700">{t(selectedType?.maternity ? 'sick_after_10_days_maternity' : 'sick_after_10_days')}</span>
                               <span className="font-medium text-green-600">
                                 {formatCurrency(results.fromDay11Pay)} {t('som')}
                               </span>
@@ -335,7 +356,8 @@ const SickLeaveCalculatorPage = () => {
                     <p>• {t('sick_info_2')}</p>
                     <p>• {t('sick_info_3')}</p>
                     <p>• {t('sick_info_4')}</p>
-                    {!selectedType?.dependsOnExperience && <p>• {t('sick_info_5')}</p>}
+                    {selectedType?.maternity && <p>• {t('sick_info_5')}</p>}
+                    <p>• {t('sick_info_6')}</p>
                   </div>
                 </div>
               </>
