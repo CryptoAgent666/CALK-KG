@@ -632,6 +632,14 @@ async function generateStaticHtml() {
     // Рендерим по каноническому URL (со слешем), как его открывает браузер.
     const renderUrl = route.type === 'home' || route.path.endsWith('/') ? route.path : `${route.path}/`;
     const appHtml = await render(renderUrl);
+    // Гарды пререндера: нулевые байты (баг потокового рендера React 18 на кириллице)
+    // и спиннер Suspense вместо страницы не должны уйти на сайт.
+    if (appHtml.includes('\u0000')) {
+      throw new Error(`[prerender] NUL bytes in rendered HTML for ${renderUrl}`);
+    }
+    if (appHtml.includes('animate-spin rounded-full h-16')) {
+      throw new Error(`[prerender] Suspense fallback instead of page content for ${renderUrl}`);
+    }
     const html = generateHtml(templateHtml, route, appHtml);
     const normalizedPath = route.path.replace(/^\/+/, '');
 
