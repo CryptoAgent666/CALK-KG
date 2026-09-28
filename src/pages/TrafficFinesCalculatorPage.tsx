@@ -14,7 +14,6 @@ import {
 } from '../utils/schemaGenerator';
 import { formatVerifiedMonth } from '../utils/dateFormatter';
 import { TRAFFIC_FINES, TrafficFine as TrafficFineData } from '../data/trafficFines';
-import { TrafficFinesCalculatorArticle } from '../components/TrafficFinesCalculatorArticle';
 
 // Интерфейс для отображения штрафов
 interface TrafficFine {
@@ -636,7 +635,6 @@ const TrafficFinesCalculatorPage = () => {
         </div>
       </div>
 
-      <TrafficFinesCalculatorArticle />
     </div>
   );
 };

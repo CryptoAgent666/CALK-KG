@@ -12,7 +12,6 @@ import {
   generateBreadcrumbSchema,
   generateSoftwareApplicationSchema 
 } from '../utils/schemaGenerator';
-import { SocialFundCalculatorArticle } from '../components/SocialFundCalculatorArticle';
 
 type LocalizedCopy = {
   ru: string;
@@ -883,7 +882,6 @@ const SocialFundCalculatorPage = () => {
         }
       `}</style>
 
-      <SocialFundCalculatorArticle />
     </div>
   );
 };

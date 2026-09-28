@@ -7,7 +7,6 @@ import ActionButtons from '../components/ActionButtons';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
 import FAQSchema from '../components/FAQSchema';
-import { MortgageCalculatorArticle } from '../components/MortgageCalculatorArticle';
 import { useLanguage } from '../contexts/LanguageContext';
 import { 
   generateCalculatorSchema, 
@@ -1388,8 +1387,6 @@ ${t('calculated_on_site')} Calk.KG`}
         `}</style>
       </div>
 
-      {/* Информационная статья под калькулятором */}
-      <MortgageCalculatorArticle />
     </div>
   );
 };

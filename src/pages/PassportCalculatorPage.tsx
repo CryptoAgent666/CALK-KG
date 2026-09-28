@@ -13,7 +13,6 @@ import {
   generateSoftwareApplicationSchema
 } from '../utils/schemaGenerator';
 import { formatVerifiedMonth } from '../utils/dateFormatter';
-import { PassportCalculatorArticle } from '../components/PassportCalculatorArticle';
 
 type LocalizedCopy = {
   ru: string;
@@ -985,7 +984,6 @@ const PassportCalculatorPage = () => {
         }
       `}</style>
 
-      <PassportCalculatorArticle />
     </div>
   );
 };

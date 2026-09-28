@@ -7,7 +7,6 @@ import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
 import FAQSchema from '../components/FAQSchema';
 import { useLanguage } from '../contexts/LanguageContext';
-import { PatentCalculatorArticle } from '../components/PatentCalculatorArticle';
 import {
   generateCalculatorSchema,
   generateBreadcrumbSchema,
@@ -1418,7 +1417,6 @@ const PatentCalculatorPage = () => {
         }
       `}</style>
 
-      <PatentCalculatorArticle />
     </div>
   );
 };

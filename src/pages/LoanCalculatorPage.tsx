@@ -12,7 +12,6 @@ import {
   generateBreadcrumbSchema,
   generateSoftwareApplicationSchema 
 } from '../utils/schemaGenerator';
-import { LoanCalculatorArticle } from '../components/LoanCalculatorArticle';
 
 interface BankOffer {
   nameKey: string;
@@ -912,7 +911,6 @@ ${t('calculated_on_site')} Calk.KG`}
         }
       `}</style>
 
-      <LoanCalculatorArticle />
     </div>
   );
 };

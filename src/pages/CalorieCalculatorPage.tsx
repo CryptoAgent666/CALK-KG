@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Calculator, User, Activity, Target, Info, Printer } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { CalorieCalculatorArticle } from '../components/CalorieCalculatorArticle';
 import ContentBlock from '../components/ContentBlock';
 import HreflangTags from '../components/HreflangTags';
 import FAQSchema from '../components/FAQSchema';
@@ -612,7 +611,6 @@ export default function CalorieCalculatorPage() {
         </div>
       </div>
 
-      <CalorieCalculatorArticle />
     </>
   );
 }

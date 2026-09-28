@@ -6,7 +6,7 @@ export const MoneyTransferCalculatorArticle: React.FC = () => {
   const { language, t } = useLanguage();
   
   return (
-    <CalculatorArticle lastUpdated="2026-03-23" slug="money-transfer">
+    <CalculatorArticle lastUpdated="2026-09-28" slug="money-transfer">
     <ArticleSection title={t('moneytransfer_article_what_title')}>
       <p className="text-gray-700 leading-relaxed mb-4">
         {t('moneytransfer_article_what_intro')}
@@ -66,7 +66,6 @@ export const MoneyTransferCalculatorArticle: React.FC = () => {
     <ArticleSection title={t('moneytransfer_article_tips_title')}>
       <ul className="list-disc pl-6 space-y-2 text-sm">
         <li>{t('moneytransfer_tip_1')}</li>
-        <li>{t('moneytransfer_tip_2')}</li>
         <li>{t('moneytransfer_tip_3')}</li>
         <li>{t('moneytransfer_tip_4')}</li>
       </ul>

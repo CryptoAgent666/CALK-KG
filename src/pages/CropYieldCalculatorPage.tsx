@@ -5,7 +5,6 @@ import { Calculator, ArrowLeft, Home, Sprout, TrendingUp, DollarSign, Info, Tren
 import { useLanguage } from '../contexts/LanguageContext';
 import HreflangTags from '../components/HreflangTags';
 import FAQSchema from '../components/FAQSchema';
-import { CropCalculatorArticle } from '../components/CropCalculatorArticle';
 import { CROPS, REGION_COEFFICIENTS, FERTILIZER_QUALITY, CULTIVATION_METHOD, getCropById } from '../data/cropData';
 
 interface CropResults {
@@ -469,8 +468,6 @@ const CropYieldCalculatorPage = () => {
         </div>
       </div>
 
-      {/* Информационная статья под калькулятором */}
-      <CropCalculatorArticle />
     </div>
   );
 };

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Calculator, ArrowLeft, Info, Home, Zap, TrendingUp, Droplets, Flame } from 'lucide-react';
 import ActionButtons from '../components/ActionButtons';
-import { ElectricityCalculatorArticle } from '../components/ElectricityCalculatorArticle';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
 import FAQSchema from '../components/FAQSchema';
@@ -1079,8 +1078,6 @@ ${t('calculated_on_site')} Calk.KG`}
           }
         }
       `}</style>
-      {/* Информационная статья под калькулятором */}
-      <ElectricityCalculatorArticle />
     </div>
   );
 };

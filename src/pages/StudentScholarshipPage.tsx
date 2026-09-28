@@ -5,7 +5,6 @@ import { Calculator, ArrowLeft, Home as HomeIcon, GraduationCap, DollarSign, Awa
 import { useLanguage } from '../contexts/LanguageContext';
 import HreflangTags from '../components/HreflangTags';
 import FAQSchema from '../components/FAQSchema';
-import { ScholarshipCalculatorArticle } from '../components/ScholarshipCalculatorArticle';
 import {
   SCHOLARSHIP_TYPES,
   UNIVERSITIES,
@@ -417,8 +416,6 @@ const StudentScholarshipPage = () => {
         </div>
       </div>
 
-      {/* Информационная статья под калькулятором */}
-      <ScholarshipCalculatorArticle />
     </div>
   );
 };

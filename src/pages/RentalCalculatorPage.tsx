@@ -5,7 +5,6 @@ import { Calculator, ArrowLeft, Home as HomeIcon, Building, DollarSign, Trending
 import { useLanguage } from '../contexts/LanguageContext';
 import HreflangTags from '../components/HreflangTags';
 import FAQSchema from '../components/FAQSchema';
-import { RentalCalculatorArticle } from '../components/RentalCalculatorArticle';
 import { 
   DISTRICTS, 
   APARTMENT_TYPES, 
@@ -427,8 +426,6 @@ const RentalCalculatorPage = () => {
         </div>
       </div>
 
-      {/* Информационная статья под калькулятором */}
-      <RentalCalculatorArticle />
     </div>
   );
 };

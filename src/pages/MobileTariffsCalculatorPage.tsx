@@ -2,7 +2,6 @@ import React, { useState, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Smartphone, Check, ExternalLink, TrendingDown, Star } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { MobileTariffsCalculatorArticle } from '../components/MobileTariffsCalculatorArticle';
 import HreflangTags from '../components/HreflangTags';
 import FAQSchema from '../components/FAQSchema';
 import { mobileTariffs, operatorInfo, calculateTariffCost, MobileTariff } from '../data/mobileTariffs';
@@ -430,7 +429,6 @@ const MobileTariffsCalculatorPage = () => {
         </div>
       </div>
 
-      <MobileTariffsCalculatorArticle />
     </>
   );
 };

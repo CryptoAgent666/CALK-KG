@@ -5,7 +5,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 export const GasCalculatorArticle: React.FC = () => {
   const { t } = useLanguage();
   return (
-  <CalculatorArticle lastUpdated="2026-08-03" slug="gas">
+  <CalculatorArticle lastUpdated="2026-09-28" slug="gas">
     <ArticleSection title={t('gas_article_what_title')}>
       <p className="text-gray-700 leading-relaxed mb-4">
         {t('gas_article_what_intro')}
@@ -44,7 +44,7 @@ export const GasCalculatorArticle: React.FC = () => {
           <p><strong>{t('gas_example1_consumption_label')}</strong> {t('gas_example1_consumption_value')}</p>
           <p><strong>{t('gas_example1_tariff_label')}</strong> {t('gas_example1_tariff_value')}</p>
           <p><strong>{t('gas_example1_calc_label')}</strong></p>
-          <p className="pl-4 font-mono">12 м³ × 14.50 = 174 {t('electricity_som')}/{t('gas_month_short')}</p>
+          <p className="pl-4 font-mono">12 м³ × 25.64 = 307.68 {t('electricity_som')}/{t('gas_month_short')}</p>
           <p className="text-lg font-bold text-green-700">{t('gas_example1_total')}</p>
         </div>
       </ArticleSubsection>
@@ -54,7 +54,7 @@ export const GasCalculatorArticle: React.FC = () => {
           <p><strong>{t('gas_example2_area_label')}</strong> {t('gas_example2_area_value')}</p>
           <p><strong>{t('gas_example2_tariff_label')}</strong> {t('gas_example2_tariff_value')}</p>
           <p><strong>{t('gas_example2_calc_label')}</strong></p>
-          <p className="pl-4 font-mono">500 м³ × 11.60 = 5,800 {t('electricity_som')}/{t('gas_month_short')}</p>
+          <p className="pl-4 font-mono">500 м³ × 25.64 = 12,820 {t('electricity_som')}/{t('gas_month_short')}</p>
           <p className="text-lg font-bold text-green-700">{t('gas_example2_total')}</p>
         </div>
         <p className="text-sm text-gray-600 mt-2">

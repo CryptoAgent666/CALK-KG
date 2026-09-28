@@ -5,7 +5,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 export const FamilyBenefitCalculatorArticle: React.FC = () => {
   const { t } = useLanguage();
   return (
-  <CalculatorArticle lastUpdated="2026-08-17" slug="family-benefit">
+  <CalculatorArticle lastUpdated="2026-09-28" slug="family-benefit">
     <ArticleSection title={t('familybenefit_article_what_title')}>
       <p className="text-gray-700 leading-relaxed mb-4">
         {t('familybenefit_article_what_intro')}
@@ -50,17 +50,6 @@ export const FamilyBenefitCalculatorArticle: React.FC = () => {
           <li>{t('familybenefit_eligibility_4')}</li>
         </ul>
       </div>
-    </ArticleSection>
-
-    <ArticleSection title={t('familybenefit_article_documents_title')}>
-      <p className="text-gray-700 mb-3">{t('familybenefit_documents_intro')}</p>
-      <ul className="list-disc pl-6 space-y-2 text-sm">
-        <li>{t('familybenefit_doc_1')}</li>
-        <li>{t('familybenefit_doc_2')}</li>
-        <li>{t('familybenefit_doc_3')}</li>
-        <li>{t('familybenefit_doc_4')}</li>
-        <li>{t('familybenefit_doc_5')}</li>
-      </ul>
     </ArticleSection>
 
     <ArticleSection title={t('familybenefit_article_procedure_title')}>

@@ -6,7 +6,6 @@ import ActionButtons from '../components/ActionButtons';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
 import FAQSchema from '../components/FAQSchema';
-import { SalaryCalculatorArticle } from '../components/SalaryCalculatorArticle';
 import { useLanguage } from '../contexts/LanguageContext';
 import { 
   generateCalculatorSchema, 
@@ -877,8 +876,6 @@ ${t('calculated_on_site')} Calk.KG`}
         </div>
       )}
 
-      {/* Информационная статья под калькулятором */}
-      <SalaryCalculatorArticle />
     </div>
   );
 };

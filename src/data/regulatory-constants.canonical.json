@@ -1376,7 +1376,7 @@
       "id": "family-benefit-calculator__family_income_threshold_gmd",
       "calculator": "family-benefit-calculator",
       "key": "family_income_threshold_gmd",
-      "value": "1000",
+      "value": "1500",
       "unit": "KGS_per_person_per_month",
       "law": "Пост. Кабмина КР №242 от 10.04.2026 (ГМД 1000→1500 с 01.09.2026)",
       "theme": "family_benefit",
@@ -1385,17 +1385,17 @@
         "src/pages/FamilyBenefitCalculatorPage.tsx:21",
         "translations-ru.ts:familybenefit_income_threshold_note"
       ],
-      "last_updated": "2026-08-17",
+      "last_updated": "2026-09-28",
       "source_hint": "cabinet.gov.kg",
       "conflict": false,
       "status": "current",
-      "notes": "incomeThreshold=1700; eligible if income/familySize <= 1700. Article note agrees (доход менее 1,700 сом на человека).",
-      "official_value": "1000",
+      "notes": "BENEFIT_CONFIG.incomeThreshold=1500 (с 01.09.2026); eligible if income/familySize <= 1500.",
+      "official_value": "1500",
       "source_url": "https://mlsp.gov.kg/ru/2026/04/23/peresmotren-mehanizm-predostavleniya-ezhemesyachnogo-posobiya-uj-bulogo-komok-nuzhdayushhimsya-semyam-imeyushhim-detej-do-16-let/",
       "which_surface_correct": "na",
-      "verify_note": "RE-VERIFIED 2026-07-27 по mlsp.gov.kg (gov): действующий ГМД = 1000 сом; повышение до 1500 сом вступает в силу с 01.09.2026 (Пост. Кабмина №242 от 10.04.2026). На 2026-07-27 применять 1000. COMPUTE incomeThreshold=1000 верен. Проза (1500/1700) исправлена на 1000 с указанием будущего повышения. WATCH: с 01.09.2026 поднять на 1500 в COMPUTE + прозе RU/KY. | ✅ RE-VERIFIED 2026-08-17 (tier2, воркфлоу по первоисточникам). ГМД = 1000 сом ПРЯМО СЕЙЧАС. Вербатим ПП КР №307 от 29.06.2018 п.2 пп.2 (.doc с mlsp.gov.kg): «в сумме 1000 (одна тысяча) сомов». Повышение до 1500 — Пост. Кабмина №242 от 10.04.2026, вступает 01.09.2026 (через 2 недели). Актов, переносящих дату, нет.",
+      "verify_note": "RE-VERIFIED 2026-07-27 по mlsp.gov.kg (gov): действующий ГМД = 1000 сом; повышение до 1500 сом вступает в силу с 01.09.2026 (Пост. Кабмина №242 от 10.04.2026). На 2026-07-27 применять 1000. COMPUTE incomeThreshold=1000 верен. Проза (1500/1700) исправлена на 1000 с указанием будущего повышения. WATCH: с 01.09.2026 поднять на 1500 в COMPUTE + прозе RU/KY. | ✅ RE-VERIFIED 2026-08-17 (tier2, воркфлоу по первоисточникам). ГМД = 1000 сом ПРЯМО СЕЙЧАС. Вербатим ПП КР №307 от 29.06.2018 п.2 пп.2 (.doc с mlsp.gov.kg): «в сумме 1000 (одна тысяча) сомов». Повышение до 1500 — Пост. Кабмина №242 от 10.04.2026, вступает 01.09.2026 (через 2 недели). Актов, переносящих дату, нет. | ROLLOVER 2026-09-28: ГМД 1 000 → 1 500 сом с 01.09.2026 — mlsp.gov.kg 26.08.2026 «кепилденген эң төмөнкү кирешенин өлчөмүн 1 000 сомдон 1 500 сомго чейин көбөйтүү» (Пост. Кабмина №242 от 10.04.2026). COMPUTE incomeThreshold, meta *_calc_description и проза familybenefit_* обновлены.",
       "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)",
-      "verified_date": "2026-07-27",
+      "verified_date": "2026-09-28",
       "verify_confidence": "high"
     },
     {
@@ -2531,16 +2531,16 @@
       "surfaces": [
         "translations-ru.ts:patent_faq_a2:1732"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-09-28",
       "source_hint": "salyk.kg",
       "conflict": false,
-      "status": "current",
+      "status": "removed",
       "notes": "PROSE only (FAQ): patent income limit 10 млн сом/год, no employees; above this -> упрощённая/общая система. Not enforced in compute.",
-      "official_value": "30000000",
+      "official_value": "8000000",
       "source_url": "https://sti.gov.kg/section/0/%D1%81%D0%BF%D0%B5%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9_%D0%BD%D0%B0%D0%BB%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9_%D1%80%D0%B5%D0%B6%D0%B8%D0%BC",
       "which_surface_correct": "na",
-      "verify_note": "Input value 10 000 000 som does not match any authoritative KG threshold. Patent eligibility is tied to the VAT registration threshold = 30 000 000 som over the last 12 months (the patent holder must NOT be a VAT payer; VAT reg threshold was raised 8M->30M som). The ГНС special-regime page also cites an 8 000 000 som revenue cap (Art. 423) for a related sub-regime. Neither is 10M, so the 10M figure is stale. Also: patent holders MAY have hired employees (buy a patent per employee) — so the input note 'no employees' is incorrect.",
-      "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)"
+      "verify_note": "Input value 10 000 000 som does not match any authoritative KG threshold. Patent eligibility is tied to the VAT registration threshold = 30 000 000 som over the last 12 months (the patent holder must NOT be a VAT payer; VAT reg threshold was raised 8M->30M som). The ГНС special-regime page also cites an 8 000 000 som revenue cap (Art. 423) for a related sub-regime. Neither is 10M, so the 10M figure is stale. Also: patent holders MAY have hired employees (buy a patent per employee) — so the input note 'no employees' is incorrect. | RE-VERIFIED 2026-09-28 (НК КР ред. 06.08.2026, ст.416 ч.4 п.1, вербатим): патент не вправе применять физлицо, у которого выручка за 12 последовательных месяцев превысила 8 000 000 сом (кроме торговой деятельности). 30 000 000 — ошибка (порога регистрации по НДС в НК нет, ст.255). Прежняя пометка «без работников» тоже неверна: ст.416 ч.3 разрешает патент на каждого наёмного работника.",
+      "fix_note": "removed 2026-09-28: PatentCalculatorArticle deleted (formula with invented coefficients, wrong НК articles); patent_faq_a2 was the only surface."
     },
     {
       "id": "patent-calculator__patent_payment_deadline_day",
@@ -2934,8 +2934,7 @@
       "theme": "pension",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/pages/PensionCalculatorPage.tsx:197",
-        "translations-ru.ts:pension_min_amount"
+        "src/pages/PensionCalculatorPage.tsx:197"
       ],
       "last_updated": "2026-07-27",
       "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
@@ -3148,8 +3147,7 @@
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/PensionCalculatorPage.tsx:115",
-        "translations-ru.ts:pension_men_age",
-        "translations-ru.ts:pension_req_men_age"
+        "translations-ru.ts:pension_men_age"
       ],
       "last_updated": "2026-03-23",
       "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
@@ -3172,8 +3170,7 @@
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/PensionCalculatorPage.tsx:115",
-        "translations-ru.ts:pension_women_age",
-        "translations-ru.ts:pension_req_women_age"
+        "translations-ru.ts:pension_women_age"
       ],
       "last_updated": "2026-03-23",
       "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
@@ -3451,8 +3448,7 @@
       "theme": "income_tax",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/pages/SalaryCalculatorPage.tsx:277",
-        "translations-ru.ts:salary_article_tax_pvt"
+        "src/pages/SalaryCalculatorPage.tsx:277"
       ],
       "last_updated": "2026-08-02",
       "source_hint": "sti.gov.kg",
@@ -3477,8 +3473,7 @@
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/SalaryCalculatorPage.tsx:29",
-        "src/pages/SalaryCalculatorPage.tsx:46",
-        "translations-ru.ts:salary_article_tax_standard"
+        "src/pages/SalaryCalculatorPage.tsx:46"
       ],
       "last_updated": "2026-08-02",
       "source_hint": "sti.gov.kg",
@@ -3502,8 +3497,6 @@
       "theme": "min_wage",
       "is_gov_regulated": true,
       "surfaces": [
-        "translations-ru.ts:salary_article_mrot_amount",
-        "translations-ru.ts:salary_article_mrot_gross",
         "src/data/sickLeaveData.ts:95"
       ],
       "last_updated": "2026-08-02",
@@ -3529,9 +3522,7 @@
       "theme": "social_insurance",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/pages/SalaryCalculatorPage.tsx:40",
-        "translations-ru.ts:salary_article_socfund_desc",
-        "translations-ku.ts:salary_article_socfund_desc"
+        "src/pages/SalaryCalculatorPage.tsx:40"
       ],
       "last_updated": "2026-08-02",
       "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
@@ -3555,8 +3546,7 @@
       "theme": "scholarship",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/scholarshipData.ts:24",
-        "translations-ru.ts:scholarship_academic_amount"
+        "src/data/scholarshipData.ts:24"
       ],
       "last_updated": "2026-06-20",
       "source_hint": "edu.gov.kg",
@@ -3631,8 +3621,7 @@
       "theme": "scholarship",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/scholarshipData.ts:45",
-        "translations-ru.ts:scholarship_presidential_amount"
+        "src/data/scholarshipData.ts:45"
       ],
       "last_updated": "2026-06-20",
       "source_hint": "edu.gov.kg",
@@ -3681,8 +3670,7 @@
       "theme": "scholarship",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/data/scholarshipData.ts:31",
-        "translations-ru.ts:scholarship_social_amount"
+        "src/data/scholarshipData.ts:31"
       ],
       "last_updated": "2026-03-23",
       "source_hint": "edu.gov.kg",
@@ -4641,8 +4629,7 @@
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/SocialFundCalculatorPage.tsx:27",
-        "src/pages/SocialFundCalculatorPage.tsx:34",
-        "translations-ru.ts:socialfund_reduced_employer_rate"
+        "src/pages/SocialFundCalculatorPage.tsx:34"
       ],
       "last_updated": "2026-03-23",
       "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
@@ -4665,8 +4652,7 @@
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/SocialFundCalculatorPage.tsx:41",
-        "src/pages/SocialFundCalculatorPage.tsx:47",
-        "translations-ru.ts:socialfund_standard_employer_rate"
+        "src/pages/SocialFundCalculatorPage.tsx:47"
       ],
       "last_updated": "2026-03-23",
       "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
@@ -6038,8 +6024,7 @@
       "is_gov_regulated": true,
       "surfaces": [
         "src/i18n/translations-ru.ts:water_bishkek_example",
-        "src/i18n/translations-ru.ts:water_calc_for_bishkek",
-        "src/i18n/translations-ru.ts:water_example_meter_cold"
+        "src/i18n/translations-ru.ts:water_calc_for_bishkek"
       ],
       "last_updated": "2026-03-23",
       "source_hint": "МП «Бишкекводоканал»",
@@ -8566,10 +8551,10 @@
         "src/components/FuelCalculatorArticle.tsx:19",
         "src/components/FuelCalculatorArticle.tsx:20"
       ],
-      "last_updated": "2026-08-18",
+      "last_updated": "2026-09-28",
       "source_hint": "market",
       "conflict": true,
-      "status": "current",
+      "status": "removed",
       "notes": "Сводный набор цен для статьи топлива. Активная FuelCalculatorArticle.tsx проверена 31.08.2026 — держит 87.0/109.9/99.9/48.2, совпадает с COMPUTE. Прежнее предупреждение про 62/68/75 и файл FuelCalculatorArticle_NEW.tsx снято: цены исправлены 18.08.2026, дублирующего файла в репозитории нет.",
       "official_value": "АИ-92 87.0 / АИ-95 109.9 / ДТ 99.9 / автогаз 48.2 сом/л (август 2026)",
       "source_url": "https://economist.kg/transport/2026/04/10/kak-izmenilis-tseny-na-gsm-v-kyrgyzstane-v-2026-godu-dannye-gosantimonopolii/",
@@ -8578,7 +8563,8 @@
       "verify_confidence": "high",
       "verify_note": "Госантимонопольная служба через Tazabek 13.08.2026 (86,9/109,9/99,9); economist.kg 10.08.2026; globalpetrolprices 24.08.2026 — 109,06 сом/л по бензину, что подтверждает 109,9. ⚠️ Прежний official_value описывал потолки ГАМС 79,9/88,5/93,9/45,8 «действуют 25.05–30.09.2026» — это утверждение УСТАРЕЛО: после июльского скачка (перебои с импортом) ГАМС сама публикует 109,9, то есть потолки пересмотрены до истечения заявленного окна.",
       "official_source": "https://www.globalpetrolprices.com/Kyrgyzstan/gasoline_prices/",
-      "official_checked": "2026-08-31"
+      "official_checked": "2026-08-31",
+      "fix_note": "removed 2026-09-28: hard-coded price list removed from FuelCalculatorArticle (duplicated the data-driven block on the page)."
     },
     {
       "id": "fuel__fuel_default_price_fallback",
@@ -8767,15 +8753,16 @@
       "surfaces": [
         "src/components/HousingCalculatorArticle.tsx:18"
       ],
-      "last_updated": "2026-03-23",
+      "last_updated": "2026-09-28",
       "source_hint": "estimate",
       "conflict": false,
-      "status": "current",
+      "status": "removed",
       "notes": "Article 'average 2-room' utility example uses translation keys housing_*_cost (illustrative monthly amounts). Distinct from regulated per-unit tariffs above. Not in compute.",
       "verified_date": "2026-06-28",
       "verify_method": "tier2-tail",
       "verify_confidence": "low",
-      "verify_note": "Illustrative prose utilities breakdown; non-regulatory market estimate, not a single verifiable figure."
+      "verify_note": "Illustrative prose utilities breakdown; non-regulatory market estimate, not a single verifiable figure.",
+      "fix_note": "removed 2026-09-28: HousingCalculatorArticle deleted (utility bills article on a property price calculator page)."
     },
     {
       "id": "housing-calculator__price_per_m2_build_house",
@@ -9385,17 +9372,18 @@
       "surfaces": [
         "translations-ru.ts:pension_avg_amount"
       ],
-      "last_updated": "2026-07-03",
+      "last_updated": "2026-09-28",
       "source_hint": "sf.gov.kg (socfond.kg не работает с 2026)",
       "conflict": false,
-      "status": "current",
+      "status": "removed",
       "notes": "Средняя пенсия в КР ~7,500–9,000 сом/мес. Reference stat, not used in compute. | FIXED 2026-07-03: проза 7,500-9,000 → 11,238 сом/мес (PensionCalculatorArticle.tsx:16; sf.gov.kg).",
       "official_value": "11 238 сом/мес — средняя пенсия на 01.01.2026 (Соцфонд, итоги 2025)",
       "source_url": "https://sf.gov.kg/ru/soczialnyj-fond-kr-podvel-itogi-2025-goda-rost-pensij-czifrovye-reformy-i-novye-vozmozhnosti-dlya-grazhdan/",
       "verified_date": "2026-07-03",
       "verify_method": "tier2-tail",
       "verify_confidence": "high",
-      "verify_note": "Socfond: average pension 11238 som (1 Jan 2026) / 11226 (Oct 2025). Stored 7500-9000 is materially below current."
+      "verify_note": "Socfond: average pension 11238 som (1 Jan 2026) / 11226 (Oct 2025). Stored 7500-9000 is materially below current.",
+      "fix_note": "removed 2026-09-28: PensionCalculatorArticle deleted (min service 25/20 yrs, «+0,6% за год», min pension 3 000 — contradicted compute); pension_avg_amount was the only surface."
     },
     {
       "id": "pension-calculator__pension_npf_yield_dostuk_2024",
@@ -9765,17 +9753,18 @@
       "surfaces": [
         "translations-ru.ts:salary_article_mrot_warning"
       ],
-      "last_updated": "2026-07-03",
+      "last_updated": "2026-09-28",
       "source_hint": "stat.gov.kg",
       "conflict": false,
-      "status": "current",
+      "status": "removed",
       "notes": "Средняя зарплата в КР в 2025 ~28 000 сом (Нацстатком). Reference figure, not used in compute. | FIXED 2026-07-03: проза «около 28,000» → «44,419» в ru/ky/legacy (kabar.kg/Нацстатком).",
       "official_value": "44 419 сом/мес — средняя номинальная зарплата 2025 (Нацстатком, +18.9%)",
       "source_url": "https://ru.kabar.kg/news/srednyaya-zarplata-v-kr-v-2025-godu-vyrosla-na-189-vyplaty-sirotam-dostigli-500-tys-somov/",
       "verified_date": "2026-07-03",
       "verify_method": "tier2-tail",
       "verify_confidence": "high",
-      "verify_note": "Natsstatkom: 2025 average nominal salary ~44419 som (+18.9%); Jan-Oct 42919. Stored 28000 is ~35% too low."
+      "verify_note": "Natsstatkom: 2025 average nominal salary ~44419 som (+18.9%); Jan-Oct 42919. Stored 28000 is ~35% too low.",
+      "fix_note": "removed 2026-09-28: SalaryCalculatorArticle deleted (examples ignored the 650 сом deduction, Russian ТК norms); salary_article_mrot_warning was the only surface."
     },
     {
       "id": "scholarship__scholarship_bonus_conference",
@@ -9879,8 +9868,7 @@
       "theme": "scholarship",
       "is_gov_regulated": false,
       "surfaces": [
-        "src/data/scholarshipData.ts:83",
-        "translations-ru.ts:scholarship_gpa_30_coef"
+        "src/data/scholarshipData.ts:83"
       ],
       "last_updated": "2026-03-23",
       "source_hint": "edu.gov.kg",
@@ -9903,8 +9891,7 @@
       "theme": "scholarship",
       "is_gov_regulated": false,
       "surfaces": [
-        "src/data/scholarshipData.ts:89",
-        "translations-ru.ts:scholarship_gpa_333_coef"
+        "src/data/scholarshipData.ts:89"
       ],
       "last_updated": "2026-03-23",
       "source_hint": "edu.gov.kg",
@@ -9927,8 +9914,7 @@
       "theme": "scholarship",
       "is_gov_regulated": false,
       "surfaces": [
-        "src/data/scholarshipData.ts:95",
-        "translations-ru.ts:scholarship_gpa_367_coef"
+        "src/data/scholarshipData.ts:95"
       ],
       "last_updated": "2026-03-23",
       "source_hint": "edu.gov.kg",
@@ -9951,8 +9937,7 @@
       "theme": "scholarship",
       "is_gov_regulated": false,
       "surfaces": [
-        "src/data/scholarshipData.ts:101",
-        "translations-ru.ts:scholarship_gpa_40_coef"
+        "src/data/scholarshipData.ts:101"
       ],
       "last_updated": "2026-03-23",
       "source_hint": "edu.gov.kg",

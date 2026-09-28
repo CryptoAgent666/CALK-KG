@@ -6,7 +6,6 @@ import { useCurrencyRates } from '../hooks/useCurrencyRates';
 import HreflangTags from '../components/HreflangTags';
 import FAQSchema from '../components/FAQSchema';
 import CurrencyChart from '../components/CurrencyChart';
-import { CurrencyExchangeCalculatorArticle } from '../components/CurrencyExchangeCalculatorArticle';
 
 const CurrencyExchangePage = () => {
   const { language, t } = useLanguage();
@@ -373,7 +372,6 @@ const CurrencyExchangePage = () => {
         </div>
       </div>
 
-      <CurrencyExchangeCalculatorArticle />
     </>
   );
 };

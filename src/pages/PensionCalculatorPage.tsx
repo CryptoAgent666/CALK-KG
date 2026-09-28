@@ -10,7 +10,6 @@ import {
   generateCalculatorSchema, 
   generateBreadcrumbSchema 
 } from '../utils/schemaGenerator';
-import { PensionCalculatorArticle } from '../components/PensionCalculatorArticle';
 
 type Gender = 'male' | 'female';
 type EmploymentType = 'employee' | 'entrepreneur' | 'farmer';
@@ -1402,7 +1401,6 @@ const PensionCalculatorPage = () => {
         }
       `}</style>
 
-      <PensionCalculatorArticle />
     </div>
   );
 };

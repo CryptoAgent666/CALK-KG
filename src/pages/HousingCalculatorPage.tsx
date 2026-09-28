@@ -12,7 +12,6 @@ import {
   generateBreadcrumbSchema
 } from '../utils/schemaGenerator';
 import { formatVerifiedMonth } from '../utils/dateFormatter';
-import { HousingCalculatorArticle } from '../components/HousingCalculatorArticle';
 
 const getCityPrices = (t: (key: string) => string) => ({
   'bishkek': {
@@ -929,7 +928,6 @@ ${t('water_calculated_on')}`}
         }
       `}</style>
 
-      <HousingCalculatorArticle />
     </div>
   );
 };

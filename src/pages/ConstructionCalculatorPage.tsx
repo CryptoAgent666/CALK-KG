@@ -5,7 +5,6 @@ import { Calculator, ArrowLeft, Home as HomeIcon, Hammer, DollarSign, Package } 
 import { useLanguage } from '../contexts/LanguageContext';
 import HreflangTags from '../components/HreflangTags';
 import FAQSchema from '../components/FAQSchema';
-import { ConstructionCalculatorArticle } from '../components/ConstructionCalculatorArticle';
 import {
   MATERIALS,
   CONSTRUCTION_TYPES,
@@ -326,8 +325,6 @@ const ConstructionCalculatorPage = () => {
         </div>
       </div>
 
-      {/* Информационная статья под калькулятором */}
-      <ConstructionCalculatorArticle />
     </div>
   );
 };

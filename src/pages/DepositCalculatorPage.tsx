@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Calculator, ArrowLeft, Info, Home, Printer, DollarSign, TrendingUp, Banknote, Building2, Car } from 'lucide-react';
 import SchemaMarkup from '../components/SchemaMarkup';
-import { DepositCalculatorArticle } from '../components/DepositCalculatorArticle';
 import HreflangTags from '../components/HreflangTags';
 import FAQSchema from '../components/FAQSchema';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -1569,7 +1568,4 @@ const DepositCalculatorPage = () => {
   );
 };
 
-
-      {/* Информационная статья под калькулятором */}
-      <DepositCalculatorArticle />
 export default DepositCalculatorPage;

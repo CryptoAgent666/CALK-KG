@@ -33,29 +33,14 @@ const kyKeys = extractKeys(kySection);
 
 const targetFiles = [
   // Article components
-  'src/components/LoanCalculatorArticle.tsx',
-  'src/components/CurrencyExchangeCalculatorArticle.tsx',
   'src/components/MoneyTransferCalculatorArticle.tsx',
-  'src/components/MobileTariffsCalculatorArticle.tsx',
   'src/components/SingleTaxCalculatorArticle.tsx',
   'src/components/TaxiTaxCalculatorArticle.tsx',
-  'src/components/PassportCalculatorArticle.tsx',
-  'src/components/TrafficFinesCalculatorArticle.tsx',
-  'src/components/SocialFundCalculatorArticle.tsx',
   'src/components/FamilyBenefitCalculatorArticle.tsx',
   'src/components/AlimonyCalculatorArticle.tsx',
-  'src/components/WaterCalculatorArticle.tsx',
   'src/components/GasCalculatorArticle.tsx',
-  'src/components/HeatingCalculatorArticle.tsx',
-  'src/components/HousingCalculatorArticle.tsx',
-  'src/components/ScholarshipCalculatorArticle.tsx',
-  'src/components/CalorieCalculatorArticle.tsx',
-  'src/components/WeddingCalculatorArticle.tsx',
   'src/components/SewingCostCalculatorArticle.tsx',
   'src/components/ZakatCalculatorArticle.tsx',
-  'src/components/PatentCalculatorArticle.tsx',
-  'src/components/PensionCalculatorArticle.tsx',
-  'src/components/ConstructionCalculatorArticle.tsx',
   'src/components/FuelCalculatorArticle.tsx',
 
   // Calculator pages

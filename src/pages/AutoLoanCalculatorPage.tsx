@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Calculator, ArrowLeft, Info, Home, Printer, DollarSign, TrendingUp, Car, Building2 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { AutoLoanCalculatorArticle } from '../components/AutoLoanCalculatorArticle';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
 import FAQSchema from '../components/FAQSchema';
@@ -1024,8 +1023,6 @@ const AutoLoanCalculatorPage = () => {
         }
       `}</style>
 
-      {/* Информационная статья под калькулятором */}
-      <AutoLoanCalculatorArticle />
     </div>
   );
 };

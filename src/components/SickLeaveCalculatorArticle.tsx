@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { CalculatorArticle, ArticleSection, ArticleSubsection, FAQItem } from './CalculatorArticle';
+import { CalculatorArticle, ArticleSection, ArticleSubsection } from './CalculatorArticle';
 import {
   EXPERIENCE_RATES,
   SICK_LEAVE_EXAMPLES,
@@ -92,9 +92,6 @@ export const SickLeaveCalculatorArticle: React.FC = () => {
           <strong>🤰 {t('sick_pregnancy_important')}</strong> {t('sick_pregnancy_note')}
         </div>
 
-        <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg text-sm text-gray-700">
-          <strong>✅ {t('sick_full_pay_title')}</strong> {t('sick_faq_a5')}
-        </div>
       </ArticleSection>
 
       {/* Виды больничных */}
@@ -185,46 +182,6 @@ export const SickLeaveCalculatorArticle: React.FC = () => {
             </ArticleSubsection>
           );
         })}
-      </ArticleSection>
-
-      {/* FAQ */}
-      <ArticleSection title={t('sick_article_faq_title')}>
-        <div className="space-y-4">
-          <FAQItem 
-            question={t('sick_faq_q1')}
-            answer={t('sick_faq_a1')}
-          />
-          
-          <FAQItem 
-            question={t('sick_faq_q2')}
-            answer={t('sick_faq_a2')}
-          />
-          
-          <FAQItem 
-            question={t('sick_faq_q3')}
-            answer={t('sick_faq_a3')}
-          />
-          
-          <FAQItem 
-            question={t('sick_faq_q4')}
-            answer={
-              <>
-                <p>{t('sick_faq_a4_intro')}</p>
-                <ul className="list-disc pl-6 mt-2 space-y-1">
-                  <li><strong>{t('sick_faq_a4_illness')}</strong> {t('sick_faq_a4_illness_val')}</li>
-                  <li><strong>{t('sick_faq_a4_injury')}</strong> {t('sick_faq_a4_injury_val')}</li>
-                  <li><strong>{t('sick_faq_a4_child')}</strong> {t('sick_faq_a4_child_val')}</li>
-                  <li><strong>{t('sick_faq_a4_pregnancy')}</strong> {t('sick_faq_a4_pregnancy_val')}</li>
-                </ul>
-              </>
-            }
-          />
-          
-          <FAQItem 
-            question={t('sick_faq_q5')}
-            answer={t('sick_faq_a5')}
-          />
-        </div>
       </ArticleSection>
 
       {/* Заключение */}

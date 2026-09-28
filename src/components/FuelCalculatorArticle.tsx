@@ -10,21 +10,7 @@ export const FuelCalculatorArticle: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-      <CalculatorArticle lastUpdated="2026-08-18" slug="fuel">
-      {/* Актуальные цены на топливо */}
-      <ArticleSection title={t('fuel_article_prices_title')}>
-        <p>{t('fuel_article_prices_intro')}</p>
-        <ul className="list-disc pl-6 space-y-2">
-          <li><strong>{t('fuel_benzin_92')}</strong> — <strong>87.0 {t('fuel_som_per_liter')}</strong></li>
-          <li><strong>{t('fuel_benzin_95')}</strong> — <strong>109.9 {t('fuel_som_per_liter')}</strong></li>
-          <li><strong>{t('fuel_diesel')}</strong> — <strong>99.9 {t('fuel_som_per_liter')}</strong></li>
-          <li><strong>{t('fuel_gas')}</strong> — <strong>48.2 {t('fuel_som_per_liter')}</strong></li>
-        </ul>
-        <p className="mt-4">
-          <strong>{t('fuel_important')}</strong> {t('fuel_regions_note')}
-        </p>
-      </ArticleSection>
-
+      <CalculatorArticle lastUpdated="2026-09-28" slug="fuel">
       {/* Как рассчитать расход топлива */}
       <ArticleSection title={t('fuel_article_howto_title')}>
         <p>{t('fuel_howto_intro')}</p>
@@ -39,7 +25,7 @@ export const FuelCalculatorArticle: React.FC = () => {
           <p>{t('fuel_example_text')}</p>
           <ul className="list-disc pl-6 space-y-1 mt-2">
             <li>{t('fuel_consumed')}</li>
-            <li>{t('fuel_distance')}</li>
+            <li>{t('fuel_distance')}: 500</li>
             <li>{t('fuel_result')} <strong>{t('fuel_result_value')}</strong></li>
           </ul>
         </ArticleSubsection>
@@ -175,28 +161,15 @@ export const FuelCalculatorArticle: React.FC = () => {
       {/* FAQ */}
       <ArticleSection title={t('fuel_article_faq_title')}>
         <div className="space-y-4">
-          <FAQItem question={t('fuel_faq_q1')} answer={t('fuel_faq_a1')} />
-          <FAQItem question={t('fuel_faq_q2')} answer={t('fuel_faq_a2')} />
-          <FAQItem question={t('fuel_faq_q3')} answer={t('fuel_faq_a3')} />
-          <FAQItem question={t('fuel_faq_q4')} answer={t('fuel_faq_a4')} />
-          <FAQItem question={t('fuel_faq_q5')} answer={t('fuel_faq_a5')} />
           <FAQItem question={t('fuel_faq_q6')} answer={t('fuel_faq_a6')} />
           <FAQItem question={t('fuel_faq_q7')} answer={t('fuel_faq_a7')} />
           <FAQItem question={t('fuel_faq_q8')} answer={t('fuel_faq_a8')} />
         </div>
       </ArticleSection>
 
-      {/* Полезные ссылки */}
-      <ArticleSection title={t('fuel_article_links_title')}>
-        <ul className="list-disc pl-6 space-y-2">
-          <li>{t('fuel_links_1')}</li>
-          <li>{t('fuel_links_2')}</li>
-          <li>{t('fuel_links_3')}</li>
-        </ul>
-        <p className="mt-6 font-semibold text-gray-900">
-          {t('fuel_article_cta')}
-        </p>
-      </ArticleSection>
+      <p className="mt-6 font-semibold text-gray-900">
+        {t('fuel_article_cta')}
+      </p>
     </CalculatorArticle>
   );
 };

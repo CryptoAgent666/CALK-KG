@@ -13,7 +13,6 @@ import {
   generateSoftwareApplicationSchema
 } from '../utils/schemaGenerator';
 import { formatVerifiedMonth } from '../utils/dateFormatter';
-import { WeddingCalculatorArticle } from '../components/WeddingCalculatorArticle';
 
 // Конфигурация региональных цен на банкет - актуализированные цены 2026
 const BANQUET_PRICES = {
@@ -1060,7 +1059,6 @@ const WeddingCalculatorPage = () => {
         }
       `}</style>
 
-      <WeddingCalculatorArticle />
     </div>
   );
 };

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Calculator, ArrowLeft, Info, Home, Printer, Droplets, TrendingUp, MapPin, Zap, Flame } from 'lucide-react';
 import ActionButtons from '../components/ActionButtons';
-import { WaterCalculatorArticle } from '../components/WaterCalculatorArticle';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
 import FAQSchema from '../components/FAQSchema';
@@ -1204,7 +1203,4 @@ ${t('water_calculated_on')}`}
   );
 };
 
-
-      {/* Информационная статья под калькулятором */}
-      <WaterCalculatorArticle />
 export default WaterCalculatorPage;

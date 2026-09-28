@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Calculator, ArrowLeft, Info, Home, Printer, Flame, TrendingUp, MapPin, Users, Droplets, Zap } from 'lucide-react';
 import ActionButtons from '../components/ActionButtons';
-import { HeatingCalculatorArticle } from '../components/HeatingCalculatorArticle';
 import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
 import FAQSchema from '../components/FAQSchema';
@@ -1513,7 +1512,4 @@ const HeatingCalculatorPage = () => {
   );
 };
 
-
-      {/* Информационная статья под калькулятором */}
-      <HeatingCalculatorArticle />
 export default HeatingCalculatorPage;
