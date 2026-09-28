@@ -7,7 +7,6 @@ import SchemaMarkup from '../components/SchemaMarkup';
 import HreflangTags from '../components/HreflangTags';
 import FAQSchema from '../components/FAQSchema';
 import { useLanguage } from '../contexts/LanguageContext';
-import { PropertyTaxCalculatorArticle } from '../components/PropertyTaxCalculatorArticle';
 import {
   generateCalculatorSchema,
   generateBreadcrumbSchema,
@@ -66,18 +65,45 @@ const PropertyTaxCalculatorPage = () => {
   // Необлагаемая площадь — НК ст.409 ч.1 п.1: шкала по численности населения города
   // (500 тыс.+ → квартира 80 / дом 150; 200–500 тыс. → 110/180; 100–200 тыс. → 140/210;
   // 50–100 тыс. → 170/240; 20–50 тыс. → 200/270). Группы городов — по данным Нацстаткома.
+  // С 01.01.2026 (Закон №243 от 29.10.2025) придомовой / приусадебный / садово-дачный
+  // участок облагается вместе с жилым объектом: ставка за м² земли — НК ст.379 ч.1 п.1
+  // (колонка «земля»; сверено 2026-09-28 по НК ред. 06.08.2026, editionId=57656).
   type WallMaterial = 'brick' | 'adobe';
-  const CITY_TAX: Record<string, { brick: number; adobe: number; benApt: number; benHouse: number } | null> = {
-    'bishkek':    { brick: 63,   adobe: 42,   benApt: 80,  benHouse: 150 },
-    'osh':        { brick: 57,   adobe: 38,   benApt: 110, benHouse: 180 },
-    'jalal-abad': { brick: 50.5, adobe: 34,   benApt: 140, benHouse: 210 },
-    'karakol':    { brick: 32,   adobe: 21,   benApt: 170, benHouse: 240 },
-    'tokmok':     { brick: 32,   adobe: 21,   benApt: 170, benHouse: 240 },
-    'naryn':      { brick: 16,   adobe: 10.5, benApt: 200, benHouse: 270 },
-    'talas':      { brick: 21,   adobe: 14,   benApt: 200, benHouse: 270 },
-    'batken':     { brick: 10.5, adobe: 7,    benApt: 200, benHouse: 270 },
+  const CITY_TAX: Record<string, { brick: number; adobe: number; benApt: number; benHouse: number; land: number } | null> = {
+    'bishkek':    { brick: 63,   adobe: 42,   benApt: 80,  benHouse: 150, land: 1.8 },
+    'osh':        { brick: 57,   adobe: 38,   benApt: 110, benHouse: 180, land: 1.8 },
+    'jalal-abad': { brick: 50.5, adobe: 34,   benApt: 140, benHouse: 210, land: 1.2 },
+    'karakol':    { brick: 32,   adobe: 21,   benApt: 170, benHouse: 240, land: 1.2 },
+    'tokmok':     { brick: 32,   adobe: 21,   benApt: 170, benHouse: 240, land: 1.2 },
+    'naryn':      { brick: 16,   adobe: 10.5, benApt: 200, benHouse: 270, land: 0.6 },
+    'talas':      { brick: 21,   adobe: 14,   benApt: 200, benHouse: 270, land: 1.2 },
+    'batken':     { brick: 10.5, adobe: 7,    benApt: 200, benHouse: 270, land: 0.6 },
     'other': null
   };
+  // Для «другого» населённого пункта: прочие города — 0,6 сом/м², районы (сёла) — 0,12
+  // (исключения вроде Чолпон-Аты 1,2 — по таблице ст.379).
+  const OTHER_LAND_RATE = { town: 0.6, village: 0.12 } as const;
+  // Необлагаемая площадь ст.409 ч.1 п.1 по численности населения (тыс. чел.) — для «другого» пункта.
+  const BENEFIT_BY_POPULATION = [
+    { label: '< 5', house: 360, apt: 290 },
+    { label: '5–10', house: 330, apt: 260 },
+    { label: '10–20', house: 300, apt: 230 },
+    { label: '20–50', house: 270, apt: 200 },
+    { label: '50–100', house: 240, apt: 170 },
+    { label: '100–200', house: 210, apt: 140 },
+    { label: '200–500', house: 180, apt: 110 }
+  ];
+  // Скидка 50% с налога на один жилой дом/квартиру — ст.409 ч.2 п.1 (ред. Закона №37, с 01.01.2026).
+  const HERO_DISCOUNT = 0.5;
+  // Коэффициент инфляции Ки на 2026 год — 1,05 (ГНС, PDF «Коэффициент инфляции»; НК ст.380).
+  const KI = 1.05;
+
+  const EXAMPLES: { city: string; wall: WallMaterial; type: PropertyType; area: number; plot: number }[] = [
+    { city: 'bishkek', wall: 'brick', type: 'apartment', area: 60, plot: 0 },
+    { city: 'bishkek', wall: 'brick', type: 'apartment', area: 120, plot: 0 },
+    { city: 'bishkek', wall: 'brick', type: 'house', area: 200, plot: 600 },
+    { city: 'osh', wall: 'adobe', type: 'house', area: 250, plot: 800 }
+  ];
 
   const [propertyType, setPropertyType] = useState<PropertyType>('apartment');
   const [wallMaterial, setWallMaterial] = useState<WallMaterial>('brick');
@@ -85,13 +111,22 @@ const PropertyTaxCalculatorPage = () => {
   const [taxRate, setTaxRate] = useState<string>('');
   const [totalArea, setTotalArea] = useState<string>('');
   const [applyBenefit, setApplyBenefit] = useState<boolean>(true);
+  const [landArea, setLandArea] = useState<string>('600');
+  const [landExempt, setLandExempt] = useState<boolean>(false);
+  const [otherPlace, setOtherPlace] = useState<'town' | 'village'>('village');
+  const [otherPopulation, setOtherPopulation] = useState<number>(0);
+  const [heroDiscount, setHeroDiscount] = useState<boolean>(false);
 
   const [results, setResults] = useState({
     totalArea: 0,
     benefitArea: 0,
     taxableArea: 0,
     taxRate: 0,
-    taxAmount: 0
+    taxAmount: 0,
+    buildingTax: 0,
+    landTax: 0,
+    landRate: 0,
+    landArea: 0
   });
 
   const cities = [
@@ -106,34 +141,52 @@ const PropertyTaxCalculatorPage = () => {
     { id: 'other', name: t('property_tax_city_other') }
   ];
 
+  const landRateFor = (cityId: string) => CITY_TAX[cityId]?.land ?? OTHER_LAND_RATE[otherPlace];
+
+  // НК ст.409: необлагаемая площадь зависит от численности населения города.
+  const benefitAreaFor = (cityId: string, type: PropertyType) => {
+    const cityData = CITY_TAX[cityId];
+    const row = cityData
+      ? { apt: cityData.benApt, house: cityData.benHouse }
+      : BENEFIT_BY_POPULATION[otherPopulation];
+    return type === 'apartment' ? row.apt : row.house;
+  };
+
   const calculateTax = (
     area: number,
     rate: number,
     type: PropertyType,
-    benefit: boolean
+    benefit: boolean,
+    plot = 0,
+    plotExempt = false,
+    cityId = city,
+    hero = false
   ) => {
-    const cityData = CITY_TAX[city];
     let benefitArea = 0;
     let taxableArea = area;
 
     if (benefit) {
-      // НК ст.409: необлагаемая площадь зависит от численности населения города.
-      benefitArea = cityData
-        ? (type === 'apartment' ? cityData.benApt : cityData.benHouse)
-        : (type === 'apartment' ? 80 : 150);
+      benefitArea = benefitAreaFor(cityId, type);
       taxableArea = Math.max(0, area - benefitArea);
     }
 
-    // Формула НК ст.380 без коэффициента инфляции Ки (утверждается ГНС ежегодно;
-    // если не установлен — равен прошлогоднему). Итог — до применения Ки.
-    const taxAmount = taxableArea * rate;
+    // Формула НК ст.380: (облагаемая площадь × ставка × Ки) + (площадь участка × ставка × Ки).
+    // Участок — только у дома; льготные категории ст.411 (пенсионеры, родители 4+ детей
+    // и др.) налог на приусадебный участок не платят.
+    const buildingTax = taxableArea * rate * KI * (hero ? 1 - HERO_DISCOUNT : 1);
+    const landRate = type === 'house' ? landRateFor(cityId) : 0;
+    const landTax = type === 'house' && !plotExempt ? plot * landRate * KI : 0;
 
     return {
       totalArea: area,
       benefitArea: benefit ? benefitArea : 0,
       taxableArea,
       taxRate: rate,
-      taxAmount
+      taxAmount: buildingTax + landTax,
+      buildingTax,
+      landTax,
+      landRate,
+      landArea: type === 'house' ? plot : 0
     };
   };
 
@@ -143,17 +196,21 @@ const PropertyTaxCalculatorPage = () => {
     const rate = cityData ? cityData[wallMaterial] : (parseFloat(taxRate) || 0);
 
     if (area >= 0 && rate >= 0) {
-      setResults(calculateTax(area, rate, propertyType, applyBenefit));
+      setResults(calculateTax(area, rate, propertyType, applyBenefit, parseFloat(landArea) || 0, landExempt, city, heroDiscount));
     } else {
       setResults({
         totalArea: area,
         benefitArea: 0,
         taxableArea: 0,
         taxRate: rate,
-        taxAmount: 0
+        taxAmount: 0,
+        buildingTax: 0,
+        landTax: 0,
+        landRate: 0,
+        landArea: 0
       });
     }
-  }, [totalArea, taxRate, propertyType, applyBenefit, city, wallMaterial]);
+  }, [totalArea, taxRate, propertyType, applyBenefit, city, wallMaterial, landArea, landExempt, otherPlace, otherPopulation, heroDiscount]);
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('ru-KG', {
@@ -191,9 +248,7 @@ const PropertyTaxCalculatorPage = () => {
     </div>
   );
 
-  const getBenefitAreaName = () => {
-    return propertyType === 'apartment' ? '80 м²' : '150 м²';
-  };
+  const getBenefitAreaName = () => `${benefitAreaFor(city, propertyType)} м²`;
 
   const taxPercentage = results.totalArea > 0 ? (results.taxableArea / results.totalArea) * 100 : 0;
   const benefitPercentage = results.totalArea > 0 ? (results.benefitArea / results.totalArea) * 100 : 0;
@@ -296,7 +351,7 @@ const PropertyTaxCalculatorPage = () => {
                     />
                     <div>
                       <span className="text-gray-900 font-medium">{t('property_tax_apartment')}</span>
-                      <p className="text-sm text-gray-500">{t('property_tax_apartment_benefit')}</p>
+                      <p className="text-sm text-gray-500">{t('property_tax_benefit_area_label')} {benefitAreaFor(city, 'apartment')} м²</p>
                     </div>
                   </label>
                   <label className="flex items-center space-x-3 cursor-pointer p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200">
@@ -310,7 +365,7 @@ const PropertyTaxCalculatorPage = () => {
                     />
                     <div>
                       <span className="text-gray-900 font-medium">{t('property_tax_house')}</span>
-                      <p className="text-sm text-gray-500">{t('property_tax_house_benefit')}</p>
+                      <p className="text-sm text-gray-500">{t('property_tax_benefit_area_label')} {benefitAreaFor(city, 'house')} м²</p>
                     </div>
                   </label>
                 </div>
@@ -353,8 +408,8 @@ const PropertyTaxCalculatorPage = () => {
                 {CITY_TAX[city] ? (
                   <p className="text-sm text-gray-500 mt-2">
                     {language === 'ky'
-                      ? `Чен: ${CITY_TAX[city]![wallMaterial]} сом/м² (КР СК 379-беренеси). Инфляция коэффициентисиз.`
-                      : `Ставка: ${CITY_TAX[city]![wallMaterial]} сом/м² (НК КР, ст. 379). Без коэффициента инфляции Ки.`}
+                      ? `Чен: ${CITY_TAX[city]![wallMaterial]} сом/м² (КР СК 379-беренеси) × инфляция коэффициенти Ки = ${KI.toLocaleString('ru-RU')} (2026).`
+                      : `Ставка: ${CITY_TAX[city]![wallMaterial]} сом/м² (НК КР, ст. 379) × коэффициент инфляции Ки = ${KI.toLocaleString('ru-RU')} (2026).`}
                   </p>
                 ) : (
                   <div className="mt-3">
@@ -370,6 +425,20 @@ const PropertyTaxCalculatorPage = () => {
                         ? 'Шаарыңыз үчүн ченди КР СК 379-беренесинен караңыз (мис.: Кара-Балта 32/21, Кант 21/14, Балыкчы 16/10,5 сом/м²).'
                         : 'Ставку для вашего города смотрите в ст. 379 НК КР (напр.: Кара-Балта 32/21, Кант 21/14, Балыкчы 16/10,5 сом/м²).'}
                     </p>
+                    <label className="block text-sm font-medium text-gray-700 mt-4">
+                      {t('property_tax_population')}
+                      <select
+                        value={otherPopulation}
+                        onChange={(e) => setOtherPopulation(Number(e.target.value))}
+                        className="mt-2 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                      >
+                        {BENEFIT_BY_POPULATION.map((row, i) => (
+                          <option key={row.label} value={i}>
+                            {row.label} {t('property_tax_population_unit')} — {row.apt} / {row.house} м²
+                          </option>
+                        ))}
+                      </select>
+                    </label>
                   </div>
                 )}
               </div>
@@ -415,7 +484,54 @@ const PropertyTaxCalculatorPage = () => {
                     {t('property_tax_benefit_for')} {propertyType === 'apartment' ? t('property_tax_benefit_apartment') : t('property_tax_benefit_house')}: {getBenefitAreaName()}
                   </p>
                 )}
+                <label className="flex items-start gap-3 mt-4 text-sm text-gray-700 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={heroDiscount}
+                    onChange={(e) => setHeroDiscount(e.target.checked)}
+                    className="mt-1 h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+                  />
+                  {t('property_tax_hero_discount')}
+                </label>
               </div>
+
+              {propertyType === 'house' && (
+                <div className="mb-8 space-y-3">
+                  <label className="block text-sm font-medium text-gray-700">
+                    {t('property_tax_land_area')}
+                    <input
+                      type="number"
+                      min="0"
+                      value={landArea}
+                      onChange={(e) => setLandArea(e.target.value)}
+                      className="mt-2 w-full px-4 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg print:text-base"
+                    />
+                  </label>
+                  {!CITY_TAX[city] && (
+                    <select
+                      value={otherPlace}
+                      onChange={(e) => setOtherPlace(e.target.value as 'town' | 'village')}
+                      aria-label={t('property_tax_other_place')}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    >
+                      <option value="town">{t('property_tax_other_town')}</option>
+                      <option value="village">{t('property_tax_other_village')}</option>
+                    </select>
+                  )}
+                  <p className="text-sm text-gray-500">
+                    {t('property_tax_land_rate_hint').replace('{rate}', landRateFor(city).toLocaleString('ru-RU')).replace('{ki}', KI.toLocaleString('ru-RU'))}
+                  </p>
+                  <label className="flex items-start gap-3 text-sm text-gray-700 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={landExempt}
+                      onChange={(e) => setLandExempt(e.target.checked)}
+                      className="mt-1 h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+                    />
+                    {t('property_tax_land_exempt')}
+                  </label>
+                </div>
+              )}
 
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
                 <div className="flex items-start space-x-3">
@@ -531,7 +647,7 @@ ${t('calculated_on_site')} Calk.KG`}
                         </span>
                       </div>
                       <p className="text-sm text-gray-500">
-                        {propertyType === 'apartment' ? t('property_tax_apartment_area') : t('property_tax_house_area')}
+                        {t('property_tax_benefit_note')}
                       </p>
                     </div>
                   )}
@@ -567,6 +683,24 @@ ${t('calculated_on_site')} Calk.KG`}
                     </span>
                   </div>
 
+                  {propertyType === 'house' && (
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                        <span className="text-gray-600">{t('property_tax_building_tax')}</span>
+                        <span className="font-semibold text-gray-900">{formatCurrency(results.buildingTax)} {t('som')}</span>
+                      </div>
+                      <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                        <span className="text-gray-600">
+                          {t('property_tax_land_tax')}
+                          <span className="block text-xs text-gray-500">
+                            {landExempt ? t('property_tax_land_exempt_short') : `${formatCurrency(results.landArea)} м² × ${results.landRate.toLocaleString('ru-RU')} ${t('som')} × ${KI.toLocaleString('ru-RU')}`}
+                          </span>
+                        </span>
+                        <span className="font-semibold text-gray-900">{formatCurrency(results.landTax)} {t('som')}</span>
+                      </div>
+                    </div>
+                  )}
+
                   <div className="bg-gradient-to-r from-red-500 to-red-600 rounded-xl p-6 text-white">
                     <div className="text-center">
                       <div className="flex items-center justify-center mb-2">
@@ -595,7 +729,7 @@ ${t('calculated_on_site')} Calk.KG`}
                       <div className="flex justify-between">
                         <span>{t('property_tax_calculation_formula')}</span>
                         <span>
-                          {formatCurrency(results.taxableArea)} м² × {formatCurrency(results.taxRate)} {t('som')} = {formatCurrency(results.taxAmount)} {t('som')}
+                          {formatCurrency(results.taxableArea)} м² × {results.taxRate.toLocaleString('ru-RU')} {t('som')} × {KI.toLocaleString('ru-RU')}{heroDiscount ? ' × 0,5' : ''} = {formatCurrency(results.buildingTax)} {t('som')}
                         </span>
                       </div>
                     </div>
@@ -612,39 +746,35 @@ ${t('calculated_on_site')} Calk.KG`}
             <div className="bg-white rounded-xl shadow-sm p-8 print:hidden">
               <h3 className="font-medium text-gray-900 mb-4">{t('calculation_examples')}</h3>
               <div className="space-y-3">
-                {[
-                  { area: 60, rate: 50, type: 'apartment' as PropertyType, benefit: true },
-                  { area: 120, rate: 70, type: 'apartment' as PropertyType, benefit: true },
-                  { area: 180, rate: 60, type: 'house' as PropertyType, benefit: true },
-                  { area: 250, rate: 80, type: 'house' as PropertyType, benefit: true }
-                ].map((example, index) => {
-                  const exampleResult = calculateTax(example.area, example.rate, example.type, example.benefit);
+                {EXAMPLES.map((example, index) => {
+                  const rate = CITY_TAX[example.city]![example.wall];
+                  const exampleResult = calculateTax(example.area, rate, example.type, true, example.plot, false, example.city);
                   return (
                     <button
                       key={index}
                       onClick={() => {
+                        setCity(example.city);
+                        setWallMaterial(example.wall);
                         setTotalArea(example.area.toString());
-                        setTaxRate(example.rate.toString());
                         setPropertyType(example.type);
-                        setApplyBenefit(example.benefit);
+                        setApplyBenefit(true);
+                        setHeroDiscount(false);
+                        setLandExempt(false);
+                        if (example.plot) setLandArea(example.plot.toString());
                       }}
                       className="w-full text-left p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200"
                     >
-                      <div className="flex justify-between items-center mb-2">
+                      <div className="flex justify-between items-center gap-4">
                         <span className="text-gray-700 font-medium">
-                          {example.type === 'apartment' ? t('property_tax_apartment_short') : t('property_tax_house_short')} {example.area} м² • {example.rate} {t('som')}/{t('unit_sqm')}
+                          {cities.find(c => c.id === example.city)?.name}: {example.type === 'apartment' ? t('property_tax_apartment_short') : t('property_tax_house_short')} {example.area} м²
+                          {example.plot > 0 && ` + ${t('property_tax_example_plot').replace('{area}', String(example.plot))}`}
+                          <span className="block text-xs text-gray-500 font-normal">
+                            {example.wall === 'brick' ? t('property_tax_example_brick') : t('property_tax_example_adobe')} • {t('property_tax_benefit_label')} {exampleResult.benefitArea} м²
+                          </span>
                         </span>
-                        <div className="text-right">
-                          <div className="text-red-600 font-semibold">
-                            {formatCurrency(exampleResult.taxAmount)} {t('som')}
-                          </div>
-                          <div className="text-xs text-gray-500">
-                            с {exampleResult.taxableArea} м²
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        {exampleResult.benefitArea > 0 && `${t('property_tax_benefit_label')} ${exampleResult.benefitArea} м²`}
+                        <span className="text-red-600 font-semibold whitespace-nowrap">
+                          {formatCurrency(exampleResult.taxAmount)} {t('som')}
+                        </span>
                       </div>
                     </button>
                   );
@@ -655,49 +785,6 @@ ${t('calculated_on_site')} Calk.KG`}
         </div>
 
         <div className="mt-12 space-y-12">
-          <div className="bg-white rounded-xl shadow-sm p-8 print:hidden">
-            <h3 className="font-medium text-gray-900 mb-4">{t('calculation_examples')}</h3>
-            <div className="space-y-3">
-              {[
-                { area: 60, rate: 50, type: 'apartment' as PropertyType, benefit: true },
-                { area: 120, rate: 70, type: 'apartment' as PropertyType, benefit: true },
-                { area: 180, rate: 60, type: 'house' as PropertyType, benefit: true },
-                { area: 250, rate: 80, type: 'house' as PropertyType, benefit: true }
-              ].map((example, index) => {
-                const exampleResult = calculateTax(example.area, example.rate, example.type, example.benefit);
-                return (
-                  <button
-                    key={index}
-                    onClick={() => {
-                      setTotalArea(example.area.toString());
-                      setTaxRate(example.rate.toString());
-                      setPropertyType(example.type);
-                      setApplyBenefit(example.benefit);
-                    }}
-                    className="w-full text-left p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200"
-                  >
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-gray-700 font-medium">
-                          {example.type === 'apartment' ? t('property_tax_apartment_short') : t('property_tax_house_short')} {example.area} м² • {example.rate} {t('som')}/{t('unit_sqm')}
-                      </span>
-                      <div className="text-right">
-                        <div className="text-red-600 font-semibold">
-                          {formatCurrency(exampleResult.taxAmount)} {t('som')}
-                        </div>
-                        <div className="text-xs text-gray-500">
-                          с {exampleResult.taxableArea} м²
-                        </div>
-                      </div>
-                    </div>
-                    <div className="text-xs text-gray-500">
-                      {exampleResult.benefitArea > 0 && `${t('property_tax_benefit_label')} ${exampleResult.benefitArea} м²`}
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
           <div className="bg-white rounded-xl shadow-sm p-8 print:hidden">
             <h3 className="font-medium text-gray-900 mb-4">{t('other_calculators')}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -884,7 +971,6 @@ ${t('calculated_on_site')} Calk.KG`}
         }
       `}</style>
 
-      <PropertyTaxCalculatorArticle />
     </div>
   );
 };

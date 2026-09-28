@@ -165,8 +165,10 @@ const CustomsCalculatorPage = () => {
     // 3. Акцизный налог (если применимо)
     const exciseTax = value * exciseRate;
 
-    // 4. НДС 12% от суммы всех предыдущих платежей
-    const taxBase = value + customsFee + customsDuty + exciseTax;
+    // 4. НДС 12%: база = таможенная стоимость + пошлина + акциз (НК КР ст.310).
+    // Таможенный сбор в базу НДС не входит — это плата за таможенные операции
+    // (ТК ЕАЭС ст.46–47), а не пошлина и не налог. Сверено 2026-09-28.
+    const taxBase = value + customsDuty + exciseTax;
     const vat = taxBase * 0.12;
 
     // 5. Итоговая сумма
@@ -797,7 +799,7 @@ ${t('calculated_on_calk')}`}
                         </span>
                       </div>
                       <div className="text-sm text-gray-500 mt-1">
-                        {t('customs_vat_base')}: ${formatCurrency(results.customsStoicostValue + results.customsFee + results.customsDuty + results.exciseTax)}
+                        {t('customs_vat_base')}: ${formatCurrency(results.customsStoicostValue + results.customsDuty + results.exciseTax)}
                       </div>
                     </div>
                   </div>
