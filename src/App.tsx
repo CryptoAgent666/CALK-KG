@@ -59,6 +59,11 @@ const CalorieCalculatorPage = lazy(() => import('./pages/CalorieCalculatorPage')
 const SewingCostCalculatorPage = lazy(() => import('./pages/SewingCostCalculatorPage'));
 const HousingCalculatorPage = lazy(() => import('./pages/HousingCalculatorPage'));
 const WeddingCalculatorPage = lazy(() => import('./pages/WeddingCalculatorPage'));
+const WorkExperienceCalculatorPage = lazy(() => import('./pages/WorkExperienceCalculatorPage'));
+const EarlyRepaymentCalculatorPage = lazy(() => import('./pages/EarlyRepaymentCalculatorPage'));
+const NumberToWordsPage = lazy(() => import('./pages/NumberToWordsPage'));
+const MaternityCalculatorPage = lazy(() => import('./pages/MaternityCalculatorPage'));
+const TeacherSalaryCalculatorPage = lazy(() => import('./pages/TeacherSalaryCalculatorPage'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const SitemapPage = lazy(() => import('./pages/SitemapPage'));
@@ -237,6 +242,11 @@ function App() {
     { path: 'calculator/sewing-cost', element: <SewingCostCalculatorPage /> },
     { path: 'calculator/housing', element: <HousingCalculatorPage /> },
     { path: 'calculator/wedding', element: <WeddingCalculatorPage /> },
+    { path: 'calculator/work-experience', element: <WorkExperienceCalculatorPage /> },
+    { path: 'calculator/early-repayment', element: <EarlyRepaymentCalculatorPage /> },
+    { path: 'calculator/number-to-words', element: <NumberToWordsPage /> },
+    { path: 'calculator/maternity', element: <MaternityCalculatorPage /> },
+    { path: 'calculator/teacher-salary', element: <TeacherSalaryCalculatorPage /> },
   ];
 
   const staticRoutes = [

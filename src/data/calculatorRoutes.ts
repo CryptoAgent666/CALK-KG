@@ -36,6 +36,11 @@ export const calculatorRoutes: Record<string, string> = {
   'sewing-cost-calculator': '/calculator/sewing-cost/',
   'housing-calculator': '/calculator/housing/',
   'wedding-calculator': '/calculator/wedding/',
+  'work-experience': '/calculator/work-experience/',
+  'early-repayment': '/calculator/early-repayment/',
+  'number-to-words': '/calculator/number-to-words/',
+  'maternity': '/calculator/maternity/',
+  'teacher-salary': '/calculator/teacher-salary/',
 };
 
 // Путь страницы (без префикса /ky, со слешем или без) → id калькулятора.

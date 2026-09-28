@@ -124,7 +124,12 @@ export const CALCULATOR_SOURCES: Record<string, string[]> = {
   'zakat': ['nbkr'], // gold price reference
   'calorie': ['patrol'],
   'sewing-cost': ['stat'],
-  'wedding': ['stat']
+  'wedding': ['stat'],
+  'work-experience': ['sf', 'mlsp'],
+  'early-repayment': ['nbkr'],
+  'number-to-words': ['toktom'],
+  'maternity': ['mlsp', 'toktom'],
+  'teacher-salary': ['sti', 'sf', 'toktom']
 };
 
 export const getCalculatorSources = (slug: string): GovSource[] => {

@@ -71,7 +71,12 @@ const calculatorCategories = {
   'passport': { ru: 'Разное', ky: 'Башка', cat: 'other' },
   'sewing-cost': { ru: 'Разное', ky: 'Башка', cat: 'other' },
   'housing': { ru: 'Коммунальные', ky: 'Коммуналдык', cat: 'utilities' },
-  'wedding': { ru: 'Разное', ky: 'Башка', cat: 'other' }
+  'wedding': { ru: 'Разное', ky: 'Башка', cat: 'other' },
+  'work-experience': { ru: 'Социальные', ky: 'Социалдык', cat: 'social' },
+  'early-repayment': { ru: 'Финансы', ky: 'Каржы', cat: 'finance' },
+  'number-to-words': { ru: 'Разное', ky: 'Башка', cat: 'other' },
+  'maternity': { ru: 'Социальные', ky: 'Социалдык', cat: 'social' },
+  'teacher-salary': { ru: 'Финансы', ky: 'Каржы', cat: 'finance' }
 };
 
 const staticMetaKeys = {
