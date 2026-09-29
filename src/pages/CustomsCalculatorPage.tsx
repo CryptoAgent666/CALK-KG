@@ -35,6 +35,14 @@ interface AdditionalCosts {
   total: number;
 }
 
+// Квота 2026 г. на беспошлинный ввоз электромобилей в КР (Решение Совета ЕЭК №111 от 05.12.2025:
+// 15 000 шт., в августе 2026 увеличена до 25 000) ИСЧЕРПАНА: счётчик ГТС на customs.kg 29.09.2026 —
+// «25 000 / использовано 25 000 / остаток 0». Сверх квоты — пошлина 15% от таможенной стоимости
+// (ЕТТ ЕАЭС, разъяснение ГТС 22.09.2026). Выделит ЕЭК дополнительную квоту — вернуть true.
+// ⚠️ Льгота действует только по 31.12.2026 — решения на 2027 год пока нет.
+const EV_DUTY_FREE_QUOTA_LEFT = false;
+const EV_STANDARD_DUTY_RATE = 0.15;
+
 // Актуальные ставки таможенных пошлин КР согласно единым тарифам ЕАЭС (2026)
 // С учетом льгот для электромобилей и гибридов
 const getDutyRate = (
@@ -46,10 +54,9 @@ const getDutyRate = (
   const currentYear = new Date().getFullYear();
   const age = currentYear - year;
 
-  // Электромобили: 0% — Решение Совета ЕЭК №111 от 05.12.2025 (ввоз в 2026 г., квота КР 25 000 шт.;
-  // сверх квоты — обычная ставка). ⚠️ Решения на 2027 год пока нет — сверить в январе 2027.
+  // Электромобили: 0% в пределах квоты ЕЭК, иначе 15% (см. EV_DUTY_FREE_QUOTA_LEFT).
   if (vehicleType === 'electric') {
-    return { dutyRate: 0, exciseRate: 0 };
+    return { dutyRate: EV_DUTY_FREE_QUOTA_LEFT ? 0 : EV_STANDARD_DUTY_RATE, exciseRate: 0 };
   }
 
   // Гибриды: стандартная ставка ЕАЭС 15% (нов.) / 20% (б/у). Спец-ставки «10% на гибриды» нет;
@@ -176,10 +183,9 @@ const CustomsCalculatorPage = () => {
 
     // 6. Рассчитываем сумму льготы (для EV и Hybrid)
     let benefitAmount = 0;
-    if (type === 'electric') {
-      // Для электромобилей: экономия на пошлине (15-20%)
-      const standardRate = carYear && (new Date().getFullYear() - carYear) <= 3 ? 0.15 : 0.20;
-      benefitAmount = value * standardRate;
+    if (type === 'electric' && EV_DUTY_FREE_QUOTA_LEFT) {
+      // Для электромобилей в пределах квоты: экономия на пошлине 15%
+      benefitAmount = value * EV_STANDARD_DUTY_RATE;
     }
     // Параллельные/смешанные гибриды льготы НЕ имеют (платят полную ставку 15%/20%).
     // 0% — только чистые EV и последовательные гибриды (отдельная льгота ЕЭК).
@@ -452,13 +458,23 @@ const CustomsCalculatorPage = () => {
                   <option value="truck">🚛 {t('customs_type_truck')}</option>
                   <option value="motorcycle">🏍️ {t('customs_type_motorcycle')}</option>
                 </select>
-                {vehicleType === 'electric' && (
+                {vehicleType === 'electric' && EV_DUTY_FREE_QUOTA_LEFT && (
                   <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg">
                     <p className="text-sm text-green-800 font-medium">
                       {t('customs_ev_benefit_title')}
                     </p>
                     <p className="text-xs text-green-700 mt-1">
                       {t('customs_ev_benefit_text')}
+                    </p>
+                  </div>
+                )}
+                {vehicleType === 'electric' && !EV_DUTY_FREE_QUOTA_LEFT && (
+                  <div className="mt-3 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                    <p className="text-sm text-amber-900 font-medium">
+                      {t('customs_ev_quota_over_title')}
+                    </p>
+                    <p className="text-xs text-amber-800 mt-1">
+                      {t('customs_ev_quota_over_text')}
                     </p>
                   </div>
                 )}

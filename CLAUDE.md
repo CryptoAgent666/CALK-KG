@@ -66,8 +66,10 @@ The site hard-codes hundreds of government-set values. They are inventoried + fr
   **>50 млн 4% нал / 2% безнал** (ст.423 ч.1); **ИП 0% ≤15 млн** (ст.423 ч.8). НК has **no numeric
   VAT-registration threshold** (ст.255 — по признаку общего режима). Verified verbatim 2026-07-20.
 - Taxi aggregator income tax **1%** (ст.197 ч.3 НК, подоходный через агрегатор; до 31.12.2027,
-  потом 2% 2028–29, 5% с 2030). Electric vehicles: **0% customs duty + excise** (ЕЭК №111, in
-  force 22.01.2026, quota 15 000 units). Deposit guarantee **1 000 000 сом** (НБКР).
+  потом 2% 2028–29, 5% с 2030). Electric vehicles: 0% duty only **within the EEC quota** (ЕЭК №111, in
+  force 22.01.2026, valid to 31.12.2026; quota 15 000 → 25 000 from 17.08.2026). **Quota exhausted 29.09.2026**
+  (GTS counter on customs.kg: 25 000 / 25 000 / 0) → site computes **15%** via `EV_DUTY_FREE_QUOTA_LEFT=false`
+  in `CustomsCalculatorPage.tsx`; flip back if EEC grants more quota. Deposit guarantee **1 000 000 сом** (НБКР).
 
 ## ⚠️ Working tree
 The repo had ~150 **pre-existing uncommitted files** (a prior 2026-03 update, not from the pilot) +
