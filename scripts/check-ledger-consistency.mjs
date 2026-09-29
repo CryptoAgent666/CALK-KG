@@ -23,13 +23,34 @@
  * Запуск: node scripts/check-ledger-consistency.mjs
  * Код возврата 1 — есть блокирующие расхождения.
  */
-import { readFileSync } from 'node:fs'
+import { readFileSync, existsSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
-const raw = JSON.parse(readFileSync(join(root, 'src/data/regulatory-constants.canonical.json'), 'utf8'))
-const items = Array.isArray(raw) ? raw : raw.constants
+const LEDGERS = [
+  'src/data/regulatory-constants.canonical.json',
+  'lib/data/regulatory-constants.canonical.json',
+  'src/lib/data/regulatory-constants.canonical.json',
+]
+const ledgerPath = LEDGERS.map((p) => join(root, p)).find((p) => existsSync(p))
+if (!ledgerPath) {
+  console.log('реестр не найден — пропускаю'); process.exit(0)
+}
+const raw = JSON.parse(readFileSync(ledgerPath, 'utf8'))
+// Записи лежат под разными ключами: `constants` (calk.kg) или `hardcoded_canonical`
+// (calk.kz, calk-au, calks.uk…). Берём первый список объектов с полем key.
+const items = Array.isArray(raw)
+  ? raw
+  : Object.values(raw).find((v) => Array.isArray(v) && v.length && typeof v[0] === 'object' && 'key' in v[0]) ?? []
+
+// Известные расхождения на момент внедрения гарда: печатаются как предупреждения
+// и деплой НЕ блокируют (идиома pending_fix из check-stale-values). Починил —
+// удали ключ из baseline, дальше он охраняется блокирующе.
+const baselinePath = join(root, 'scripts/ledger-consistency-baseline.json')
+const baseline = existsSync(baselinePath)
+  ? new Set(JSON.parse(readFileSync(baselinePath, 'utf8')).known_mismatches ?? [])
+  : new Set()
 
 const num = (x) => {
   if (x === null || x === undefined) return null
@@ -37,7 +58,7 @@ const num = (x) => {
   return /^-?\d+(\.\d+)?$/.test(s) ? Number(s) : null
 }
 
-let errors = 0
+let errors = 0, warns = 0
 const freeform = []
 const noDate = []
 
@@ -50,14 +71,15 @@ for (const c of items) {
   if (c.official_value != null && o === null) {
     freeform.push(c.key)
   } else if (v !== null && o !== null && Math.abs(v - o) > 1e-9) {
-    errors++
+    const known = baseline.has(c.key)
+    if (known) warns++; else errors++
     const ratio = o !== 0 ? v / o : NaN
     const hint =
       Math.abs(ratio - 0.01) < 1e-6 ? '  ← похоже на единицы: доля вместо процентов (×100)'
       : Math.abs(ratio - 100) < 1e-6 ? '  ← похоже на единицы: проценты вместо доли (÷100)'
       : ''
-    console.log(`✗ ${c.key}: value=${c.value} ≠ official_value=${c.official_value}${hint}`)
-    console.log(`   правил value — подвинь official_value и official_checked, либо объясни расхождение в verify_note`)
+    console.log(`${known ? '⚠ известное' : '✗ НОВОЕ'} ${c.key}: value=${c.value} ≠ official_value=${c.official_value}${hint}`)
+    if (!known) console.log(`   правил value — подвинь official_value и official_checked, либо объясни расхождение в verify_note`)
   }
 
   if (c.status === 'current' && !c.verified_date) noDate.push(c.key)
@@ -71,7 +93,7 @@ if (noDate.length) {
 }
 
 if (errors) {
-  console.log(`\n✗ расхождений value vs official_value: ${errors}`)
+  console.log(`\n✗ НОВЫХ расхождений value vs official_value: ${errors}${warns ? ` (+${warns} известных из baseline)` : ''}`)
   process.exit(1)
 }
-console.log(`\n✓ реестр согласован: ${items.length} записей, расхождений value/official_value нет`)
+console.log(`\n✓ реестр согласован: ${items.length} записей, новых расхождений нет${warns ? ` (${warns} известных ждут разбора)` : ''}`)
