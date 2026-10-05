@@ -520,43 +520,47 @@
       "key": "customs_duty_passenger_new_le3y",
       "value": "15",
       "unit": "percent",
-      "law": "ЕАЭС ЕТТ / ГТС КР",
+      "law": "ЕТТ ЕАЭС (Решение Совета ЕЭК №80), 8703 21–24 / 31–33, новые",
       "theme": "customs",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/CustomsCalculatorPage.tsx:89-96"
       ],
-      "last_updated": "2026-07-08",
+      "last_updated": "2026-10-06",
       "source_hint": "customs.gov.kg / ЕАЭС ЕТТ",
       "conflict": false,
       "status": "current",
-      "notes": "Легковые до 3 лет: пошлина 15% (все объёмы двигателя).",
+      "notes": "Легковые до 3 лет: пошлина 15% (все объёмы двигателя). | Бензин свыше 2800 см³: 2800–3000 — 12,5%, 3000–3500 — 15%, 3500–4200 — 12,5%, >4200 — 10% (как в калькуляторе ГТС). Дизель — 15% при любом объёме.",
       "official_value": "15",
-      "source_url": "https://economist.kg/transport/2025/04/03/v-kyrghyzstanie-podorozhala-rastamozhka-avtomobiliei-otviet-tamozhiennoi-sluzhby/",
+      "source_url": "https://www.alta.ru/tamdoc/21ett003/#gr87",
       "which_surface_correct": "na",
-      "verify_note": "Kyrgyz Customs Service: новые авто (до 3 лет) пошлина 15%, set at EAEU level, uniform across the union. Matches input 15%. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника."
+      "verify_note": "Kyrgyz Customs Service: новые авто (до 3 лет) пошлина 15%, set at EAEU level, uniform across the union. Matches input 15%. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника. | APPLIED 2026-10-06: легковые переведены на ЕТТ ЕАЭС (src/data/customsEtt.ts, getCarDuty): бензин 8703 21–24 (таблица = гибриды «ДВС мощнее»), дизель 8703 31–33 (≤1500: ≥0,32 / 1,5 €; 1500–2500: ≥0,4 / 2,2 €; >2500: ≥0,8 / 3,2 €). Сверено с калькулятором ГТС customs.kg (режим «Общий», PETROL/DIESEL): 44 + 20 точек, совпадение до центов. Возраст как у ГТС: ≤3 лет — новые, 4–7 — 20% с минимумом, >7 — только €/см³. Прежние «15% / 20%» занижали пошлину для машин старше 7 лет в 2–3 раза.",
+      "verified_date": "2026-10-06",
+      "verify_confidence": "high"
     },
     {
       "id": "customs-calculator__customs_duty_passenger_used_gt3y",
       "calculator": "customs-calculator",
       "key": "customs_duty_passenger_used_gt3y",
-      "value": "20",
+      "value": "4–7 лет: 20%, но ≥0,32–0,8 €/см³; >7 лет: 1,4–3,2 €/см³ (бензин 1,4/1,5/1,6/2,2/3,2; дизель 1,5/2,2/3,2)",
       "unit": "percent",
-      "law": "ЕАЭС ЕТТ / ГТС КР",
+      "law": "ЕТТ ЕАЭС (Решение Совета ЕЭК №80), 8703 21–24 / 31–33, бывшие в эксплуатации",
       "theme": "customs",
       "is_gov_regulated": true,
       "surfaces": [
         "src/pages/CustomsCalculatorPage.tsx:98-105"
       ],
-      "last_updated": "2026-07-08",
+      "last_updated": "2026-10-06",
       "source_hint": "customs.gov.kg / ЕАЭС ЕТТ",
       "conflict": false,
       "status": "current",
       "notes": "Легковые старше 3 лет: пошлина 20% (все объёмы).",
-      "official_value": "20",
-      "source_url": "https://economist.kg/transport/2025/04/03/v-kyrghyzstanie-podorozhala-rastamozhka-avtomobiliei-otviet-tamozhiennoi-sluzhby/",
+      "official_value": "4–7 лет: 20%, но ≥0,32–0,8 €/см³; >7 лет: 1,4–3,2 €/см³ (бензин 1,4/1,5/1,6/2,2/3,2; дизель 1,5/2,2/3,2)",
+      "source_url": "https://www.alta.ru/tamdoc/21ett003/#gr87",
       "which_surface_correct": "na",
-      "verify_note": "Kyrgyz Customs Service: подержанные авто (старше 3 лет) пошлина 20%, EAEU-level uniform rate. Matches input 20%. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника."
+      "verify_note": "Kyrgyz Customs Service: подержанные авто (старше 3 лет) пошлина 20%, EAEU-level uniform rate. Matches input 20%. | Ре-верифицировано 2026-07-08 (сессия 06-30…07-08): значение подтверждено, без изменений. Монитор ре-флагал по смене хеша источника. | APPLIED 2026-10-06: легковые переведены на ЕТТ ЕАЭС (src/data/customsEtt.ts, getCarDuty): бензин 8703 21–24 (таблица = гибриды «ДВС мощнее»), дизель 8703 31–33 (≤1500: ≥0,32 / 1,5 €; 1500–2500: ≥0,4 / 2,2 €; >2500: ≥0,8 / 3,2 €). Сверено с калькулятором ГТС customs.kg (режим «Общий», PETROL/DIESEL): 44 + 20 точек, совпадение до центов. Возраст как у ГТС: ≤3 лет — новые, 4–7 — 20% с минимумом, >7 — только €/см³. Прежние «15% / 20%» занижали пошлину для машин старше 7 лет в 2–3 раза.",
+      "verified_date": "2026-10-06",
+      "verify_confidence": "high"
     },
     {
       "id": "customs-calculator__customs_duty_truck",

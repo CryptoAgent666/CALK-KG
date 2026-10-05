@@ -1,5 +1,6 @@
 // ============================================================================
-// Ставки ввозной пошлины ЕТТ ЕАЭС для гибридов (8703 40 / 8703 60) и грузовых (8704)
+// Ставки ввозной пошлины ЕТТ ЕАЭС: легковые (8703 21–24 бензин, 8703 31–33 дизель),
+// гибриды (8703 40 / 8703 60) и грузовые (8704)
 // ============================================================================
 // Первоисточник: Единый таможенный тариф ЕАЭС, Решение Совета ЕЭК №80 от 14.09.2021,
 // группа 87 (сводный текст: alta.ru/tamdoc/21ett003/#gr87). Сверено 2026-10-06.
@@ -15,6 +16,7 @@
 
 export type HybridKind = 'ice' | 'electric';
 export type TruckFuel = 'diesel' | 'petrol';
+export type CarFuel = 'petrol' | 'diesel';
 
 /**
  * Пошлина = max(стоимость × adValorem, объём × minEurPerCm3 × курс EUR/USD),
@@ -54,6 +56,27 @@ export const getHybridDuty = (age: number, volume: number, kind: HybridKind): Du
     return { adValorem: 0.1 };
   }
   const [, minEur, specificEur] = HYBRID_ICE_USED.find(([max]) => volume <= max)!;
+  if (age >= USED_SPECIFIC_FROM_AGE) return { adValorem: 0, eurPerCm3: specificEur };
+  return { adValorem: 0.2, minEurPerCm3: minEur };
+};
+
+// Легковой с дизелем (8703 31–33), б/у: [верхняя граница объёма, мин. €/см³, €/см³ старше 7 лет]
+const DIESEL_CAR_USED: Array<[number, number, number]> = [
+  [1500, 0.32, 1.5], // 8703 31 909
+  [2500, 0.4, 2.2], // 8703 32 909
+  [Infinity, 0.8, 3.2], // 8703 33 909
+];
+
+/**
+ * Легковой автомобиль с ДВС. Бензиновые строки ЕТТ (8703 21–24) по ставкам и границам
+ * объёма совпадают с гибридами «ДВС мощнее электромотора» (8703 40), поэтому бензин
+ * считается той же функцией — именно так поступает и калькулятор ГТС («бензин,
+ * бензиновый гибрид»). Дизель: новые 15% при любом объёме (проверено по ГТС до 4300 см³).
+ */
+export const getCarDuty = (age: number, volume: number, fuel: CarFuel): DutyRule => {
+  if (fuel === 'petrol') return getHybridDuty(age, volume, 'ice');
+  if (age <= NEW_MAX_AGE) return { adValorem: 0.15 };
+  const [, minEur, specificEur] = DIESEL_CAR_USED.find(([max]) => volume <= max)!;
   if (age >= USED_SPECIFIC_FROM_AGE) return { adValorem: 0, eurPerCm3: specificEur };
   return { adValorem: 0.2, minEurPerCm3: minEur };
 };

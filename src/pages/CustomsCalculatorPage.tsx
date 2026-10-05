@@ -15,10 +15,12 @@ import {
 import { formatVerifiedMonth } from '../utils/dateFormatter';
 import { useCurrencyRates } from '../hooks/useCurrencyRates';
 import {
+  getCarDuty,
   getHybridDuty,
   getTruckDuty,
   applyDutyRule,
   type DutyRule,
+  type CarFuel,
   type HybridKind,
   type TruckFuel
 } from '../data/customsEtt';
@@ -60,20 +62,17 @@ const EUR_PER_USD_FALLBACK = 98.0446 / 87.45;
 // Актуальные ставки таможенных пошлин КР согласно единым тарифам ЕАЭС (2026)
 // С учетом льгот для электромобилей и гибридов
 const getDutyRate = (
-  year: number, 
-  engineVolume: number, 
+  _year: number,
+  engineVolume: number,
   vehicleType: VehicleType = 'passenger',
-  truckWeight?: number
+  _truckWeight?: number
 ): { dutyRate: number; exciseRate: number } => {
-  const currentYear = new Date().getFullYear();
-  const age = currentYear - year;
-
   // Электромобили: 0% в пределах квоты ЕЭК, иначе 15% (см. EV_DUTY_FREE_QUOTA_LEFT).
   if (vehicleType === 'electric') {
     return { dutyRate: EV_DUTY_FREE_QUOTA_LEFT ? 0 : EV_STANDARD_DUTY_RATE, exciseRate: 0 };
   }
 
-  // Гибриды и грузовые считаются по ЕТТ в calculateCustoms (src/data/customsEtt.ts):
+  // Легковые, гибриды и грузовые считаются по ЕТТ в calculateCustoms (src/data/customsEtt.ts):
   // там ставки зависят от объёма и возраста и бывают в евро за 1 см³.
   // Авто в КР НЕ облагаются акцизом (НК КР ст.334 — нет ТН ВЭД 8703 в перечне подакцизных).
 
@@ -85,25 +84,8 @@ const getDutyRate = (
     return { dutyRate: 0.10, exciseRate: 0 };
   }
 
-  // Легковые автомобили: стандартные ставки ЕАЭС
-  // Новые автомобили (до 3 лет)
-  if (age <= 3) {
-    if (engineVolume <= 1000) return { dutyRate: 0.15, exciseRate: 0 };
-    if (engineVolume <= 1500) return { dutyRate: 0.15, exciseRate: 0 };
-    if (engineVolume <= 1800) return { dutyRate: 0.15, exciseRate: 0 };
-    if (engineVolume <= 2300) return { dutyRate: 0.15, exciseRate: 0 };
-    if (engineVolume <= 3000) return { dutyRate: 0.15, exciseRate: 0 };
-    return { dutyRate: 0.15, exciseRate: 0 };
-  }
-  // Подержанные автомобили (старше 3 лет)
-  else {
-    if (engineVolume <= 1000) return { dutyRate: 0.20, exciseRate: 0 };
-    if (engineVolume <= 1500) return { dutyRate: 0.20, exciseRate: 0 };
-    if (engineVolume <= 1800) return { dutyRate: 0.20, exciseRate: 0 };
-    if (engineVolume <= 2300) return { dutyRate: 0.20, exciseRate: 0 };
-    if (engineVolume <= 3000) return { dutyRate: 0.20, exciseRate: 0 };
-    return { dutyRate: 0.20, exciseRate: 0 };
-  }
+  // Легковые считаются по ЕТТ в calculateCustoms (getCarDuty); сюда доходят только они.
+  return { dutyRate: 0, exciseRate: 0 };
 };
 
 const CustomsCalculatorPage = () => {
@@ -114,6 +96,7 @@ const CustomsCalculatorPage = () => {
   const [engineVolume, setEngineVolume] = useState<string>('');
   const [customsValue, setCustomsValue] = useState<string>('');
   const [truckWeight, setTruckWeight] = useState<string>('3.5');
+  const [carFuel, setCarFuel] = useState<CarFuel>('petrol');
   const [hybridKind, setHybridKind] = useState<HybridKind>('ice');
   const [truckFuel, setTruckFuel] = useState<TruckFuel>('diesel');
   const { rates, isLive: ratesLive } = useCurrencyRates();
@@ -176,7 +159,7 @@ const CustomsCalculatorPage = () => {
     type: VehicleType = 'passenger',
     weight?: number
   ): CustomsResults => {
-    const needsVolume = type === 'motorcycle' || type === 'hybrid' || type === 'truck';
+    const needsVolume = type !== 'electric';
     // Объём двигателя влияет на ставку только у мотоциклов. Раньше он требовался
     // для всех типов, и электромобиль (без двигателя) всегда давал 0 к оплате.
     if (value <= 0 || carYear <= 0 || (needsVolume && volume <= 0)) {
@@ -201,7 +184,8 @@ const CustomsCalculatorPage = () => {
     // минимумом в евро за 1 см³ или (старше 7 лет) только евро за 1 см³.
     const age = new Date().getFullYear() - carYear;
     const dutyRule =
-      type === 'hybrid' ? getHybridDuty(age, volume, hybridKind)
+      type === 'passenger' ? getCarDuty(age, volume, carFuel)
+      : type === 'hybrid' ? getHybridDuty(age, volume, hybridKind)
       : type === 'truck' ? getTruckDuty(age, volume, weight || 3.5, truckFuel)
       : undefined;
     const customsDuty = dutyRule ? applyDutyRule(dutyRule, value, volume, eurPerUsd) : value * dutyRate;
@@ -258,7 +242,7 @@ const CustomsCalculatorPage = () => {
     const value = parseFloat(customsValue) || 0;
     const weight = parseFloat(truckWeight) || 3.5;
 
-    const needsVolume = vehicleType === 'motorcycle' || vehicleType === 'hybrid' || vehicleType === 'truck';
+    const needsVolume = vehicleType !== 'electric';
     if (carYear > 0 && value > 0 && (!needsVolume || volume > 0)) {
       setResults(calculateCustoms(carYear, volume, value, vehicleType, weight));
     } else {
@@ -272,7 +256,7 @@ const CustomsCalculatorPage = () => {
         benefitAmount: 0 
       });
     }
-  }, [year, engineVolume, customsValue, vehicleType, truckWeight, hybridKind, truckFuel, eurPerUsd]);
+  }, [year, engineVolume, customsValue, vehicleType, truckWeight, carFuel, hybridKind, truckFuel, eurPerUsd]);
 
   // Обновление дополнительных расходов
   useEffect(() => {
@@ -515,6 +499,22 @@ const CustomsCalculatorPage = () => {
                     <p className="text-xs text-amber-800 mt-1">
                       {t('customs_ev_quota_over_text')}
                     </p>
+                  </div>
+                )}
+                {vehicleType === 'passenger' && (
+                  <div className="mt-3">
+                    <label htmlFor="carFuel" className="block text-sm font-medium text-gray-700 mb-2">
+                      {t('customs_truck_fuel_label')}
+                    </label>
+                    <select
+                      id="carFuel"
+                      value={carFuel}
+                      onChange={(e) => setCarFuel(e.target.value as CarFuel)}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-base"
+                    >
+                      <option value="petrol">{t('customs_truck_fuel_petrol')}</option>
+                      <option value="diesel">{t('customs_truck_fuel_diesel')}</option>
+                    </select>
                   </div>
                 )}
                 {vehicleType === 'hybrid' && (
