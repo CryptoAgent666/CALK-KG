@@ -76,6 +76,8 @@ export const useCurrencyRates = () => {
   const [history, setHistory] = useState<CurrencyHistory>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  // true — курсы получены от API НБКР; false — показаны встроенные запасные значения
+  const [isLive, setIsLive] = useState(false);
 
   useEffect(() => {
     fetchRates();
@@ -93,29 +95,33 @@ export const useCurrencyRates = () => {
       const netlifyFallbackUrl = 'https://magenta-axolotl-a06a72.netlify.app/.netlify/functions/currency-rates';
       
       // Сначала пробуем через Netlify Function
+      // Ответ обязан быть JSON с курсами: статический хостинг (и vite preview) на
+      // неизвестный путь может вернуть 200 с HTML-страницей — это тоже отказ API.
       const fetchApi = async (url: string) => {
         const response = await fetch(url);
         if (!response.ok) {
           throw new Error(`API returned ${response.status}`);
         }
-        return response;
+        const json = await response.json();
+        if (!json || typeof json !== 'object' || !json.rates) {
+          throw new Error('API returned no rates');
+        }
+        return json;
       };
 
-      let response;
+      let data;
       try {
-        response = await fetchApi(primaryApiUrl);
+        data = await fetchApi(primaryApiUrl);
       } catch (err) {
         // Если функция недоступна на текущем домене, пробуем Netlify fallback
         if (import.meta.env.PROD && primaryApiUrl !== netlifyFallbackUrl) {
           console.warn('Primary currency API unavailable, trying Netlify fallback');
-          response = await fetchApi(netlifyFallbackUrl);
+          data = await fetchApi(netlifyFallbackUrl);
         } else {
           throw new Error('Netlify Function unavailable');
         }
       }
 
-      const data = await response.json();
-      
       if (data.fallback) {
         console.warn('Using fallback rates from API');
       }
@@ -151,6 +157,7 @@ export const useCurrencyRates = () => {
       };
       
       setRates(updatedRates);
+      setIsLive(!data.fallback);
       
       // Генерируем исторические данные для всех валют
       const newHistory: CurrencyHistory = {};
@@ -227,6 +234,7 @@ export const useCurrencyRates = () => {
     history,
     loading,
     error,
+    isLive,
     convert,
     getHistory,
     refresh: fetchRates
