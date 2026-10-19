@@ -41,7 +41,10 @@ The site hard-codes hundreds of government-set values. They are inventoried + fr
 - ⚠️ **Superseded later (re-verified by primary sources; ledger is authoritative):** heating stays
   **1 950** сом/Гкал (приказ №105 / №42, 17.08.2026), NOT 1 560; «үй-бүлөгө көмөк» stays **1 200**/child
   (1 500 is the ГМД threshold, 27.07.2026); traffic-fine статьи were re-checked verbatim in 07.2026 —
-  only 7 items flagged in `trafficFines.ts` remain.
+  only 7 items flagged in `trafficFines.ts` remain. **2026-10-20:** fines re-verified verbatim vs КоП ред. 09.10.2026
+  (cbd.minjust GetEdition 60031): опьянение (алкоголь И наркотики) ст.193 ч.1 = **80 000** + 2 года, отказ = 100 000 + 3 года,
+  оставление ДТП ст.192 ч.4 = **20 000** + 6 мес.; скидка 70% размечена по списку исключений ст.563 ч.5, не по «лишению прав».
+  The June press figure «30 000» (rg.ru/economist.kg) was never in the law.
 - ⚠️ **Deferred (structural, NOT applied):** sick-leave bracket logic (3–5 yr must be 60% not 80%;
   5–8 yr 80% not 100%; first 10 working days; cap 10 000/mo), scholarship semantics (academic 800/mo,
   president 60 000 one-time), ~19 traffic-fine **статья** relabels, gas/electricity narrative prose
