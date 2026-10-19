@@ -9,14 +9,15 @@ export interface TrafficFine {
 }
 
 // База данных штрафов ПДД Кыргызстана
-// АКТУАЛЬНО НА: июль 2026. Номера статей и суммы сверены ВЕРБАТИМ с текстом Кодекса КР о правонарушениях №128
-// (машиночитаемая копия ред. до Закона №253 от 06.11.2025): 31/40 позиций совпали автоматически, 9 разобраны вручную.
-// ⚠️ Закон №81 от 05.06.2026 переписал ст.193 (опьянение): суммы 30 000 / 100 000 подтверждены двумя независимыми
-// источниками (rg.ru 24.06.2026, economist.kg 10.06.2026); дословный текст новой ст.193 машинно недоступен —
-// сроки лишения прав (2 года vs 3–10 лет) требуют сверки, когда появится читаемая редакция.
-// ⚠️ Требуют отдельной сверки (статья и/или сумма): parking_disabled, no_child_seat, cargo_overload_20(_plus), overtaking_crosswalk, railway_crossing, illegal_signals, passenger_rules.
-// Суммы и статьи сверены с Кодексом КР о правонарушениях №128 (ред. 23.04.2026): 1 РП = 100 сом.
-// Источник: cbd.minjust.gov.kg (№128), joldo.kg, ЦИК КР. drugs/leave_accident — лишение прав (0 сом).
+// АКТУАЛЬНО НА: октябрь 2026. Суммы, статьи и скидка сверены ВЕРБАТИМ 20.10.2026 с действующей редакцией
+// Кодекса КР о правонарушениях №128 от 09.10.2026 (cbd.minjust.gov.kg, GetEdition id=60031, текст на кыргызском), 1 РП = 100 сом.
+// Закон №81 от 05.06.2026: ст.193 ч.1 (алкогольное И наркотическое опьянение) — 800 РП + лишение прав на 2 года;
+// ст.193 ч.2 (отказ от освидетельствования) — 1000 РП + лишение на 3 года; ст.192 ч.4 (оставление места ДТП) — 200 РП + лишение на 6 мес.
+// Скидка 70% (ст.563 ч.5) — по СПИСКУ исключений, а не по наличию лишения прав: НЕ применяется к ст.177–181, 182 ч.4, 184 ч.3,
+// 185, 187 ч.3–4, 189, 193, 194 ч.3, 195–200-2, 449; ко всем остальным статьям гл.21 (в т.ч. 192 ч.4 с лишением) — применяется.
+// ⚠️ Требуют отдельной сверки (какая часть статьи): parking_disabled, no_child_seat, cargo_overload_20_plus (в ст.181 нет «свыше 20%»),
+// overtaking_prohibited/overtaking_crosswalk (ст.188 ч.5 — только с выездом на встречную, иначе ч.1 = 10 РП), railway_crossing.
+// Источник: cbd.minjust.gov.kg (№128).
 export const TRAFFIC_FINES: TrafficFine[] = [
   // Скоростной режим
   {
@@ -40,7 +41,7 @@ export const TRAFFIC_FINES: TrafficFine[] = [
     categoryId: 'speed',
     fine: 7500,
     article: 'Ст. 187 ч. 3',
-    notesId: 'discount_70',
+    notesId: 'no_discount',
     keywords: ['превышение', 'скорость', '40-60', 'км/ч']
   },
   {
@@ -48,7 +49,7 @@ export const TRAFFIC_FINES: TrafficFine[] = [
     categoryId: 'speed',
     fine: 15000,
     article: 'Ст. 187 ч. 4',
-    notesId: 'no_discount_license_6mo',
+    notesId: 'no_discount',
     keywords: ['превышение', 'скорость', '60', 'км/ч', 'лишение']
   },
 
@@ -66,7 +67,7 @@ export const TRAFFIC_FINES: TrafficFine[] = [
     categoryId: 'traffic_rules',
     fine: 15000,
     article: 'Ст. 188 ч. 5',
-    notesId: 'no_discount_license_4_6mo',
+    notesId: 'discount_70',
     keywords: ['встречная', 'полоса', 'выезд', 'лобовое']
   },
   {
@@ -154,11 +155,11 @@ export const TRAFFIC_FINES: TrafficFine[] = [
     keywords: ['неисправность', 'техническое', 'состояние', 'тормоза', 'свет']
   },
 
-  // Алкогольное опьянение (реформа июнь 2026: штраф + лишение прав на 2 года; отказ — 100 000 сом)
+  // Алкогольное опьянение (Закон №81 от 05.06.2026: ст.193 ч.1 — 800 РП + лишение на 2 года; ч.2 отказ — 1000 РП + лишение на 3 года)
   {
     id: 'alcohol_driving',
     categoryId: 'alcohol',
-    fine: 30000,
+    fine: 80000,
     article: 'Ст. 193 ч. 1',
     notesId: 'no_discount_license_2y',
     keywords: ['алкоголь', 'опьянение', 'пьяный', 'нетрезвый', 'выпил']
@@ -168,7 +169,7 @@ export const TRAFFIC_FINES: TrafficFine[] = [
     categoryId: 'alcohol',
     fine: 100000,
     article: 'Ст. 193 ч. 2',
-    notesId: 'no_discount_license_2y',
+    notesId: 'no_discount_license_3y',
     keywords: ['отказ', 'медицинское', 'освидетельствование', 'алкотестер']
   },
 
@@ -224,7 +225,7 @@ export const TRAFFIC_FINES: TrafficFine[] = [
     categoryId: 'plates',
     fine: 10000,
     article: 'Ст. 182 ч. 4',
-    notesId: 'discount_70_driving_ban',
+    notesId: 'no_discount',
     keywords: ['номера', 'регистрационные', 'знаки', 'отсутствие']
   },
   {
@@ -232,7 +233,7 @@ export const TRAFFIC_FINES: TrafficFine[] = [
     categoryId: 'plates',
     fine: 20000,
     article: 'Ст. 449 ч. 1',
-    notesId: 'no_discount_confiscation',
+    notesId: 'no_discount',
     keywords: ['подложные', 'поддельные', 'измененные', 'номера']
   },
 
@@ -242,7 +243,7 @@ export const TRAFFIC_FINES: TrafficFine[] = [
     categoryId: 'passengers',
     fine: 3000,
     article: 'Ст. 199 ч. 7',
-    notesId: 'discount_70',
+    notesId: 'no_discount',
     keywords: ['пассажиры', 'перевозка', 'правила', 'нарушение']
   },
 
@@ -252,7 +253,7 @@ export const TRAFFIC_FINES: TrafficFine[] = [
     categoryId: 'cargo',
     fine: 17500,
     article: 'Ст. 181 ч. 1',
-    notesId: 'discount_70',
+    notesId: 'no_discount',
     keywords: ['перегруз', 'масса', 'груз', '20%', 'превышение']
   },
   {
@@ -260,7 +261,7 @@ export const TRAFFIC_FINES: TrafficFine[] = [
     categoryId: 'cargo',
     fine: 20000,
     article: 'Ст. 181 ч. 1',
-    notesId: 'discount_70_driving_ban_unload',
+    notesId: 'no_discount_unload',
     keywords: ['перегруз', 'масса', 'груз', 'повторно', 'год']
   },
 
@@ -278,7 +279,7 @@ export const TRAFFIC_FINES: TrafficFine[] = [
     categoryId: 'overtaking',
     fine: 15000,
     article: 'Ст. 188 ч. 5',
-    notesId: 'no_discount',
+    notesId: 'discount_70',
     keywords: ['обгон', 'пешеходный', 'переход', 'зебра']
   },
 
@@ -306,7 +307,7 @@ export const TRAFFIC_FINES: TrafficFine[] = [
     categoryId: 'railway',
     fine: 1000,
     article: 'Ст. 188 ч. 1',
-    notesId: 'no_discount_license_3_6mo',
+    notesId: 'discount_70',
     keywords: ['железнодорожный', 'переезд', 'поезд', 'шлагбаум']
   },
 
@@ -314,9 +315,9 @@ export const TRAFFIC_FINES: TrafficFine[] = [
   {
     id: 'drugs',
     categoryId: 'drugs',
-    fine: 0,
+    fine: 80000,
     article: 'Ст. 193 ч. 1',
-    notesId: 'no_discount_license_2_3y',
+    notesId: 'no_discount_license_2y',
     keywords: ['наркотики', 'наркотическое', 'опьянение', 'наркологический']
   },
 
@@ -324,9 +325,9 @@ export const TRAFFIC_FINES: TrafficFine[] = [
   {
     id: 'leave_accident',
     categoryId: 'accident',
-    fine: 0,
+    fine: 20000,
     article: 'Ст. 192 ч. 4',
-    notesId: 'no_discount_license_6mo',
+    notesId: 'discount_70_license_6mo',
     keywords: ['ДТП', 'оставление', 'место', 'авария', 'скрылся']
   },
 
@@ -336,7 +337,7 @@ export const TRAFFIC_FINES: TrafficFine[] = [
     categoryId: 'signals',
     fine: 5500,
     article: 'Ст. 194 ч. 2',
-    notesId: 'no_discount_confiscation',
+    notesId: 'discount_70_removal',
     keywords: ['спецсигналы', 'мигалка', 'сирена', 'незаконное']
   },
 
