@@ -15,8 +15,11 @@ const BASE_URL = 'https://calk.kg';
 
 // Map route slugs to relevant source files for git date tracking
 const getRelevantFiles = (slug) => {
-  const base = slug.replace(/-/g, '_');
+  const camel = toPascalCase(slug).replace(/^./, (c) => c.toLowerCase());
   return [
+    // Calculator data (constants live here, e.g. src/data/trafficFines.ts) — a fix there is a real page change.
+    `src/data/${camel}.ts`,
+    `src/data/${camel}Data.ts`,
     `src/pages/${toPascalCase(slug)}Page.tsx`,
     `src/pages/${toPascalCase(slug)}CalculatorPage.tsx`,
     `src/components/${toPascalCase(slug)}Article.tsx`,
@@ -28,7 +31,10 @@ function toPascalCase(str) {
   return str.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join('');
 }
 
+// Latest commit date across ALL existing files, not the first one found: the page component
+// rarely changes, while its data file does (traffic fines 20.10.2026 kept lastmod 28.09).
 function getLastModifiedDate(files) {
+  let latest = '';
   for (const file of files) {
     const fullPath = join(rootDir, file);
     if (existsSync(fullPath)) {
@@ -36,14 +42,14 @@ function getLastModifiedDate(files) {
         const date = execSync(
           `git log -1 --format=%aI -- "${file}"`,
           { cwd: rootDir, encoding: 'utf8' }
-        ).trim();
-        if (date) return date.split('T')[0];
+        ).trim().split('T')[0];
+        if (date > latest) latest = date;
       } catch {
         // fallback
       }
     }
   }
-  return new Date().toISOString().split('T')[0];
+  return latest || new Date().toISOString().split('T')[0];
 }
 
 function getRoutesFromApp() {
@@ -64,6 +70,7 @@ function generateSitemap() {
   ];
 
   const urls = [];
+  const appSource = readFileSync(appPath, 'utf-8');
 
   for (const route of allPaths) {
     const slug = route.path.replace('/calculator/', '').replace('/', '') || 'home';
@@ -75,7 +82,10 @@ function generateSitemap() {
     } else if (route.type === 'static') {
       lastmod = getLastModifiedDate([`src/pages/${toPascalCase(slug)}Page.tsx`]);
     } else {
-      lastmod = getLastModifiedDate(getRelevantFiles(slug));
+      // The routed component is the real page file; slug-derived names miss e.g. StudentScholarshipPage.
+      const el = appSource.match(new RegExp(`path:\\s*'${route.path.slice(1)}',\\s*element:\\s*<(\\w+)`));
+      const routed = el ? [`src/pages/${el[1]}.tsx`] : [];
+      lastmod = getLastModifiedDate([...routed, ...getRelevantFiles(slug)]);
     }
 
     // Add trailing slash for calculator/static pages to match nginx 301 redirect behavior.
