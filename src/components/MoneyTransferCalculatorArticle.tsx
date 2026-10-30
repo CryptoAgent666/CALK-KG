@@ -6,7 +6,7 @@ export const MoneyTransferCalculatorArticle: React.FC = () => {
   const { language, t } = useLanguage();
   
   return (
-    <CalculatorArticle lastUpdated="2026-09-28" slug="money-transfer">
+    <CalculatorArticle lastUpdated="2026-10-30" slug="money-transfer">
     <ArticleSection title={t('moneytransfer_article_what_title')}>
       <p className="text-gray-700 leading-relaxed mb-4">
         {t('moneytransfer_article_what_intro')}
@@ -21,16 +21,12 @@ export const MoneyTransferCalculatorArticle: React.FC = () => {
         <p className="text-sm font-semibold mb-3">{t('moneytransfer_systems_title')}</p>
         <div className="space-y-3">
           <div>
-            <h4 className="font-semibold text-sm">{t('moneytransfer_koronapay')}</h4>
-            <p className="text-xs text-gray-600">{t('moneytransfer_koronapay_desc')}</p>
+            <h4 className="font-semibold text-sm">{t('moneytransfer_unistream')}</h4>
+            <p className="text-xs text-gray-600">{t('moneytransfer_unistream_desc')}</p>
           </div>
           <div>
-            <h4 className="font-semibold text-sm">{t('moneytransfer_golden_crown')}</h4>
-            <p className="text-xs text-gray-600">{t('moneytransfer_golden_crown_desc')}</p>
-          </div>
-          <div>
-            <h4 className="font-semibold text-sm">{t('moneytransfer_contact')}</h4>
-            <p className="text-xs text-gray-600">{t('moneytransfer_contact_desc')}</p>
+            <h4 className="font-semibold text-sm">{t('moneytransfer_moneygram')}</h4>
+            <p className="text-xs text-gray-600">{t('moneytransfer_moneygram_desc')}</p>
           </div>
           <div>
             <h4 className="font-semibold text-sm">{t('moneytransfer_western_union')}</h4>

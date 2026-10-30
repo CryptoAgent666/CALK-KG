@@ -23,7 +23,7 @@ Calk.KG предлагает 35+ калькуляторов, охватываю�
 - [Автокредит](https://calk.kg/calculator/auto-loan): Расчёт автокредита с графиком платежей.
 - [Депозитный калькулятор](https://calk.kg/calculator/deposit): Расчёт доходности вклада с капитализацией процентов.
 - [Обмен валют](https://calk.kg/calculator/currency-exchange): Актуальные курсы НБКР для USD, EUR, RUB, KZT, CNY.
-- [Денежные переводы](https://calk.kg/calculator/money-transfer): Сравнение 7 систем переводов (КоронаПэй, Золотая Корона, Contact и др.)
+- [Денежные переводы](https://calk.kg/calculator/money-transfer): Сравнение 3 систем переводов (Unistream, Western Union, MoneyGram)
 
 ## Налоговые калькуляторы
 

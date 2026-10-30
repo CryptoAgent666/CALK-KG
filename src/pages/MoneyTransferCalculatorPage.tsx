@@ -25,7 +25,7 @@ const MoneyTransferCalculatorPage = () => {
   const [sendAmount, setSendAmount] = useState('100');
   const [fromCurrency, setFromCurrency] = useState('USD');
   const [toCurrency, setToCurrency] = useState('KGS');
-  const [selectedServices, setSelectedServices] = useState<string[]>(['koronapay', 'golden-crown', 'contact']);
+  const [selectedServices, setSelectedServices] = useState<string[]>(['unistream', 'western-union', 'moneygram']);
   const [results, setResults] = useState<TransferResult[]>([]);
 
   const currencies = [
@@ -326,6 +326,23 @@ const MoneyTransferCalculatorPage = () => {
                   })}
                 </div>
               )}
+
+              {/* Tariff and registry notice */}
+              <div className="mt-6 bg-amber-50 border border-amber-200 rounded-xl p-6 text-sm text-amber-900">
+                <p className="mb-3">{t('moneytransfer_estimate_note')}</p>
+                <p className="font-semibold mb-1">{t('moneytransfer_removed_title')}</p>
+                <p>
+                  {t('moneytransfer_removed_text')}{' '}
+                  <a
+                    href="https://www.nbkr.kg/index1.jsp?item=2665&lang=RUS"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline"
+                  >
+                    {t('moneytransfer_registry_link')}
+                  </a>
+                </p>
+              </div>
 
               {/* Comparison Info */}
               {results.length > 1 && bestService && (

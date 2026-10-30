@@ -117,6 +117,11 @@
           "NPF yields (dostuk/ishenim/kyrgyzstan/kyzylbash) — сняты 2026-06-28"
         ],
         "important": "generate-static-html.js рендерит из src/i18n/translations.ts НЕ только meta: FAQPage JSON-LD и видимые SEO-абзацы — legacy файл обновлён теми же значениями (80 замен)."
+      },
+      {
+        "date": "2026-10-30",
+        "summary": "Реестр НБКР: из калькулятора переводов убраны Contact, Золотая Корона/Koronapay, Migom; запись тарифов переведена в uncertain, note переписан в UTF-8. tariff_heating сведён с кодом (1560 → 1950).",
+        "source": "https://www.nbkr.kg/index1.jsp?item=2665&lang=RUS"
       }
     ],
     "surfaces_legend": {
@@ -1998,12 +2003,14 @@
       "status": "current",
       "notes": "COMPUTE bishkek.heating.tariff_per_gcal — Bishkek social tariff (up to 80 m²); over 80 m² by cost ~5998 сом/Гкал per code comment (not modeled). MISMATCH vs i18n prose heating_example_gcal/heating_faq_a6_item1 which use 1134.76 сом/Гкал, and heating_central_rate=1450 — both stale; compute authoritative.",
       "official_value": "1950.00",
-      "source_url": "https://knews.kg/2025/01/17/v-merii-bishkeka-dali-razyasnenie-otnositelno-nachisleniya-za-otoplenie/",
+      "source_url": "https://www.bishkek.gov.kg/ru/tariffs/2",
       "which_surface_correct": "compute",
-      "verify_note": "Official Bishkek social heating tariff (жильё до 80 м²) = 1560 сом/Гкал from 01.03.2026 (Приказ ДТЭК №42 от 10.03.2026; was 1248/1120). Over-80-m² portion billed at ~5998.17 сом/Гкал — confirmed. BOTH surfaces wrong: COMPUTE 1950 too high, PROSE 1450 too low. COMPUTE is the better/intended-current surface but the value should be updated to 1560. | RE-VERIFIED 2026-07-08 (workflow regultek): социальный тариф <=80 м2 = 1560 сом/Гкал ПОДТВЕРЖДЁН по приказу №42 от 10.03.2026 — несколько источников цитируют приказ дословно (teplo.com.kg/new-tarifs, kaktus 532974, регультек №105 PDF). ГВС 108.07 сом/м3 тоже подтверждён (совпадает с сайтом). '1950' — ОШИБКА sub-агента (не встречается ни в одном первоисточном описании приказа №42; вероятно спутал с предложенным/отменённым значением). Правку 1560->1950 применил и ОТКАТИЛ (git checkout) до деплоя — сайт не менялся. WATCH: плановый +50% с 01.06.2026 (среднесрочная политика) на 2026-07-08 НЕ введён — доказательство: ГВС остался 108.07 (при +50% был бы ~162), после №42 энергетических приказов нет (только №127 от 25.06.2026 — техобслуживание). Если введут: <=80 м2 -> 2340, ГВС -> ~162. | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется. | 🔴 STALE_CONFIRMED 2026-08-17 (tier2). Действующий соц. тариф ≤80 м² = 1950,00 сом/Гкал, НЕ 1560. Два независимых ПЕРВОИСТОЧНИКА прочитаны вербатим: (1) PDF приказа ДРТЭК №105 от 30.05.2025 с сайта регулятора regultek.gov.kg — приложение, строка «1.1. до 80 м2 в месяц | сом/Гкал | 1 950,0»; п.4 того же приказа ПРЯМО признаёт утратившим силу приказ №85 от 31.05.2024 (где и было 1560). (2) Официальная таблица МП «Бишкектеплосеть» (teploseti.kg) по действующему приказу №42 от 10.03.2026, с 01.03.2026: 1950,00. Цепочка: 1248 (01.06.2023) → 1560 (приказ №85, 01.06.2024) → 1950 (приказ №105, 01.06.2025) → 1950 (приказ №42, 01.03.2026). ⚠️ ОТМЕНЯЕТ ПРЕЖНИЙ ЗАПРЕТ: verify_note от 2026-07-08 объявлял 1950 «ошибкой суб-агента» и зафиксировал откат правки — ЭТО БЫЛО НЕВЕРНО. Прежний вывод опирался на teplo.com.kg, а это НЕ Бишкектеплосеть, а частный продавец теплосчётчиков «Пульс» (перепечатка Kaktus.media), и на «совпадает с сайтом» — то есть на сам аудируемый сайт (круговая проверка). Собственное поле law реестра при этом само говорило «№105 +25% с 01.06.2025», а 1560×1,25 = 1950 — противоречие внутри записи. НЕ откатывать снова. | ✅ ПРИМЕНЕНО 2026-08-17: HeatingCalculatorPage.tsx + проза RU/KY/мастер, worked examples пересчитаны.",
+      "verify_note": "Official Bishkek social heating tariff (жильё до 80 м²) = 1560 сом/Гкал from 01.03.2026 (Приказ ДТЭК №42 от 10.03.2026; was 1248/1120). Over-80-m² portion billed at ~5998.17 сом/Гкал — confirmed. BOTH surfaces wrong: COMPUTE 1950 too high, PROSE 1450 too low. COMPUTE is the better/intended-current surface but the value should be updated to 1560. | RE-VERIFIED 2026-07-08 (workflow regultek): социальный тариф <=80 м2 = 1560 сом/Гкал ПОДТВЕРЖДЁН по приказу №42 от 10.03.2026 — несколько источников цитируют приказ дословно (teplo.com.kg/new-tarifs, kaktus 532974, регультек №105 PDF). ГВС 108.07 сом/м3 тоже подтверждён (совпадает с сайтом). '1950' — ОШИБКА sub-агента (не встречается ни в одном первоисточном описании приказа №42; вероятно спутал с предложенным/отменённым значением). Правку 1560->1950 применил и ОТКАТИЛ (git checkout) до деплоя — сайт не менялся. WATCH: плановый +50% с 01.06.2026 (среднесрочная политика) на 2026-07-08 НЕ введён — доказательство: ГВС остался 108.07 (при +50% был бы ~162), после №42 энергетических приказов нет (только №127 от 25.06.2026 — техобслуживание). Если введут: <=80 м2 -> 2340, ГВС -> ~162. | RE-CHECK 2026-08-03: источник (regultek.gov.kg) снова изменил хеш — ре-флаг монитора. Проверено: новых приказов по тепловой энергии нет (свежайшая новость на regultek — 02.07.2026), МП «Бишкектеплосеть» на странице тарифов подтверждает: «Действующие тарифы… с 01.03.2026 согласно приказу №42 от 10 марта 2026 года». По-городные значения остаются фабрикацией — в первоисточниках отсутствуют, в COMPUTE их нет (действует единая национальная модель). Действий не требуется. | 🔴 STALE_CONFIRMED 2026-08-17 (tier2). Действующий соц. тариф ≤80 м² = 1950,00 сом/Гкал, НЕ 1560. Два независимых ПЕРВОИСТОЧНИКА прочитаны вербатим: (1) PDF приказа ДРТЭК №105 от 30.05.2025 с сайта регулятора regultek.gov.kg — приложение, строка «1.1. до 80 м2 в месяц | сом/Гкал | 1 950,0»; п.4 того же приказа ПРЯМО признаёт утратившим силу приказ №85 от 31.05.2024 (где и было 1560). (2) Официальная таблица МП «Бишкектеплосеть» (teploseti.kg) по действующему приказу №42 от 10.03.2026, с 01.03.2026: 1950,00. Цепочка: 1248 (01.06.2023) → 1560 (приказ №85, 01.06.2024) → 1950 (приказ №105, 01.06.2025) → 1950 (приказ №42, 01.03.2026). ⚠️ ОТМЕНЯЕТ ПРЕЖНИЙ ЗАПРЕТ: verify_note от 2026-07-08 объявлял 1950 «ошибкой суб-агента» и зафиксировал откат правки — ЭТО БЫЛО НЕВЕРНО. Прежний вывод опирался на teplo.com.kg, а это НЕ Бишкектеплосеть, а частный продавец теплосчётчиков «Пульс» (перепечатка Kaktus.media), и на «совпадает с сайтом» — то есть на сам аудируемый сайт (круговая проверка). Собственное поле law реестра при этом само говорило «№105 +25% с 01.06.2025», а 1560×1,25 = 1950 — противоречие внутри записи. НЕ откатывать снова. | ✅ ПРИМЕНЕНО 2026-08-17: HeatingCalculatorPage.tsx + проза RU/KY/мастер, worked examples пересчитаны. | ✅ RE-CHECK 2026-10-30: https://www.bishkek.gov.kg/ru/tariffs/2 — 1950,00 сом/Гкал (≤80 м²), 5998,17 (свыше нормы и прочие), приказ №42 от 10.03.2026.",
       "fix_note": "fixed 2026-06-28: confirmed national social tariff 1560 сом/Гкал; >80 м² portion (5998.17) now modeled via area-proportional split in calculateHeating; prose 1134.76/1450 → 1560 in RU+KY. See _meta.reconciliations[0]. (working tree, not deployed)",
-      "verified_date": "2026-08-03",
-      "verify_confidence": "high"
+      "verified_date": "2026-10-30",
+      "verify_confidence": "high",
+      "official_checked": "2026-10-30",
+      "official_source": "https://www.bishkek.gov.kg/ru/tariffs/2"
     },
     {
       "id": "heating-calculator__heating_tariff_per_gcal_jalal_abad",
@@ -2179,24 +2186,29 @@
       "id": "housing-calculator__tariff_heating",
       "calculator": "housing-calculator",
       "key": "tariff_heating",
-      "value": "1560",
+      "value": "1950",
       "unit": "KGS_per_Gcal",
-      "law": "Тарифы Бишкектеплосеть",
+      "law": "Приказ ДТЭК при МЭ КР №42 от 10.03.2026 (в силе с 01.03.2026)",
       "theme": "housing_utility_tariff",
       "is_gov_regulated": true,
       "surfaces": [
-        "src/i18n/translations-ru.ts:6032"
+        "src/i18n/translations.ts:6967",
+        "src/i18n/translations.ts:15454"
       ],
-      "last_updated": "2026-07-08",
+      "last_updated": "2026-10-30",
       "source_hint": "Бишкектеплосеть",
       "conflict": false,
       "status": "current",
-      "notes": "PROSE only (housing_tariff_heating). State-regulated heating tariff 1,450 сом/Гкал (~0.025 Гкал/м²/month). Source: Бишкектеплосеть, январь 2026.",
-      "official_value": "1560",
-      "source_url": "https://knews.kg/2025/01/17/v-merii-bishkeka-dali-razyasnenie-otnositelno-nachisleniya-za-otoplenie/",
-      "which_surface_correct": "prose",
-      "verify_note": "PROSE housing heating reference = 1560 сом/Гкал — CURRENT (приказ №42 от 10.03.2026, соц. норма <=80 м2). Стар. '1450' уже исправлена в прозе. Re-verified 2026-07-08.",
-      "fix_note": "fixed 2026-06-17 pilot (working tree, not deployed)"
+      "notes": "Проза housing_tariff_heating = 1 950 сом/Гкал, ключ остался только в translations.ts (в рантайме не импортируется, в активных файлах RU/KY и на странице жилья его нет). Рабочее значение: HEAT_TARIFF_SOCIAL в HeatingCalculatorPage.tsx.",
+      "official_value": "1950",
+      "source_url": "https://www.bishkek.gov.kg/ru/tariffs/2",
+      "which_surface_correct": "compute",
+      "verify_note": "Сверено 30.10.2026 по официальной странице https://www.bishkek.gov.kg/ru/tariffs/2 (МП «Бишкектеплосеть», приказ №42 от 10.03.2026, с 01.03.2026): население до 80 м² = 1950,00 сом/Гкал; свыше нормы и прочие потребители = 5998,17 (без налогов). 1560 — тариф, действовавший до 01.06.2025 (приказ №85, см. запись heating_tariff_per_gcal_bishkek_social); реестр здесь отставал от кода.",
+      "fix_note": "fixed 2026-10-30: реестр сведён с кодом, 1560 → 1950. Значения на сайте не менялись.",
+      "verified_date": "2026-10-30",
+      "official_checked": "2026-10-30",
+      "official_source": "https://www.bishkek.gov.kg/ru/tariffs/2",
+      "verify_confidence": "high"
     },
     {
       "id": "housing-calculator__tariff_water",
@@ -9192,7 +9204,7 @@
       "id": "money-transfer__transfer_default_selected_services",
       "calculator": "money-transfer",
       "key": "transfer_default_selected_services",
-      "value": "koronapay, golden-crown, contact",
+      "value": "unistream, western-union, moneygram",
       "unit": "service_ids",
       "law": "",
       "theme": "transfer_ui_default",
@@ -9200,40 +9212,41 @@
       "surfaces": [
         "src/pages/MoneyTransferCalculatorPage.tsx:28"
       ],
-      "last_updated": "",
+      "last_updated": "2026-10-30",
       "source_hint": "market",
       "conflict": false,
       "status": "current",
       "notes": "COMPUTE default selected services + default send 100 USD→KGS (line 25-27). FX base rate is live from useCurrencyRates.",
-      "verified_date": "2026-06-28",
+      "verified_date": "2026-10-30",
       "verify_method": "tier2-tail",
       "verify_confidence": "high",
-      "verify_note": "Non-regulatory app default (preselected transfer services); UI design choice."
+      "verify_note": "Не регуляторное значение (выбор по умолчанию в интерфейсе). 30.10.2026: заменены аннулированные НБКР системы на три оставшиеся."
     },
     {
       "id": "money-transfer__transfer_service_commission_and_fx_markup",
       "calculator": "money-transfer",
       "key": "transfer_service_commission_and_fx_markup",
-      "value": "Koronapay 1.5% (min$3,max$50) markup1.5%; GoldenCrown 2% (min$2,max$40) markup1.8%; Contact 1.8% (min$2.5,max$45) markup2%; Unistream 1.5% (min$3,max$50) markup1.5%; Migom 2.5% (min$2,max$35) markup2.5%; WesternUnion fixed$5+3% (min$5,max$100) markup3%; MoneyGram fixed$5+2.5% (min$5,max$90) markup2.8%",
+      "value": "Unistream 1.5% (min$3,max$50) markup1.5%; WesternUnion fixed$5+3% (min$5,max$100) markup3%; MoneyGram fixed$5+2.5% (min$5,max$90) markup2.8%",
       "unit": "percent_usd",
       "law": "",
       "theme": "transfer_fee_market",
       "is_gov_regulated": false,
       "surfaces": [
-        "src/data/transferServices.ts:28-257"
+        "src/data/transferServices.ts:31-130"
       ],
-      "last_updated": "2026-04",
+      "last_updated": "2026-10-30",
       "source_hint": "market",
       "conflict": false,
-      "status": "stale_confirmed",
-      "notes": "COMPUTE transferServices[] — per-service commission %, fixed fee, min/max commission (USD), and FX exchange-rate markup %. File header: 'Комиссии актуальны на апрель 2026 (Q2 2026)'. Market values. Also per-service min/max transfer amounts (e.g. WU 10-50000 USD).",
-      "official_value": "Per-operator transfer fees vary by corridor/promo; ~1.5-3% typical",
-      "verified_date": "2026-08-29",
-      "verify_method": "tier2-uncertain-burndown",
+      "status": "uncertain",
+      "notes": "COMPUTE transferServices[]: комиссия %, фикс., мин/макс (USD) и наценка на курс по операторам. Значения рыночные, на апрель 2026; подписаны на сайте как ориентировочные.",
+      "official_value": "Тарифы задаёт оператор, зависят от направления, суммы и способа выплаты; единого официального значения нет",
+      "verified_date": "2026-10-30",
+      "verify_method": "nbkr-registry-2026-10-30",
       "verify_confidence": "low",
-      "verify_note": "Per-operator commissions/markups (1.5-3%) plausible but operator-set and corridor-specific; unverifiable per-service.",
+      "verify_note": "Состав операторов сверен с реестром НБКР (версия от 23.10.2026): подтверждён. Тарифы первоисточником НЕ подтверждены. Сайт Unistream недоступен (ERR_CERT_AUTHORITY_INVALID на этой машине, обход проверки не применялся); страницы Western Union и MoneyGram для КР тарифов не публикуют. Вторичные данные расходятся с калькулятором по Unistream: 0% по телефону на Элкарт (Sputnik КР, проверка 22.08.2026), «от 0,55%» (brobank, 21.10.2026), «от 0,85%, макс. 950 руб.» (banks.kg, 27.08.2026) против 1.5% min $3. Цифры не менялись: ждут первоисточника.",
       "official_source": "https://www.nbkr.kg/index1.jsp?item=2665&lang=RUS",
-      "note": "ÐÐ¾Ð½ÑÑÐ°Ð½ÑÐ° Ð¿ÐµÑÐµÑÐ¸ÑÐ»ÑÐµÑ Contact (Ð°Ð½Ð½ÑÐ»Ð¸ÑÐ¾Ð²Ð°Ð½ ÐÐÐÐ  21.02.2024) Ð¸ Migom (Ð² ÑÐµÐµÑÑÑÐµ Ð½ÐµÑ, ÑÐ¸ÑÑÐµÐ¼Ð° Ð·Ð°ÐºÑÑÑÐ° ÐµÑÑ Ð² 2014) ÐºÐ°Ðº Ð´ÐµÐ¹ÑÑÐ²ÑÑÑÐ¸Ðµ, Ð° Â«Koronap"
+      "note": "Сверено 30.10.2026 по реестру НБКР (item=2665, версия от 23.10.2026). Убраны из калькулятора: Contact (аннулирован НБКР 21.02.2024, оператор «КИВИ Банк»); Золотая Корона (аннулирована 12.10.2026, оператор РНКО «Платежный центр»); Koronapay (бренд той же системы, отдельной записи в реестре нет); Migom (нет ни среди действующих, ни среди аннулированных; прежняя запись указывала закрытие в 2014 году, реестр этого не подтверждает). Остались в реестре: Unistream (№1010011214), MoneyGram (№1011041214), Western Union (№1045181018, Western Union Network (France); российский оператор ОсОО НКО «Вестерн Юнион ДП Восток» исключён 09.07.2026). Статус uncertain: состав исправлен, тарифы первоисточником не подтверждены, см. verify_note.",
+      "official_checked": "2026-10-30"
     },
     {
       "id": "mortgage-calculator__mortgage_bank_indicative_rate_ranges",

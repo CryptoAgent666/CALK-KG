@@ -1,5 +1,8 @@
 // Данные о системах денежных переводов в Кыргызстане (2026)
-// Комиссии актуальны на апрель 2026 (Q2 2026)
+// Состав сверен с реестром НБКР (item=2665, версия от 23.10.2026). Не возвращать:
+// Contact (аннулирован 21.02.2024), Золотая Корона/KoronaPay (аннулирована 12.10.2026),
+// Migom (в реестре нет). Комиссии ориентировочные, на апрель 2026: у операторов они
+// зависят от направления и способа выплаты, первоисточником не подтверждены.
 
 export interface TransferService {
   id: string;
@@ -26,106 +29,6 @@ export interface TransferService {
 }
 
 export const transferServices: TransferService[] = [
-  {
-    id: 'koronapay',
-    name: 'Koronapay',
-    nameKy: 'Koronapay',
-    commissionType: 'combined',
-    commissionFixed: 0,
-    commissionPercent: 1.5,
-    commissionMin: 3,
-    commissionMax: 50,
-    exchangeRateMarkup: 1.5,
-    minAmount: 10,
-    maxAmount: 10000,
-    deliveryTime: '10-30 минут',
-    deliveryTimeKy: '10-30 мүнөт',
-    countries: ['Россия', 'Казахстан', 'Узбекистан', 'Таджикистан', 'Армения'],
-    popularFrom: ['Россия', 'Казахстан'],
-    popularTo: ['Кыргызстан'],
-    features: [
-      'Самая популярная система в КР',
-      'Широкая сеть точек выдачи',
-      'Курс и комиссия меняются в течение дня - смотрите в калькуляторе',
-      'Быстрая доставка (от 10 минут)',
-      'Выдача наличными',
-      'Онлайн переводы'
-    ],
-    featuresKy: [
-      'КРда эң популярдуу система',
-      'Кеңири чыгуу пункттарынын тармагы',
-      'Курс жана комиссия күн ичинде өзгөрөт - калькуляторду караңыз',
-      'Тез жеткирүү (10 мүнөттөн)',
-      'Накт акча менен берүү',
-      'Онлайн которуулар'
-    ],
-    website: 'https://koronapay.com',
-    color: '#FF6B00'
-  },
-  {
-    id: 'golden-crown',
-    name: 'Golden Crown',
-    nameKy: 'Golden Crown',
-    commissionType: 'combined',
-    commissionFixed: 0,
-    commissionPercent: 2,
-    commissionMin: 2,
-    commissionMax: 40,
-    exchangeRateMarkup: 1.8,
-    minAmount: 10,
-    maxAmount: 15000,
-    deliveryTime: '15-60 минут',
-    deliveryTimeKy: '15-60 мүнөт',
-    countries: ['Россия', 'Казахстан', 'Украина', 'Беларусь', 'Узбекистан'],
-    popularFrom: ['Россия', 'Казахстан'],
-    popularTo: ['Кыргызстан'],
-    features: [
-      'Большие лимиты переводов',
-      'Выдача в банках и точках',
-      'Онлайн и офлайн переводы',
-      'Удобное мобильное приложение'
-    ],
-    featuresKy: [
-      'Которуулардын чоң лимиттери',
-      'Банктарда жана пункттарда берүү',
-      'Онлайн жана офлайн которуулар',
-      'Ыңгайлуу мобилдик тиркеме'
-    ],
-    website: 'https://goldencrown.money',
-    color: '#FFD700'
-  },
-  {
-    id: 'contact',
-    name: 'Contact',
-    nameKy: 'Contact',
-    commissionType: 'combined',
-    commissionFixed: 0,
-    commissionPercent: 1.8,
-    commissionMin: 2.5,
-    commissionMax: 45,
-    exchangeRateMarkup: 2,
-    minAmount: 10,
-    maxAmount: 12000,
-    deliveryTime: '15-40 минут',
-    deliveryTimeKy: '15-40 мүнөт',
-    countries: ['Россия', 'Казахстан', 'Украина', 'Беларусь', 'Узбекистан', 'Таджикистан'],
-    popularFrom: ['Россия'],
-    popularTo: ['Кыргызстан'],
-    features: [
-      'Старейшая система переводов',
-      'Надежность и безопасность',
-      'Выдача в банках',
-      'Перевод на карту'
-    ],
-    featuresKy: [
-      'Эң эски которуу системасы',
-      'Ишенимдүүлүк жана коопсуздук',
-      'Банктарда берүү',
-      'Картага которуу'
-    ],
-    website: 'https://contact-sys.com',
-    color: '#0066CC'
-  },
   {
     id: 'unistream',
     name: 'Unistream',
@@ -157,36 +60,6 @@ export const transferServices: TransferService[] = [
     ],
     website: 'https://unistream.ru',
     color: '#E31E24'
-  },
-  {
-    id: 'migom',
-    name: 'Migom',
-    nameKy: 'Migom',
-    commissionType: 'combined',
-    commissionFixed: 0,
-    commissionPercent: 2.5,
-    commissionMin: 2,
-    commissionMax: 35,
-    exchangeRateMarkup: 2.5,
-    minAmount: 10,
-    maxAmount: 8000,
-    deliveryTime: '30-90 минут',
-    deliveryTimeKy: '30-90 мүнөт',
-    countries: ['Россия', 'Казахстан'],
-    popularFrom: ['Россия'],
-    popularTo: ['Кыргызстан'],
-    features: [
-      'Доступные комиссии',
-      'Выдача в Оптиме и Народном',
-      'Простое оформление'
-    ],
-    featuresKy: [
-      'Жеткиликтүү комиссиялар',
-      'Оптимада жана Народныйде берүү',
-      'Жөнөкөй рааформдоо'
-    ],
-    website: 'https://migom.kg',
-    color: '#00A651'
   },
   {
     id: 'western-union',
