@@ -45,6 +45,9 @@ The site hard-codes hundreds of government-set values. They are inventoried + fr
   (cbd.minjust GetEdition 60031): опьянение (алкоголь И наркотики) ст.193 ч.1 = **80 000** + 2 года, отказ = 100 000 + 3 года,
   оставление ДТП ст.192 ч.4 = **20 000** + 6 мес.; скидка 70% размечена по списку исключений ст.563 ч.5, не по «лишению прав».
   The June press figure «30 000» (rg.ru/economist.kg) was never in the law.
+- **2026-11-03 heating:** only the ≤80 м² tariff (1950) is national (приказ №105); above-norm and hot water are per supplier. Bishkek has a
+  supplier selector: Бишкектеплосеть 5998,17 / 141,89 / 681,08, Бишкектеплоэнерго 7514,2 / 102,7 / 492,8 (mayor's page only). Osh's own rates are
+  unverified: it shows Бишкектеплосеть rates with an on-page caveat.
 - ⚠️ **Deferred (structural, NOT applied):** sick-leave bracket logic (3–5 yr must be 60% not 80%;
   5–8 yr 80% not 100%; first 10 working days; cap 10 000/mo), scholarship semantics (academic 800/mo,
   president 60 000 one-time), ~19 traffic-fine **статья** relabels, gas/electricity narrative prose

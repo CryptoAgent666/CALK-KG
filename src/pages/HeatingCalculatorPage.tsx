@@ -18,14 +18,17 @@ import { formatVerifiedMonth } from '../utils/dateFormatter';
 // Источник: Приказ Департамента по регулированию ТЭК при МЭ КР №42 от 10.03.2026;
 //           bishkek.gov.kg/ru/tariffs/2
 //
-// ВАЖНО: в Кыргызстане НЕТ отдельных тарифов на отопление по городам — действует
-// ЕДИНЫЙ национальный тариф на тепловую энергию для населения:
-//   • до 80 м² (социальная норма) ........ 1950,00 сом/Гкал
-//   • свыше 80 м² (по себестоимости) ...... 5998,17 сом/Гкал
-// Горячая вода тарифицируется по той же тепловой энергии (1950 сом/Гкал).
+// ВАЖНО (приказ №105 от 30.05.2025, прил.): единым по стране для населения установлен только
+// тариф до 80 м² — 1950 сом/Гкал. Свыше 80 м² — «на уровне стоимости», а ГВС по счётчику —
+// «индивидуально», то есть у каждого теплоснабжающего предприятия свои ставки.
+// В Бишкеке таких предприятий два (bishkek.gov.kg/ru/tariffs/2, с 01.03.2026, без налогов):
+//   • МП «Бишкектеплосеть»: свыше 80 м² 5998,17; ГВС 141,89 сом/м³, 681,08 сом/чел
+//   • МП «Бишкектеплоэнерго»: свыше 80 м² 7514,2; ГВС 102,7 сом/м³, 492,8 сом/чел
+// ⚠️ Для Оша собственные ставки не подтверждены: стоят ставки Бишкектеплосети, на странице есть оговорка.
 // Центральное (от ТЭЦ) отопление и ГВС реально есть только в Бишкеке и Оше.
 const HEAT_TARIFF_SOCIAL = 1950.00;     // сом/Гкал — площадь до 80 м²
-const HEAT_TARIFF_ABOVE_NORM = 5998.17; // сом/Гкал — площадь свыше 80 м²
+const HEAT_TARIFF_ABOVE_NORM = 5998.17; // сом/Гкал — площадь свыше 80 м², МП «Бишкектеплосеть»
+const HEAT_TARIFF_ABOVE_NORM_TEPLOENERGO = 7514.2; // сом/Гкал — площадь свыше 80 м², МП «Бишкектеплоэнерго»
 const SOCIAL_NORM_AREA = 80;            // м² — граница социальной нормы
 const HEAT_NORM_GCAL_PER_M2 = 0.0206;   // Гкал/м² в месяц (сезонная средняя: 3.6 Гкал/сезон ÷ 35 м² ÷ 5 мес — методика Бишкектеплосети)
 // ГВС: официальный тариф МП «Бишкектеплосеть» по счётчику (Приказ Деп. по рег. ТЭК №42 от 10.03.2026).
@@ -34,9 +37,12 @@ const HOT_WATER_NORM_M3_PER_PERSON = 4.8;   // тонн/чел в месяц —
 // Ставка по нормативу взята из приказа НАПРЯМУЮ, а не выведена умножением: 4,8 × 141,89 = 681,072,
 // и округление дало бы 681,07, тогда как в самом приказе стоит 681,08. Первоисточник важнее вывода.
 const HOT_WATER_PER_PERSON = 681.08;        // сом/чел в месяц
+// ГВС МП «Бишкектеплоэнерго»: обе ставки взяты со страницы мэрии напрямую, не выведены одна из другой.
+const HOT_WATER_TARIFF_PER_M3_TEPLOENERGO = 102.7;
+const HOT_WATER_PER_PERSON_TEPLOENERGO = 492.8;
 
-// Единый национальный набор тарифов (одинаков для всех городов с центральным отоплением)
-const NATIONAL_HEATING_TARIFF = {
+// Ставки МП «Бишкектеплосеть»
+const TEPLOSET_HEATING_TARIFF = {
   heating: {
     // Социальный тариф за 1 Гкал (до 80 м²)
     tariff_per_gcal: HEAT_TARIFF_SOCIAL,
@@ -53,12 +59,32 @@ const NATIONAL_HEATING_TARIFF = {
   }
 };
 
-const HEATING_TARIFFS = {
-  'bishkek': { nameKey: 'city_bishkek', ...NATIONAL_HEATING_TARIFF },
-  'osh': { nameKey: 'city_osh', ...NATIONAL_HEATING_TARIFF }
+// Ставки МП «Бишкектеплоэнерго»: соц. тариф и норматив те же, отличаются сверхнормативная часть и ГВС
+const TEPLOENERGO_HEATING_TARIFF = {
+  heating: {
+    ...TEPLOSET_HEATING_TARIFF.heating,
+    tariff_per_gcal_above: HEAT_TARIFF_ABOVE_NORM_TEPLOENERGO
+  },
+  hot_water: {
+    tariff_per_m3: HOT_WATER_TARIFF_PER_M3_TEPLOENERGO,
+    standard_per_person: HOT_WATER_PER_PERSON_TEPLOENERGO
+  }
 };
 
-type City = keyof typeof HEATING_TARIFFS;
+const HEATING_TARIFFS = {
+  'bishkek_teploset': { nameKey: 'city_bishkek', providerKey: 'heating_provider_teploset', ...TEPLOSET_HEATING_TARIFF },
+  'bishkek_teploenergo': { nameKey: 'city_bishkek', providerKey: 'heating_provider_teploenergo', ...TEPLOENERGO_HEATING_TARIFF },
+  'osh': { nameKey: 'city_osh', providerKey: '', ...TEPLOSET_HEATING_TARIFF }
+};
+
+const CITIES = [
+  { key: 'bishkek', nameKey: 'city_bishkek' },
+  { key: 'osh', nameKey: 'city_osh' }
+] as const;
+
+type City = typeof CITIES[number]['key'];
+type BishkekProvider = 'teploset' | 'teploenergo';
+type TariffOption = keyof typeof HEATING_TARIFFS;
 type HotWaterPaymentMethod = 'meter' | 'standard';
 
 interface HeatingResults {
@@ -101,6 +127,7 @@ const HeatingCalculatorPage = () => {
   };
 
   const [city, setCity] = useState<City>('bishkek');
+  const [provider, setProvider] = useState<BishkekProvider>('teploset');
   const [area, setArea] = useState<number>(60);
   const [hotWaterMethod, setHotWaterMethod] = useState<HotWaterPaymentMethod>('standard');
   const [hotWaterMeterConsumption, setHotWaterMeterConsumption] = useState<number>(5);
@@ -119,7 +146,7 @@ const HeatingCalculatorPage = () => {
 
   // Расчет стоимости отопления и ГВС
   const calculateHeating = (
-    selectedCity: City,
+    selectedOption: TariffOption,
     apartmentArea: number,
     method: HotWaterPaymentMethod,
     meterConsumption: number,
@@ -138,11 +165,11 @@ const HeatingCalculatorPage = () => {
       };
     }
 
-    const tariff = HEATING_TARIFFS[selectedCity];
+    const tariff = HEATING_TARIFFS[selectedOption];
 
     // Расчёт отопления: до 80 м² — по социальному тарифу, площадь свыше — по
     // себестоимости. Тепловая энергия делится пропорционально площади
-    // (как в официальном примере мэрии Бишкека: 80 м² по 1950, остальное по 5998,17).
+    // (как в официальном примере мэрии Бишкека: 80 м² по 1950, остальное по ставке поставщика).
     const socialArea = Math.min(apartmentArea, SOCIAL_NORM_AREA);
     const aboveArea = Math.max(0, apartmentArea - SOCIAL_NORM_AREA);
     const heatingConsumption = apartmentArea * tariff.heating.standard_gcal_per_m2;
@@ -177,10 +204,12 @@ const HeatingCalculatorPage = () => {
     };
   };
 
+  const tariffOption: TariffOption = city === 'osh' ? 'osh' : `bishkek_${provider}`;
+
   // Обновление результатов
   useEffect(() => {
-    setResults(calculateHeating(city, area, hotWaterMethod, hotWaterMeterConsumption, residentCount));
-  }, [city, area, hotWaterMethod, hotWaterMeterConsumption, residentCount]);
+    setResults(calculateHeating(tariffOption, area, hotWaterMethod, hotWaterMeterConsumption, residentCount));
+  }, [tariffOption, area, hotWaterMethod, hotWaterMeterConsumption, residentCount]);
 
   React.useEffect(() => {
     document.title = t('heating_calc_title') + " | Calk.KG";
@@ -226,7 +255,11 @@ const HeatingCalculatorPage = () => {
   );
 
   const currentMonth = formatVerifiedMonth(language, 'heating');
-  const currentTariff = HEATING_TARIFFS[city];
+  const currentTariff = HEATING_TARIFFS[tariffOption];
+  const tariffLabel = (option: TariffOption) => {
+    const { nameKey, providerKey } = HEATING_TARIFFS[option];
+    return providerKey ? `${t(nameKey)} · ${t(providerKey)}` : t(nameKey);
+  };
 
   // Расчет процентов для визуализации
   const heatingPercentage = results.totalCost > 0 ? (results.heatingCost / results.totalCost) * 100 : 0;
@@ -308,7 +341,7 @@ const HeatingCalculatorPage = () => {
           <div className="flex items-center space-x-2 bg-white/10 rounded-lg p-3 print:hidden">
             <MapPin className="h-5 w-5 text-amber-200" />
             <span className="text-amber-100 text-sm">
-              {t('heating_current_region')} {t(currentTariff.nameKey)} • {t('heating_tariffs_actual')} {currentMonth}
+              {t('heating_current_region')} {tariffLabel(tariffOption)} • {t('heating_tariffs_actual')} {currentMonth}
             </span>
           </div>
         </div>
@@ -337,10 +370,33 @@ const HeatingCalculatorPage = () => {
                   onChange={(e) => setCity(e.target.value as City)}
                   className="w-full px-4 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg print:text-base"
                 >
-                  {Object.entries(HEATING_TARIFFS).map(([key, cityData]) => (
-                    <option key={key} value={key}>{t(cityData.nameKey)}</option>
+                  {CITIES.map(({ key, nameKey }) => (
+                    <option key={key} value={key}>{t(nameKey)}</option>
                   ))}
                 </select>
+
+                {city === 'bishkek' && (
+                  <div className="mt-4">
+                    <label htmlFor="heating-provider" className="block text-sm font-medium text-gray-700 mb-3">
+                      {t('heating_provider_label')}
+                    </label>
+                    <select
+                      id="heating-provider"
+                      value={provider}
+                      onChange={(e) => setProvider(e.target.value as BishkekProvider)}
+                      className="w-full px-4 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg print:text-base"
+                    >
+                      <option value="teploset">{t('heating_provider_teploset')}</option>
+                      <option value="teploenergo">{t('heating_provider_teploenergo')}</option>
+                    </select>
+                    <p className="text-sm text-gray-500 mt-2">{t('heating_provider_hint')}</p>
+                  </div>
+                )}
+                {city === 'osh' && (
+                  <p className="text-sm text-amber-800 bg-amber-50 border border-amber-200 rounded-lg p-3 mt-3">
+                    {t('heating_osh_tariff_note')}
+                  </p>
+                )}
               </div>
 
               {/* Heating Section */}
@@ -624,7 +680,7 @@ const HeatingCalculatorPage = () => {
                       {formatCurrency(results.totalCost)} {t('text_som')}
                     </p>
                     <p className="text-amber-100">
-                      {area} {t('unit_sqm')} • {t(currentTariff.nameKey)}
+                      {area} {t('unit_sqm')} • {tariffLabel(tariffOption)}
                     </p>
                   </div>
 
@@ -802,7 +858,7 @@ const HeatingCalculatorPage = () => {
                     <div className="space-y-2 text-sm text-gray-600">
                       <div className="flex justify-between">
                         <span>{t('heating_city_label')}</span>
-                        <span>{t(currentTariff.nameKey)}</span>
+                        <span>{tariffLabel(tariffOption)}</span>
                       </div>
                       <div className="flex justify-between">
                         <span>{t('heating_area_heated')}</span>
@@ -866,7 +922,7 @@ const HeatingCalculatorPage = () => {
                   {/* Current Selection */}
                   <tr className="bg-green-50">
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      {t(currentTariff.nameKey)} <span className="text-xs text-gray-500">{t('your_choice')}</span>
+                      {tariffLabel(tariffOption)} <span className="text-xs text-gray-500">{t('your_choice')}</span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
                       {formatCurrency(currentTariff.heating.tariff_per_gcal)}
@@ -881,10 +937,10 @@ const HeatingCalculatorPage = () => {
                   
                   {/* Other Cities */}
                   {Object.entries(HEATING_TARIFFS)
-                    .filter(([key]) => key !== city)
-                    .map(([cityKey, cityData]) => {
+                    .filter(([key]) => key !== tariffOption)
+                    .map(([optionKey, cityData]) => {
                       const otherResult = calculateHeating(
-                        cityKey as City, 
+                        optionKey as TariffOption,
                         area, 
                         hotWaterMethod, 
                         hotWaterMeterConsumption, 
@@ -894,9 +950,9 @@ const HeatingCalculatorPage = () => {
                       const isMoreExpensive = otherResult.totalCost > results.totalCost;
                       
                       return (
-                        <tr key={cityKey} className={isCheaper ? 'bg-blue-50' : isMoreExpensive ? 'bg-red-50' : ''}>
+                        <tr key={optionKey} className={isCheaper ? 'bg-blue-50' : isMoreExpensive ? 'bg-red-50' : ''}>
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {t(cityData.nameKey)}
+                            {tariffLabel(optionKey as TariffOption)}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                             {formatCurrency(cityData.heating.tariff_per_gcal)}
@@ -939,7 +995,7 @@ const HeatingCalculatorPage = () => {
               { area: 80, method: 'standard' as HotWaterPaymentMethod, residents: 4, labelKey: 'heating_example_3room' }
             ].map((example, index) => {
               const exampleResult = calculateHeating(
-                city, 
+                tariffOption,
                 example.area, 
                 example.method, 
                 example.method === 'meter' ? (example as any).consumption || 5 : 5,
