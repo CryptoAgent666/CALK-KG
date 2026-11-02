@@ -928,7 +928,7 @@ const PensionCalculatorPage = () => {
                     <li><strong>{t('pension_disclaimer_official')}:</strong> {t('pension_disclaimer_official_text')}</li>
                   </ul>
                   <p className="mt-4 p-3 bg-white rounded-lg border border-red-200">
-                    <strong>{t('pension_disclaimer_recommendation')}:</strong> {t('pension_disclaimer_recommendation_text')}
+                    <strong>{t('pension_disclaimer_recommendation')}</strong> {t('pension_disclaimer_recommendation_text')}
                     {' '}
                     <a 
                       href="https://sf.gov.kg" 

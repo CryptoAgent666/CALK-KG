@@ -686,7 +686,7 @@ const SocialFundCalculatorPage = () => {
                     </div>
                     <div className="text-xs text-gray-500 flex justify-between">
                       <span>{t('social_fund_deducted')} -{formatCurrency(example.totalEmployeeDeductions)}</span>
-                      <span>{t('social_fund_employer_label')}: +{formatCurrency(example.totalEmployerContributions)}</span>
+                      <span>{t('social_fund_employer_label')} +{formatCurrency(example.totalEmployerContributions)}</span>
                     </div>
                   </button>
                 );

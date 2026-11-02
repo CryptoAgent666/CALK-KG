@@ -548,10 +548,10 @@ const ElectricityCalculatorPage = () => {
                   <ActionButtons
                     calculatorName={t('schema_electricity_calc')}
                     resultText={`${t('electricity_calc_name')} - ${t('result_text_intro')}
-${t('monthly_consumption')}: ${results.consumption} ${t('electricity_kwh_max')}
+${t('monthly_consumption')} ${results.consumption} ${t('electricity_kwh_max')}
 ${t('consumer_category')}: ${getLocalized(TARIFF_CONFIG[category].label)}
-${t('electricity_monthly_cost')}: ${formatCurrency(results.totalCost)} ${t('kgs')}
-${t('electricity_average_rate')}: ${formatCurrency(results.averageRate)} ${t('electricity_som_per_kwh')}
+${t('electricity_monthly_cost')} ${formatCurrency(results.totalCost)} ${t('kgs')}
+${t('electricity_average_rate')} ${formatCurrency(results.averageRate)} ${t('electricity_som_per_kwh')}
 
 ${t('calculated_on_site')} Calk.KG`}
                   />

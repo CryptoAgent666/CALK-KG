@@ -849,8 +849,8 @@ ${t('calculated_on_site')} Calk.KG`}
                 <div className="border border-gray-200 rounded-lg p-4 hover:border-red-300 transition-colors">
                   <h4 className="font-semibold text-gray-900 mb-2">{t('salary_link_tax_service')}</h4>
                   <p className="text-sm text-gray-700 mb-2">{t('salary_link_tax_service_desc')}</p>
-                  <a href="https://sts.gov.kg" target="_blank" rel="noopener noreferrer" className="text-red-600 hover:text-red-700 text-sm">
-                    sts.gov.kg →
+                  <a href="https://sti.gov.kg" target="_blank" rel="noopener noreferrer" className="text-red-600 hover:text-red-700 text-sm">
+                    sti.gov.kg →
                   </a>
                 </div>
               </div>

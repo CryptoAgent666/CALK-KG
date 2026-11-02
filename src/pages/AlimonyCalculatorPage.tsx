@@ -20,7 +20,7 @@ import { AlimonyCalculatorArticle } from '../components/AlimonyCalculatorArticle
 const REGIONAL_AVERAGE_SALARY = {
   'bishkek': { nameKey: 'city_bishkek', salary: 54600 },
   'osh': { nameKey: 'city_osh', salary: 35200 },
-  'osh-region': { nameKey: 'region_osh', salary: 32800 },
+  'osh-region': { nameKey: 'region_osh_oblast', salary: 32800 },
   'jalal-abad': { nameKey: 'city_jalal_abad', salary: 34500 },
   'jalal-abad-region': { nameKey: 'region_jalal_abad', salary: 32100 },
   'issyk-kul': { nameKey: 'region_issyk_kul', salary: 46300 },
@@ -491,10 +491,10 @@ const AlimonyCalculatorPage = () => {
                   <ActionButtons
                     calculatorName={t('alimony_calc_title')}
                     resultText={`${t('alimony_calc_title')} - ${t('alimony_calculation_results')}:
-${t('alimony_children_count_label')}: ${childrenCount}
-${t('alimony_calculation_base')}: ${formatCurrency(results.baseAmount)} ${t('som')}
-${t('alimony_rate_label')}: ${formatRate(results.appliedRate)}
-${t('alimony_method_label')}: ${results.calculationMethod}
+${t('alimony_children_count_label')} ${childrenCount}
+${t('alimony_calculation_base')} ${formatCurrency(results.baseAmount)} ${t('som')}
+${t('alimony_rate_label')} ${formatRate(results.appliedRate)}
+${t('alimony_method_label')} ${results.calculationMethod}
 ${t('alimony_approximate_amount')}: ${formatCurrency(results.alimonyAmount)} ${t('som')} ${t('pension_per_month')}
 
 ${t('alimony_calculation_nature')}.
@@ -521,13 +521,13 @@ ${t('calculated_on_site')} Calk.KG`}
 
                   {/* Calculation Breakdown */}
                   <div className="space-y-6">
-                    <h3 className="font-medium text-gray-700 text-lg">{t('alimony_calculation_details')}:</h3>
+                    <h3 className="font-medium text-gray-700 text-lg">{t('alimony_calculation_details')}</h3>
 
                     {/* Base Amount */}
                     <div className="bg-gray-50 rounded-lg p-6">
                       <div className="flex justify-between items-center mb-3">
                         <div className="flex items-center">
-                          <span className="text-gray-700 font-medium">{t('alimony_calculation_base')}:</span>
+                          <span className="text-gray-700 font-medium">{t('alimony_calculation_base')}</span>
                           <Tooltip text={t('alimony_calculation_base_tooltip')}>
                             <Info className="h-4 w-4 text-gray-400 ml-2 cursor-help" />
                           </Tooltip>
@@ -537,7 +537,7 @@ ${t('calculated_on_site')} Calk.KG`}
                         </span>
                       </div>
                       <div className="text-sm text-gray-500">
-                        {t('alimony_method_label')}: {results.calculationMethod}
+                        {t('alimony_method_label')} {results.calculationMethod}
                         {results.regionName && ` • ${results.regionName}`}
                       </div>
                     </div>
@@ -546,7 +546,7 @@ ${t('calculated_on_site')} Calk.KG`}
                     <div className="bg-blue-50 rounded-lg p-6">
                       <div className="flex justify-between items-center mb-3">
                         <div className="flex items-center">
-                          <span className="text-gray-700 font-medium">{t('alimony_rate_label')}:</span>
+                          <span className="text-gray-700 font-medium">{t('alimony_rate_label')}</span>
                           <Tooltip text={t('alimony_rate_tooltip')}>
                             <Info className="h-4 w-4 text-gray-400 ml-2 cursor-help" />
                           </Tooltip>
@@ -564,7 +564,7 @@ ${t('calculated_on_site')} Calk.KG`}
                     <div className="bg-pink-50 rounded-lg p-6">
                       <div className="flex items-center mb-3">
                         <Calculator className="h-5 w-5 text-pink-600 mr-2" />
-                        <span className="text-gray-700 font-medium">{t('alimony_formula')}:</span>
+                        <span className="text-gray-700 font-medium">{t('alimony_formula')}</span>
                       </div>
                       <div className="text-lg text-gray-900 font-mono bg-white p-4 rounded border">
                         {results.minApplied ? (
@@ -581,22 +581,22 @@ ${t('calculated_on_site')} Calk.KG`}
 
                   {/* Additional Information */}
                   <div className="bg-gray-50 rounded-lg p-6">
-                    <h4 className="font-medium text-gray-700 mb-3">{t('alimony_additional_info')}:</h4>
+                    <h4 className="font-medium text-gray-700 mb-3">{t('alimony_additional_info')}</h4>
                     <div className="space-y-2 text-sm text-gray-600">
                       <div className="flex justify-between">
-                        <span>{t('alimony_children_count_label')}:</span>
+                        <span>{t('alimony_children_count_label')}</span>
                         <span>{childrenCount}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span>{t('alimony_method_used')}:</span>
+                        <span>{t('alimony_method_used')}</span>
                         <span>{results.calculationMethod}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span>{t('alimony_legal_basis')}:</span>
+                        <span>{t('alimony_legal_basis')}</span>
                         <span>{t('alimony_family_code_kr')}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span>{t('alimony_payment_frequency')}:</span>
+                        <span>{t('alimony_payment_frequency')}</span>
                         <span>{t('alimony_monthly')}</span>
                       </div>
                     </div>

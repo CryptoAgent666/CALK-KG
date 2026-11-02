@@ -570,7 +570,7 @@ const SingleTaxCalculatorPage = () => {
                     <ul className="space-y-1 text-blue-800">
                       <li>• {language === 'ky' ? 'Айлык түшүмдү жылдык жүгүртүүгө айландырат' : 'Переводит месячную выручку в годовой оборот'}</li>
                       <li>• {language === 'ky' ? 'Нак жана нак эмес ставкаларды өзүнчө текшерет' : 'Проверяет ставки отдельно для наличной и безналичной выручки'}</li>
-                      <li>• {language === 'ky' ? 'Соода үчүн 30 млн жана 50 млн коридорлорун текшерет' : 'Проверяет торговые коридоры 30 млн и 50 млн сом'}</li>
+                      <li>• {language === 'ky' ? 'Соода үчүн 50 млн коридорун текшерет' : 'Проверяет торговый порог 50 млн сом'}</li>
                       <li>• {language === 'ky' ? 'Чен берилбеген режимдер боюнча эскертет' : 'Предупреждает, если для выбранной формы оплаты ставка не указана'}</li>
                     </ul>
                   </div>
@@ -749,7 +749,7 @@ ${language === 'ky' ? 'Айлык салык:' : 'Налог в месяц:'} ${
         </div>
 
         <div className="mt-12 rounded-xl bg-white p-8 shadow-sm print:hidden">
-          <h3 className="mb-4 font-medium text-gray-900">{t('other_calculators')}:</h3>
+          <h3 className="mb-4 font-medium text-gray-900">{t('other_calculators')}</h3>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             <Link to={getLocalizedPath('/calculator/salary/')} className="group rounded-lg border border-gray-200 p-4 transition-colors hover:border-red-200 hover:bg-gray-50">
               <div className="flex items-center space-x-3">

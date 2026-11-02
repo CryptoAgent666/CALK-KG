@@ -419,7 +419,7 @@ ${t('family_size_label')}: ${results.familySize} ${t('person')}
 ${t('family_income_per_person')} ${formatCurrency(Math.round(results.incomePerPerson))} ${t('som')}
 ${t('family_children_under_16')} ${results.childrenCount}
 ${t('family_result_check_colon')} ${results.isEligible ? t('family_has_right_yes') : t('family_has_right_no')}
-${results.isEligible ? `${t('family_total_benefit_per_month')}: ${formatCurrency(results.benefitAmount)} ${t('som_per_month')}` : `${t('family_refusal_reasons')}: ${results.reasons.join(', ')}`}
+${results.isEligible ? `${t('family_total_benefit_per_month')} ${formatCurrency(results.benefitAmount)} ${t('som_per_month')}` : `${t('family_refusal_reasons')} ${results.reasons.join(', ')}`}
 
 ${t('family_result_calculation_site')}`}
                   />

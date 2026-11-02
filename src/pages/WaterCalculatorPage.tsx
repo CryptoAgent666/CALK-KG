@@ -1009,7 +1009,7 @@ ${t('water_calculated_on')}`}
                   </summary>
                   <p className="text-gray-700 mt-3 text-sm">
                     {t('text_formula')}: ({t('text_current_readings')} - {t('text_previous_readings')}) × {t('tariff')} = {t('text_sum_to_pay')}.
-                    {t('text_example')}: (847 - 832) × 11,35 = 15 × 11,35 = 170,25 {t('som')}. {t('water_faq_billing_a')}
+                    {t('text_example')}: (847 - 832) × 22,53 = 15 × 22,53 = 337,95 {t('som')}. {t('water_faq_billing_a')}
                   </p>
                 </details>
               </div>

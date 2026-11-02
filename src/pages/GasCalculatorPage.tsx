@@ -447,21 +447,12 @@ const GasCalculatorPage = () => {
           <div className="mt-4 p-4 bg-gray-50 rounded-lg">
             <p className="text-sm text-gray-600">
               <strong>{t('tariff_source')}:</strong> ОсОО «Газпром Кыргызстан», {t('tariffs_actual')} {currentMonth}.
-              {' '}
-              <a
-                href="https://kyrgyzstan.gazprom.ru/services/tarif/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-red-600 hover:text-red-700 underline"
-              >
-                kyrgyzstan.gazprom.ru →
-              </a>
             </p>
           </div>
         </div>
 
         <div className="mt-12 bg-white rounded-xl shadow-sm p-8 print:hidden">
-          <h3 className="font-medium text-gray-900 mb-4">{t('other_calculators')}:</h3>
+          <h3 className="font-medium text-gray-900 mb-4">{t('other_calculators')}</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <Link
               to={getLocalizedPath("/calculator/electricity/")}

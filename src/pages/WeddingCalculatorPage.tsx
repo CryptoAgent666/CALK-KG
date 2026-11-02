@@ -638,7 +638,7 @@ const WeddingCalculatorPage = () => {
                         ))}
                         <div className="border-t pt-3">
                           <div className="flex justify-between items-center">
-                            <span className="font-medium text-gray-800">{t('wedding_total_services')}:</span>
+                            <span className="font-medium text-gray-800">{t('wedding_total_services')}</span>
                             <span className="text-xl font-bold text-blue-600">
                               {formatCurrency(results.servicesTotal)} {t('text_som')}
                             </span>

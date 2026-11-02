@@ -1431,7 +1431,7 @@ const HeatingCalculatorPage = () => {
 
             <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
               <p className="text-sm text-yellow-800">
-                <strong>{t('heating_advice')}</strong> {t('heating_advice_desc')} {t('heating_meter_threshold', { value: (currentTariff.hot_water.standard_per_person / currentTariff.hot_water.tariff_per_m3).toFixed(1) })}
+                <strong>{t('heating_advice')}</strong> {t('heating_advice_desc')} {t('heating_meter_threshold').replace('{{value}}', (currentTariff.hot_water.standard_per_person / currentTariff.hot_water.tariff_per_m3).toFixed(1))}
               </p>
             </div>
           </div>
