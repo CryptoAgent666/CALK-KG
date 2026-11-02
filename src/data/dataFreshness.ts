@@ -27,6 +27,7 @@ export const DATA_VERIFIED: Record<string, string> = {
   'family-benefit': '2026-08',
   gas: '2026-08',
   heating: '2026-11',
+  scholarship: '2026-11',
   'taxi-tax': '2026-08',
   zakat: '2026-08',
   patent: '2026-07',

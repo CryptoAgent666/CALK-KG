@@ -1,80 +1,82 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Calculator, ArrowLeft, Home as HomeIcon, GraduationCap, DollarSign, Award, BookOpen } from 'lucide-react';
+import { Calculator, ArrowLeft, Home as HomeIcon, GraduationCap, DollarSign, Award } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import HreflangTags from '../components/HreflangTags';
 import FAQSchema from '../components/FAQSchema';
+import { formatVerifiedMonth } from '../utils/dateFormatter';
 import {
-  SCHOLARSHIP_TYPES,
-  UNIVERSITIES,
-  SCIENTIFIC_BONUSES,
-  calculateScholarship,
+  SCHOLARSHIP_RATES as RATES,
   SCHOLARSHIP_EXAMPLES,
-  GPA_MULTIPLIERS
+  MONTHS_IN_SEMESTER,
+  MONTHS_IN_ACADEMIC_YEAR,
+  aspirantRate,
+  calculateScholarship,
+  usesGrades,
+  type EducationLevel,
+  type Grades,
+  type PrimaryTerm,
+  type ScholarshipInput
 } from '../data/scholarshipData';
+
+const LEVELS: EducationLevel[] = ['higher', 'secondary', 'primary', 'aspirant', 'ordinator'];
+const SOURCE_URL = 'https://cbd.minjust.gov.kg/7-10776/edition/18725/ru';
 
 const StudentScholarshipPage = () => {
   const { language, t, getLocalizedPath } = useLanguage();
-  
-  const [scholarshipType, setScholarshipType] = useState<string>('academic');
-  const [university, setUniversity] = useState<string>('knu');
-  const [gpa, setGpa] = useState<string>('4.0');
-  const [selectedBonuses, setSelectedBonuses] = useState<string[]>([]);
-  
-  const [results, setResults] = useState({
-    baseAmount: 0,
-    gpaMultiplier: 0,
-    universityCoefficient: 0,
-    scholarshipAmount: 0,
-    bonusesAmount: 0,
-    totalAmount: 0
-  });
-  
-  useEffect(() => {
-    const gpaNum = parseFloat(gpa);
-    if (isNaN(gpaNum) || gpaNum < 0 || gpaNum > 5) {
-      return;
-    }
-    
-    const calculated = calculateScholarship(
-      scholarshipType,
-      gpaNum,
-      university,
-      selectedBonuses
-    );
-    
-    setResults(calculated);
-  }, [scholarshipType, university, gpa, selectedBonuses]);
 
-  const selectedScholarship = SCHOLARSHIP_TYPES.find(s => s.id === scholarshipType);
-  const isOneTime = !!selectedScholarship?.isOneTime;
-  
+  const [input, setInput] = useState<ScholarshipInput>({
+    level: 'higher',
+    pedagogical: false,
+    course: 1,
+    grades: 'excellent',
+    primaryTerm: 'one_year',
+    social: false,
+    disability: false,
+    ordinatorRural: false
+  });
+
+  const update = (patch: Partial<ScholarshipInput>) => setInput(prev => {
+    const next = { ...prev, ...patch };
+    // Оценки «хорошие и отличные» и «только хорошие» есть только в начальном профессиональном.
+    if (next.level !== 'primary' && (next.grades === 'mixed' || next.grades === 'good')) next.grades = 'other';
+    const maxCourse = next.level === 'aspirant' ? 3 : 4;
+    if (next.course > maxCourse) next.course = maxCourse;
+    return next;
+  });
+
+  const { level, pedagogical, course, grades, primaryTerm, social, disability, ordinatorRural } = input;
+  const results = calculateScholarship(input);
+  const graded = usesGrades(level);
+  const showCourse = level === 'aspirant' || (level === 'higher' && pedagogical && !social);
+  const gradeOptions: Grades[] = level === 'primary' ? ['excellent', 'mixed', 'good', 'other'] : ['excellent', 'other'];
+  const firstCourseNote = (level === 'higher' || level === 'secondary') && !social;
+
   const formatCurrency = (value: number): string => {
     return new Intl.NumberFormat('ru-RU', {
       minimumFractionDigits: 0,
-      maximumFractionDigits: 0
+      maximumFractionDigits: 2
     }).format(value);
   };
-  
-  const toggleBonus = (bonusId: string) => {
-    if (selectedBonuses.includes(bonusId)) {
-      setSelectedBonuses(selectedBonuses.filter(id => id !== bonusId));
-    } else {
-      setSelectedBonuses([...selectedBonuses, bonusId]);
-    }
-  };
-  
-  const loadExample = (exampleId: string) => {
-    const example = SCHOLARSHIP_EXAMPLES.find(ex => ex.id === exampleId);
-    if (example) {
-      setScholarshipType(example.scholarshipType);
-      setUniversity(example.university);
-      setGpa(example.gpa.toString());
-      setSelectedBonuses(example.bonuses);
-    }
-  };
-  
+  const som = (value: number): string => `${formatCurrency(value)} ${t('som')}`;
+
+  const ratesTable: Array<{ key: string; amount: string }> = [
+    { key: 'scholarship_rate_higher', amount: som(RATES.higher) },
+    { key: 'scholarship_rate_higher_ped', amount: `${formatCurrency(RATES.higherPedagogical[0])}–${som(RATES.higherPedagogical[3])}` },
+    { key: 'scholarship_rate_secondary', amount: som(RATES.secondary) },
+    { key: 'scholarship_rate_secondary_ped', amount: som(RATES.secondaryPedagogical) },
+    { key: 'scholarship_rate_primary_1', amount: `${RATES.primary.one_year.excellent} / ${RATES.primary.one_year.mixed} / ${som(RATES.primary.one_year.good)}` },
+    { key: 'scholarship_rate_primary_2', amount: `${RATES.primary.two_three_years.excellent} / ${RATES.primary.two_three_years.mixed} / ${som(RATES.primary.two_three_years.good)}` },
+    { key: 'scholarship_rate_social', amount: som(RATES.social) },
+    { key: 'scholarship_rate_aspirant', amount: `${formatCurrency(aspirantRate(1))}–${som(aspirantRate(3))}` },
+    { key: 'scholarship_rate_ordinator', amount: som(RATES.ordinator) }
+  ];
+
+  const selectClass = 'w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500';
+  const checkRow = 'flex items-start space-x-3 p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors';
+  const checkClass = 'w-5 h-5 mt-0.5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500';
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Helmet>
@@ -130,98 +132,110 @@ const StudentScholarshipPage = () => {
       
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Current Scholarship Amounts */}
-        <div className="bg-white rounded-xl shadow-sm p-6 mb-8">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">{t('scholarship_base_amounts_title')}</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {SCHOLARSHIP_TYPES.map(type => (
-              <div key={type.id} className="bg-blue-50 rounded-lg p-3 text-center">
-                <p className="text-xs text-gray-600 mb-1">{t(type.nameKey)}</p>
-                <p className="text-lg font-bold text-blue-600">{type.baseAmount} {t('som')}</p>
-                <p className="text-xs text-gray-500">{type.isOneTime ? t('scholarship_one_time') : `/${t('month')}`}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-        
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Input Section */}
           <div className="space-y-6">
             <div className="bg-white rounded-xl shadow-sm p-8">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6">{t('scholarship_select_type')}</h2>
-              
-              {/* Scholarship Type */}
+              <h2 className="text-xl font-semibold text-gray-900 mb-6">{t('scholarship_params_title')}</h2>
+
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  {t('scholarship_select_type')}
+                <label htmlFor="scholarship-level" className="block text-sm font-medium text-gray-700 mb-2">
+                  {t('scholarship_level')}
                 </label>
                 <select
-                  value={scholarshipType}
-                  onChange={(e) => setScholarshipType(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  id="scholarship-level"
+                  value={level}
+                  onChange={(e) => update({ level: e.target.value as EducationLevel })}
+                  className={selectClass}
                 >
-                  {SCHOLARSHIP_TYPES.map(type => (
-                    <option key={type.id} value={type.id}>{t(type.nameKey)}</option>
+                  {LEVELS.map(item => (
+                    <option key={item} value={item}>{t(`scholarship_level_${item}` as any)}</option>
                   ))}
                 </select>
               </div>
-              
-              {/* University */}
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  {t('scholarship_select_university')}
+
+              {graded && (
+                <label className={`${checkRow} mb-4`}>
+                  <input type="checkbox" checked={social} onChange={(e) => update({ social: e.target.checked })} className={checkClass} />
+                  <span className="text-sm text-gray-700">{t('scholarship_social_check')}</span>
                 </label>
-                <select
-                  value={university}
-                  onChange={(e) => setUniversity(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                >
-                  {UNIVERSITIES.map(uni => (
-                    <option key={uni.id} value={uni.id}>{t(uni.nameKey)}</option>
-                  ))}
-                </select>
-              </div>
-              
-              {/* GPA */}
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  {t('scholarship_gpa')}
+              )}
+
+              {graded && !social && level !== 'primary' && (
+                <label className={`${checkRow} mb-4`}>
+                  <input type="checkbox" checked={pedagogical} onChange={(e) => update({ pedagogical: e.target.checked })} className={checkClass} />
+                  <span className="text-sm text-gray-700">{t('scholarship_pedagogical')}</span>
                 </label>
-                <input
-                  type="number"
-                  value={gpa}
-                  onChange={(e) => setGpa(e.target.value)}
-                  placeholder="4.0"
-                  step="0.1"
-                  min="0"
-                  max="5"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
-                <p className="text-xs text-gray-500 mt-2">{t('scholarship_gpa_tooltip')}</p>
-              </div>
-              
-              {/* Scientific Bonuses */}
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-3">
-                  {t('scholarship_bonuses')}
-                </label>
-                <div className="space-y-2">
-                  {SCIENTIFIC_BONUSES.map(bonus => (
-                    <label key={bonus.id} className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors">
-                      <input
-                        type="checkbox"
-                        checked={selectedBonuses.includes(bonus.id)}
-                        onChange={() => toggleBonus(bonus.id)}
-                        className="w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
-                      />
-                      <span className="flex-1 text-sm text-gray-700">{t(bonus.nameKey)}</span>
-                      <span className="text-sm font-semibold text-blue-600">+{bonus.amount} {t('som')}</span>
-                    </label>
-                  ))}
+              )}
+
+              {showCourse && (
+                <div className="mb-6">
+                  <label htmlFor="scholarship-course" className="block text-sm font-medium text-gray-700 mb-2">
+                    {t('scholarship_course')}
+                  </label>
+                  <select
+                    id="scholarship-course"
+                    value={course}
+                    onChange={(e) => update({ course: Number(e.target.value) })}
+                    className={selectClass}
+                  >
+                    {(level === 'aspirant' ? [1, 2, 3] : [1, 2, 3, 4]).map(item => (
+                      <option key={item} value={item}>{item}</option>
+                    ))}
+                  </select>
                 </div>
-              </div>
+              )}
+
+              {level === 'primary' && !social && (
+                <div className="mb-6">
+                  <label htmlFor="scholarship-term" className="block text-sm font-medium text-gray-700 mb-2">
+                    {t('scholarship_primary_term')}
+                  </label>
+                  <select
+                    id="scholarship-term"
+                    value={primaryTerm}
+                    onChange={(e) => update({ primaryTerm: e.target.value as PrimaryTerm })}
+                    className={selectClass}
+                  >
+                    <option value="one_year">{t('scholarship_term_one_year')}</option>
+                    <option value="two_three_years">{t('scholarship_term_two_three_years')}</option>
+                  </select>
+                </div>
+              )}
+
+              {graded && !social && (
+                <div className="mb-6">
+                  <label htmlFor="scholarship-grades" className="block text-sm font-medium text-gray-700 mb-2">
+                    {t('scholarship_grades')}
+                  </label>
+                  <select
+                    id="scholarship-grades"
+                    value={grades}
+                    onChange={(e) => update({ grades: e.target.value as Grades })}
+                    className={selectClass}
+                  >
+                    {gradeOptions.map(item => (
+                      <option key={item} value={item}>{t(`scholarship_grades_${item}` as any)}</option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
+              {graded && !social && (
+                <label className={checkRow}>
+                  <input type="checkbox" checked={disability} onChange={(e) => update({ disability: e.target.checked })} className={checkClass} />
+                  <span className="text-sm text-gray-700">{t('scholarship_disability_check')}</span>
+                </label>
+              )}
+
+              {level === 'ordinator' && (
+                <label className={checkRow}>
+                  <input type="checkbox" checked={ordinatorRural} onChange={(e) => update({ ordinatorRural: e.target.checked })} className={checkClass} />
+                  <span className="text-sm text-gray-700">{t('scholarship_ordinator_rural')}</span>
+                </label>
+              )}
             </div>
-            
+
             {/* Examples */}
             <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
               <h3 className="font-semibold text-gray-900 mb-3">{t('scholarship_examples_title')}</h3>
@@ -229,158 +243,121 @@ const StudentScholarshipPage = () => {
                 {SCHOLARSHIP_EXAMPLES.map(example => (
                   <button
                     key={example.id}
-                    onClick={() => loadExample(example.id)}
+                    onClick={() => update(example.input)}
                     className="w-full text-left px-4 py-2 bg-white rounded-lg hover:bg-blue-100 transition-colors text-sm"
                   >
-                    {t(example.titleKey)}
+                    {t(example.titleKey as any)}
                   </button>
                 ))}
               </div>
             </div>
-            
-            {/* GPA Info */}
-            <div className="bg-green-50 border border-green-200 rounded-xl p-6">
-              <h3 className="font-semibold text-gray-900 mb-3">{t('scholarship_gpa_coefficients_title')}</h3>
-              <div className="space-y-2 text-sm">
-                {GPA_MULTIPLIERS.map((range, idx) => (
-                  <div key={idx} className="flex justify-between">
-                    <span className="text-gray-700">
-                      {range.minGPA.toFixed(1)} - {range.maxGPA === 5 ? '5.0' : range.maxGPA.toFixed(1)}
-                    </span>
-                    <span className="font-semibold text-green-600">
-                      {range.multiplier === 0 ? t('scholarship_no_coefficient') : `×${range.multiplier}`}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
-          
+
           {/* Results Section */}
           <div className="space-y-6">
-            {results.totalAmount > 0 ? (
+            {results.eligible ? (
               <>
-                {/* Main Result */}
                 <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-8 text-white">
                   <div className="flex items-center justify-between mb-4">
                     <div>
                       <p className="text-blue-100 mb-1">{t('scholarship_total')}</p>
-                      <p className="text-4xl font-bold">{formatCurrency(results.totalAmount)} {t('som')}</p>
+                      <p className="text-4xl font-bold">{som(results.totalAmount)}</p>
                     </div>
                     <DollarSign className="h-12 w-12 opacity-50" />
                   </div>
-                  {isOneTime ? (
-                    <div className="bg-white/20 rounded-lg p-4 text-sm">
-                      {t('scholarship_one_time_note')}
+                  <div className="bg-white/20 rounded-lg p-4 space-y-2">
+                    <div className="flex justify-between text-sm">
+                      <span>{t('scholarship_per_semester')}</span>
+                      <span className="font-medium">{som(results.totalAmount * MONTHS_IN_SEMESTER)}</span>
                     </div>
-                  ) : (
-                    <div className="bg-white/20 rounded-lg p-4 space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span>{t('scholarship_per_semester')}</span>
-                        <span className="font-medium">{formatCurrency(results.totalAmount * 5)} {t('som')}</span>
-                      </div>
-                      <div className="flex justify-between text-sm">
-                        <span>{t('scholarship_per_year')}</span>
-                        <span className="font-medium">{formatCurrency(results.totalAmount * 10)} {t('som')}</span>
-                      </div>
+                    <div className="flex justify-between text-sm">
+                      <span>{t('scholarship_per_year')}</span>
+                      <span className="font-medium">{som(results.totalAmount * MONTHS_IN_ACADEMIC_YEAR)}</span>
                     </div>
-                  )}
+                  </div>
                 </div>
-                
-                {/* Breakdown */}
+
                 <div className="bg-white rounded-xl shadow-sm p-6">
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('scholarship_detailed_calculation')}</h3>
                   <div className="space-y-3">
                     <div className="flex justify-between items-center pb-3 border-b">
-                      <div>
-                        <p className="font-medium text-gray-900">{t('scholarship_base_amount')}</p>
-                        <p className="text-sm text-gray-500">{t('scholarship_base_amount_desc')}</p>
-                      </div>
-                      <p className="font-semibold text-gray-900">{formatCurrency(results.baseAmount)} {t('som')}</p>
+                      <p className="font-medium text-gray-900">{t(social && graded ? 'scholarship_social' : 'scholarship_base_amount')}</p>
+                      <p className="font-semibold text-gray-900">{som(results.baseAmount)}</p>
                     </div>
-                    
-                    {!isOneTime && (
-                      <>
-                        <div className="flex justify-between items-center pb-3 border-b">
-                          <div>
-                            <p className="font-medium text-gray-900">{t('scholarship_gpa_multiplier')}</p>
-                            <p className="text-sm text-gray-500">{t('scholarship_gpa_desc')} {parseFloat(gpa).toFixed(1)}</p>
-                          </div>
-                          <p className="font-semibold text-blue-600">×{results.gpaMultiplier.toFixed(1)}</p>
-                        </div>
-
-                        <div className="flex justify-between items-center pb-3 border-b">
-                          <div>
-                            <p className="font-medium text-gray-900">{t('scholarship_university_coefficient')}</p>
-                            <p className="text-sm text-gray-500">{t(`university_${university}`)}</p>
-                          </div>
-                          <p className="font-semibold text-blue-600">×{results.universityCoefficient.toFixed(1)}</p>
-                        </div>
-                      </>
-                    )}
-                    
-                    <div className="flex justify-between items-center pb-3 border-b">
-                      <div>
-                        <p className="font-medium text-gray-900">{t('scholarship_amount')}</p>
-                        <p className="text-sm text-gray-500">{t('scholarship_amount_desc')}</p>
-                      </div>
-                      <p className="font-semibold text-gray-900">{formatCurrency(results.scholarshipAmount)} {t('som')}</p>
-                    </div>
-                    
-                    {results.bonusesAmount > 0 && (
+                    {results.disabilityBonus > 0 && (
                       <div className="flex justify-between items-center pb-3 border-b">
-                        <div>
-                          <p className="font-medium text-gray-900">{t('scholarship_bonuses_amount')}</p>
-                          <p className="text-sm text-gray-500">{t('scholarship_bonuses_desc')}</p>
-                        </div>
-                        <p className="font-semibold text-green-600">+{formatCurrency(results.bonusesAmount)} {t('som')}</p>
+                        <p className="font-medium text-gray-900">{t('scholarship_disability_bonus')}</p>
+                        <p className="font-semibold text-green-600">+{som(results.disabilityBonus)}</p>
                       </div>
                     )}
-                    
                     <div className="flex justify-between items-center pt-3 bg-blue-50 rounded-lg p-3">
                       <p className="font-bold text-gray-900">{t('scholarship_total')}</p>
-                      <p className="font-bold text-blue-600 text-xl">{formatCurrency(results.totalAmount)} {t('som')}</p>
+                      <p className="font-bold text-blue-600 text-xl">{som(results.totalAmount)}</p>
                     </div>
                   </div>
+                  <ul className="mt-4 space-y-2 text-sm text-gray-600 list-disc list-inside">
+                    {firstCourseNote && <li>{t('scholarship_note_first_course')}</li>}
+                    {social && graded && <li>{t('scholarship_note_social')}</li>}
+                    {level === 'ordinator' && ordinatorRural && <li>{t('scholarship_note_contract')}</li>}
+                    <li>{t('scholarship_note_highland')}</li>
+                  </ul>
                 </div>
               </>
             ) : (
               <div className="bg-white rounded-xl shadow-sm p-12 text-center">
-                {parseFloat(gpa) < 3.0 ? (
-                  <>
-                    <Award className="h-20 w-20 text-red-300 mx-auto mb-4" />
-                    <p className="text-red-600 text-lg font-semibold mb-2">
-                      {t('scholarship_no_scholarship')}
-                    </p>
-                    <p className="text-gray-500">
-                      {t('scholarship_gpa_too_low')}
-                    </p>
-                  </>
-                ) : (
-                  <>
-                    <BookOpen className="h-20 w-20 text-gray-300 mx-auto mb-4" />
-                    <p className="text-gray-500 text-lg">
-                      {t('scholarship_select_all')}
-                    </p>
-                  </>
-                )}
+                <Award className="h-20 w-20 text-red-300 mx-auto mb-4" />
+                <p className="text-red-600 text-lg font-semibold mb-2">{t('scholarship_no_scholarship')}</p>
+                <p className="text-gray-500">{t(level === 'primary' ? 'scholarship_reason_primary' : 'scholarship_reason_excellent')}</p>
               </div>
             )}
+
+            {/* President */}
+            <div className="bg-white rounded-xl shadow-sm p-6">
+              <h3 className="font-semibold text-gray-900 mb-2">{t('scholarship_president')}</h3>
+              <p className="text-sm text-gray-700">{t('scholarship_president_text')}</p>
+            </div>
           </div>
         </div>
-        
+
+        {/* Current Scholarship Amounts */}
+        <div className="bg-white rounded-xl shadow-sm p-6 mt-8">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">{t('scholarship_base_amounts_title')}</h2>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <tbody className="divide-y divide-gray-100">
+                {ratesTable.map(row => (
+                  <tr key={row.key}>
+                    <td className="py-2 pr-4 text-gray-700">{t(row.key as any)}</td>
+                    <td className="py-2 text-right font-semibold text-blue-600 whitespace-nowrap">{row.amount}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="text-xs text-gray-500 mt-4">
+            {t('scholarship_source_prefix')}{' '}
+            <a href={SOURCE_URL} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+              {t('scholarship_source_law')}
+            </a>
+            . {t('scholarship_verified')} {formatVerifiedMonth(language, 'scholarship')}.
+          </p>
+          <p className="text-sm text-amber-800 bg-amber-50 border border-amber-200 rounded-lg p-3 mt-3">
+            {t('scholarship_raise_2027')}
+          </p>
+        </div>
+
         {/* Educational Content */}
         <div className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Conditions */}
           <div className="bg-white rounded-xl shadow-sm p-8">
             <h2 className="text-xl font-semibold text-gray-900 mb-6">{t('scholarship_conditions_title')}</h2>
             <div className="space-y-4">
-              {['academic', 'social', 'named', 'president'].map(type => (
+              {['academic', 'social', 'first_year', 'named'].map(type => (
                 <div key={type} className="flex items-start space-x-3">
                   <div className="bg-blue-100 rounded-full p-2 flex-shrink-0">
                     <Award className="h-4 w-4 text-blue-600" />
                   </div>
-                  <p className="text-gray-700 text-sm">{t(`scholarship_condition_${type}`)}</p>
+                  <p className="text-gray-700 text-sm">{t(`scholarship_condition_${type}` as any)}</p>
                 </div>
               ))}
             </div>

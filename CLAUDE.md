@@ -50,7 +50,7 @@ The site hard-codes hundreds of government-set values. They are inventoried + fr
   unverified: it shows Бишкектеплосеть rates with an on-page caveat.
 - ⚠️ **Deferred (structural, NOT applied):** sick-leave bracket logic (3–5 yr must be 60% not 80%;
   5–8 yr 80% not 100%; first 10 working days; cap 10 000/mo), scholarship semantics (academic 800/mo,
-  president 60 000 one-time), ~19 traffic-fine **статья** relabels, gas/electricity narrative prose
+  president 60 000 one-time — RESOLVED 2026-11-03: calculator rebuilt on ПП №261 ред. 02.08.2024, invented rates/coefficients removed; Указ №348 raises amounts from 01.09.2027, sums pending), ~19 traffic-fine **статья** relabels, gas/electricity narrative prose
   (dependent worked-example arithmetic), alimony minimum-floor implementation.
 - Monitored by DATA_HUB: Tier-1 weekly (`calk-kg-monitor-config.json`, 281 gov / 56 pages, gov-only
   `*.gov.kg` whitelist) + Tier-2 quarterly. Dashboard «Полный пилот». Loop: alert → fix here
