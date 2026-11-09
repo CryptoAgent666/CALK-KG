@@ -55,7 +55,6 @@ const targetFiles = [
   'src/components/MobileTariffsCalculatorArticle.tsx',
   'src/components/SingleTaxCalculatorArticle.tsx',
   'src/components/PropertyTaxCalculatorArticle.tsx',
-  'src/components/TaxiTaxCalculatorArticle.tsx',
   'src/components/PassportCalculatorArticle.tsx',
   'src/components/TouristFeeCalculatorArticle.tsx',
   'src/components/TrafficFinesCalculatorArticle.tsx',

@@ -12,6 +12,13 @@ import {
   generateBreadcrumbSchema
 } from '../utils/schemaGenerator';
 import { formatVerifiedMonth } from '../utils/dateFormatter';
+import { PATENT_TERRITORIES, findTerritory, patentRange } from '../data/patentRates';
+
+// Патент «такси» (для работы без агрегатора) — из тех же таблиц ГНС, что и калькулятор патента
+const TAXI_PATENT_MIN = Math.min(...PATENT_TERRITORIES.map(territory => patentRange(territory, 'taxi').min));
+const TAXI_PATENT_MAX = Math.max(...PATENT_TERRITORIES.map(territory => patentRange(territory, 'taxi').max));
+const TAXI_PATENT_BISHKEK = patentRange(findTerritory('bishkek-oktyabr'), 'taxi').max;
+const TAXI_PATENT_OSH = patentRange(findTerritory('osh'), 'taxi').max;
 
 interface TaxiTaxResults {
   income: number;
@@ -351,9 +358,13 @@ ${language === 'ky' ? 'Жалпы кармоо 2%:' : 'Итого удержан
                   </tr>
                   <tr>
                     <td className="py-3">{t('taxi_regime_patent')}</td>
-                    <td className="py-3">{language === 'ky' ? 'фикс ставка' : 'фиксированная ставка'}</td>
+                    <td className="py-3 whitespace-nowrap">
+                      {TAXI_PATENT_MIN}–{TAXI_PATENT_MAX} {language === 'ky' ? 'сом/ай' : 'сом/мес'}
+                    </td>
                     <td className="py-3 text-gray-600">
-                      {language === 'ky' ? 'Патенттин өзүнчө баасы жана отчет талаптары болушу мүмкүн' : 'Может быть выгоден при стабильной загрузке, но требует отдельной проверки стоимости патента'}
+                      {language === 'ky'
+                        ? `Агрегаторсуз иштөө үчүн. Ставка шаарга же районго жараша: Бишкекте айына ${TAXI_PATENT_BISHKEK} сом, Ошто ${TAXI_PATENT_OSH} сом.`
+                        : `Для работы без агрегатора. Ставка зависит от города или района: в Бишкеке ${TAXI_PATENT_BISHKEK} сом/мес, в Оше ${TAXI_PATENT_OSH} сом/мес.`}
                     </td>
                   </tr>
                   <tr>
