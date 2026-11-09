@@ -3173,7 +3173,7 @@
       "status": "uncertain",
       "notes": "expectedLifespan=180; insurancePart2 = totalContributions/180 (15 лет дожития).",
       "official_value": "180",
-      "source_url": "https://cbd.minjust.gov.kg/act/view/ru-ru/838?cl=ru-ru",
+      "source_url": "https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=57553&lang=ru-ru",
       "which_surface_correct": "na",
       "verify_note": "RE-VERIFIED 2026-07-27: ФИКСИРОВАННОГО периода дожития в законодательстве КР НЕТ. Ст.22 п.3«б»: накопительная часть = В × К, где К — актуарный коэффициент, устанавливаемый ежегодно Наблюдательным советом Соцфонда и публично НЕ публикуемый. COMPUTE использует 180 мес как оценку; проза противоречиво говорила «228 месяцев» — приведена к 180 с явной пометкой «оценка».",
       "verified_date": "2026-07-27",
@@ -3198,7 +3198,7 @@
       "status": "current",
       "notes": "insurancePart1 = avgSalary * 0.01 * min(years,25). 1% за каждый год дореформенного стажа.",
       "official_value": "1",
-      "source_url": "https://cbd.minjust.gov.kg/act/view/ru-ru/838?cl=ru-ru",
+      "source_url": "https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=57553&lang=ru-ru",
       "which_surface_correct": "na",
       "verify_note": "Страховая часть 1 (стаж до 1996) = 1% от учитываемого заработка за каждый год стажа (Закон КР о пенсионном обеспечении). Compute 0.01/год верно."
     },
@@ -3220,7 +3220,7 @@
       "status": "current",
       "notes": "min(experienceBefore1996.months/12, 25) — стаж до 1996 учитывается максимум 25 лет.",
       "official_value": "25",
-      "source_url": "https://cbd.minjust.gov.kg/act/view/ru-ru/838?cl=ru-ru",
+      "source_url": "https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=57553&lang=ru-ru",
       "which_surface_correct": "na",
       "verify_note": "Дореформенный стаж (до 1996) учитывается максимум 25 лет в страховой части 1. Compute min(...,25) верно."
     },
@@ -3292,7 +3292,7 @@
       "status": "current",
       "notes": "cutoffDate = 1996-01-01; стаж до 1996 → страховая часть 1, после → накопительная часть 2.",
       "official_value": "1996",
-      "source_url": "https://cbd.minjust.gov.kg/act/view/ru-ru/838?cl=ru-ru",
+      "source_url": "https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=57553&lang=ru-ru",
       "which_surface_correct": "na",
       "verify_note": "Пенсионная реформа КР: раздел стажа на до/после 1996 (страховая часть 1 / часть 2). Compute cutoffDate=1996-01-01 верно."
     },
