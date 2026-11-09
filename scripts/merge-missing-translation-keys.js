@@ -53,7 +53,6 @@ const targetFiles = [
   'src/components/CurrencyExchangeCalculatorArticle.tsx',
   'src/components/MoneyTransferCalculatorArticle.tsx',
   'src/components/MobileTariffsCalculatorArticle.tsx',
-  'src/components/SingleTaxCalculatorArticle.tsx',
   'src/components/PropertyTaxCalculatorArticle.tsx',
   'src/components/PassportCalculatorArticle.tsx',
   'src/components/TouristFeeCalculatorArticle.tsx',

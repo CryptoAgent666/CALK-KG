@@ -34,7 +34,6 @@ const kyKeys = extractKeys(kySection);
 const targetFiles = [
   // Article components
   'src/components/MoneyTransferCalculatorArticle.tsx',
-  'src/components/SingleTaxCalculatorArticle.tsx',
   'src/components/FamilyBenefitCalculatorArticle.tsx',
   'src/components/AlimonyCalculatorArticle.tsx',
   'src/components/GasCalculatorArticle.tsx',
