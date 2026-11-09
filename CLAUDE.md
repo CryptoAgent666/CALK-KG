@@ -48,6 +48,10 @@ The site hard-codes hundreds of government-set values. They are inventoried + fr
 - **2026-11-03 heating:** only the ≤80 м² tariff (1950) is national (приказ №105); above-norm and hot water are per supplier. Bishkek has a
   supplier selector: Бишкектеплосеть 5998,17 / 141,89 / 681,08, Бишкектеплоэнерго 7514,2 / 102,7 / 492,8 (mayor's page only). Osh's own rates are
   unverified: it shows Бишкектеплосеть rates with an on-page caveat.
+- **2026-11-09 patent:** rates are per territory, not per oblast — `src/data/patentRates.ts` (57 cities/districts × 8 ИТД
+  activities, column «Сумма налога» of the GNS tables №512 от 12.09.2025; several numbers = zones inside a district, the page
+  shows a range and computes on the upper one). Source: sti.gov.kg API `Documents/get-documents-by-theme-id` (base64 PDFs per
+  oblast); old sti.gov.kg `/section/0/*` pages are dead SPA routes. The «Базовая сумма» column is NOT the rate (July 2026 mistake).
 - ⚠️ **Deferred (structural, NOT applied):** sick-leave bracket logic (3–5 yr must be 60% not 80%;
   5–8 yr 80% not 100%; first 10 working days; cap 10 000/mo), scholarship semantics (academic 800/mo,
   president 60 000 one-time — RESOLVED 2026-11-03: calculator rebuilt on ПП №261 ред. 02.08.2024, invented rates/coefficients removed; Указ №348 raises amounts from 01.09.2027, sums pending), ~19 traffic-fine **статья** relabels, gas/electricity narrative prose

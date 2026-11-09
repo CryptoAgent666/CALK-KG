@@ -30,7 +30,7 @@ export const DATA_VERIFIED: Record<string, string> = {
   scholarship: '2026-11',
   'taxi-tax': '2026-08',
   zakat: '2026-08',
-  patent: '2026-07',
+  patent: '2026-11',
   passport: '2026-07',
   'traffic-fines': '2026-10',
   water: '2026-07',

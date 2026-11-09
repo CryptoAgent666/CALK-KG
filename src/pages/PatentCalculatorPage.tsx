@@ -13,173 +13,25 @@ import {
   generateSoftwareApplicationSchema
 } from '../utils/schemaGenerator';
 import { formatVerifiedMonth } from '../utils/dateFormatter';
+import {
+  PATENT_ACTIVITIES,
+  PATENT_OBLASTS,
+  PATENT_TERRITORIES,
+  PatentActivityId,
+  findTerritory,
+  patentRange
+} from '../data/patentRates';
 
-// ============================================================================
-// КОНФИГУРАЦИЯ ТАРИФОВ НА ПАТЕНТЫ ДЛЯ ИП В КЫРГЫЗСТАНЕ
-// ============================================================================
-// АКТУАЛЬНО НА: Май 2026 (тарифы 2026 года, без изменений с января)
-// ИСТОЧНИК: Налоговая служба КР (salyk.kg), Постановления местных кенешей
-// ПОСЛЕДНЕЕ ОБНОВЛЕНИЕ: 03.05.2026 (проверка актуальности)
-// 
-// ⚠️ ВНИМАНИЕ: Ставки патента устанавливаются местными кенешами и могут 
-// отличаться от указанных. Перед оплатой обязательно уточните актуальные 
-// тарифы в районной налоговой инспекции по месту деятельности.
-//
-// СТРУКТУРА: Регион → Вид деятельности → Стоимость (сом/месяц)
-// ============================================================================
-const PATENT_RATES = {
-  'bishkek': {
-    nameKey: 'region_bishkek',
-    activities: {
-      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
-      'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 1000 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 },
-      'photo-services-1': { nameKey: 'activity_photo_services_1', cost: 3000 },
-      'computer-repair-1': { nameKey: 'activity_computer_repair_1', cost: 3000 },
-      'tutoring': { nameKey: 'activity_tutoring', cost: 600 },
-      'electronics-repair': { nameKey: 'activity_electronics_repair', cost: 2000 }
-    }
-  },
-  'osh': {
-    nameKey: 'region_osh',
-    activities: {
-      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
-      'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 1000 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 },
-      'photo-services-1': { nameKey: 'activity_photo_services_1', cost: 3000 },
-      'tutoring': { nameKey: 'activity_tutoring', cost: 600 },
-      'electronics-repair': { nameKey: 'activity_electronics_repair', cost: 2000 },
-      'computer-repair-1': { nameKey: 'activity_computer_repair_1', cost: 3000 }
-    }
-  },
-  'jalal-abad': {
-    nameKey: 'region_jalal_abad',
-    activities: {
-      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
-      'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 1000 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 },
-      'tutoring': { nameKey: 'activity_tutoring', cost: 600 },
-      'electronics-repair': { nameKey: 'activity_electronics_repair', cost: 2000 },
-      'computer-repair-1': { nameKey: 'activity_computer_repair_1', cost: 3000 },
-      'photo-services-1': { nameKey: 'activity_photo_services_1', cost: 3000 },
-    }
-  },
-  'karakol': {
-    nameKey: 'region_karakol',
-    activities: {
-      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
-      'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 1000 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 },
-    }
-  },
-  'tokmok': {
-    nameKey: 'region_tokmok',
-    activities: {
-      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
-      'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 1000 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 }
-    }
-  },
-  'naryn': {
-    nameKey: 'region_naryn',
-    activities: {
-      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
-      'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 1000 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 }
-    }
-  },
-  'talas': {
-    nameKey: 'region_talas',
-    activities: {
-      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
-      'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 1000 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 }
-    }
-  },
-  'batken': {
-    nameKey: 'region_batken',
-    activities: {
-      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
-      'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 1000 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 }
-    }
-  },
-  'osh-region': {
-    nameKey: 'region_osh_region',
-    activities: {
-      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 }
-    }
-  },
-  'jalal-abad-region': {
-    nameKey: 'region_jalal_abad_region',
-    activities: {
-      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 }
-    }
-  },
-  'issyk-kul-region': {
-    nameKey: 'region_issyk_kul_region',
-    activities: {
-      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 }
-    }
-  },
-  'naryn-region': {
-    nameKey: 'region_naryn_region',
-    activities: {
-      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 }
-    }
-  },
-  'talas-region': {
-    nameKey: 'region_talas_region',
-    activities: {
-      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 }
-    }
-  },
-  'chui-region': {
-    nameKey: 'region_chui_region',
-    activities: {
-      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 },
-      'tutoring': { nameKey: 'activity_tutoring', cost: 600 },
-      'electronics-repair': { nameKey: 'activity_electronics_repair', cost: 2000 },
-      'computer-repair-1': { nameKey: 'activity_computer_repair_1', cost: 3000 },
-      'photo-services-1': { nameKey: 'activity_photo_services_1', cost: 3000 },
-      'shoe-repair-1': { nameKey: 'activity_shoe_repair_1', cost: 1000 },
-    }
-  },
-  'batken-region': {
-    nameKey: 'region_batken_region',
-    activities: {
-      'hairdresser-1': { nameKey: 'activity_hairdresser_1', cost: 2000 },
-      'taxi-1': { nameKey: 'activity_taxi_1', cost: 500 },
-      'tailoring-1': { nameKey: 'activity_tailoring_1', cost: 700 }
-    }
-  }
-};
+// Ставки патента по городам и районам — src/data/patentRates.ts (таблицы ГНС, сверено 09.11.2026).
+// В районе может быть несколько зон (райцентр, айылные аймаки): тогда показывается диапазон,
+// а годовая сумма, календарь и сравнения считаются по верхней ставке.
 
-type Region = keyof typeof PATENT_RATES;
+type Region = string;
 
 interface PatentResults {
-  regionKey: string;
+  regionName: string;
   activityKey: string;
+  minCost: number;
   monthlyCost: number;
   yearlyCost: number;
   hasData: boolean;
@@ -244,13 +96,14 @@ const PatentCalculatorPage = () => {
     return [calculatorSchema, breadcrumbSchema];
   };
 
-  const [selectedRegion, setSelectedRegion] = useState<Region>('bishkek');
+  const [selectedRegion, setSelectedRegion] = useState<Region>('bishkek-oktyabr');
   const [selectedActivity, setSelectedActivity] = useState<string>('');
   const [searchTerm, setSearchTerm] = useState<string>('');
   
   const [results, setResults] = useState<PatentResults>({
-    regionKey: '',
+    regionName: '',
     activityKey: '',
+    minCost: 0,
     monthlyCost: 0,
     yearlyCost: 0,
     hasData: false
@@ -269,12 +122,17 @@ const PatentCalculatorPage = () => {
   // Для календаря оплаты
   const [paymentFrequency, setPaymentFrequency] = useState<'monthly' | 'quarterly' | 'yearly'>('monthly');
 
-  // Получение доступных видов деятельности для выбранного региона
+  const territoryName = (id: string) => findTerritory(id).name[language === 'ky' ? 'ky' : 'ru'];
+  const activityNameKey = (id: string) =>
+    PATENT_ACTIVITIES.find(a => a.id === id)?.nameKey ?? '';
+
+  // Виды деятельности выбранной территории со ставками (мин/макс по зонам)
   const getAvailableActivities = (region: Region) => {
-    return Object.entries(PATENT_RATES[region].activities).map(([key, activity]) => ({
-      id: key,
+    const territory = findTerritory(region);
+    return PATENT_ACTIVITIES.map(activity => ({
+      id: activity.id,
       nameKey: activity.nameKey,
-      cost: activity.cost
+      ...patentRange(territory, activity.id)
     }));
   };
 
@@ -288,45 +146,38 @@ const PatentCalculatorPage = () => {
     );
   };
 
-  // Сброс выбранной деятельности при смене региона
-  useEffect(() => {
+  // Смена региона сбрасывает выбор деятельности. В обработчике, а не в эффекте:
+  // эффект сбрасывал и вид деятельности, выставленный кликом по примеру.
+  const changeRegion = (region: Region) => {
+    setSelectedRegion(region);
     setSelectedActivity('');
     setSearchTerm('');
-  }, [selectedRegion]);
+  };
 
-  // Расчет стоимости патента
+  // Расчет стоимости патента: при нескольких зонах — по верхней ставке
   useEffect(() => {
     if (selectedRegion && selectedActivity) {
-      const regionData = PATENT_RATES[selectedRegion];
-      const activityData = regionData.activities[selectedActivity as keyof typeof regionData.activities];
-
-      if (activityData) {
-        setResults({
-          regionKey: regionData.nameKey,
-          activityKey: activityData.nameKey,
-          monthlyCost: activityData.cost,
-          yearlyCost: activityData.cost * 12,
-          hasData: true
-        });
-      } else {
-        setResults({
-          regionKey: regionData.nameKey,
-          activityKey: '',
-          monthlyCost: 0,
-          yearlyCost: 0,
-          hasData: false
-        });
-      }
+      const territory = findTerritory(selectedRegion);
+      const { min, max } = patentRange(territory, selectedActivity as PatentActivityId);
+      setResults({
+        regionName: territoryName(selectedRegion),
+        activityKey: activityNameKey(selectedActivity),
+        minCost: min,
+        monthlyCost: max,
+        yearlyCost: max * 12,
+        hasData: true
+      });
     } else {
       setResults({
-        regionKey: '',
+        regionName: '',
         activityKey: '',
+        minCost: 0,
         monthlyCost: 0,
         yearlyCost: 0,
         hasData: false
       });
     }
-  }, [selectedRegion, selectedActivity]);
+  }, [selectedRegion, selectedActivity, language]);
 
   // Функции для расширенного функционала
   
@@ -423,6 +274,15 @@ const PatentCalculatorPage = () => {
       maximumFractionDigits: 0
     }).format(amount);
   };
+
+  // Ставка патента: в таблицах ГНС бывают десятые доли сома (Узгенский район: 4,2)
+  const formatRate = (amount: number) =>
+    new Intl.NumberFormat('ru-KG', { maximumFractionDigits: 1 }).format(amount);
+
+  const formatRange = (min: number, max: number) =>
+    min === max
+      ? formatRate(max)
+      : t('patent_range').replace('{min}', formatRate(min)).replace('{max}', formatRate(max));
 
   const handlePrint = () => {
     window.print();
@@ -581,15 +441,19 @@ const PatentCalculatorPage = () => {
                 </div>
                 <select
                   value={selectedRegion}
-                  onChange={(e) => setSelectedRegion(e.target.value as Region)}
+                  onChange={(e) => changeRegion(e.target.value)}
                   className="w-full px-4 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-lg print:text-base"
                 >
-                  {Object.entries(PATENT_RATES).map(([key, region]) => (
-                    <option key={key} value={key}>{t(region.nameKey)}</option>
+                  {PATENT_OBLASTS.map(oblast => (
+                    <optgroup key={oblast.id} label={t(oblast.nameKey)}>
+                      {PATENT_TERRITORIES.filter(territory => territory.oblast === oblast.id).map(territory => (
+                        <option key={territory.id} value={territory.id}>{territoryName(territory.id)}</option>
+                      ))}
+                    </optgroup>
                   ))}
                 </select>
                 <p className="text-sm text-gray-500 mt-2">
-                  {t('patent_available_activities')} {Object.keys(PATENT_RATES[selectedRegion].activities).length}
+                  {t('patent_available_activities')} {PATENT_ACTIVITIES.length}
                 </p>
               </div>
 
@@ -635,7 +499,7 @@ const PatentCalculatorPage = () => {
                     <option value="">{t('patent_select_activity')}</option>
                     {filteredActivities.map((activity) => (
                       <option key={activity.id} value={activity.id}>
-                        {t(activity.nameKey)} - {formatCurrency(activity.cost)} {t('patent_som_per_month')}
+                        {t(activity.nameKey)} - {formatRange(activity.min, activity.max)} {t('patent_som_per_month')}
                       </option>
                     ))}
                   </select>
@@ -698,12 +562,18 @@ const PatentCalculatorPage = () => {
                       <span className="text-blue-100">{t('patent_monthly_cost_label')}</span>
                     </div>
                     <p className="text-5xl font-bold mb-2">
-                      {formatCurrency(results.monthlyCost)} {t('patent_som')}
+                      {formatRange(results.minCost, results.monthlyCost)} {t('patent_som')}
                     </p>
                     <p className="text-blue-100">
-                      {t(results.regionKey)}
+                      {results.regionName}
                     </p>
                   </div>
+
+                  {results.minCost !== results.monthlyCost && (
+                    <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 text-sm text-amber-900">
+                      {t('patent_zone_note')}
+                    </div>
+                  )}
 
                   {/* Activity Details */}
                   <div className="bg-gray-50 rounded-lg p-6">
@@ -757,7 +627,7 @@ const PatentCalculatorPage = () => {
                     <div className="space-y-2 text-sm text-gray-600">
                       <div className="flex justify-between">
                         <span>{t('patent_region_label')}</span>
-                        <span>{t(results.regionKey)}</span>
+                        <span>{results.regionName}</span>
                       </div>
                       <div className="flex justify-between">
                         <span>{t('patent_validity_period')}</span>
@@ -933,9 +803,9 @@ const PatentCalculatorPage = () => {
                       <div key={patent.id} className="flex items-center justify-between bg-gray-50 rounded-lg p-4 border border-gray-200">
                         <div className="flex-1">
                           <p className="font-medium text-gray-900">
-                            {t(PATENT_RATES[patent.region].activities[patent.activity as keyof typeof PATENT_RATES[typeof patent.region]['activities']].nameKey)}
+                            {t(activityNameKey(patent.activity))}
                           </p>
-                          <p className="text-sm text-gray-600">{t(PATENT_RATES[patent.region].nameKey)}</p>
+                          <p className="text-sm text-gray-600">{territoryName(patent.region)}</p>
                         </div>
                         <div className="flex items-center space-x-4">
                           <span className="text-lg font-semibold text-blue-600">
@@ -1069,9 +939,9 @@ const PatentCalculatorPage = () => {
                 </h2>
               </div>
 
-              <div className="overflow-x-auto">
+              <div className="overflow-x-auto max-h-96 overflow-y-auto">
                 <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
+                  <thead className="bg-gray-50 sticky top-0">
                     <tr>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         {t('patent_region_city_header')}
@@ -1088,10 +958,10 @@ const PatentCalculatorPage = () => {
                     {/* Current Selection */}
                     <tr className="bg-green-50">
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        {t(results.regionKey)} <span className="text-xs text-gray-500">{t('patent_your_choice')}</span>
+                        {results.regionName} <span className="text-xs text-gray-500">{t('patent_your_choice')}</span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
-                        {formatCurrency(results.monthlyCost)} {t('patent_som_per_month')}
+                        {formatRange(results.minCost, results.monthlyCost)} {t('patent_som_per_month')}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {t('patent_base_rate')}
@@ -1099,35 +969,29 @@ const PatentCalculatorPage = () => {
                     </tr>
                     
                     {/* Other Regions */}
-                    {Object.entries(PATENT_RATES)
-                      .filter(([key]) => key !== selectedRegion)
-                      .filter(([key, region]) => selectedActivity in region.activities)
-                      .sort(([,a], [,b]) => {
-                        const costA = a.activities[selectedActivity as keyof typeof a.activities]?.cost || 0;
-                        const costB = b.activities[selectedActivity as keyof typeof b.activities]?.cost || 0;
-                        return costA - costB;
-                      })
-                      .map(([regionKey, regionData]) => {
-                        const activityData = regionData.activities[selectedActivity as keyof typeof regionData.activities];
-                        if (!activityData) return null;
-                        
-                        const difference = activityData.cost - results.monthlyCost;
+                    {PATENT_TERRITORIES
+                      .filter(territory => territory.id !== selectedRegion)
+                      .map(territory => ({ territory, ...patentRange(territory, selectedActivity as PatentActivityId) }))
+                      .sort((a, b) => a.max - b.max)
+                      .map(({ territory, min, max }) => {
+                        // Разница по верхней ставке, как и сам расчёт
+                        const difference = max - results.monthlyCost;
                         const isCheaper = difference < 0;
                         const isMoreExpensive = difference > 0;
                         
                         return (
-                          <tr key={regionKey} className={isCheaper ? 'bg-blue-50' : isMoreExpensive ? 'bg-red-50' : ''}>
+                          <tr key={territory.id} className={isCheaper ? 'bg-blue-50' : isMoreExpensive ? 'bg-red-50' : ''}>
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {t(regionData.nameKey)}
+                              {territoryName(territory.id)}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                              {formatCurrency(activityData.cost)} {t('patent_som_per_month')}
+                              {formatRange(min, max)} {t('patent_som_per_month')}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm">
                               <span className={difference === 0 ? 'text-gray-500' : difference < 0 ? 'text-green-600' : 'text-red-600'}>
                                 {difference === 0 ? t('patent_same') :
-                                 difference < 0 ? `${formatCurrency(Math.abs(difference))} ${t('patent_cheaper')}` :
-                                 `${formatCurrency(difference)} ${t('patent_more_expensive')}`}
+                                 difference < 0 ? `${formatRate(Math.abs(difference))} ${t('patent_cheaper')}` :
+                                 `${formatRate(difference)} ${t('patent_more_expensive')}`}
                               </span>
                             </td>
                           </tr>
@@ -1157,35 +1021,32 @@ const PatentCalculatorPage = () => {
             <h3 className="font-medium text-gray-900 mb-4">{t('patent_popular_activities')}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
-                { activity: 'hairdresser-1', region: 'bishkek' as Region },
-                { activity: 'taxi-1', region: 'osh' as Region }
+                { activity: 'hairdresser' as PatentActivityId, region: 'bishkek-oktyabr' },
+                { activity: 'taxi' as PatentActivityId, region: 'osh' },
+                { activity: 'tutoring' as PatentActivityId, region: 'karakol' }
               ].map((example, index) => {
-                const regionData = PATENT_RATES[example.region];
-                const activityData = regionData.activities[example.activity as keyof typeof regionData.activities];
-
-                if (!activityData) return null;
+                const { min, max } = patentRange(findTerritory(example.region), example.activity);
 
                 return (
                   <button
                     key={index}
                     onClick={() => {
-                      setSelectedRegion(example.region);
+                      changeRegion(example.region);
                       setSelectedActivity(example.activity);
-                      setSearchTerm('');
                     }}
                     className="text-left p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-red-200"
                   >
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-gray-700 font-medium text-sm">
-                        {t(regionData.nameKey)}
+                        {territoryName(example.region)}: {t(activityNameKey(example.activity))}
                       </span>
                     </div>
                     <div className="text-right">
                       <div className="text-blue-600 font-semibold">
-                        {formatCurrency(activityData.cost)} {t('patent_som_per_month')}
+                        {formatRange(min, max)} {t('patent_som_per_month')}
                       </div>
                       <div className="text-xs text-gray-500">
-                        {formatCurrency(activityData.cost * 12)} {t('patent_som')}/{t('year')}
+                        {formatCurrency(max * 12)} {t('patent_som')}/{t('year')}
                       </div>
                     </div>
                   </button>
@@ -1202,44 +1063,40 @@ const PatentCalculatorPage = () => {
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      {t('patent_activity_type_full')}
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      {t('patent_region_city_header')}
                     </th>
-                    {Object.entries(PATENT_RATES).map(([key, region]) => (
-                      <th key={key} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        {t(region.nameKey)}
+                    {PATENT_ACTIVITIES.map(activity => (
+                      <th key={activity.id} className="px-4 py-3 text-left text-xs font-medium text-gray-500 tracking-wider min-w-32">
+                        {t(activity.nameKey)}
                       </th>
                     ))}
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {/* Получаем все уникальные виды деятельности */}
-                  {/* Дедуп по id через Map, а не Set: Set сравнивает объекты по ССЫЛКЕ,
-                      поэтому на литералах {id, nameKey} он не схлопывал ничего — один
-                      и тот же вид деятельности приходил из каждого региона, и таблица
-                      рисовала его столько раз, во скольких регионах он есть (плюс
-                      дубликаты React-ключей в консоли). */}
-                  {Array.from(new Map(
-                    Object.values(PATENT_RATES).flatMap(region =>
-                      Object.entries(region.activities).map(([key, activity]) => [
-                        key,
-                        { id: key, nameKey: activity.nameKey }
-                      ] as const)
-                    )
-                  ).values()).map((activity) => (
-                    <tr key={activity.id} className={selectedActivity === activity.id ? 'bg-green-50' : ''}>
-                      <td className="px-6 py-4 text-sm font-medium text-gray-900 max-w-xs">
-                        {t(activity.nameKey)}
-                      </td>
-                      {Object.entries(PATENT_RATES).map(([regionKey, regionData]) => {
-                        const activityData = regionData.activities[activity.id as keyof typeof regionData.activities];
-                        return (
-                          <td key={regionKey} className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                            {activityData ? formatCurrency(activityData.cost) : '—'}
+                  {PATENT_OBLASTS.map(oblast => (
+                    <React.Fragment key={oblast.id}>
+                      <tr className="bg-gray-100">
+                        <td colSpan={PATENT_ACTIVITIES.length + 1} className="px-4 py-2 text-sm font-semibold text-gray-700">
+                          {t(oblast.nameKey)}
+                        </td>
+                      </tr>
+                      {PATENT_TERRITORIES.filter(territory => territory.oblast === oblast.id).map(territory => (
+                        <tr key={territory.id} className={selectedRegion === territory.id ? 'bg-green-50' : ''}>
+                          <td className="px-4 py-3 text-sm font-medium text-gray-900 whitespace-nowrap">
+                            {territoryName(territory.id)}
                           </td>
-                        );
-                      })}
-                    </tr>
+                          {PATENT_ACTIVITIES.map(activity => {
+                            const { min, max } = patentRange(territory, activity.id);
+                            return (
+                              <td key={activity.id} className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">
+                                {min === max ? formatRate(max) : `${formatRate(min)}–${formatRate(max)}`}
+                              </td>
+                            );
+                          })}
+                        </tr>
+                      ))}
+                    </React.Fragment>
                   ))}
                 </tbody>
               </table>
